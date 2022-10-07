@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="assets/ico.png">
+    <link rel="shortcut icon" href="assets/ico.png">
+    <title>Tuyen Le Chi</title>
+    <meta name="apple-mobile-web-app-title" content="Tuyen Le Chi">
+    <meta name="application-name" content="Tuyen Le Chi">
+    <meta name="twitter:title" content="Tuyen Le Chi">
+    <meta property="og:title" content="Tuyen Le Chi - Hocj2me">
+    <meta name="description" content="An 22 year old IT & electronics enthusiast.">
+    <meta name="twitter:description" content="An 22 year old IT & electronics enthusiast.">
+    <meta property="og:description" content="An 22 year old IT & electronics enthusiast.">
+    <meta name="keywords" content="hocj2me, tuyen, le chi tuyen, tuyen chi le, chi tuyen le, chemtroi99, hust, bk, parabol xanh, parabol">
+    <meta name="author" content="Tuyen from HUST">
+    <meta property="og:url" content="https://hocj2me.github.io">
+    <meta name="msapplication-TileColor" content="#27ae60">
+    <meta name="theme-color" content="#27ae60">
+    <meta property="og:image" content="https://hocj2me.github.io/assets/banner.png">
+    <meta property="og:image:url" content="https://hocj2me.github.io/assets/banner.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://wallet.duinocoin.com/css/bulma-prefers-dark.min.css" type="text/css">
+    <script src="https://wallet.duinocoin.com/js/fontawesome.js"></script>
+    <style>
+    .link {
+        color: #27ae60;
+        text-decoration: none;
+        background-image: linear-gradient(90deg, #2ecc71, #1abc9c, #2ecc71);
+        background-repeat: no-repeat;
+        background-position: bottom left;
+        background-size: 0% 2px;
+        transition: background-size 400ms ease-in-out;
+        transition: 0.5s;
+    }
+
+    .link:hover {
+        color: #1abc9c;
+        background-size: 100% 2px;
+    }
+
+    .social {
+        color: #27ae60;
+    }
+
+    #nick_container {
+        height: 1.3em;
+        overflow: hidden;
+        display: inline-block;
+    }
+
+    .rotate,
+    .social {
+        transition: all 0.2s ease-in-out 0s;
+    }
+
+    .rotate:hover {
+        cursor: default;
+        transform: rotate(360deg);
+        transition: all 0.5s ease-in-out 0s;
+
+    }
+
+    #nick {
+        float: right;
+        display: inline-block;
+        animation: popin 2s ease-in-out infinite;
+    }
+
+    .imgshadow {
+        -webkit-filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.6));
+        -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=2, OffY=2, Color='#444')";
+        filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=2, OffY=2, Color='#444')";
+    }
+
+    .lightshadow {
+        -webkit-filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.2));
+        -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=0, Color='#222')";
+        filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=0, Color='#222')";
+    }
+
+    p {
+        text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (prefers-color-scheme: light) {
+        html {
+            background-color: #FBF7F4;
+        }
+
+        .heading {
+            color: #1e272e;
+        }
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .heading {
+            color: #fbfbfb;
+        }
+    }
+
+    @media only screen and (min-width: 768px) {
+        html {
+            zoom: 1.35;
+        }
+
+        .avatar {
+            margin-left: auto !important;
+        }
+    }
+
+    .heading {
+        margin-bottom: 0.5em !important;
+    }
+
+    @keyframes popin {
+
+        0%,
+        30% {
+            transform: translate(0px, 0px);
+
+        }
+
+        40%,
+        90% {
+            transform: translate(0px, -1.5em);
+        }
+    }
+
+    @-moz-keyframes rotate {
+        100% {
+            -moz-transform: rotate(360deg);
+        }
+    }
+
+    @-webkit-keyframes rotate {
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes rotate {
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered is-vcentered">
+                <div class="column has-text-right">
+                    <div class="columns is-multiline is-centered">
+                        <div class="column is-full">
+                            <figure class="image is-128x128 avatar">
+                                <img class="is-rounded imgshadow" src="assets/hocj2me.jpg">
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="columns is-multiline is-centered">
+                        <div class="column is-full">
+                            <div>
+                                <p class="heading mb-0"><b>Hey</b>, I'm</p>
+                                <p class="title"><b>Tuyen</b> <span class="has-text-weight-light">Chi Le</span></p>
+                                <p class="subtitle">
+                                    <div id="nick_container">
+                                        also known as <b>hocj2me</b>
+                                        <span class="has-text-weight-light" id="nick">HUST<br>Parabol Xanh<br>SPARC Lab<br>BK Star</span>
+                                    </div>
+                                </p>
+                                <div class="content">
+                                    <a href="https://github.com/hocj2me" class="social lightshadow">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    &nbsp;
+                                    <a href="https://www.instagram.com/hocj2me/" class="social lightshadow">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                    &nbsp;
+                                    <a href="https://www.youtube.com/c/TuyenLeChi/" class="social lightshadow">
+                                        <i class="fab fa-youtube"></i>
+                                    </a>
+                                    &nbsp;
+                                    <a href="mailto:lctuyenvn@gmail.com" class="social lightshadow">
+                                        <i class="fa fa-at"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="columns mb-0 mt-3 is-gapless">
+                <div class="column"></div>
+                <div class="column has-text-right-desktop mr-5">
+                    <div class="columns is-multiline is-centered">
+                        <div class="column is-full">
+                            <div>
+                                <p class="heading mb-0 is-size-6">ABOUT <b>ME</b></p>
+                                <div class="content">
+                                    I'm a(an) <b id="age"></b> year old IT and electronics enthusiast, I'm living in <b>Hanoi</b>, <b>Vietnam</b>
+									. I'm now studying <b>electrical engineering</b> at Hanoi University of Science and Technology <b>
+									#1 University in my life</b>.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-full">
+                            <div>
+                                <p class="heading mb-0 is-size-6"><b>LANGUAGES</b> I USE</p>
+                                <div class="columns is-multiline">
+                                    <div class="column is-full">
+                                        <div class="columns is-mobile">
+                                            <div class="column">
+                                                <span>C/C++</span>
+                                            </div>
+                                            <div class="column">
+                                                <progress class="progress is-success mt-1" value="95" max="100">95%</progress>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column is-full">
+                                        <div class="columns is-mobile">
+                                            <div class="column">
+                                                <span>PYTHON</span>
+                                            </div>
+                                            <div class="column">
+                                                <progress class="progress is-success mt-1" value="95" max="100">95%</progress>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column is-full">
+                                        <div class="columns is-mobile">
+                                            <div class="column">
+                                                <span>Assembly</span>
+                                            </div>
+                                            <div class="column">
+                                                <progress class="progress is-success mt-1" value="90" max="100">90%</progress>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column is-full">
+                                        <div class="columns is-mobile">
+                                            <div class="column">
+                                                <span>C#</span>
+                                            </div>
+                                            <div class="column">
+                                                <progress class="progress is-success mt-1" value="90" max="100">90%</progress>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column is-full">
+                                        <div class="columns is-mobile">
+                                            <div class="column">
+                                                <span>HTML</span>
+                                            </div>
+                                            <div class="column">
+                                                <progress class="progress is-success mt-1" value="87" max="100">87%</progress>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column is-full">
+                                        <div class="columns is-mobile">
+                                            <div class="column">
+                                                <span>PHP</span>
+                                            </div>
+                                            <div class="column">
+                                                <progress class="progress is-success mt-1" value="75" max="100">75%</progress>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column is-full">
+                                        <div class="columns is-mobile">
+                                            <div class="column">
+                                                <span>JS</span>
+                                            </div>
+                                            <div class="column">
+                                                <progress class="progress is-success mt-1" value="60" max="100">60%</progress>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column is-full">
+                                        <div class="columns is-mobile">
+                                            <div class="column">
+                                                <span>CSS</span>
+                                            </div>
+                                            <div class="column">
+                                                <progress class="progress is-success mt-1" value="40" max="100">40%</progress>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column is-full">
+                                        <div class="columns is-mobile">
+                                            <div class="column">
+                                                <span>MySQL</span>
+                                            </div>
+                                            <div class="column">
+                                                <progress class="progress is-success mt-1" value="20" max="100">20%</progress>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+								<p class="heading mb-0 is-size-6"><b>SKILLS</b> I HAVE</p>
+                                <div class="columns is-multiline">
+                                    <div class="column is-full">
+                                        <div class="columns is-mobile">
+                                            <div class="column">
+                                                <span>Altium Designer</span>
+                                            </div>
+                                            <div class="column">
+                                                <progress class="progress is-success mt-1" value="80" max="100">80%</progress>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column is-full">
+                                        <div class="columns is-mobile">
+                                            <div class="column">
+                                                <span>Solibworks</span>
+                                            </div>
+                                            <div class="column">
+                                                <progress class="progress is-success mt-1" value="70" max="100">70%</progress>
+                                            </div>
+                                        </div>
+                                    </div>
+									
+                                    <div class="column is-full">
+                                        <div class="columns is-mobile">
+                                            <div class="column">
+                                                <span>Teaching</span>
+                                            </div>
+                                            <div class="column">
+                                                <progress class="progress is-success mt-1" value="70" max="100">70%</progress>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="columns is-multiline is-centered">
+                        <div class="column is-full">
+                            <p class="heading mb-0 is-size-6"><b>Projects</b> I've made</p>
+                            <div class="columns is-multiline">
+                                <div class="column is-full">
+                                    <img class="icon icon-text lightshadow rotate" src="assets/airsense.png">
+                                    <a class="link" href="http://airsense.vn/">
+                                        AirSENSE
+                                    </a>
+                                    - a <b>project</b> about electronics and the environment <small class="has-text-grey">from 2017</small>
+                                </div>
+                                <div class="column is-full">
+                                    <span class="icon icon-text lightshadow rotate">🛒</span>
+                                    <a class="link" href="https://github.com/HocJ2me/IXR-HUST">
+                                        Intelligent "Xe Rác" (garbage truck)
+                                    </a>
+                                    - Upgraded <a href="https://youtube.com/playlist?list=PLQPfdTFl29zdOoFGP2EtNpF9-xMsqMr9S">garbage truck</a> with <b>electric power and autopilot system </b> coin I founded <small class="has-text-grey">2019-2020</small>
+                                </div>
+                                
+                                <div class="column is-full">
+                                    <span class="icon icon-text lightshadow rotate">⏰</span>
+                                    <a class="link" href="https://github.com/HocJ2me/IXR-HUST">
+                                        Smart prompt box (Hộp nhắc nhở thông minh)
+                                    </a>
+                                    - 130 <a href="https://youtube.com/playlist?list=PLQPfdTFl29zd5Lq_Dsf3AWSLaJvUD696S">Devices</a> was sent to hospitals during<b> the Covid 2020 in Vietnam</b>, I founded <small class="has-text-grey">2020</small>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="column is-full">
+                            <div>
+                                <p class="heading mb-0 is-size-6">SOME PROJECTS I'VE <b>Work</b></p>
+                                <div class="content">
+                                    <ul>
+                                        <li>
+                                            <a class="link" href="https://www.earable.ai/">
+                                                Earable Neuroscience
+                                            </a> - a deep tech company delivering scalable neuroscience solutions and services
+                                        </li>
+                                        <li>
+                                            <a class="link" href="https://systech.vn/">
+                                                Systech Vietnam
+                                            </a> - The subject is specialized in doing business on Wholesale of other machinery and equipment.
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column"></div>
+            </div>
+            <div class="columns is-gapless mt-5">
+                <div class="column has-text-right-desktop">
+                    <div class="columns is-multiline is-centered">
+                        <div class="column is-full mr-5">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+const day = 24 * 60 * 60 * 1000;
+const age = document.getElementById("age");
+
+round_to = function(precision, value) {
+    value = parseFloat(value);
+    power_of_ten = 10 ** precision;
+    return Math.round(value * power_of_ten) / power_of_ten;
+}
+
+day_diff = function(d1, d2) {
+    /* totally not borrowed from kristians page */
+    return (d2 - Date.parse(d1)) / day;
+}
+
+function update_age() {
+    age.innerHTML = round_to(8, day_diff('Aug 28, 2001 00:00:00', new Date()) / 365);
+}
+
+update_age();
+setInterval(function() {
+    update_age();
+}, 100)
+</script>
+
+</html>
