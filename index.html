@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -9,22 +9,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="assets/ico.png">
     <link rel="shortcut icon" href="assets/ico.png">
-    <title>Tuyen Le Chi</title>
-    <meta name="apple-mobile-web-app-title" content="Tuyen Le Chi">
-    <meta name="application-name" content="Tuyen Le Chi">
-    <meta name="twitter:title" content="Tuyen Le Chi">
-    <meta property="og:title" content="Tuyen Le Chi - Hocj2me">
-    <meta name="description" content="An 22 year old IT & electronics enthusiast.">
-    <meta name="twitter:description" content="An 22 year old IT & electronics enthusiast.">
-    <meta property="og:description" content="An 22 year old IT & electronics enthusiast.">
-    <meta name="keywords" content="hocj2me, tuyen, le chi tuyen, tuyen chi le, chi tuyen le, chemtroi99, hust, bk, parabol xanh, parabol">
-    <meta name="author" content="Tuyen from HUST">
+    <title>Tuyen Le Chi | hocj2me</title>
+    <meta name="apple-mobile-web-app-title" content="Tuyen Le Chi | hocj2me">
+    <meta name="application-name" content="Tuyen Le Chi | hocj2me">
+    <meta name="twitter:title" content="Tuyen Le Chi | hocj2me">
+    <meta property="og:title" content="Tuyen Le Chi | hocj2me">
+    <meta name="description" content="An electronic engineering with robotics enthusiast.">
+    <meta name="twitter:description" content="An electronic engineering with robotics enthusiast.">
+    <meta property="og:description" content="An electronic engineering with robotics enthusiast.">
+    <meta name="keywords" content="hocj2me, tuyen, le chi tuyen, tuyen chi le, chi tuyen le, chemtroi99, hust, bk, parabol xanh, parabol, BK Galaxy, BK, BKG, Galaxy, SPARC, SPARC LAB, HUST">
+    <meta name="author" content="Tuyen from SPARC lab, HUST">
     <meta property="og:url" content="https://hocj2me.github.io">
     <meta name="msapplication-TileColor" content="#27ae60">
     <meta name="theme-color" content="#27ae60">
     <meta property="og:image" content="https://hocj2me.github.io/assets/banner.png">
     <meta property="og:image:url" content="https://hocj2me.github.io/assets/banner.png">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="https://wallet.duinocoin.com/css/bulma-prefers-dark.min.css" type="text/css">
     <script src="https://wallet.duinocoin.com/js/fontawesome.js"></script>
     <style>
@@ -57,7 +58,7 @@
     .rotate,
     .social {
         transition: all 0.2s ease-in-out 0s;
-    }
+    } 
 
     .rotate:hover {
         cursor: default;
@@ -79,7 +80,7 @@
     }
 
     .lightshadow {
-        -webkit-filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.2));
+        -webkit-filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.3));
         -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=0, Color='#222')";
         filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=0, Color='#222')";
     }
@@ -96,17 +97,41 @@
         .heading {
             color: #1e272e;
         }
+
+        #projektysmall:after {
+            content: "";
+            position: absolute;
+            z-index: 1;
+            bottom: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: linear-gradient(to bottom, #FBF7F400, #FBF7F4EE);
+            width: 100%;
+            height: 14em;
+        }
     }
 
     @media (prefers-color-scheme: dark) {
         .heading {
             color: #fbfbfb;
         }
+
+        #projektysmall:after {
+            content: "";
+            position: absolute;
+            z-index: 1;
+            bottom: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: linear-gradient(to bottom, #17181C00, #17181CEE);
+            width: 100%;
+            height: 14em;
+        }
     }
 
     @media only screen and (min-width: 768px) {
         html {
-            zoom: 1.35;
+            zoom: 1.1;
         }
 
         .avatar {
@@ -116,6 +141,16 @@
 
     .heading {
         margin-bottom: 0.5em !important;
+    }
+
+    #projektysmall {
+        max-height: 1024px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .removeBar:after {
+        content: none !important;
     }
 
     @keyframes popin {
@@ -150,6 +185,37 @@
             transform: rotate(360deg);
         }
     }
+    
+    html {
+        --scrollbarBG: #FBF7F4;
+        --thumbBG: #49C78E;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        html {
+            --scrollbarBG: #rgb(23, 24, 28);
+            --thumbBG: #1DA64C;
+        }
+    }
+
+    *::-webkit-scrollbar {
+        width: 11px;
+    }
+
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+    }
+
+    *::-webkit-scrollbar-track {
+        background: var(--scrollbarBG);
+    }
+
+    *::-webkit-scrollbar-thumb {
+        background-color: var(--thumbBG);
+        border-radius: 6px;
+        border: 3px solid var(--scrollbarBG);
+    }
     </style>
 </head>
 
@@ -174,8 +240,8 @@
                                 <p class="title"><b>Tuyen</b> <span class="has-text-weight-light">Chi Le</span></p>
                                 <p class="subtitle">
                                     <div id="nick_container">
-                                        also known as <b>hocj2me</b>
-                                        <span class="has-text-weight-light" id="nick">HUST<br>Parabol Xanh<br>SPARC Lab<br>BK Star</span>
+                                        also known as <b>hocj2me </b>
+                                        <span class="has-text-weight-light" id="nick"> SPARC Lab<br> BK Galaxy</span>
                                     </div>
                                 </p>
                                 <div class="content">
@@ -201,22 +267,290 @@
                 </div>
             </div>
             <div class="columns mb-0 mt-3 is-gapless">
-                <div class="column"></div>
+                <div class="column is-2"></div>
                 <div class="column has-text-right-desktop mr-5">
                     <div class="columns is-multiline is-centered">
                         <div class="column is-full">
                             <div>
                                 <p class="heading mb-0 is-size-6">ABOUT <b>ME</b></p>
                                 <div class="content">
-                                    I'm a(an) <b id="age"></b> year old IT and electronics enthusiast, I'm living in <b>Hanoi</b>, <b>Vietnam</b>
-									. I'm now studying <b>electrical engineering</b> at Hanoi University of Science and Technology <b>
+                                    I'm <b id="age"></b> years old,</br> I'm living in <b>Hanoi</b>, <b>Vietnam</b>. </br>I'm now studying <b>electrical engineering</b> </br>at Hanoi University of Science and Technology <b>
 									#1 University in my life</b>.
                                 </div>
                             </div>
                         </div>
                         <div class="column is-full">
+                            <p class="heading mb-0 is-size-6">
+                                <b>My projects</b>
+                            </p>
+                            <div class="columns is-multiline">
+                                <div class="column is-full" id="projektysmall">
+                                    <div class="columns is-multiline is-mobile">
+									<div class='column is-half'>
+                                            <div class="card">
+                                                <div class="card-image">
+                                                    <figure class="image">
+                                                        <img src="assets/usv24.jpg" loading="lazy">
+                                                    </figure>
+                                                </div>
+                                                <div class="card-content has-text-left">
+                                                    <div class="content">
+                                                        <a href="https://github.com/BKG-Robocon-team/Unmanned-Surface-Vehicle" target="_blank">
+                                                            <b>Unmanned Surface Vehicle (USV)</b></br> Observe bottom corals and marine life
+                                                            <i class="fa fa-link"></i>
+                                                        </a>
+                                                        <p class="heading mt-3 has-text-grey">
+                                                            Engineering graduation project, 2024 - Now
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='column is-half'>
+                                            <div class="card">
+                                                <div class="card-image">
+                                                    <figure class="image">
+                                                        <img src="assets/rbc24.jpg" loading="lazy">
+                                                    </figure>
+                                                </div>
+                                                <div class="card-content has-text-left">
+                                                    <div class="content">
+                                                        <a href="https://www.facebook.com/BKGalaxy123" target="_blank">
+                                                            <b>BK Galaxy </b></br> Team Captain
+                                                            <i class="fa fa-link"></i>
+                                                        </a>
+                                                        <p class="heading mt-3 has-text-grey">
+                                                            ABU Robocon, 2024
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='column is-half'>
+                                            <div class="card">
+                                                <div class="card-image">
+                                                    <figure class="image">
+                                                        <img src="assets/airsense2023.jpg" loading="lazy">
+                                                    </figure>
+                                                </div>
+                                                <div class="card-content has-text-left">
+                                                    <div class="content">
+                                                        <a href="https://github.com/Air-SENSE" target="_blank">
+                                                            <b>AirSENSE </b></br> Team Captain
+                                                            <i class="fa fa-link"></i>
+                                                        </a>
+                                                        <p class="heading mt-3 has-text-grey">
+                                                            SPARC Lab, 2021-2023
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='column is-half'>
+                                            <div class="card">
+                                                    <div class="card-image">
+                                                        <figure class="image">
+                                                            <img src="assets/ozo2023.jpg" loading="lazy">
+                                                        </figure>
+                                                </div>
+                                                <div class="card-content has-text-left">
+                                                    <div class="content">
+                                                        <a href="https://www.facebook.com/ozo.water">
+                                                            <b>OZO</b> Water purifier</br> founder
+                                                            <i class="fa fa-link"></i>
+                                                        </a>
+                                                        <p class="heading mt-3 has-text-grey">
+                                                            Green Youth Labs Vietnam, 2023
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='column is-half'>
+                                            <div class="card">
+                                                <div class="card-image">
+                                                    <figure class="image">
+                                                        <img src="assets/rbc23.jpg" loading="lazy">
+                                                    </figure>
+                                                </div>
+                                                <div class="card-content has-text-left">
+                                                    <div class="content">
+                                                        <a href="https://www.facebook.com/BKGalaxy123" target="_blank">
+                                                            <b>BK Galaxy </b></br> Team Captain
+                                                            <i class="fa fa-link"></i>
+                                                        </a>
+                                                        <p class="heading mt-3 has-text-grey">
+                                                            ABU Robocon, 2023
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='column is-half'>
+                                            <div class="card">
+                                                <div class="card-image">
+                                                    <figure class="image">
+                                                        <img src="assets/iot23.jpg" loading="lazy">
+                                                    </figure>
+                                                </div>
+                                                <div class="card-content has-text-left">
+                                                    <div class="content">
+                                                        <a href="https://github.com/HocJ2me/FISDL-FPT-team" target="_blank">
+                                                            <b>Smart Face ID using ESP32</b></br> Team Captain
+                                                            <i class="fa fa-link"></i>
+                                                        </a>
+                                                        <p class="heading mt-3 has-text-grey">
+                                                            IoT Challenge 2023 (Top 20)
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='column is-half'>
+                                            <div class="card">
+                                                <div class="card-image">
+                                                    <figure class="image">
+                                                        <img src="assets/tdc21.jpg" loading="lazy">
+                                                    </figure>
+                                                </div>
+                                                <div class="card-content has-text-left">
+                                                    <div class="content">
+                                                        <a href="https://www.facebook.com/photo/?fbid=493557982103337&set=a.123259759133163&__tn__=%2CO*F">
+                                                            <b>Technical Design Contest</b></br> Mentor
+                                                            <i class="fa fa-link"></i>
+                                                        </a>
+                                                        <p class="heading mt-3 has-text-grey">
+                                                            AirSENSE, 2019-2020-2021
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='column is-half'>
+                                            <div class="card">
+                                                <div class="card-image">
+                                                    <figure class="image">
+                                                        <img src="assets/bkstar21.png" loading="lazy">
+                                                    </figure>
+                                                </div>
+                                                <div class="card-content has-text-left">
+                                                    <div class="content">
+                                                        <a href="https://www.youtube.com/playlist?list=PLQPfdTFl29zd5Lq_Dsf3AWSLaJvUD696S">
+                                                            <b>Smart prompt box</b></br> Leader Harware and Firmware
+                                                            <i class="fa fa-link"></i>
+                                                        </a>
+                                                        <p class="heading mt-3 has-text-grey">
+                                                            BK Star, 2020
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='column is-half'>
+                                            <div class="card">
+                                                <div class="card-image">
+                                                    <figure class="image">
+                                                        <img src="assets/vrc20.jpg" loading="lazy">
+                                                    </figure>
+                                                </div>
+                                                <div class="card-content has-text-left">
+                                                    <div class="content">
+                                                        <a href="https://youtu.be/YZQOlVouxQs">
+                                                            <b>Bac Ninh High School for Gifted Students</b> Mentor
+                                                            <i class="fa fa-link"></i>
+                                                        </a>
+                                                        <p class="heading mt-3 has-text-grey">
+                                                            Vietnam Robotics Challenge 2020-2022-2023 (Second prize 2020, top 20 in 2023)
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='column is-half'>
+                                            <div class="card">
+                                                <div class="card-image">
+                                                    <figure class="image">
+                                                        <img src="assets/ixr20.jpg" loading="lazy">
+                                                    </figure>
+                                                </div>
+                                                <div class="card-content has-text-left">
+                                                    <div class="content">
+														<a href="https://www.youtube.com/playlist?list=PLQPfdTFl29zdOoFGP2EtNpF9-xMsqMr9S">
+                                                            Intelligent "Xe Rác" <b>(garbage truck)</b></br> Leader Harware and Firmware
+                                                            <i class="fa fa-link"></i>
+                                                        </a>
+                                                         
+                                                        <p class="heading mt-3 has-text-grey">
+                                                            Hanoi University of Science and Technology 2020-2021 (Second prize)
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='column is-half'>
+                                            <div class="card">
+                                                <div class="card-image">
+                                                    <figure class="image">
+                                                        <img src="assets/chitech20.jpg" loading="lazy">
+                                                    </figure>
+                                                </div>
+                                                <div class="card-content has-text-left">
+                                                    <div class="content">
+                                                        <a href="https://youtu.be/7uNeqP7pm3w">
+                                                            <b>Action Team</b></br> Leader Harware and Firmware
+                                                            <i class="fa fa-link"></i>
+                                                        </a>
+                                                        <p class="heading mt-3 has-text-grey">
+                                                            Canon Chie-tech 2020 (Top 20)
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='column is-half'>
+                                            <div class="card">
+                                                <div class="card-image">
+                                                    <figure class="image">
+                                                        <img src="assets/systech20.jpg" loading="lazy">
+                                                    </figure>
+                                                </div>
+                                                <div class="card-content has-text-left">
+                                                    <div class="content">
+                                                        <a href="https://youtu.be/q9NyUUeILGI">
+                                                            <b>ONLINE bracelet monitoring device</b> </br> Programming
+                                                            <i class="fa fa-link"></i>
+                                                        </a>
+                                                        <p class="heading mt-3 has-text-grey">
+                                                            Systech Vietnam 2021
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class='column is-full'>
+                                            <div class="card">
+                                                <div class="card-content has-text-left">
+                                                    <div class="content">
+                                                        I've made much more projects over the years, but I don't have time to write it here. </b>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button onclick="showProjects()" id="projektybutton" class="button is-success is-fullwidth mt-3 mb-5">
+                                    Show more&nbsp;<i class="fa fa-arrow-down"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="columns is-multiline is-centered">
+                        <div class="column is-full">
                             <div>
-                                <p class="heading mb-0 is-size-6"><b>LANGUAGES</b> I USE</p>
+                                <p class="heading mb-0 is-size-6"><b>PROGRAMMING LANGUAGES</b> I KNOW</p>
                                 <div class="columns is-multiline">
                                     <div class="column is-full">
                                         <div class="columns is-mobile">
@@ -291,6 +625,16 @@
                                     <div class="column is-full">
                                         <div class="columns is-mobile">
                                             <div class="column">
+                                                <span>Kotlin</span>
+                                            </div>
+                                            <div class="column">
+                                                <progress class="progress is-success mt-1" value="60" max="100">60%</progress>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column is-full">
+                                        <div class="columns is-mobile">
+                                            <div class="column">
                                                 <span>CSS</span>
                                             </div>
                                             <div class="column">
@@ -309,93 +653,47 @@
                                         </div>
                                     </div>
                                 </div>
-								<p class="heading mb-0 is-size-6"><b>SKILLS</b> I HAVE</p>
-                                <div class="columns is-multiline">
-                                    <div class="column is-full">
-                                        <div class="columns is-mobile">
-                                            <div class="column">
-                                                <span>Altium Designer</span>
-                                            </div>
-                                            <div class="column">
-                                                <progress class="progress is-success mt-1" value="80" max="100">80%</progress>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="column is-full">
-                                        <div class="columns is-mobile">
-                                            <div class="column">
-                                                <span>Solidworks</span>
-                                            </div>
-                                            <div class="column">
-                                                <progress class="progress is-success mt-1" value="70" max="100">70%</progress>
-                                            </div>
-                                        </div>
-                                    </div>
-									
-                                    <div class="column is-full">
-                                        <div class="columns is-mobile">
-                                            <div class="column">
-                                                <span>Teaching</span>
-                                            </div>
-                                            <div class="column">
-                                                <progress class="progress is-success mt-1" value="70" max="100">70%</progress>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="columns is-multiline is-centered">
                         <div class="column is-full">
-                            <p class="heading mb-0 is-size-6"><b>Projects</b> I've made</p>
+                            <p class="heading mb-0 is-size-6"><b>MY Experience</b> </p>
                             <div class="columns is-multiline">
                                 <div class="column is-full">
-                                    <img class="icon icon-text lightshadow rotate" src="assets/airsense.png">
-                                    <a class="link" href="http://airsense.vn/">
-                                        AirSENSE
+                                    <img class="icon icon-text lightshadow rotate" src="https://frenzband.com/cdn/shop/t/54/assets/favicon.png?v=176960449475991007131701792381">
+                                    <a class="link" href="https://www.earable.ai/">
+                                        Earable® Neuroscience
                                     </a>
-                                    - a <b>project</b> about electronics and the environment <small class="has-text-grey">from 2017</small>
+                                    - I worked as a <b>Firmware Engineer</b> at a machine learning companies delivering scalable neuroscience solutions and services
+                                    <small class="has-text-grey">June 2022 - January 2023</small>
                                 </div>
                                 <div class="column is-full">
-                                    <span class="icon icon-text lightshadow rotate">🛒</span>
-                                    <a class="link" href="https://github.com/HocJ2me/IXR-HUST">
-                                        Intelligent "Xe Rác" (garbage truck)
+                                    <img class="icon icon-text lightshadow rotate" src="https://bkstar.vn/wp-content/uploads//2024/03/logo.svg">
+                                    <a class="link" href="https://bkstar.vn/">
+                                        BK Star
                                     </a>
-                                    - Upgraded <a href="https://youtube.com/playlist?list=PLQPfdTFl29zdOoFGP2EtNpF9-xMsqMr9S">garbage truck</a> with <b>electric power and autopilot system </b> coin I founded <small class="has-text-grey">2019-2020</small>
+                                    -  A company about studying abroad and education stem
+                                    <small class="has-text-grey">2020 - 2022</small>
                                 </div>
-                                
                                 <div class="column is-full">
-                                    <span class="icon icon-text lightshadow rotate">⏰</span>
-                                    <a class="link" href="https://github.com/HocJ2me/may_nhac_thong_minh">
-                                        Smart prompt box (Hộp nhắc nhở thông minh)
+                                    <img class="icon icon-text lightshadow rotate" src="https://systech.vn/wp-content/uploads/2022/01/cropped-logo-192x192.png">
+                                    <a class="link" href="https://systech.vn">
+                                        Systech Vietnam
                                     </a>
-                                    - 130 <a href="https://youtube.com/playlist?list=PLQPfdTFl29zd5Lq_Dsf3AWSLaJvUD696S">Devices</a> was sent to hospitals during<b> the Covid 2020 in Vietnam</b>, I founded <small class="has-text-grey">2020</small>
+                                    -  I worked as a <b>Software Engineer</b>  and finish some applications to demo to some customer.</b> 
+									<small class="has-text-grey">2020-2022</small>
                                 </div>
                                 
-                            </div>
                         </div>
                         <div class="column is-full">
                             <div>
-                                <p class="heading mb-0 is-size-6">SOME COMPANIES I'VE <b>Work</b></p>
+                                <p class="heading mb-0 is-size-6"> <b>MY INTEREST</b> </p>
                                 <div class="content">
                                     <ul>
                                         <li>
-                                            <a class="link" href="https://www.earable.ai/">
-                                                Earable Neuroscience <small class="has-text-grey">6/2022-now</small> </br>
-                                            </a> A machine learning companies delivering scalable neuroscience solutions and services
+										Playing game: Age Of Empires 1
                                         </li>
                                         <li>
-                                            <a class="link" href="https://systech.vn/">
-                                                Systech Vietnam <small class="has-text-grey">12/2019-6/2022</small> </br>
-                                            </a> The subject is specialized in doing business on Wholesale of other machinery and equipment.
-                                        </li>
-                                        <li>
-                                            <a class="link" href="https://www.facebook.com/BKSTARTEAM/">
-                                                BK Star <small class="has-text-grey">2019-now</small> </br>
-                                            </a> A company about studying abroad and education stem
+										Playing with Robots 😁 
                                         </li>
                                     </ul>
                                 </div>
@@ -403,7 +701,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="column"></div>
+                <div class="column is-2"></div>
             </div>
             <div class="columns is-gapless mt-5">
                 <div class="column has-text-right-desktop">
@@ -417,13 +715,23 @@
     </section>
 </body>
 <script>
+function eng() {
+    setCookie("lang", "1", 1);
+    document.location.href = 'https://piotrowsky.dev';
+}
+
+function pl() {
+    setCookie("lang", "1", 1);
+    document.location.href = 'https://piotrowsky.dev/pl';
+}
+
 const day = 24 * 60 * 60 * 1000;
 const age = document.getElementById("age");
 
 round_to = function(precision, value) {
     value = parseFloat(value);
     power_of_ten = 10 ** precision;
-    return Math.round(value * power_of_ten) / power_of_ten;
+    return ((value * power_of_ten) / power_of_ten).toFixed(precision);
 }
 
 day_diff = function(d1, d2) {
@@ -435,10 +743,43 @@ function update_age() {
     age.innerHTML = round_to(8, day_diff('Aug 28, 2001 00:00:00', new Date()) / 365);
 }
 
+function showProjects() {
+    document.getElementById("projektysmall").style.maxHeight = "100%";
+    document.getElementById("projektysmall").classList.add("removeBar");
+    document.getElementById("projektybutton").remove();
+}
+
 update_age();
 setInterval(function() {
     update_age();
-}, 100)
+}, 100);
+
+function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+var language = navigator.language || navigator.browserLanguage; //for IE
+
+if (language.indexOf('pl') > -1 && !getCookie("lang") && !document.location.href.includes("127.0.0.1")) {
+    document.location.href = 'https://piotrowsky.dev/pl.html';
+}
 </script>
 
 </html>
