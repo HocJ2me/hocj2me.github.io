@@ -787,7 +787,7 @@ day_diff = function(d1, d2) {
 }
 
 function update_age() {
-    age.innerHTML = round_to(8, day_diff('Aug 28, 2001 00:00:00', new Date()) / 365);
+    age.innerHTML = round_to(8, day_diff('Aug 28, 2001 00:00:00', new Date()) / 365.25);
 }
 
 function showProjects() {
