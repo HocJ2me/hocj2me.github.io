@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BÀI TẬP: THIẾT KẾ HỆ THỐNG ĐO VÀ GIÁM SÁT CHẤT LƯỢNG NƯỚC THÔNG MINH</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0f62fe;
+            --primary-hover: #0043ce;
+            --bg-color: #f4f7fb;
+            --card-bg: #ffffff;
+            --text-color: #161616;
+            --text-secondary: #525252;
+            --border-color: #e0e0e0;
+            --success-color: #24a148;
+            --warning-color: #f1c40f;
+            --danger-color: #da1e28;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 20px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #063970, #154c79);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary { background-color: var(--primary-color); color: white; }
+        .btn-primary:hover { background-color: var(--primary-hover); }
+        .btn-success { background-color: var(--success-color); color: white; }
+        .btn-success:hover { background-color: #198038; }
+        .btn-warning { background-color: #f59e0b; color: white; }
+        .btn-warning:hover { background-color: #d97706; }
+        .btn-danger { background-color: var(--danger-color); color: white; }
+        .btn-danger:hover { background-color: #fa4d56; }
+        .btn-secondary { background-color: #e0e0e0; color: #333; }
+        .btn-secondary:hover { background-color: #ccc; }
+
+        /* File Input Hide */
+        #import-file {
+            display: none;
+        }
+
+        /* Layout Grid */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+
+        /* Sidebar & Content Panels */
+        .panel {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .panel-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #063970;
+            border-bottom: 2px solid #3b82f6;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-secondary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 13px;
+            background-color: #fafafa;
+            transition: border-color 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background-color: #fff;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        /* Instruction Steps */
+        .steps-list {
+            list-style: none;
+        }
+
+        .steps-list li {
+            margin-bottom: 10px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .steps-list strong {
+            color: var(--primary-color);
+        }
+
+        /* Reference Image */
+        .ref-image-container {
+            text-align: center;
+            background-color: #f8fafc;
+            border: 1px dashed var(--border-color);
+            border-radius: 6px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        .ref-image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        .ref-text {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }
+
+        /* Tables styling */
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+
+        .custom-table th, .custom-table td {
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            text-align: left;
+        }
+
+        .custom-table th {
+            background-color: #f1f5f9;
+            font-weight: 600;
+        }
+
+        .btn-add-row {
+            margin-top: 10px;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
+        /* Interactive Canvas Styles */
+        .canvas-container {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 15px;
+            height: 650px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: #f8fafc;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Block Library Sidebar */
+        .block-library {
+            background-color: #ffffff;
+            border-right: 1px solid var(--border-color);
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .library-title {
+            font-weight: 700;
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .lib-block {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            cursor: grab;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .lib-block:hover {
+            background-color: #e2e8f0;
+            transform: translateY(-1px);
+        }
+
+        .lib-block i {
+            font-size: 16px;
+        }
+
+        /* Block Color Themes matching the original mockup */
+        .theme-sensor { color: #10b981; border-left: 4px solid #10b981; }
+        .theme-mcu { color: #3b82f6; border-left: 4px solid #3b82f6; }
+        .theme-gateway { color: #8b5cf6; border-left: 4px solid #8b5cf6; }
+        .theme-server { color: #f59e0b; border-left: 4px solid #f59e0b; }
+        .theme-db { color: #0284c7; border-left: 4px solid #0284c7; }
+        .theme-web { color: #a855f7; border-left: 4px solid #a855f7; }
+        .theme-mobile { color: #ec4899; border-left: 4px solid #ec4899; }
+        .theme-cloud { color: #06b6d4; border-left: 4px solid #06b6d4; }
+        .theme-alert { color: #ef4444; border-left: 4px solid #ef4444; }
+
+        /* The Working Canvas Grid */
+        .workspace-canvas {
+            position: relative;
+            background-color: #ffffff;
+            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+            background-size: 20px 20px;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* Workspace Toolbar */
+        .canvas-toolbar {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            display: flex;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 5px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Placed Block on Canvas */
+        .canvas-block {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 110px;
+            height: 80px;
+            background-color: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 8px;
+            cursor: move;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            user-select: none;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .canvas-block .block-icon {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .canvas-block .block-label {
+            font-size: 11px;
+            font-weight: 600;
+            word-wrap: break-word;
+            width: 100%;
+        }
+
+        .canvas-block .btn-delete-block {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: var(--danger-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .canvas-block:hover .btn-delete-block {
+            display: flex;
+        }
+
+        /* Connection System (Simple SVG Overlay) */
+        .connections-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Connection Control Bar */
+        .connection-bar {
+            background-color: #f1f5f9;
+            padding: 8px 15px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 12px;
+        }
+
+        .connection-bar select {
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Automatic Grading Section */
+        .grading-panel {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .checklist-item i {
+            font-size: 16px;
+        }
+
+        .checklist-item.pass { color: var(--success-color); }
+        .checklist-item.fail { color: #94a3b8; }
+
+        .status-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .status-badge.success { background-color: #d1fae5; color: #065f46; }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-color);
+            margin-top: 30px;
+        }
+
+        /* Print Optimization */
+        @media print {
+            body {
+                background: white;
+                color: black;
+                padding: 0;
+            }
+            header, .canvas-toolbar, .connection-bar, .block-library, .btn-add-row, .btn, .btn-delete-block {
+                display: none !important;
+            }
+            .grid-container {
+                display: block;
+            }
+            .panel {
+                box-shadow: none;
+                border: 1px solid #000;
+                page-break-inside: avoid;
+            }
+            .canvas-container {
+                display: block;
+                height: auto;
+                border: none;
+            }
+            .workspace-canvas {
+                border: 1px solid #000;
+                height: 500px;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><i class="fa-solid fa-water"></i> EcoVision - HỆ THỐNG ĐO VÀ GIÁM SÁT CHẤT LƯỢNG NƯỚC THÔNG MINH</h1>
+        <div class="header-buttons">
+            <button class="btn btn-secondary" onclick="document.getElementById('import-file').click()">
+                <i class="fa-solid fa-file-import"></i> Nhập bài (JSON)
+            </button>
+            <input type="file" id="import-file" accept=".json" onchange="importHomework(event)">
+            
+            <button class="btn btn-warning" onclick="resetForm()">
+                <i class="fa-solid fa-rotate-left"></i> Làm lại
+            </button>
+            <button class="btn btn-success" onclick="exportJSON()">
+                <i class="fa-solid fa-floppy-disk"></i> Lưu bài (JSON)
+            </button>
+            <button class="btn btn-danger" onclick="window.print()">
+                <i class="fa-solid fa-file-pdf"></i> Xuất PDF
+            </button>
+        </div>
+    </header>
+
+    <div class="grid-container">
+        
+        <!-- Left Column: Student Details & Documentation -->
+        <div class="left-col">
+            
+            <!-- 1. HƯỚNG DẪN LÀM BÀI -->
+            <div class="panel">
+                <div class="panel-title"><i class="fa-solid fa-circle-info"></i> 1. HƯỚNG DẪN LÀM BÀI</div>
+                <ul class="steps-list">
+                    <li><strong>Bước 1:</strong> Tìm hiểu đề tài, phân tích vấn đề, mục tiêu, người dùng.</li>
+                    <li><strong>Bước 2:</strong> Tìm hiểu các thông số nước: pH, TDS, Nhiệt độ và nguyên lý đo.</li>
+                    <li><strong>Bước 3:</strong> Thiết kế kiến trúc hệ thống bằng cách kéo thả các khối từ thư viện sang vùng làm việc bên phải và nối chúng lại với nhau.</li>
+                    <li><strong>Bước 4:</strong> Mô tả chức năng phần mềm và luồng dữ liệu ở các bảng phía dưới.</li>
+                    <li><strong>Bước 5:</strong> Kiểm tra phần đánh giá tự động, lưu file JSON để nộp hoặc xuất PDF để in/gửi cho giáo viên.</li>
+                </ul>
+            </div>
+
+            <!-- 2. THÔNG TIN NHÓM -->
+            <div class="panel">
+                <div class="panel-title"><i class="fa-solid fa-users"></i> 2. THÔNG TIN NHÓM</div>
+                <div class="form-group">
+                    <label>Tên nhóm:</label>
+                    <input type="text" id="team-name" class="form-control" placeholder="Nhập tên nhóm...">
+                </div>
+                <div class="form-group">
+                    <label>Thành viên:</label>
+                    <textarea id="team-members" class="form-control" placeholder="Nhập các thành viên (cách nhau bởi dấu ,)"></textarea>
+                </div>
+                <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div class="form-group">
+                        <label>Lớp:</label>
+                        <input type="text" id="class-name" class="form-control" placeholder="Nhập lớp...">
+                    </div>
+                    <div class="form-group">
+                        <label>Ngày thực hiện:</label>
+                        <input type="date" id="project-date" class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. PHÂN TÍCH ĐỀ TÀI -->
+            <div class="panel">
+                <div class="panel-title"><i class="fa-solid fa-magnifying-glass-chart"></i> 3. PHÂN TÍCH ĐỀ TÀI</div>
+                <div class="form-group">
+                    <label>Vấn đề thực tế:</label>
+                    <textarea id="problem-statement" class="form-control" placeholder="Ví dụ: Người dân chưa biết chất lượng nước sinh hoạt có an toàn hay không..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Giải pháp đề xuất:</label>
+                    <textarea id="proposed-solution" class="form-control" placeholder="Ví dụ: Thiết kế hệ thống đo pH, TDS, nhiệt độ nước và giám sát thời gian thực..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Đối tượng sử dụng:</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                        <label style="font-weight: normal;"><input type="checkbox" name="target-user" value="Người dân"> Người dân</label>
+                        <label style="font-weight: normal;"><input type="checkbox" name="target-user" value="Nhà máy"> Nhà máy / Khu CN</label>
+                        <label style="font-weight: normal;"><input type="checkbox" name="target-user" value="Cơ quan"> Cơ quan môi trường</label>
+                        <label style="font-weight: normal;"><input type="checkbox" name="target-user" value="Nghiên cứu"> Nhà nghiên cứu</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. THÔNG SỐ ĐO VÀ CẢM BIẾN -->
+            <div class="panel">
+                <div class="panel-title"><i class="fa-solid fa-microchip"></i> 4. THÔNG SỐ ĐO VÀ CẢM BIẾN</div>
+                <table class="custom-table" id="sensor-table">
+                    <thead>
+                        <tr>
+                            <th>Thông số</th>
+                            <th>Ý nghĩa</th>
+                            <th>Cảm biến đề xuất</th>
+                            <th style="width: 40px;">Xóa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" class="form-control" value="pH" style="padding: 4px;"></td>
+                            <td><input type="text" class="form-control" value="Độ axit/bazo của nước" style="padding: 4px;"></td>
+                            <td><input type="text" class="form-control" value="Cảm biến pH" style="padding: 4px;"></td>
+                            <td style="text-align: center;"><button class="btn btn-danger" style="padding: 2px 6px;" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" class="form-control" value="TDS" style="padding: 4px;"></td>
+                            <td><input type="text" class="form-control" value="Tổng chất rắn hòa tan" style="padding: 4px;"></td>
+                            <td><input type="text" class="form-control" value="Cảm biến TDS" style="padding: 4px;"></td>
+                            <td style="text-align: center;"><button class="btn btn-danger" style="padding: 2px 6px;" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" class="form-control" value="Nhiệt độ" style="padding: 4px;"></td>
+                            <td><input type="text" class="form-control" value="Nhiệt độ của nước" style="padding: 4px;"></td>
+                            <td><input type="text" class="form-control" value="DS18B20" style="padding: 4px;"></td>
+                            <td style="text-align: center;"><button class="btn btn-danger" style="padding: 2px 6px;" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-primary btn-add-row" onclick="addSensorRow()"><i class="fa-solid fa-plus"></i> Thêm thông số khác</button>
+            </div>
+
+        </div>
+
+        <!-- Right Column: Interactive Canvas & System Flow -->
+        <div class="right-col">
+            
+            <!-- 5. THIẾT KẾ KIẾN TRÚC HỆ THỐNG -->
+            <div class="panel">
+                <div class="panel-title"><i class="fa-solid fa-diagram-project"></i> 5. THIẾT KẾ KIẾN TRÚC HỆ THỐNG (KÉO THẢ VÀ KẾT NỐI KHỐI)</div>
+                
+                <!-- Connection Control Bar -->
+                <div class="connection-bar">
+                    <div>
+                        <strong><i class="fa-solid fa-link"></i> Tạo kết nối:</strong>
+                        Từ khối: <select id="connect-from"><option value="">-- Chọn khối nguồn --</option></select>
+                        đến khối: <select id="connect-to"><option value="">-- Chọn khối đích --</option></select>
+                        <button class="btn btn-primary" style="padding: 4px 10px; font-size: 12px; display: inline-flex;" onclick="createConnection()">Nối khối</button>
+                    </div>
+                    <div style="margin-left: auto;">
+                        <button class="btn btn-danger" style="padding: 4px 10px; font-size: 12px; display: inline-flex;" onclick="clearConnections()"><i class="fa-solid fa-scissors"></i> Xóa tất cả kết nối</button>
+                        <button class="btn btn-secondary" style="padding: 4px 10px; font-size: 12px; display: inline-flex;" onclick="clearCanvas()"><i class="fa-solid fa-trash-can"></i> Xóa toàn bộ canvas</button>
+                    </div>
+                </div>
+
+                <div class="canvas-container">
+                    <!-- Sidebar library -->
+                    <div class="block-library">
+                        <div class="library-title">Thư viện khối</div>
+                        <div class="lib-block theme-sensor" draggable="true" ondragstart="drag(event)" data-type="sensor_ph" data-label="Cảm biến pH" data-icon="fa-droplet">
+                            <i class="fa-solid fa-droplet"></i> Cảm biến pH
+                        </div>
+                        <div class="lib-block theme-sensor" draggable="true" ondragstart="drag(event)" data-type="sensor_tds" data-label="Cảm biến TDS" data-icon="fa-bolt-lightning">
+                            <i class="fa-solid fa-bolt-lightning"></i> Cảm biến TDS
+                        </div>
+                        <div class="lib-block theme-sensor" draggable="true" ondragstart="drag(event)" data-type="sensor_temp" data-label="Nhiệt độ (DS18B20)" data-icon="fa-temperature-half">
+                            <i class="fa-solid fa-temperature-half"></i> Cảm biến Temp
+                        </div>
+                        <div class="lib-block theme-mcu" draggable="true" ondragstart="drag(event)" data-type="mcu" data-label="ESP32 / MCU" data-icon="fa-microchip">
+                            <i class="fa-solid fa-microchip"></i> ESP32 / MCU
+                        </div>
+                        <div class="lib-block theme-gateway" draggable="true" ondragstart="drag(event)" data-type="gateway" data-label="Gateway / Router" data-icon="fa-wifi">
+                            <i class="fa-solid fa-wifi"></i> Gateway / Router
+                        </div>
+                        <div class="lib-block theme-server" draggable="true" ondragstart="drag(event)" data-type="server" data-label="Server" data-icon="fa-server">
+                            <i class="fa-solid fa-server"></i> Server
+                        </div>
+                        <div class="lib-block theme-db" draggable="true" ondragstart="drag(event)" data-type="database" data-label="Database" data-icon="fa-database">
+                            <i class="fa-solid fa-database"></i> Database
+                        </div>
+                        <div class="lib-block theme-web" draggable="true" ondragstart="drag(event)" data-type="web" data-label="Web Application" data-icon="fa-globe">
+                            <i class="fa-solid fa-globe"></i> Web App
+                        </div>
+                        <div class="lib-block theme-mobile" draggable="true" ondragstart="true" ondragstart="drag(event)" data-type="mobile" data-label="Mobile App" data-icon="fa-mobile-screen-button">
+                            <i class="fa-solid fa-mobile-screen-button"></i> Mobile App
+                        </div>
+                        <div class="lib-block theme-cloud" draggable="true" ondragstart="drag(event)" data-type="cloud" data-label="Cloud (EcoVision)" data-icon="fa-cloud">
+                            <i class="fa-solid fa-cloud"></i> Cloud (EcoVision)
+                        </div>
+                        <div class="lib-block theme-alert" draggable="true" ondragstart="drag(event)" data-type="alert" data-label="Báo cáo / Cảnh báo" data-icon="fa-bell">
+                            <i class="fa-solid fa-bell"></i> Cảnh báo
+                        </div>
+                    </div>
+
+                    <!-- Main Canvas Area -->
+                    <div class="workspace-canvas" id="canvas" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <!-- SVG Layer for drawing connections -->
+                        <svg class="connections-svg" id="svg-connections"></svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. CHỨC NĂNG PHẦN MỀM -->
+            <div class="panel">
+                <div class="panel-title"><i class="fa-solid fa-gears"></i> 6. CHỨC NĂNG PHẦN MỀM</div>
+                <table class="custom-table" id="function-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 50px;">STT</th>
+                            <th style="width: 150px;">Chức năng</th>
+                            <th>Mô tả chức năng chi tiết</th>
+                            <th style="width: 40px;">Xóa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><input type="text" class="form-control" value="Thu thập dữ liệu" style="padding: 4px;"></td>
+                            <td><input type="text" class="form-control" value="Thu thập liên tục các chỉ số pH, TDS và Nhiệt độ từ cảm biến gửi về bộ xử lý trung tâm." style="padding: 4px;"></td>
+                            <td style="text-align: center;"><button class="btn btn-danger" style="padding: 2px 6px;" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><input type="text" class="form-control" value="Truyền dữ liệu" style="padding: 4px;"></td>
+                            <td><input type="text" class="form-control" value="Truyền tải dữ liệu không dây qua Wi-Fi / Gateway đến Cloud / Server quản lý." style="padding: 4px;"></td>
+                            <td style="text-align: center;"><button class="btn btn-danger" style="padding: 2px 6px;" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-primary btn-add-row" onclick="addFunctionRow()"><i class="fa-solid fa-plus"></i> Thêm chức năng khác</button>
+            </div>
+
+            <!-- 7. LUỒNG DỮ LIỆU HỆ THỐNG -->
+            <div class="panel">
+                <div class="panel-title"><i class="fa-solid fa-arrow-right-arrow-left"></i> 7. LUỒNG DỮ LIỆU HỆ THỐNG (MÔ TẢ)</div>
+                <div class="form-group">
+                    <label>Mô tả luồng dữ liệu từ lúc thu thập đến khi hiển thị cho người dùng:</label>
+                    <textarea id="data-flow" class="form-control" style="min-height: 100px;" placeholder="Ví dụ: Cảm biến đo thông số nước -> ESP32 nhận dữ liệu -> xử lý và chuẩn hóa -> gửi qua Gateway/Router -> Server xử lý -> lưu Database -> Web/App truy xuất hiển thị..."></textarea>
+                </div>
+            </div>
+
+            <!-- 8. Ý TƯỞNG MỞ RỘNG -->
+            <div class="panel">
+                <div class="panel-title"><i class="fa-solid fa-lightbulb"></i> 8. Ý TƯỞNG MỞ RỘNG</div>
+                <div class="form-group">
+                    <label>Em muốn mở rộng hệ thống này như thế nào? (Năng lượng mặt trời, AI dự đoán chất lượng nước, định vị GPS...):</label>
+                    <textarea id="expansion-ideas" class="form-control" style="min-height: 80px;" placeholder="Gợi ý: Thêm pin năng lượng mặt trời, tích hợp AI cảnh báo độ sạch, gửi tin nhắn SMS cảnh báo khẩn cấp..."></textarea>
+                </div>
+            </div>
+
+            <!-- 9. ĐÁNH GIÁ KIẾN TRÚC (TỰ ĐỘNG) & GHI CHÚ -->
+            <div class="panel grading-panel">
+                <div class="panel-title" style="color: #15803d; border-bottom-color: #22c55e;">
+                    <i class="fa-solid fa-square-poll-vertical"></i> 9. ĐÁNH GIÁ KIẾN TRÚC HỆ THỐNG (TỰ ĐỘNG)
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <div class="checklist-item" id="chk-sensor"><i class="fa-solid fa-circle-xmark"></i> Có cảm biến đầu vào (pH / TDS / Temp)</div>
+                        <div class="checklist-item" id="chk-mcu"><i class="fa-solid fa-circle-xmark"></i> Có bộ xử lý trung tâm (MCU)</div>
+                        <div class="checklist-item" id="chk-gateway"><i class="fa-solid fa-circle-xmark"></i> Có Gateway / Router kết nối mạng</div>
+                    </div>
+                    <div>
+                        <div class="checklist-item" id="chk-server"><i class="fa-solid fa-circle-xmark"></i> Có Server / EcoVision Cloud</div>
+                        <div class="checklist-item" id="chk-db"><i class="fa-solid fa-circle-xmark"></i> Có Database lưu trữ</div>
+                        <div class="checklist-item" id="chk-ui"><i class="fa-solid fa-circle-xmark"></i> Có Giao diện giám sát (Web / Mobile App)</div>
+                    </div>
+                </div>
+                <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #bbf7d0; font-weight: 600;">
+                    Kết luận đánh giá: <span id="grading-status" class="status-badge" style="background-color: #cbd5e1; color: #475569;">Chưa hoàn thành thiết kế</span>
+                </div>
+            </div>
+
+            <!-- 10. GHI CHÚ KHÁC -->
+            <div class="panel">
+                <div class="panel-title"><i class="fa-solid fa-comment-dots"></i> 10. GHI CHÚ / ĐỀ XUẤT KHÁC</div>
+                <div class="form-group">
+                    <textarea id="additional-notes" class="form-control" style="min-height: 80px;" placeholder="Nhập bất kỳ ghi chú hoặc khó khăn nào nhóm gặp phải trong quá trình thiết kế hệ thống..."></textarea>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 EcoVision Technology. Hệ thống biểu mẫu thiết kế IoT học đường thông minh.</p>
+    </footer>
+
+    <script>
+        // Global State for canvas
+        let blocks = [];
+        let connections = [];
+        let blockIdCounter = 1;
+        let activeDragBlock = null;
+        let offsetX = 0, offsetY = 0;
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set default date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('project-date').value = today;
+            updateGrading();
+        });
+
+        // ------------------ Table Management ------------------
+        function addSensorRow() {
+            const table = document.getElementById('sensor-table').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+            newRow.innerHTML = `
+                <td><input type="text" class="form-control" style="padding: 4px;"></td>
+                <td><input type="text" class="form-control" style="padding: 4px;"></td>
+                <td><input type="text" class="form-control" style="padding: 4px;"></td>
+                <td style="text-align: center;"><button class="btn btn-danger" style="padding: 2px 6px;" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button></td>
+            `;
+        }
+
+        function addFunctionRow() {
+            const table = document.getElementById('function-table').getElementsByTagName('tbody')[0];
+            const rowCount = table.rows.length;
+            const newRow = table.insertRow();
+            newRow.innerHTML = `
+                <td>${rowCount + 1}</td>
+                <td><input type="text" class="form-control" style="padding: 4px;"></td>
+                <td><input type="text" class="form-control" style="padding: 4px;"></td>
+                <td style="text-align: center;"><button class="btn btn-danger" style="padding: 2px 6px;" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button></td>
+            `;
+            reindexFunctions();
+        }
+
+        function deleteRow(button) {
+            const row = button.parentNode.parentNode;
+            const table = row.parentNode;
+            table.removeChild(row);
+            reindexFunctions();
+        }
+
+        function reindexFunctions() {
+            const table = document.getElementById('function-table').getElementsByTagName('tbody')[0];
+            for (let i = 0; i < table.rows.length; i++) {
+                table.rows[i].cells[0].innerText = i + 1;
+            }
+        }
+
+        // ------------------ Canvas Interaction ------------------
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("type", ev.target.getAttribute('data-type'));
+            ev.dataTransfer.setData("label", ev.target.getAttribute('data-label'));
+            ev.dataTransfer.setData("icon", ev.target.getAttribute('data-icon'));
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            const canvasRect = document.getElementById('canvas').getBoundingClientRect();
+            const x = ev.clientX - canvasRect.left - 55; // center the 110px width
+            const y = ev.clientY - canvasRect.top - 40;  // center the 80px height
+
+            const type = ev.dataTransfer.getData("type");
+            const label = ev.dataTransfer.getData("label");
+            const icon = ev.dataTransfer.getData("icon");
+
+            if (type) {
+                createBlock(type, label, icon, x, y);
+            }
+        }
+
+        function createBlock(type, label, icon, x, y, id = null) {
+            const blockId = id || 'block_' + blockIdCounter++;
+            const block = {
+                id: blockId,
+                type: type,
+                label: label,
+                icon: icon,
+                x: Math.max(10, Math.min(x, 700)),
+                y: Math.max(10, Math.min(y, 550))
+            };
+
+            blocks.push(block);
+            renderBlock(block);
+            updateSelectOptions();
+            updateGrading();
+        }
+
+        function renderBlock(block) {
+            const canvas = document.getElementById('canvas');
+            const blockEl = document.createElement('div');
+            blockEl.className = `canvas-block theme-${getBlockThemeClass(block.type)}`;
+            blockEl.id = block.id;
+            blockEl.style.left = block.x + 'px';
+            blockEl.style.top = block.y + 'px';
+
+            blockEl.innerHTML = `
+                <button class="btn-delete-block" onclick="deleteBlock('${block.id}', event)"><i class="fa-solid fa-xmark"></i></button>
+                <div class="block-icon"><i class="fa-solid ${block.icon}"></i></div>
+                <div class="block-label" contenteditable="true" onblur="updateBlockLabel('${block.id}', this)">${block.label}</div>
+            `;
+
+            // Setup custom dragging within the canvas
+            blockEl.addEventListener('mousedown', (e) => {
+                if (e.target.className === 'btn-delete-block' || e.target.tagName === 'I' || e.target.getAttribute('contenteditable') === 'true') return;
+                activeDragBlock = block;
+                const rect = blockEl.getBoundingClientRect();
+                offsetX = e.clientX - rect.left;
+                offsetY = e.clientY - rect.top;
+                document.addEventListener('mousemove', moveBlock);
+                document.addEventListener('mouseup', stopMoveBlock);
+            });
+
+            canvas.appendChild(blockEl);
+        }
+
+        function getBlockThemeClass(type) {
+            if (type.startsWith('sensor_')) return 'sensor';
+            return type;
+        }
+
+        function moveBlock(e) {
+            if (!activeDragBlock) return;
+            const canvasRect = document.getElementById('canvas').getBoundingClientRect();
+            let x = e.clientX - canvasRect.left - offsetX;
+            let y = e.clientY - canvasRect.top - offsetY;
+
+            // Constrain
+            x = Math.max(5, Math.min(x, canvasRect.width - 115));
+            y = Math.max(5, Math.min(y, canvasRect.height - 85));
+
+            activeDragBlock.x = x;
+            activeDragBlock.y = y;
+
+            const el = document.getElementById(activeDragBlock.id);
+            if (el) {
+                el.style.left = x + 'px';
+                el.style.top = y + 'px';
+            }
+            drawConnections();
+        }
+
+        function stopMoveBlock() {
+            activeDragBlock = null;
+            document.removeEventListener('mousemove', moveBlock);
+            document.removeEventListener('mouseup', stopMoveBlock);
+        }
+
+        function updateBlockLabel(id, el) {
+            const block = blocks.find(b => b.id === id);
+            if (block) {
+                block.label = el.innerText;
+                updateSelectOptions();
+            }
+        }
+
+        function deleteBlock(id, e) {
+            e.stopPropagation();
+            blocks = blocks.filter(b => b.id !== id);
+            connections = connections.filter(c => c.from !== id && c.to !== id);
+            const el = document.getElementById(id);
+            if (el) el.remove();
+            updateSelectOptions();
+            drawConnections();
+            updateGrading();
+        }
+
+        function updateSelectOptions() {
+            const fromSelect = document.getElementById('connect-from');
+            const toSelect = document.getElementById('connect-to');
+            
+            const fromVal = fromSelect.value;
+            const toVal = toSelect.value;
+
+            fromSelect.innerHTML = '<option value="">-- Chọn khối nguồn --</option>';
+            toSelect.innerHTML = '<option value="">-- Chọn khối đích --</option>';
+
+            blocks.forEach(b => {
+                const opt1 = document.createElement('option');
+                opt1.value = b.id;
+                opt1.text = b.label;
+                fromSelect.appendChild(opt1);
+
+                const opt2 = document.createElement('option');
+                opt2.value = b.id;
+                opt2.text = b.label;
+                toSelect.appendChild(opt2);
+            });
+
+            fromSelect.value = fromVal;
+            toSelect.value = toVal;
+        }
+
+        // ------------------ Connections System ------------------
+        function createConnection() {
+            const from = document.getElementById('connect-from').value;
+            const to = document.getElementById('connect-to').value;
+
+            if (!from || !to) {
+                alert("Vui lòng chọn cả khối nguồn và khối đích!");
+                return;
+            }
+            if (from === to) {
+                alert("Không thể nối một khối với chính nó!");
+                return;
+            }
+            // Check if exists
+            const exists = connections.some(c => c.from === from && c.to === to);
+            if (exists) {
+                alert("Kết nối này đã tồn tại!");
+                return;
+            }
+
+            connections.push({ from, to });
+            drawConnections();
+            updateGrading();
+        }
+
+        function clearConnections() {
+            connections = [];
+            drawConnections();
+            updateGrading();
+        }
+
+        function clearCanvas() {
+            blocks = [];
+            connections = [];
+            document.getElementById('canvas').querySelectorAll('.canvas-block').forEach(el => el.remove());
+            drawConnections();
+            updateSelectOptions();
+            updateGrading();
+        }
+
+        function drawConnections() {
+            const svg = document.getElementById('svg-connections');
+            svg.innerHTML = ''; // Clear lines
+
+            connections.forEach(conn => {
+                const fromBlock = blocks.find(b => b.id === conn.from);
+                const toBlock = blocks.find(b => b.id === conn.to);
+
+                if (fromBlock && toBlock) {
+                    // Calc middle connection points
+                    const fromX = fromBlock.x + 55;
+                    const fromY = fromBlock.y + 40;
+                    const toX = toBlock.x + 55;
+                    const toY = toBlock.y + 40;
+
+                    // Draw line with arrowhead
+                    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                    line.setAttribute("x1", fromX);
+                    line.setAttribute("y1", fromY);
+                    line.setAttribute("x2", toX);
+                    line.setAttribute("y2", toY);
+                    line.setAttribute("stroke", "#475569");
+                    line.setAttribute("stroke-width", "2");
+                    line.setAttribute("marker-end", "url(#arrow)");
+                    svg.appendChild(line);
+                }
+            });
+
+            // Ensure arrow marker is always declared
+            let defs = svg.querySelector('defs');
+            if (!defs) {
+                defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+                defs.innerHTML = `
+                    <marker id="arrow" viewBox="0 0 10 10" refX="28" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569" />
+                    </marker>
+                `;
+                svg.appendChild(defs);
+            }
+        }
+
+        // ------------------ Automated Grading Rules ------------------
+        function updateGrading() {
+            let scores = {
+                sensor: false,
+                mcu: false,
+                gateway: false,
+                server: false,
+                db: false,
+                ui: false
+            };
+
+            blocks.forEach(b => {
+                if (b.type.startsWith('sensor_')) scores.sensor = true;
+                if (b.type === 'mcu') scores.mcu = true;
+                if (b.type === 'gateway') scores.gateway = true;
+                if (b.type === 'server' || b.type === 'cloud') scores.server = true;
+                if (b.type === 'database') scores.db = true;
+                if (b.type === 'web' || b.type === 'mobile') scores.ui = true;
+            });
+
+            // Update Checklist UI
+            updateChecklistItem('chk-sensor', scores.sensor);
+            updateChecklistItem('chk-mcu', scores.mcu);
+            updateChecklistItem('chk-gateway', scores.gateway);
+            updateChecklistItem('chk-server', scores.server);
+            updateChecklistItem('chk-db', scores.db);
+            updateChecklistItem('chk-ui', scores.ui);
+
+            const totalMet = Object.values(scores).filter(v => v).length;
+            const statusBadge = document.getElementById('grading-status');
+
+            if (totalMet === 6) {
+                statusBadge.innerText = "Kiến trúc Đạt chuẩn (6/6 thành phần)";
+                statusBadge.className = "status-badge success";
+            } else {
+                statusBadge.innerText = `Chưa hoàn thành (${totalMet}/6 thành phần)`;
+                statusBadge.className = "status-badge";
+                statusBadge.style.backgroundColor = "#cbd5e1";
+                statusBadge.style.color = "#475569";
+            }
+        }
+
+        function updateChecklistItem(elementId, isPass) {
+            const el = document.getElementById(elementId);
+            if (isPass) {
+                el.className = "checklist-item pass";
+                el.innerHTML = '<i class="fa-solid fa-circle-check"></i> ' + el.innerText.substring(2);
+            } else {
+                el.className = "checklist-item fail";
+                el.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> ' + el.innerText.substring(2);
+            }
+        }
+
+        // ------------------ Data Import / Export ------------------
+        function getFormData() {
+            // Collect Table Data
+            const sensorData = [];
+            document.querySelectorAll('#sensor-table tbody tr').forEach(row => {
+                const inputs = row.querySelectorAll('input');
+                if (inputs.length >= 3) {
+                    sensorData.push({
+                        param: inputs[0].value,
+                        meaning: inputs[1].value,
+                        sensor: inputs[2].value
+                    });
+                }
+            });
+
+            const functionData = [];
+            document.querySelectorAll('#function-table tbody tr').forEach(row => {
+                const inputs = row.querySelectorAll('input');
+                if (inputs.length >= 2) {
+                    functionData.push({
+                        name: inputs[0].value,
+                        desc: inputs[1].value
+                    });
+                }
+            });
+
+            // Target Users
+            const targetUsers = [];
+            document.querySelectorAll('input[name="target-user"]:checked').forEach(chk => {
+                targetUsers.push(chk.value);
+            });
+
+            return {
+                teamName: document.getElementById('team-name').value,
+                teamMembers: document.getElementById('team-members').value,
+                className: document.getElementById('class-name').value,
+                projectDate: document.getElementById('project-date').value,
+                problemStatement: document.getElementById('problem-statement').value,
+                proposedSolution: document.getElementById('proposed-solution').value,
+                targetUsers: targetUsers,
+                sensorData: sensorData,
+                functionData: functionData,
+                dataFlow: document.getElementById('data-flow').value,
+                expansionIdeas: document.getElementById('expansion-ideas').value,
+                additionalNotes: document.getElementById('additional-notes').value,
+                blocks: blocks,
+                connections: connections,
+                blockIdCounter: blockIdCounter
+            };
+        }
+
+        function exportJSON() {
+            const data = getFormData();
+            const jsonString = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", jsonString);
+            
+            // Nice formatted file name
+            const teamClean = data.teamName ? data.teamName.replace(/\s+/g, '_') : 'nhom_unnamed';
+            downloadAnchor.setAttribute("download", `Baitap_IoT_WaterQuality_${teamClean}.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+
+        function importHomework(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    loadFormData(data);
+                } catch (error) {
+                    alert("Lỗi đọc file JSON. Vui lòng kiểm tra lại file của học sinh.");
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function loadFormData(data) {
+            // Text inputs
+            document.getElementById('team-name').value = data.teamName || '';
+            document.getElementById('team-members').value = data.teamMembers || '';
+            document.getElementById('class-name').value = data.className || '';
+            document.getElementById('project-date').value = data.projectDate || '';
+            document.getElementById('problem-statement').value = data.problemStatement || '';
+            document.getElementById('proposed-solution').value = data.proposedSolution || '';
+            document.getElementById('data-flow').value = data.dataFlow || '';
+            document.getElementById('expansion-ideas').value = data.expansionIdeas || '';
+            document.getElementById('additional-notes').value = data.additionalNotes || '';
+
+            // Checkboxes
+            document.querySelectorAll('input[name="target-user"]').forEach(chk => {
+                chk.checked = data.targetUsers ? data.targetUsers.includes(chk.value) : false;
+            });
+
+            // Sensors Table
+            const sensorTbody = document.getElementById('sensor-table').getElementsByTagName('tbody')[0];
+            sensorTbody.innerHTML = '';
+            if (data.sensorData) {
+                data.sensorData.forEach(s => {
+                    const r = sensorTbody.insertRow();
+                    r.innerHTML = `
+                        <td><input type="text" class="form-control" value="${s.param}" style="padding: 4px;"></td>
+                        <td><input type="text" class="form-control" value="${s.meaning}" style="padding: 4px;"></td>
+                        <td><input type="text" class="form-control" value="${s.sensor}" style="padding: 4px;"></td>
+                        <td style="text-align: center;"><button class="btn btn-danger" style="padding: 2px 6px;" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button></td>
+                    `;
+                });
+            }
+
+            // Functions Table
+            const funcTbody = document.getElementById('function-table').getElementsByTagName('tbody')[0];
+            funcTbody.innerHTML = '';
+            if (data.functionData) {
+                data.functionData.forEach((f, idx) => {
+                    const r = funcTbody.insertRow();
+                    r.innerHTML = `
+                        <td>${idx + 1}</td>
+                        <td><input type="text" class="form-control" value="${f.name}" style="padding: 4px;"></td>
+                        <td><input type="text" class="form-control" value="${f.desc}" style="padding: 4px;"></td>
+                        <td style="text-align: center;"><button class="btn btn-danger" style="padding: 2px 6px;" onclick="deleteRow(this)"><i class="fa-solid fa-trash"></i></button></td>
+                    `;
+                });
+            }
+
+            // Canvas Restore
+            clearCanvas();
+            blockIdCounter = data.blockIdCounter || 1;
+            if (data.blocks) {
+                data.blocks.forEach(b => {
+                    createBlock(b.type, b.label, b.icon, b.x, b.y, b.id);
+                });
+            }
+            if (data.connections) {
+                connections = data.connections;
+                drawConnections();
+            }
+
+            updateGrading();
+            alert("Đã nhập dữ liệu bài làm thành công!");
+        }
+
+        function resetForm() {
+            if (confirm("Bạn có chắc chắn muốn xóa toàn bộ thông tin để làm lại từ đầu không?")) {
+                document.getElementById('team-name').value = '';
+                document.getElementById('team-members').value = '';
+                document.getElementById('problem-statement').value = '';
+                document.getElementById('proposed-solution').value = '';
+                document.getElementById('data-flow').value = '';
+                document.getElementById('expansion-ideas').value = '';
+                document.getElementById('additional-notes').value = '';
+                
+                document.querySelectorAll('input[name="target-user"]').forEach(c => c.checked = false);
+
+                clearCanvas();
+                alert("Đã reset trạng thái trang bài tập!");
+            }
+        }
+    </script>
+</body>
+</html>
