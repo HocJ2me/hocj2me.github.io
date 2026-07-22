@@ -218,6 +218,80 @@
         border-radius: 6px;
         border: 3px solid var(--scrollbarBG);
     }
+
+    .cta-banner {
+        background: linear-gradient(120deg, #27ae60, #1abc9c);
+        border-radius: 18px;
+        padding: 28px 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+        box-shadow: 0 8px 24px rgba(39, 174, 96, 0.35);
+        margin: 6px 0 26px;
+    }
+
+    .cta-eyebrow {
+        color: rgba(255,255,255,.85);
+        font-size: .76rem;
+        font-weight: 700;
+        letter-spacing: .06em;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+    }
+
+    .cta-title {
+        color: #fff;
+        font-size: 1.28rem;
+        font-weight: 700;
+        margin-bottom: 6px;
+        text-shadow: none;
+    }
+
+    .cta-sub {
+        color: rgba(255,255,255,.92);
+        font-size: .9rem;
+        max-width: 560px;
+        text-shadow: none;
+        margin-bottom: 2px;
+    }
+
+    .cta-sub-en {
+        color: rgba(255,255,255,.75);
+        font-size: .8rem;
+        font-style: italic;
+    }
+
+    .cta-btn {
+        background: #fff;
+        color: #1e8449 !important;
+        font-weight: 700;
+        padding: 12px 26px;
+        border-radius: 30px;
+        white-space: nowrap;
+        transition: transform .2s ease, box-shadow .2s ease;
+        box-shadow: 0 4px 14px rgba(0,0,0,.15);
+        text-decoration: none;
+        flex-shrink: 0;
+    }
+
+    .cta-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0,0,0,.2);
+        color: #146c3a !important;
+    }
+
+    @media (max-width: 600px) {
+        .cta-banner {
+            flex-direction: column;
+            text-align: center;
+        }
+        .cta-btn {
+            width: 100%;
+            text-align: center;
+        }
+    }
     </style>
 </head>
 
@@ -266,6 +340,21 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="columns is-centered">
+                <div class="column is-10">
+                    <a href="training/login.html" target="_blank" style="text-decoration:none;">
+                        <div class="cta-banner">
+                            <div>
+                                <p class="cta-eyebrow">🎓 Khóa học mới · New course</p>
+                                <p class="cta-title">🔧 Khóa học STEM online AIJAM Bảo Châu</p>
+                                <p class="cta-sub">Nội dung hiện tại: Điện tử cơ bản &amp; lập trình kéo thả Micro:bit — 5 buổi học tương tác, có mô phỏng lắp mạch và bài tập thực hành.</p>
+                                <p class="cta-sub cta-sub-en">Current module: Micro:bit electronics &amp; block coding — 5 interactive sessions with circuit simulation and hands-on exercises.</p>
+                            </div>
+                            <span class="cta-btn">Vào làm bài tập · Start learning&nbsp;<i class="fa fa-arrow-right"></i></span>
+                        </div>
+                    </a>
                 </div>
             </div>
             <div class="columns mb-0 mt-3 is-gapless">
