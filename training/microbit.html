@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khóa học Micro:bit 5 buổi — Điện tử &amp; Lập trình kéo thả — Lớp 6</title>
+<style>
+  :root{
+    --blue:#2563eb; --blue-dark:#1e40af; --orange:#f97316; --green:#16a34a;
+    --red:#dc2626; --bg:#f4f7fb; --card:#ffffff; --ink:#1e293b; --sub:#64748b;
+    --purple:#7c3aed; --yellow:#eab308; --cyan:#0891b2;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink);}
+  header{
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    color:#fff;padding:10px 24px;position:sticky;top:0;z-index:60;box-shadow:0 2px 10px rgba(0,0,0,.15);
+  }
+  header h1{font-size:1.1rem;margin:0 0 2px;}
+  header .sub{font-size:.78rem;opacity:.9;font-weight:400;}
+  .buoi-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+  .buoi-tab{
+    border:2px solid rgba(255,255,255,.6);background:transparent;color:#fff;padding:6px 13px;border-radius:20px;
+    cursor:pointer;font-weight:700;font-size:.8rem;transition:.2s;
+  }
+  .buoi-tab.active{background:#fff;color:var(--blue-dark);border-color:#fff;}
+  main{max-width:1080px;margin:0 auto;padding:16px 18px 40px;}
+  .buoi-panel{display:none;}
+  .buoi-panel.active{display:block;animation:fade .3s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+  .panel-title{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+  .panel-title h2{margin:0;font-size:1.3rem;color:var(--blue-dark);}
+  .panel-title .goalline{color:var(--sub);font-size:.88rem;margin-top:2px;}
+  .subnav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+  .subnav button{
+    background:#e2e8f0;border:none;padding:7px 13px;border-radius:20px;font-weight:600;font-size:.8rem;
+    cursor:pointer;color:var(--ink);
+  }
+  .subnav button.active{background:var(--blue);color:#fff;}
+  .subslide{display:none;}
+  .subslide.active{display:block;animation:fade .3s ease;}
+  .subfooter{display:flex;align-items:center;justify-content:space-between;margin-top:14px;}
+  .subfooter button{background:var(--purple);color:#fff;border:none;padding:8px 16px;border-radius:20px;font-weight:700;cursor:pointer;font-size:.8rem;}
+  .subfooter button:disabled{opacity:.35;cursor:not-allowed;}
+  .subfooter span{color:var(--sub);font-size:.78rem;font-weight:600;}
+  .slide-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:10px;}
+  .slide-head h3.big{margin:0;font-size:1.12rem;color:var(--blue-dark);}
+  .time-chip{background:var(--orange);color:#fff;padding:4px 11px;border-radius:20px;font-weight:700;font-size:.76rem;white-space:nowrap;}
+  /* micro-slide deck: one focused topic per screen, click through */
+  .micro-deck{max-height:calc(100vh - 300px);min-height:220px;overflow-y:auto;padding-right:4px;}
+  .microslide{display:none;}
+  .microslide.active{display:block;animation:fade .25s ease;}
+  .micro-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:10px;}
+  .micro-nav button{background:var(--blue-dark);color:#fff;border:none;width:36px;height:36px;border-radius:50%;font-weight:700;cursor:pointer;font-size:1rem;line-height:1;}
+  .micro-nav button:disabled{opacity:.3;cursor:not-allowed;}
+  .micro-nav span{color:var(--sub);font-size:.82rem;font-weight:700;min-width:46px;text-align:center;}
+  .card{background:var(--card);border-radius:14px;padding:15px 17px;margin-bottom:0;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+  .card h4{margin-top:0;color:var(--blue-dark);font-size:1rem;border-left:5px solid var(--orange);padding-left:10px;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  @media(max-width:760px){.grid2,.grid3{grid-template-columns:1fr;}}
+  .comp-card{background:#eef2ff;border-radius:12px;padding:9px;text-align:center;}
+  .comp-card .emoji{font-size:1.8rem;}
+  .comp-card b{display:block;margin:4px 0 2px;color:var(--blue-dark);font-size:.86rem;}
+  .comp-card span{font-size:.75rem;color:var(--sub);}
+  .steps{padding-left:0;list-style:none;counter-reset:step;}
+  .steps li{counter-increment:step;margin-bottom:8px;padding-left:34px;position:relative;line-height:1.45;font-size:.89rem;}
+  .steps li::before{
+    content:counter(step);position:absolute;left:0;top:0;background:var(--blue);color:#fff;
+    width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.76rem;
+  }
+  .note{background:#fff7ed;border-left:4px solid var(--orange);padding:8px 12px;border-radius:8px;font-size:.84rem;margin-top:8px;}
+  .warn{background:#fef2f2;border-left:4px solid var(--red);padding:8px 12px;border-radius:8px;font-size:.84rem;margin-top:8px;}
+  .goal{background:#ecfdf5;border-left:4px solid var(--green);padding:8px 12px;border-radius:8px;font-size:.84rem;}
+  .teacher-note{background:#f5f3ff;border-left:4px solid var(--purple);padding:8px 12px;border-radius:8px;font-size:.84rem;margin-top:8px;}
+  .extend-box{background:#ecfeff;border-left:4px solid var(--cyan);padding:8px 12px;border-radius:8px;font-size:.86rem;}
+  .discuss-box{background:#fefce8;border-left:4px solid var(--yellow);padding:8px 12px;border-radius:8px;font-size:.86rem;margin-top:6px;}
+  .iframe-wrap{border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.15);}
+  .iframe-wrap iframe{width:100%;height:400px;border:none;display:block;}
+  .btn{display:inline-block;background:var(--blue);color:#fff;padding:8px 15px;border-radius:10px;text-decoration:none;font-weight:700;font-size:.82rem;margin-top:8px;}
+  .sim-wrap{display:flex;gap:18px;flex-wrap:wrap;}
+  .components-col{flex:1;min-width:210px;}
+  .board-col{flex:1.3;min-width:270px;}
+  .wire-plug{background:#fff;border:2px solid var(--blue);border-radius:10px;padding:6px 9px;margin-bottom:7px;cursor:grab;font-size:.8rem;font-weight:600;display:flex;align-items:center;gap:7px;user-select:none;}
+  .wire-plug .dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+  .wire-plug.placed{opacity:.35;cursor:not-allowed;border-style:dashed;}
+  .board-visual{position:relative;background:#0f172a;border-radius:16px;padding:8px 8px 26px;}
+  .board-visual svg{width:100%;display:block;}
+  .pin-socket{position:absolute;transform:translate(-50%,-50%);width:62px;min-height:36px;background:rgba(15,23,42,.9);border:2px dashed #facc15;border-radius:9px;padding:3px 2px;text-align:center;color:#fde68a;font-size:.62rem;line-height:1.15;}
+  .pin-socket.over{background:rgba(51,65,85,.95);border-color:#fff;}
+  .pin-socket b{display:block;color:#fff;font-size:.7rem;margin-bottom:1px;}
+  .pin-socket .chip{background:var(--green);color:#fff;border-radius:6px;padding:1px 4px;font-size:.58rem;margin:1px;display:inline-block;}
+  .simResult{margin-top:8px;font-weight:700;font-size:.86rem;}
+  .resetbtn{background:var(--sub);color:#fff;border:none;padding:7px 13px;border-radius:20px;font-weight:700;cursor:pointer;margin-top:8px;font-size:.8rem;}
+  .quiz-q{margin-bottom:12px;}
+  .quiz-q p{font-weight:700;margin-bottom:5px;font-size:.88rem;}
+  .quiz-opt{display:block;background:#f1f5f9;border:2px solid transparent;border-radius:8px;padding:6px 10px;margin-bottom:5px;cursor:pointer;font-size:.85rem;}
+  .quiz-opt.correct{background:#dcfce7;border-color:var(--green);}
+  .quiz-opt.wrong{background:#fee2e2;border-color:var(--red);}
+  .checklist label{display:flex;align-items:center;gap:8px;margin-bottom:7px;font-size:.88rem;}
+  table.rubric{width:100%;border-collapse:collapse;font-size:.81rem;}
+  table.rubric th,table.rubric td{border:1px solid #e2e8f0;padding:6px;text-align:left;}
+  table.rubric th{background:#eef2ff;color:var(--blue-dark);}
+  .agenda{display:flex;flex-wrap:wrap;gap:8px;}
+  .agenda .a-item{flex:1;min-width:140px;background:#eef2ff;border-radius:10px;padding:8px;text-align:center;font-size:.78rem;}
+  .agenda b{display:block;color:var(--blue-dark);font-size:.9rem;}
+  .quizScore{font-weight:700;color:var(--blue-dark);}
+  /* overview */
+  .ov-row{display:flex;gap:14px;align-items:flex-start;background:#fff;border-radius:14px;padding:14px 18px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+  .ov-num{background:var(--blue);color:#fff;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;}
+  .ov-row h4{margin:0 0 4px;color:var(--blue-dark);}
+  .ov-row p{margin:2px 0;font-size:.86rem;color:var(--sub);}
+  /* === simulations === */
+  .circuit-toggle-wrap{background:#0f172a;border-radius:14px;padding:14px;text-align:center;}
+  .circuit-toggle-wrap svg{max-width:420px;width:100%;}
+  .switch-hit{cursor:pointer;}
+  .hint-row{color:#e2e8f0;font-size:.82rem;margin-top:6px;font-weight:600;}
+  .water-wrap{background:#f0f9ff;border-radius:14px;padding:14px;text-align:center;}
+  .water-wrap svg{max-width:480px;width:100%;}
+  .led-designer{display:flex;flex-direction:column;align-items:center;gap:8px;}
+  .led-grid{display:grid;grid-template-columns:repeat(5,40px);grid-template-rows:repeat(5,40px);gap:5px;background:#0f172a;padding:12px;border-radius:14px;}
+  .led-cell{width:40px;height:40px;border-radius:50%;background:#1e293b;border:2px solid #334155;cursor:pointer;transition:.15s;}
+  .led-cell.on{background:#facc15;border-color:#fde68a;box-shadow:0 0 10px #facc15;}
+  .traffic-sim{display:flex;gap:22px;align-items:center;justify-content:center;flex-wrap:wrap;background:#0f172a;border-radius:14px;padding:18px;}
+  .traffic-housing{display:flex;flex-direction:column;gap:9px;background:#1e293b;padding:10px;border-radius:16px;}
+  .traffic-light{width:42px;height:42px;border-radius:50%;background:#334155;opacity:.35;transition:.3s;}
+  .traffic-light.on-red{background:#ef4444;opacity:1;box-shadow:0 0 16px #ef4444;}
+  .traffic-light.on-yellow{background:#eab308;opacity:1;box-shadow:0 0 16px #eab308;}
+  .traffic-light.on-green{background:#22c55e;opacity:1;box-shadow:0 0 16px #22c55e;}
+  .traffic-status{color:#fff;text-align:center;min-width:180px;}
+  .traffic-status .big-count{font-size:1.8rem;font-weight:700;}
+  .slider-sim{background:#eef2ff;border-radius:14px;padding:16px;}
+  .slider-sim input[type=range]{width:100%;}
+  .slider-sim .readout{display:flex;align-items:center;justify-content:space-between;margin-top:10px;flex-wrap:wrap;gap:8px;}
+  .status-badge{padding:6px 13px;border-radius:20px;font-weight:700;font-size:.82rem;}
+  .status-ok{background:#dcfce7;color:#166534;}
+  .status-alert{background:#fee2e2;color:#991b1b;}
+  .dashboard-sim{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:700px){.dashboard-sim{grid-template-columns:1fr;}}
+  .dash-item{background:#eef2ff;border-radius:12px;padding:11px;}
+  .dash-indicator{width:100%;padding:7px;border-radius:8px;background:#cbd5e1;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.78rem;color:#334155;margin-top:8px;transition:.2s;text-align:center;}
+  .dash-indicator.active{background:var(--green);color:#fff;}
+  .emerg-btn{width:100%;background:var(--red);color:#fff;border:none;padding:11px;border-radius:10px;font-weight:700;cursor:pointer;font-size:.86rem;}
+  .logout-btn{background:rgba(0,0,0,.25);color:#fff;border:1px solid rgba(255,255,255,.5);padding:5px 12px;border-radius:20px;font-size:.76rem;font-weight:700;cursor:pointer;}
+  .whoami{font-size:.76rem;opacity:.85;margin-right:8px;}
+</style>
+<script src="auth.js"></script>
+<script>
+  // Simple client-side login gate. Not real security — see admin-huong-dan.md.
+  requireAuth();
+</script>
+</head>
+<body>
+
+<header>
+  <div style="display:flex;justify-content:flex-end;align-items:center;">
+    <span class="whoami" id="whoamiLabel"></span>
+    <button class="logout-btn" onclick="logout()">Đăng xuất</button>
+  </div>
+  <h1>🔧 Khóa học Micro:bit — Điện tử &amp; Lập trình kéo thả</h1>
+  <div class="sub">5 buổi × 2 giờ — Dành cho học sinh lớp 6 · Dùng phím ← → hoặc nút để chuyển trang</div>
+  <div class="buoi-tabs">
+    <button class="buoi-tab active" data-target="ov">📋 Tổng quan</button>
+    <button class="buoi-tab" data-target="b1">Buổi 1 🔌</button>
+    <button class="buoi-tab" data-target="b2">Buổi 2 🚦</button>
+    <button class="buoi-tab" data-target="b3">Buổi 3 🚨</button>
+    <button class="buoi-tab" data-target="b4">Buổi 4 🌡️</button>
+    <button class="buoi-tab" data-target="b5">Buổi 5 🏠</button>
+  </div>
+</header>
+<script>
+  (function(){
+    var u = sessionStorage.getItem('mb_auth_user');
+    var el = document.getElementById('whoamiLabel');
+    if (el) el.textContent = u ? ('👤 ' + u) : '';
+  })();
+</script>
+
+<main>
+
+<!-- ============ OVERVIEW ============ -->
+<section class="buoi-panel active" id="ov">
+  <div class="panel-title"><h2>📋 Tổng quan khóa học (5 buổi × 120 phút = 10 giờ)</h2></div>
+  <div class="ov-row">
+    <div class="ov-num">1</div>
+    <div><h4>🔌 Nền tảng: Điện tử cơ bản &amp; Micro:bit</h4>
+    <p>Dòng điện, mô hình dòng nước, mạch kín/hở, dẫn điện/cách điện, nối tiếp/song song, an toàn điện, làm quen board micro:bit, lập trình kéo thả đầu tiên.</p>
+    <p><b>Sản phẩm:</b> Đèn LED nhấp nháy chào mừng.</p></div>
+  </div>
+  <div class="ov-row">
+    <div class="ov-num">2</div>
+    <div><h4>🚦 Dự án: Đèn giao thông mini</h4>
+    <p>Biến số, vòng lặp, tuần tự hoá — nối 3 LED và lập trình chu trình đèn đỏ–vàng–xanh.</p>
+    <p><b>Sản phẩm:</b> Mô hình đèn giao thông hoạt động tự động.</p></div>
+  </div>
+  <div class="ov-row">
+    <div class="ov-num">3</div>
+    <div><h4>🚨 Dự án: Còi báo động thông minh</h4>
+    <p>Ánh sáng, cảm biến ánh sáng, nút nhấn, câu lệnh điều kiện if/else, phép so sánh, AND/OR, ngưỡng cảnh báo.</p>
+    <p><b>Sản phẩm:</b> Còi báo động kêu khi trời tối hoặc khi có người bấm nút.</p></div>
+  </div>
+  <div class="ov-row">
+    <div class="ov-num">4</div>
+    <div><h4>🌡️ Dự án: Trạm đo nhiệt độ</h4>
+    <p>Nhiệt độ và đơn vị đo, cảm biến nhiệt độ tích hợp, hiển thị số liệu, so sánh &amp; cảnh báo bằng LED ngoài.</p>
+    <p><b>Sản phẩm:</b> Trạm đo nhiệt độ tự động cảnh báo khi quá nóng.</p></div>
+  </div>
+  <div class="ov-row">
+    <div class="ov-num">5</div>
+    <div><h4>🏠 Dự án tổng hợp: Ngôi nhà thông minh mini</h4>
+    <p>IoT là gì, kết hợp toàn bộ kiến thức 4 buổi trước thành một hệ thống hoàn chỉnh, thuyết trình sản phẩm, định hướng học tiếp.</p>
+    <p><b>Sản phẩm:</b> Mô hình nhà thông minh mini + báo cáo trình bày trước lớp.</p></div>
+  </div>
+  <div class="card">
+    <h4>🗂️ Cấu trúc mỗi buổi (120 phút)</h4>
+    <table class="rubric">
+      <tr><th>Phần</th><th>Thời lượng</th><th>Nội dung</th></tr>
+      <tr><td>1. Lý thuyết</td><td>30 phút</td><td>Kiến thức mới, ví dụ thực tế, mô phỏng tương tác, câu hỏi thảo luận</td></tr>
+      <tr><td>2. Lắp ráp mạch</td><td>30 phút</td><td>Mô phỏng kéo-thả dây điện vào đúng chân micro:bit + xử lý lỗi thường gặp</td></tr>
+      <tr><td>3. Lập trình</td><td>40 phút</td><td>Hướng dẫn từng bước + thực hành trực tiếp trên MakeCode + mẹo gỡ lỗi</td></tr>
+      <tr><td>4. Tổng kết</td><td>20 phút</td><td>Checklist dự án, quiz ôn tập, thử thách mở rộng, ghi chú cho giáo viên</td></tr>
+    </table>
+    <p style="font-size:.82rem;color:var(--sub);margin-top:8px;">💡 Mỗi phần được chia thành nhiều trang nhỏ — bấm nút ◀ ▶ (hoặc phím mũi tên) để lật từng trang như slide, mỗi trang chỉ có 1 nội dung để dễ trình chiếu. Mỗi buổi hiện có 20-28 trang, đủ tư liệu để dạy trọn 2 giờ kể cả thời gian thực hành tay.</p>
+  </div>
+</section>
+
+<!-- ============ BUỔI 1 ============ -->
+<section class="buoi-panel" id="b1" data-multi>
+  <div class="panel-title">
+    <div><h2>🔌 Buổi 1: Nền tảng — Điện tử cơ bản &amp; Micro:bit</h2><div class="goalline">Dự án: Đèn LED nhấp nháy chào mừng</div></div>
+  </div>
+  <div class="subnav">
+    <button class="active">1. Lý thuyết</button>
+    <button>2. Lắp ráp</button>
+    <button>3. Lập trình</button>
+    <button>4. Tổng kết</button>
+  </div>
+
+  <div class="subslide active">
+    <div class="slide-head"><h3 class="big">Điện tử cơ bản &amp; Làm quen Micro:bit</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>⚡ Dòng điện &amp; mạch điện</h4>
+          <p>Dòng điện là dòng chuyển động có hướng của các hạt điện tích (electron) bên trong dây dẫn. Để dòng điện chạy được cần một <b>mạch kín</b>: nguồn điện → dây dẫn → thiết bị tiêu thụ → quay lại nguồn. Mạch hở (đứt) ở bất kỳ điểm nào sẽ làm dòng điện ngừng chạy ngay lập tức, giống như một vòng dây bị cắt đứt.</p>
+          <div class="grid2">
+            <div class="goal">✅ <b>Mạch kín:</b> đèn sáng, dòng điện chạy liên tục.</div>
+            <div class="warn">❌ <b>Mạch hở:</b> đèn tắt, dòng điện bị chặn lại.</div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>💧 Mô hình dòng nước — dễ hiểu hơn về điện</h4>
+          <p style="font-size:.86rem;">Điện khó "nhìn thấy" nên các nhà khoa học hay ví điện giống như <b>nước chảy trong ống</b>. Hãy tưởng tượng một bồn nước trên cao, nước chảy qua ống xuống làm quay một cối xay nước:</p>
+          <div class="water-wrap">
+            <svg viewBox="0 0 480 170" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="20" width="70" height="90" rx="6" fill="#0369a1" stroke="#0c4a6e" stroke-width="2"/>
+              <rect x="24" y="50" width="62" height="56" fill="#38bdf8"/>
+              <text x="55" y="128" font-size="10" fill="#0c4a6e" text-anchor="middle" font-weight="bold">Bồn nước = Pin</text>
+              <rect x="90" y="70" width="90" height="16" fill="#38bdf8" stroke="#0369a1"/>
+              <text x="135" y="60" font-size="8" fill="#0369a1" text-anchor="middle">Ống to → chảy mạnh</text>
+              <rect x="180" y="74" width="60" height="8" fill="#38bdf8" stroke="#0369a1"/>
+              <text x="210" y="60" font-size="8" fill="#b45309" text-anchor="middle" font-weight="bold">Ống hẹp = Điện trở</text>
+              <rect x="240" y="70" width="90" height="16" fill="#38bdf8" stroke="#0369a1"/>
+              <circle cx="380" cy="78" r="35" fill="none" stroke="#0369a1" stroke-width="4"/>
+              <circle cx="380" cy="78" r="6" fill="#0369a1"/>
+              <line x1="380" y1="78" x2="380" y2="43" stroke="#0369a1" stroke-width="3"/>
+              <line x1="380" y1="78" x2="410" y2="78" stroke="#0369a1" stroke-width="3"/>
+              <line x1="380" y1="78" x2="380" y2="113" stroke="#0369a1" stroke-width="3"/>
+              <line x1="380" y1="78" x2="350" y2="78" stroke="#0369a1" stroke-width="3"/>
+              <text x="380" y="128" font-size="10" fill="#0c4a6e" text-anchor="middle" font-weight="bold">Cối xay = Bóng đèn</text>
+            </svg>
+          </div>
+          <table class="rubric" style="margin-top:8px;">
+            <tr><th>Trong ống nước</th><th>Trong mạch điện</th></tr>
+            <tr><td>Bồn nước tạo áp lực đẩy nước đi</td><td><b>Pin</b> — nguồn tạo ra điện áp</td></tr>
+            <tr><td>Độ cao / áp lực nước</td><td><b>Điện áp (Voltage)</b> — đơn vị Vôn (V)</td></tr>
+            <tr><td>Lượng nước chảy qua mỗi giây</td><td><b>Cường độ dòng điện (Current)</b> — đơn vị Ampe (A)</td></tr>
+            <tr><td>Ống hẹp làm nước chảy chậm lại</td><td><b>Điện trở (Resistance)</b> — đơn vị Ôm (Ω)</td></tr>
+            <tr><td>Cối xay quay nhờ nước chảy qua</td><td><b>Bóng đèn / thiết bị tiêu thụ điện</b></td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>⚡ Mạch điện sống động — bấm vào công tắc!</h4>
+          <div class="circuit-toggle-wrap">
+            <svg viewBox="0 0 480 170" xmlns="http://www.w3.org/2000/svg">
+              <polyline points="40,120 40,40 120,40" stroke="#38bdf8" stroke-width="4" fill="none"/>
+              <polyline points="120,40 220,40" stroke="#38bdf8" stroke-width="4" fill="none"/>
+              <polyline points="260,40 380,40 380,120" stroke="#38bdf8" stroke-width="4" fill="none"/>
+              <polyline points="380,120 40,120" stroke="#38bdf8" stroke-width="4" fill="none"/>
+              <rect x="20" y="105" width="40" height="30" fill="#334155" stroke="#94a3b8" rx="4"/>
+              <text x="40" y="124" fill="#fff" font-size="11" text-anchor="middle">Pin 3V</text>
+              <g class="switch-hit" onclick="toggleCircuit()">
+                <circle cx="120" cy="40" r="16" fill="transparent"/>
+                <circle cx="155" cy="20" r="16" fill="transparent"/>
+                <circle cx="120" cy="40" r="5" fill="#f97316"/>
+                <line id="switchLine" x1="125" y1="38" x2="155" y2="20" stroke="#f97316" stroke-width="3"/>
+                <circle cx="155" cy="20" r="4" fill="#f97316"/>
+              </g>
+              <text x="140" y="10" fill="#fbbf24" font-size="10" text-anchor="middle">👆 Bấm vào công tắc</text>
+              <rect x="220" y="30" width="40" height="20" fill="#eab308" rx="3"/>
+              <text x="240" y="65" fill="#fbbf24" font-size="11" text-anchor="middle">Điện trở</text>
+              <circle id="ledDemo" cx="340" cy="40" r="16" fill="#334155" stroke="#64748b" stroke-width="2"/>
+              <text x="340" y="70" fill="#fde68a" font-size="11" text-anchor="middle">LED</text>
+              <circle id="spark1" cx="-10" cy="120" r="4" fill="#7dd3fc"/>
+              <circle id="spark2" cx="-10" cy="40" r="4" fill="#7dd3fc"/>
+            </svg>
+            <p class="hint-row" id="circuitStatus">🔴 Công tắc đang MỞ — mạch hở, LED không sáng.</p>
+          </div>
+          <p style="font-size:.82rem;color:var(--sub);margin-top:6px;">Để ý: dây điện đi liền một mạch từ Pin → Công tắc → Điện trở → LED → quay lại Pin, không có chỗ nào bị đứt quãng — đó chính là "mạch kín".</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧩 5 linh kiện điện tử cơ bản</h4>
+          <div class="grid3">
+            <div class="comp-card"><div class="emoji">🔋</div><b>Nguồn điện</b><span>Cấp năng lượng cho mạch (3V với micro:bit)</span></div>
+            <div class="comp-card"><div class="emoji">💡</div><b>LED</b><span>Sáng khi dòng điện đi đúng chiều (chân dài = +)</span></div>
+            <div class="comp-card"><div class="emoji">〰️</div><b>Điện trở</b><span>Hạn dòng, bảo vệ LED không cháy</span></div>
+            <div class="comp-card"><div class="emoji">🔘</div><b>Nút nhấn</b><span>Đóng/mở mạch khi được bấm</span></div>
+            <div class="comp-card"><div class="emoji">🔊</div><b>Buzzer</b><span>Phát âm thanh khi có dòng điện</span></div>
+            <div class="comp-card"><div class="emoji">🟩</div><b>Breadboard</b><span>Bảng cắm lắp mạch không cần hàn</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧲 Chất dẫn điện &amp; chất cách điện</h4>
+          <p>Không phải vật liệu nào cũng cho dòng điện đi qua. <b>Chất dẫn điện</b> (kim loại như đồng, nhôm, sắt, bạc) cho electron di chuyển dễ dàng nên được dùng làm dây điện. <b>Chất cách điện</b> (nhựa, cao su, gỗ khô, thủy tinh, không khí khô) gần như không cho dòng điện đi qua, nên được dùng làm lớp vỏ bọc bên ngoài dây điện để bảo vệ con người.</p>
+          <div class="grid2">
+            <div class="goal">✅ Dẫn điện tốt: đồng, nhôm, sắt, nước muối, cơ thể người (ẩm)</div>
+            <div class="warn">🚫 Cách điện: nhựa, cao su, gỗ khô, thủy tinh, không khí khô</div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🔗 Mạch nối tiếp và mạch song song</h4>
+          <p><b>Mạch nối tiếp (series):</b> các thiết bị nối thành một đường duy nhất, dòng điện phải đi qua lần lượt từng thiết bị. Nếu một thiết bị hỏng, cả mạch ngừng hoạt động — giống dây đèn trang trí Noel đời cũ, một bóng cháy là cả dây tắt.</p>
+          <p><b>Mạch song song (parallel):</b> mỗi thiết bị có một đường dây riêng, độc lập với các thiết bị khác — giống hệ thống điện trong nhà, tắt đèn phòng này không ảnh hưởng đèn phòng khác.</p>
+          <div class="note">💡 Khi ta nối nhiều LED vào các chân P0, P1, P2 khác nhau của micro:bit (như ở Buổi 2), mỗi LED hoạt động độc lập — đó chính là một dạng mạch song song!</div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🤖 Micro:bit là gì?</h4>
+          <p>Micro:bit là máy tính mini bỏ túi dành riêng cho học sinh: 25 đèn LED tạo ma trận hiển thị, 2 nút bấm (A, B), cảm biến gia tốc/la bàn/ánh sáng/nhiệt độ, loa &amp; micro (bản v2), và các chân kết nối GPIO (3V, GND, P0, P1, P2...) để nối linh kiện ngoài.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>📡 Các cảm biến khác trên Micro:bit</h4>
+          <div class="grid2">
+            <div class="comp-card"><div class="emoji">🌀</div><b>Gia tốc kế</b><span>Phát hiện rung, lắc, nghiêng — dùng trong game lắc xúc xắc</span></div>
+            <div class="comp-card"><div class="emoji">🧭</div><b>La bàn</b><span>Phát hiện hướng Bắc — dùng làm la bàn điện tử</span></div>
+            <div class="comp-card"><div class="emoji">📶</div><b>Radio/Bluetooth</b><span>Giao tiếp không dây giữa 2 micro:bit trở lên</span></div>
+            <div class="comp-card"><div class="emoji">🎤</div><b>Micro (v2)</b><span>Phát hiện âm thanh, tiếng vỗ tay</span></div>
+          </div>
+          <p style="font-size:.82rem;color:var(--sub);margin-top:8px;">Chúng ta sẽ dùng cảm biến ánh sáng ở Buổi 3 và cảm biến nhiệt độ ở Buổi 4. Các cảm biến còn lại có thể tự khám phá thêm ở nhà!</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🔌 3 chân quan trọng cần nhớ</h4>
+          <table class="rubric">
+            <tr><th>Chân</th><th>Ý nghĩa</th><th>Chức năng</th></tr>
+            <tr><td><b>3V</b></td><td>Nguồn dương (+)</td><td>Cấp điện cho linh kiện ngoài</td></tr>
+            <tr><td><b>GND</b></td><td>Mass (-)</td><td>Đường về dòng điện, bắt buộc phải nối</td></tr>
+            <tr><td><b>P0, P1, P2</b></td><td>Chân tín hiệu</td><td>Nhận/gửi tín hiệu điều khiển</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🛡️ An toàn khi dùng điện</h4>
+          <ol class="steps">
+            <li>Không bao giờ chạm tay ướt vào thiết bị điện hoặc ổ điện trong nhà (220V rất nguy hiểm).</li>
+            <li>Micro:bit chỉ dùng nguồn 3-5V nên rất an toàn cho học sinh, nhưng vẫn cần cẩn thận khi đấu nối.</li>
+            <li>Luôn tắt nguồn / rút pin trước khi đấu nối lại dây để tránh chập mạch.</li>
+            <li>Không để dây kim loại chạm chập trực tiếp giữa chân 3V và GND.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🙋 Hoạt động lớp học (5 phút)</h4>
+          <ol class="steps">
+            <li>Giáo viên cho học sinh quan sát/cầm linh kiện thật: pin, LED, điện trở, nút nhấn, breadboard.</li>
+            <li>Học sinh theo cặp đoán tên và chức năng từng linh kiện trước khi giáo viên xác nhận.</li>
+            <li>Hỏi nhanh: "Điều gì xảy ra nếu lắp LED sai chiều?" (đáp: đèn không sáng vì LED chỉ dẫn điện một chiều).</li>
+          </ol>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🕹 Câu hỏi thảo luận mở rộng</h4>
+          <div class="discuss-box">❓ Vì sao đèn pin thường dùng 2-3 viên pin mà không phải chỉ 1 viên?</div>
+          <div class="discuss-box">❓ Điều gì xảy ra nếu ta nối 2 đèn LED nối tiếp vào cùng một nguồn 3V?</div>
+          <div class="discuss-box">❓ Tại sao chim đậu trên dây điện cao thế mà không bị giật?</div>
+          <p style="font-size:.8rem;color:var(--sub);margin-top:8px;">Gợi ý: liên hệ lại mô hình dòng nước và khái niệm mạch kín/hở để giải thích.</p>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Lắp ráp: Nối LED đầu tiên vào Micro:bit</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>📏 Quy tắc đấu nối cơ bản</h4>
+          <ol class="steps">
+            <li>Xác định đúng chân <b>GND</b> trước — bắt buộc phải nối để mạch kín.</li>
+            <li>Chân tín hiệu (P0, P1, P2) phải khớp với chân sẽ khai báo trong chương trình.</li>
+            <li>Kiểm tra chiều LED: chân dài (+) không được cắm vào GND.</li>
+          </ol>
+          <div class="warn">⚠️ Chập GND với 3V có thể làm hỏng linh kiện — luôn kiểm tra kỹ trước khi cấp nguồn!</div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🔍 Vì sao LED cần điện trở đi kèm?</h4>
+          <p>LED chỉ chịu được một dòng điện rất nhỏ. Nếu nối thẳng LED vào nguồn 3V mà không qua điện trở, dòng điện sẽ quá lớn và làm LED cháy hỏng gần như ngay lập tức — giống như mở van nước quá mạnh làm vỡ ống!</p>
+          <p>Điện trở đóng vai trò như "ống hẹp" trong mô hình dòng nước ở phần Lý thuyết: nó làm chậm dòng điện lại vừa đủ để LED sáng ổn định và an toàn lâu dài.</p>
+          <div class="note">💡 Bộ kit micro:bit thường dùng điện trở khoảng 220Ω – 330Ω cho LED, không cần tính toán phức tạp ở lớp 6, chỉ cần nhớ luôn luôn có điện trở khi nối LED rời.</div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🎮 Mô phỏng: Kéo dây điện vào đúng chân</h4>
+          <p style="font-size:.85rem;color:var(--sub);">Kéo từng dây bên trái thả vào đúng chân trên micro:bit bên phải.</p>
+          <div class="sim-wrap" data-sim="1">
+            <div class="components-col">
+              <div class="wire-plug" draggable="true" data-correct="P0" data-label="LED (+) → P0"><span class="dot" style="background:#facc15"></span> LED cực (+) → cần vào P0</div>
+              <div class="wire-plug" draggable="true" data-correct="GND" data-label="LED (-) → GND"><span class="dot" style="background:#334155"></span> LED cực (-) → cần vào GND</div>
+              <button class="resetbtn" onclick="resetSim(1)">↺ Làm lại</button>
+            </div>
+            <div class="board-col">
+              <div class="board-visual"></div>
+              <div class="simResult"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧯 Xử lý lỗi thường gặp khi lắp mạch</h4>
+          <table class="rubric">
+            <tr><th>Hiện tượng</th><th>Nguyên nhân có thể</th><th>Cách khắc phục</th></tr>
+            <tr><td>LED không sáng</td><td>Cắm sai chiều +/-</td><td>Đảo ngược 2 chân LED</td></tr>
+            <tr><td>LED không sáng</td><td>Dây bị lỏng</td><td>Cắm chặt lại, kiểm tra tiếp xúc</td></tr>
+            <tr><td>LED không sáng</td><td>Chưa nối GND</td><td>Kiểm tra đủ 2 dây +/- đều đã nối</td></tr>
+            <tr><td>Board không nhận cáp USB</td><td>Cáp lỗi hoặc chỉ để sạc</td><td>Đổi cáp dữ liệu khác, đổi cổng USB</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Lập trình: Đèn nhấp nháy chào mừng</h3><span class="time-chip">⏱ 40 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🧱 Các nhóm khối lệnh chính trong MakeCode</h4>
+          <div class="grid3">
+            <div class="comp-card"><div class="emoji">🟦</div><b>Basic</b><span>show icon, show string, pause</span></div>
+            <div class="comp-card"><div class="emoji">🟧</div><b>Input</b><span>on button pressed</span></div>
+            <div class="comp-card"><div class="emoji">🟩</div><b>Loops</b><span>forever, repeat</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧩 Biến số là gì?</h4>
+          <p>Biến số giống như một "cái hộp" có tên riêng để lưu tạm một giá trị. Ví dụ hộp tên <b>"diem"</b> có thể lưu số 10, sau đó ta có thể lấy giá trị trong hộp ra dùng bất cứ lúc nào trong chương trình mà không cần gõ lại số 10. Ở Buổi 2 và 4, chúng ta sẽ dùng biến số nhiều hơn để đếm thời gian và lưu kết quả cảm biến.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🎨 Thiết kế hình LED của riêng bạn</h4>
+          <p style="font-size:.83rem;color:var(--sub);">Bấm vào từng ô để bật/tắt đèn LED — thử vẽ trái tim, mặt cười hoặc icon riêng, sau đó tự lập trình lại bằng khối "plot" trong MakeCode!</p>
+          <div class="led-designer">
+            <div class="led-grid" id="ledDesignerGrid"></div>
+            <button class="resetbtn" onclick="clearLedDesigner()">↺ Xóa hết</button>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>👣 Hướng dẫn từng bước</h4>
+          <ol class="steps">
+            <li>Mở MakeCode, khối <b>"on start"</b> đã có sẵn trong vùng làm việc.</li>
+            <li>Kéo khối <b>"forever"</b> từ nhóm Loops vào vùng làm việc.</li>
+            <li>Bên trong forever, kéo khối <b>"digital write pin P0 to 1"</b> để bật LED.</li>
+            <li>Kéo khối <b>"pause (ms) 500"</b> ngay sau đó.</li>
+            <li>Kéo tiếp <b>"digital write pin P0 to 0"</b> để tắt LED, và thêm <b>"pause (ms) 500"</b>.</li>
+            <li>Nhấn ▶ trên mô phỏng bên phải để xem đèn nhấp nháy liên tục.</li>
+          </ol>
+          <div class="note">💡 Mẹo: thêm khối "show icon" trái tim ❤️ trong "on start" để có lời chào trước khi đèn bắt đầu nhấp nháy.</div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🛠 Lỗi thường gặp khi lập trình kéo thả</h4>
+          <ol class="steps">
+            <li>Khối không khớp vào nhau: kéo đúng phần lõm/lồi để 2 khối "khớp" tiếng "tách".</li>
+            <li>Chương trình chạy trên mô phỏng nhưng không chạy trên board thật: cần bấm nút <b>Download</b> rồi kéo thả file .hex vào ổ đĩa MICROBIT hiện trên máy tính.</li>
+            <li>Board thật không nhận file: kiểm tra lại cáp USB có phải cáp dữ liệu (không phải cáp chỉ sạc).</li>
+          </ol>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🖥️ Thực hành trực tiếp trên MakeCode</h4>
+          <div class="iframe-wrap"><iframe src="https://makecode.microbit.org/" title="MakeCode" allow="fullscreen"></iframe></div>
+          <p style="font-size:.78rem;color:var(--sub);margin-top:6px;">Nếu khung không hiển thị được, bấm nút bên dưới để mở ở tab mới.</p>
+          <a class="btn" href="https://makecode.microbit.org/" target="_blank" rel="noopener">🔗 Mở MakeCode ở tab mới</a>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Tổng kết Buổi 1</h3><span class="time-chip">⏱ 20 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>✅ Checklist dự án</h4>
+          <div class="checklist">
+            <label><input type="checkbox"> Đã nối đúng LED vào chân P0 và GND</label>
+            <label><input type="checkbox"> Đã viết chương trình dùng khối "forever"</label>
+            <label><input type="checkbox"> LED nhấp nháy đều đặn khi chạy chương trình</label>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>❓ Quiz ôn tập</h4>
+          <div class="quiz-wrap">
+            <div class="quiz-q"><p>1. Chân nào bắt buộc phải nối để mạch kín?</p>
+              <div class="quiz-opt" data-correct="false">3V</div>
+              <div class="quiz-opt" data-correct="true">GND</div>
+              <div class="quiz-opt" data-correct="false">P0</div>
+            </div>
+            <div class="quiz-q"><p>2. Khối nào lặp lại hành động mãi mãi?</p>
+              <div class="quiz-opt" data-correct="false">show icon</div>
+              <div class="quiz-opt" data-correct="true">forever</div>
+              <div class="quiz-opt" data-correct="false">on start</div>
+            </div>
+            <div class="quiz-q"><p>3. Trong mô hình dòng nước, điện trở giống với bộ phận nào?</p>
+              <div class="quiz-opt" data-correct="false">Bồn nước</div>
+              <div class="quiz-opt" data-correct="true">Ống hẹp</div>
+              <div class="quiz-opt" data-correct="false">Cối xay nước</div>
+            </div>
+          </div>
+          <p class="quizScore"></p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🎯 Thử thách mở rộng (cho học sinh giỏi)</h4>
+          <div class="extend-box">Thử làm đèn nhấp nháy nhanh hơn khi bấm nút A, chậm lại khi bấm nút B (dùng biến số lưu thời gian pause).</div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>📝 Ghi chú cho giáo viên</h4>
+          <p style="font-size:.86rem;">Học sinh thường nhầm chiều LED — nên chuẩn bị sẵn vài LED dự phòng. Dành khoảng 5 phút cuối giờ để học sinh dọn dẹp, cất gọn dây điện và linh kiện vào đúng hộp trước khi kết thúc buổi học.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>➡️ Buổi sau</h4><p>Buổi 2 sẽ dùng chính kỹ năng nối dây và khối "forever" hôm nay để xây dựng một mô hình <b>đèn giao thông mini</b> với 3 màu đèn!</p></div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subfooter"><button class="prevSub">◀ Phần trước</button><span class="subprogress"></span><button class="nextSub">Phần sau ▶</button></div>
+</section>
+
+<!-- ============ BUỔI 2 ============ -->
+<section class="buoi-panel" id="b2" data-multi>
+  <div class="panel-title">
+    <div><h2>🚦 Buổi 2: Dự án Đèn giao thông mini</h2><div class="goalline">Dự án: Mô hình đèn giao thông 3 màu tự động</div></div>
+  </div>
+  <div class="subnav">
+    <button class="active">1. Lý thuyết</button>
+    <button>2. Lắp ráp</button>
+    <button>3. Lập trình</button>
+    <button>4. Tổng kết</button>
+  </div>
+
+  <div class="subslide active">
+    <div class="slide-head"><h3 class="big">Tuần tự, biến số &amp; vòng lặp</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🔁 Ôn nhanh Buổi 1</h4><p>Nhắc lại: cách nối LED vào chân GPIO + GND, vì sao cần điện trở, và khối "forever" để lặp lại hành động liên tục.</p></div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🚥 Đèn giao thông hoạt động thế nào?</h4>
+          <p>Đèn giao thông thật hoạt động theo <b>chu trình tuần tự</b> lặp lại mãi: Đỏ (dừng) → Vàng (chuẩn bị) → Xanh (đi) → quay lại Đỏ.</p>
+          <table class="rubric">
+            <tr><th>Màu</th><th>Ý nghĩa</th><th>Thời gian gợi ý</th></tr>
+            <tr><td>🔴 Đỏ</td><td>Dừng lại</td><td>3 giây</td></tr>
+            <tr><td>🟡 Vàng</td><td>Chuẩn bị chuyển</td><td>1 giây</td></tr>
+            <tr><td>🟢 Xanh</td><td>Được đi</td><td>3 giây</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🔁 Vòng lặp là gì? (Loop)</h4>
+          <p>Vòng lặp giúp máy tính thực hiện lại một nhóm lệnh nhiều lần mà không cần viết lại nhiều lần — giống như việc lặp lại một điệu nhảy nhiều lần theo đúng thứ tự động tác. Khối <b>"forever"</b> lặp mãi mãi không dừng, còn khối <b>"repeat (x) times"</b> chỉ lặp một số lần nhất định rồi dừng.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🚦 Chạy thử chu trình đèn giao thông</h4>
+          <div class="traffic-sim">
+            <div class="traffic-housing">
+              <div class="traffic-light" id="tlRed"></div>
+              <div class="traffic-light" id="tlYellow"></div>
+              <div class="traffic-light" id="tlGreen"></div>
+            </div>
+            <div class="traffic-status">
+              <div class="big-count" id="tlCount">--</div>
+              <div id="tlLabel" style="font-size:.82rem;">Bấm Bắt đầu để xem chu trình</div>
+              <button class="resetbtn" id="tlToggleBtn" onclick="toggleTraffic()" style="margin-top:10px;">▶ Bắt đầu</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧠 Khái niệm mới: Tuần tự &amp; thời gian chờ</h4>
+          <p>Các khối lệnh chạy <b>theo đúng thứ tự từ trên xuống</b>. Khối <b>"pause (ms)"</b> giúp chương trình "chờ" một khoảng thời gian trước khi thực hiện lệnh tiếp theo — đây chính là cách tạo ra chu trình đèn giao thông.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🌍 Đèn giao thông trong thực tế</h4>
+          <p>Đèn giao thông đầu tiên trên thế giới xuất hiện ở Anh năm 1868, ban đầu chạy bằng khí gas! Ngày nay nhiều nước còn thêm đèn cho người đi bộ, đèn đếm ngược số giây, và cảm biến đo lưu lượng xe để tự động điều chỉnh thời gian đèn xanh cho hợp lý hơn.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🕹 Câu hỏi thảo luận</h4>
+          <div class="discuss-box">❓ Điều gì sẽ xảy ra nếu ta đổi thứ tự thành Vàng → Đỏ → Xanh? Xe cộ có thể gặp nguy hiểm gì?</div>
+          <div class="discuss-box">❓ Vì sao đèn Vàng chỉ sáng trong thời gian rất ngắn (1 giây) so với Đỏ và Xanh?</div>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Lắp ráp 3 đèn LED (Đỏ – Vàng – Xanh)</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>📦 Sơ đồ nối dây</h4>
+          <p>Mỗi LED cần 2 dây: cực (+) nối vào 1 chân tín hiệu riêng, cực (-) nối chung vào GND.</p>
+          <div class="grid3">
+            <div class="comp-card"><div class="emoji">🔴</div><b>LED Đỏ</b><span>(+) → P0, (-) → GND</span></div>
+            <div class="comp-card"><div class="emoji">🟡</div><b>LED Vàng</b><span>(+) → P1, (-) → GND</span></div>
+            <div class="comp-card"><div class="emoji">🟢</div><b>LED Xanh</b><span>(+) → P2, (-) → GND</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>⚡ Vì sao mỗi LED cần điện trở riêng?</h4>
+          <p>Giống như Buổi 1, mỗi LED đều cần điện trở riêng của mình để không bị cháy — không thể dùng chung một điện trở cho 3 LED cùng lúc. Vì mỗi LED nối vào một chân riêng biệt (P0, P1, P2) và có đường dây GND chung, đây chính là ví dụ thực tế của <b>mạch song song</b> đã học ở Buổi 1: ba đèn hoạt động độc lập với nhau.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🎮 Mô phỏng: Kéo dây nối 3 đèn LED</h4>
+          <div class="sim-wrap" data-sim="2">
+            <div class="components-col">
+              <div class="wire-plug" draggable="true" data-correct="P0" data-label="LED Đỏ (+) → P0"><span class="dot" style="background:#ef4444"></span> LED Đỏ (+) → P0</div>
+              <div class="wire-plug" draggable="true" data-correct="GND" data-label="LED Đỏ (-) → GND"><span class="dot" style="background:#334155"></span> LED Đỏ (-) → GND</div>
+              <div class="wire-plug" draggable="true" data-correct="P1" data-label="LED Vàng (+) → P1"><span class="dot" style="background:#eab308"></span> LED Vàng (+) → P1</div>
+              <div class="wire-plug" draggable="true" data-correct="GND" data-label="LED Vàng (-) → GND"><span class="dot" style="background:#334155"></span> LED Vàng (-) → GND</div>
+              <div class="wire-plug" draggable="true" data-correct="P2" data-label="LED Xanh (+) → P2"><span class="dot" style="background:#22c55e"></span> LED Xanh (+) → P2</div>
+              <div class="wire-plug" draggable="true" data-correct="GND" data-label="LED Xanh (-) → GND"><span class="dot" style="background:#334155"></span> LED Xanh (-) → GND</div>
+              <button class="resetbtn" onclick="resetSim(2)">↺ Làm lại</button>
+            </div>
+            <div class="board-col">
+              <div class="board-visual"></div>
+              <div class="simResult"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧯 Xử lý lỗi thường gặp</h4>
+          <table class="rubric">
+            <tr><th>Hiện tượng</th><th>Cách khắc phục</th></tr>
+            <tr><td>1 trong 3 LED không sáng</td><td>Kiểm tra riêng từng LED: chiều cắm, dây có lỏng không</td></tr>
+            <tr><td>Cả 3 LED không sáng</td><td>Kiểm tra dây GND chung có được nối đủ không</td></tr>
+            <tr><td>LED sáng nhưng mờ</td><td>Kiểm tra lại điện trở có đúng loại không</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Lập trình chu trình đèn giao thông</h3><span class="time-chip">⏱ 40 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>👣 Hướng dẫn từng bước</h4>
+          <ol class="steps">
+            <li>Kéo khối <b>"forever"</b> vào vùng làm việc.</li>
+            <li>Bật đèn Đỏ: <b>"digital write pin P0 to 1"</b>, chờ <b>"pause 3000"</b>, tắt: <b>"digital write pin P0 to 0"</b>.</li>
+            <li>Bật đèn Vàng: <b>"digital write pin P1 to 1"</b>, chờ <b>"pause 1000"</b>, tắt: <b>"digital write pin P1 to 0"</b>.</li>
+            <li>Bật đèn Xanh: <b>"digital write pin P2 to 1"</b>, chờ <b>"pause 3000"</b>, tắt: <b>"digital write pin P2 to 0"</b>.</li>
+            <li>Chạy mô phỏng để kiểm tra chu trình lặp lại đúng thứ tự Đỏ → Vàng → Xanh.</li>
+          </ol>
+          <div class="note">💡 Mở rộng: thử thêm khối "show icon" nhỏ tương ứng mỗi màu để dễ theo dõi trên mô phỏng.</div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🔁 Dùng biến số đếm số lần chuyển đèn</h4>
+          <p>Học sinh khá giỏi có thể tạo thêm biến <b>"soLanChuyen"</b>, mỗi lần đèn chuyển màu thì tăng biến này lên 1 (dùng khối "change soLanChuyen by 1"), sau đó hiển thị số lần đã chuyển bằng "show number soLanChuyen" — đây là bước chuẩn bị cho việc dùng biến số phức tạp hơn ở các buổi sau.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🛠 Mẹo gỡ lỗi chương trình</h4>
+          <p>Nếu đèn không đổi màu theo đúng thứ tự, kiểm tra lại xem có đúng 3 cặp "bật/pause/tắt" theo thứ tự Đỏ-Vàng-Xanh chưa, và các khối "pause" có nằm đúng vị trí (sau khi bật, trước khi tắt) hay không.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🖥️ Thực hành trực tiếp trên MakeCode</h4>
+          <div class="iframe-wrap"><iframe src="https://makecode.microbit.org/" title="MakeCode" allow="fullscreen"></iframe></div>
+          <a class="btn" href="https://makecode.microbit.org/" target="_blank" rel="noopener">🔗 Mở MakeCode ở tab mới</a>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Tổng kết Buổi 2</h3><span class="time-chip">⏱ 20 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>✅ Checklist dự án</h4>
+          <div class="checklist">
+            <label><input type="checkbox"> Đã nối đúng 3 LED vào P0, P1, P2 và GND</label>
+            <label><input type="checkbox"> Chương trình chạy đúng thứ tự Đỏ → Vàng → Xanh</label>
+            <label><input type="checkbox"> Thời gian mỗi màu đúng như thiết kế</label>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>❓ Quiz ôn tập</h4>
+          <div class="quiz-wrap">
+            <div class="quiz-q"><p>1. Khối nào giúp chương trình "chờ" trước khi chạy lệnh tiếp theo?</p>
+              <div class="quiz-opt" data-correct="false">forever</div>
+              <div class="quiz-opt" data-correct="true">pause</div>
+              <div class="quiz-opt" data-correct="false">show icon</div>
+            </div>
+            <div class="quiz-q"><p>2. Đèn giao thông chuyển màu theo thứ tự nào?</p>
+              <div class="quiz-opt" data-correct="false">Xanh → Đỏ → Vàng</div>
+              <div class="quiz-opt" data-correct="true">Đỏ → Vàng → Xanh</div>
+              <div class="quiz-opt" data-correct="false">Vàng → Xanh → Đỏ</div>
+            </div>
+            <div class="quiz-q"><p>3. Ba LED nối vào 3 chân khác nhau là ví dụ của loại mạch nào?</p>
+              <div class="quiz-opt" data-correct="false">Mạch nối tiếp</div>
+              <div class="quiz-opt" data-correct="true">Mạch song song</div>
+              <div class="quiz-opt" data-correct="false">Không phải mạch điện</div>
+            </div>
+          </div>
+          <p class="quizScore"></p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🎯 Thử thách mở rộng</h4>
+          <div class="extend-box">Thêm một đèn LED thứ 4 làm "đèn người đi bộ": sáng cùng lúc với đèn Đỏ của xe cộ, dùng chân P3 hoặc thời gian riêng.</div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>📝 Ghi chú cho giáo viên</h4>
+          <p style="font-size:.86rem;">Học sinh dễ nhầm lẫn thứ tự pause và write pin — nên đi từng bàn kiểm tra khi các em ghép khối. Có thể chiếu bài làm của 1-2 nhóm lên màn hình chung để cả lớp cùng học hỏi.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>➡️ Buổi sau</h4><p>Buổi 3 sẽ thêm <b>cảm biến ánh sáng</b> và <b>nút nhấn</b> để tạo còi báo động thông minh, dùng câu lệnh điều kiện if/else!</p></div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subfooter"><button class="prevSub">◀ Phần trước</button><span class="subprogress"></span><button class="nextSub">Phần sau ▶</button></div>
+</section>
+
+<!-- ============ BUỔI 3 ============ -->
+<section class="buoi-panel" id="b3" data-multi>
+  <div class="panel-title">
+    <div><h2>🚨 Buổi 3: Dự án Còi báo động thông minh</h2><div class="goalline">Dự án: Còi kêu khi trời tối hoặc khi bấm nút</div></div>
+  </div>
+  <div class="subnav">
+    <button class="active">1. Lý thuyết</button>
+    <button>2. Lắp ráp</button>
+    <button>3. Lập trình</button>
+    <button>4. Tổng kết</button>
+  </div>
+
+  <div class="subslide active">
+    <div class="slide-head"><h3 class="big">Cảm biến ánh sáng &amp; câu lệnh điều kiện</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🌗 Ánh sáng hoạt động thế nào?</h4>
+          <p>Ánh sáng là một dạng năng lượng lan truyền từ nguồn sáng (mặt trời, bóng đèn) đến mắt ta. Ban ngày trời sáng vì ánh sáng mặt trời chiếu tới, ban đêm trời tối vì không còn ánh sáng mặt trời. Cảm biến ánh sáng trên micro:bit thực chất dùng chính các đèn LED trong ma trận — LED không chỉ phát sáng mà còn có thể "cảm nhận" được lượng ánh sáng chiếu vào nó, rồi đổi thành tín hiệu điện để chương trình đọc được.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>💡 Cảm biến ánh sáng tích hợp</h4>
+          <p>Micro:bit có sẵn <b>cảm biến ánh sáng</b> ngay trên ma trận LED (không cần nối dây thêm). Cảm biến trả về một con số từ 0 (rất tối) đến 255 (rất sáng) — gọi là <b>mức ánh sáng (light level)</b>.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>💡 Cảm biến ánh sáng ảo — thử kéo thanh trượt</h4>
+          <div class="slider-sim">
+            <label for="lightSlider" style="font-size:.83rem;font-weight:600;">Mức ánh sáng (0 = tối nhất, 255 = sáng nhất)</label>
+            <input type="range" id="lightSlider" min="0" max="255" value="180" oninput="updateLightSim(this.value)">
+            <div class="readout">
+              <span id="lightValueLabel" style="font-weight:700;">Mức ánh sáng: 180</span>
+              <span class="status-badge status-ok" id="lightStatusBadge">🔕 Yên tĩnh (đủ sáng)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧠 Câu lệnh điều kiện if / else</h4>
+          <p>Câu lệnh <b>"if...then...else"</b> giúp chương trình "ra quyết định": <i>Nếu</i> điều kiện đúng thì làm việc A, <i>ngược lại</i> thì làm việc B. Ví dụ: <b>nếu mức ánh sáng nhỏ hơn 50 thì bật còi báo động</b>.</p>
+          <div class="note">💡 Con số 50 ở đây gọi là <b>ngưỡng (threshold)</b> — mức để so sánh và quyết định hành động.</div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🔢 So sánh số trong lập trình</h4>
+          <p>Để tạo điều kiện, ta cần các phép so sánh cơ bản:</p>
+          <table class="rubric">
+            <tr><th>Ký hiệu</th><th>Ý nghĩa</th></tr>
+            <tr><td>&lt;</td><td>Nhỏ hơn</td></tr>
+            <tr><td>&gt;</td><td>Lớn hơn</td></tr>
+            <tr><td>=</td><td>Bằng nhau</td></tr>
+            <tr><td>&lt;=</td><td>Nhỏ hơn hoặc bằng</td></tr>
+            <tr><td>&gt;=</td><td>Lớn hơn hoặc bằng</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🔘 Nút nhấn ngoài</h4>
+          <p>Ngoài nút A, B có sẵn, ta có thể nối thêm <b>nút nhấn ngoài</b> vào chân GPIO để test còi báo động bất cứ lúc nào, không cần chờ trời tối. Nút nhấn cần 2 dây: một dây nối 3V, một dây nối chân tín hiệu.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🌍 Ứng dụng còi báo động trong đời sống</h4>
+          <p>Nguyên lý "cảm biến + điều kiện + cảnh báo" được dùng rất nhiều trong đời sống: đèn đường tự động bật khi trời tối, hệ thống báo trộm khi có người đột nhập, đèn hành lang chung cư tự sáng khi có người đi qua vào ban đêm.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🕹 Câu hỏi thảo luận</h4>
+          <div class="discuss-box">❓ Nếu đặt ngưỡng ánh sáng = 200 thay vì 50, còi sẽ kêu thường xuyên hơn hay ít hơn? Vì sao?</div>
+          <div class="discuss-box">❓ Em nghĩ đèn đường ở khu phố nhà em hoạt động theo nguyên lý cảm biến hay theo giờ hẹn sẵn?</div>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Lắp ráp Buzzer &amp; Nút nhấn</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>📦 Module cần lắp</h4>
+          <div class="grid2">
+            <div class="comp-card"><div class="emoji">🔊</div><b>Buzzer</b><span>(+) → P0, (-) → GND</span></div>
+            <div class="comp-card"><div class="emoji">🔘</div><b>Nút nhấn ngoài</b><span>dây 1 → 3V, dây 2 → P1</span></div>
+          </div>
+          <p style="font-size:.82rem;color:var(--sub);margin-top:8px;">Cảm biến ánh sáng đã có sẵn trên board, không cần nối thêm dây.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>⚡ Vì sao Buzzer cũng cần đúng cực?</h4>
+          <p>Cũng giống LED ở Buổi 1 và 2, Buzzer là linh kiện phân cực — chỉ hoạt động đúng khi dòng điện đi đúng chiều (+/-). Nếu cắm ngược cực, buzzer thường sẽ không kêu hoặc kêu rất nhỏ.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🎮 Mô phỏng: Kéo dây nối Buzzer &amp; Nút nhấn</h4>
+          <div class="sim-wrap" data-sim="3">
+            <div class="components-col">
+              <div class="wire-plug" draggable="true" data-correct="P0" data-label="Buzzer (+) → P0"><span class="dot" style="background:#f97316"></span> Buzzer (+) → P0</div>
+              <div class="wire-plug" draggable="true" data-correct="GND" data-label="Buzzer (-) → GND"><span class="dot" style="background:#334155"></span> Buzzer (-) → GND</div>
+              <div class="wire-plug" draggable="true" data-correct="3V" data-label="Nút nhấn dây 1 → 3V"><span class="dot" style="background:#ef4444"></span> Nút nhấn dây 1 → 3V</div>
+              <div class="wire-plug" draggable="true" data-correct="P1" data-label="Nút nhấn dây 2 → P1"><span class="dot" style="background:#0ea5e9"></span> Nút nhấn dây 2 → P1</div>
+              <button class="resetbtn" onclick="resetSim(3)">↺ Làm lại</button>
+            </div>
+            <div class="board-col">
+              <div class="board-visual"></div>
+              <div class="simResult"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧯 Xử lý lỗi thường gặp</h4>
+          <table class="rubric">
+            <tr><th>Hiện tượng</th><th>Cách khắc phục</th></tr>
+            <tr><td>Buzzer không kêu</td><td>Kiểm tra cực +/-, kiểm tra dây có lỏng</td></tr>
+            <tr><td>Nút nhấn không hoạt động</td><td>Kiểm tra dây 3V và chân tín hiệu có đúng vị trí</td></tr>
+            <tr><td>Buzzer kêu liên tục không tắt</td><td>Kiểm tra lại điều kiện if trong chương trình</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Lập trình còi báo động</h3><span class="time-chip">⏱ 40 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>👣 Hướng dẫn từng bước</h4>
+          <ol class="steps">
+            <li>Kéo khối <b>"forever"</b> vào vùng làm việc.</li>
+            <li>Bên trong, kéo khối <b>"if...then...else"</b> từ nhóm Logic.</li>
+            <li>Ở điều kiện, đặt: <b>"light level &lt; 50"</b> (từ nhóm Input).</li>
+            <li>Nếu đúng: kéo khối <b>"play tone Middle C for 1 beat"</b> (nhóm Music) để phát âm báo động.</li>
+            <li>Nếu sai (else): để trống hoặc thêm "show icon" mặt cười bình thường.</li>
+            <li>Thêm khối <b>"on button (P1) pressed"</b> để test còi kêu ngay khi bấm nút.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🔀 Kết hợp nhiều điều kiện (AND/OR)</h4>
+          <p>Đôi khi ta cần kiểm tra nhiều điều kiện cùng lúc. Khối <b>"and"</b> nghĩa là "cả hai điều kiện đều phải đúng", còn <b>"or"</b> nghĩa là "chỉ cần một trong hai điều kiện đúng". Ví dụ: "nếu trời tối VÀ (and) có người bấm nút thì còi kêu to hơn bình thường".</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🛠 Mẹo gỡ lỗi</h4>
+          <p>Nếu còi kêu liên tục dù trời sáng, kiểm tra lại dấu so sánh trong khối if có đang là "&lt; 50" (nhỏ hơn) chứ không nhầm thành "&gt; 50" (lớn hơn).</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🖥️ Thực hành trực tiếp trên MakeCode</h4>
+          <div class="iframe-wrap"><iframe src="https://makecode.microbit.org/" title="MakeCode" allow="fullscreen"></iframe></div>
+          <a class="btn" href="https://makecode.microbit.org/" target="_blank" rel="noopener">🔗 Mở MakeCode ở tab mới</a>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Tổng kết Buổi 3</h3><span class="time-chip">⏱ 20 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>✅ Checklist dự án</h4>
+          <div class="checklist">
+            <label><input type="checkbox"> Đã nối đúng Buzzer vào P0 và GND</label>
+            <label><input type="checkbox"> Đã nối đúng nút nhấn vào 3V và P1</label>
+            <label><input type="checkbox"> Còi kêu khi mức ánh sáng thấp hoặc khi bấm nút</label>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>❓ Quiz ôn tập</h4>
+          <div class="quiz-wrap">
+            <div class="quiz-q"><p>1. Câu lệnh nào giúp chương trình "ra quyết định"?</p>
+              <div class="quiz-opt" data-correct="false">forever</div>
+              <div class="quiz-opt" data-correct="true">if...then...else</div>
+              <div class="quiz-opt" data-correct="false">pause</div>
+            </div>
+            <div class="quiz-q"><p>2. Mức ánh sáng nhỏ nghĩa là gì?</p>
+              <div class="quiz-opt" data-correct="true">Trời tối</div>
+              <div class="quiz-opt" data-correct="false">Trời sáng</div>
+              <div class="quiz-opt" data-correct="false">Không liên quan đến ánh sáng</div>
+            </div>
+            <div class="quiz-q"><p>3. Khối "and" (VÀ) có nghĩa là gì?</p>
+              <div class="quiz-opt" data-correct="false">Chỉ cần 1 điều kiện đúng</div>
+              <div class="quiz-opt" data-correct="true">Cả 2 điều kiện đều phải đúng</div>
+              <div class="quiz-opt" data-correct="false">Không điều kiện nào cần đúng</div>
+            </div>
+          </div>
+          <p class="quizScore"></p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🎯 Thử thách mở rộng</h4>
+          <div class="extend-box">Làm còi phát ra âm điệu khác nhau tùy mức độ tối: trời hơi tối thì kêu tiếng thấp, trời rất tối thì kêu tiếng cao và nhanh hơn.</div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>📝 Ghi chú cho giáo viên</h4>
+          <p style="font-size:.86rem;">Có thể che cảm biến ánh sáng bằng tay để mô phỏng "trời tối" ngay trong lớp học sáng đèn, giúp học sinh kiểm tra chương trình dễ dàng mà không cần tắt đèn phòng học.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>➡️ Buổi sau</h4><p>Buổi 4 sẽ dùng <b>cảm biến nhiệt độ</b> tích hợp để xây dựng một trạm đo nhiệt độ tự động cảnh báo!</p></div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subfooter"><button class="prevSub">◀ Phần trước</button><span class="subprogress"></span><button class="nextSub">Phần sau ▶</button></div>
+</section>
+
+<!-- ============ BUỔI 4 ============ -->
+<section class="buoi-panel" id="b4" data-multi>
+  <div class="panel-title">
+    <div><h2>🌡️ Buổi 4: Dự án Trạm đo nhiệt độ</h2><div class="goalline">Dự án: Đo nhiệt độ và cảnh báo khi quá nóng</div></div>
+  </div>
+  <div class="subnav">
+    <button class="active">1. Lý thuyết</button>
+    <button>2. Lắp ráp</button>
+    <button>3. Lập trình</button>
+    <button>4. Tổng kết</button>
+  </div>
+
+  <div class="subslide active">
+    <div class="slide-head"><h3 class="big">Cảm biến nhiệt độ &amp; biến số</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🌡️ Nhiệt độ là gì? Đơn vị đo</h4>
+          <p>Nhiệt độ cho biết một vật nóng hay lạnh, đo bằng đơn vị <b>độ C (Celsius)</b> ở Việt Nam. Một số mốc quen thuộc: nước đá tan ở 0°C, nhiệt độ cơ thể người khoảng 37°C, nước sôi ở 100°C, một ngày hè nóng ở Việt Nam có thể lên tới 35-38°C.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🌡️ Cảm biến nhiệt độ tích hợp</h4>
+          <p>Micro:bit có cảm biến nhiệt độ ngay bên trong chip, đo bằng đơn vị độ C. Dùng khối <b>"temperature (°C)"</b> từ nhóm Input để lấy giá trị này bất cứ lúc nào trong chương trình.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🌡️ Nhiệt kế ảo — thử kéo thanh trượt</h4>
+          <div class="slider-sim">
+            <label for="tempSlider" style="font-size:.83rem;font-weight:600;">Nhiệt độ (°C)</label>
+            <input type="range" id="tempSlider" min="0" max="50" value="24" oninput="updateTempSim(this.value)">
+            <div class="readout">
+              <span id="tempValueLabel" style="font-weight:700;">Nhiệt độ: 24°C</span>
+              <span class="status-badge status-ok" id="tempStatusBadge">✅ Bình thường</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧠 Biến số (Variable)</h4>
+          <p>Biến số giống như một "cái hộp" để lưu tạm giá trị, ví dụ hộp tên <b>"nhietdo"</b> lưu kết quả đo được.</p>
+          <ol class="steps">
+            <li>Tạo biến mới tên <b>nhietdo</b> (nhóm Variables).</li>
+            <li>Gán giá trị: <b>set nhietdo to temperature (°C)</b>.</li>
+            <li>So sánh: <b>if nhietdo &gt; 30 then...</b></li>
+          </ol>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🌍 Ứng dụng đo nhiệt độ trong đời sống</h4>
+          <p>Cảm biến nhiệt độ có mặt ở khắp nơi: tủ lạnh tự điều chỉnh độ lạnh, máy điều hòa duy trì nhiệt độ phòng, lò vi sóng/lò nướng kiểm soát nhiệt khi nấu ăn, trạm khí tượng dự báo thời tiết, và cả nhiệt kế điện tử đo sốt cho con người.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🔢 Ôn lại phép so sánh và biến số</h4>
+          <p>Kết hợp kiến thức đã học: biến số (Buổi 2) dùng để lưu giá trị đo được, phép so sánh (Buổi 3) dùng để kiểm tra giá trị đó có vượt ngưỡng hay không, rồi câu lệnh if/else (Buổi 3) quyết định hành động tiếp theo. Đây là 3 mảnh ghép quan trọng của lập trình mà Buổi 4 sẽ ghép lại cùng nhau.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🕹 Câu hỏi thảo luận</h4>
+          <div class="discuss-box">❓ Nếu đặt board gần lòng bàn tay đang cầm, nhiệt độ đo được có thay đổi không? Vì sao?</div>
+          <div class="discuss-box">❓ Em nghĩ nhiệt độ trong lớp học hiện tại là bao nhiêu độ C? Thử đo bằng micro:bit để kiểm tra dự đoán.</div>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Lắp ráp LED cảnh báo nhiệt độ cao</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>📦 Module cần lắp</h4>
+          <p>Cảm biến nhiệt độ đã có sẵn trên board — chỉ cần thêm 1 LED cảnh báo màu đỏ nối ra ngoài.</p>
+          <div class="comp-card" style="max-width:260px;"><div class="emoji">🔴</div><b>LED cảnh báo</b><span>(+) → P0, (-) → GND</span></div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>⚡ Ôn lại vì sao cần điện trở và đúng cực</h4>
+          <p>Nhắc lại từ Buổi 1: LED cảnh báo vẫn cần điện trở đi kèm và phải cắm đúng chiều (+/-) để hoạt động, giống hệt nguyên tắc đã học ở các buổi trước.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🎮 Mô phỏng: Kéo dây nối LED cảnh báo</h4>
+          <div class="sim-wrap" data-sim="4">
+            <div class="components-col">
+              <div class="wire-plug" draggable="true" data-correct="P0" data-label="LED cảnh báo (+) → P0"><span class="dot" style="background:#ef4444"></span> LED cảnh báo (+) → P0</div>
+              <div class="wire-plug" draggable="true" data-correct="GND" data-label="LED cảnh báo (-) → GND"><span class="dot" style="background:#334155"></span> LED cảnh báo (-) → GND</div>
+              <button class="resetbtn" onclick="resetSim(4)">↺ Làm lại</button>
+            </div>
+            <div class="board-col">
+              <div class="board-visual"></div>
+              <div class="simResult"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧯 Xử lý lỗi thường gặp</h4>
+          <table class="rubric">
+            <tr><th>Hiện tượng</th><th>Cách khắc phục</th></tr>
+            <tr><td>LED cảnh báo không sáng dù trời nóng</td><td>Kiểm tra ngưỡng trong chương trình, kiểm tra chiều LED</td></tr>
+            <tr><td>Nhiệt độ hiển thị luôn cao bất thường</td><td>Có thể do hơi nóng từ chip hoặc tay cầm gần board</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Lập trình trạm đo nhiệt độ</h3><span class="time-chip">⏱ 40 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>👣 Hướng dẫn từng bước</h4>
+          <ol class="steps">
+            <li>Kéo khối <b>"forever"</b> vào vùng làm việc.</li>
+            <li>Tạo biến <b>nhietdo</b>, gán bằng khối <b>"temperature (°C)"</b>.</li>
+            <li>Kéo khối <b>"show number nhietdo"</b> để hiển thị nhiệt độ liên tục.</li>
+            <li>Thêm khối <b>"if nhietdo &gt; 30 then"</b>: bật LED cảnh báo bằng <b>"digital write pin P0 to 1"</b>.</li>
+            <li>Ở else: tắt LED bằng <b>"digital write pin P0 to 0"</b>.</li>
+            <li>Chạy mô phỏng, thử kéo thanh nhiệt độ để kiểm tra LED bật/tắt đúng ngưỡng 30°C.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🔁 Dùng vòng lặp hiển thị nhiều thông tin</h4>
+          <p>Có thể mở rộng chương trình để xen kẽ hiển thị số nhiệt độ và một icon cảnh báo: "show number nhietdo" → "pause 1000" → "show icon cảnh báo (nếu nóng)" → "pause 1000" rồi lặp lại — giúp thông tin dễ nhìn hơn thay vì chỉ hiện mỗi con số.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🛠 Mẹo gỡ lỗi</h4>
+          <p>Nếu LED cảnh báo luôn sáng hoặc luôn tắt, kiểm tra lại biến "nhietdo" đã được gán giá trị "temperature (°C)" ngay trong vòng lặp forever hay chưa — nếu chỉ gán 1 lần ở "on start" thì giá trị sẽ không được cập nhật liên tục.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🖥️ Thực hành trực tiếp trên MakeCode</h4>
+          <div class="iframe-wrap"><iframe src="https://makecode.microbit.org/" title="MakeCode" allow="fullscreen"></iframe></div>
+          <a class="btn" href="https://makecode.microbit.org/" target="_blank" rel="noopener">🔗 Mở MakeCode ở tab mới</a>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Tổng kết Buổi 4</h3><span class="time-chip">⏱ 20 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>✅ Checklist dự án</h4>
+          <div class="checklist">
+            <label><input type="checkbox"> Đã nối đúng LED cảnh báo vào P0 và GND</label>
+            <label><input type="checkbox"> Nhiệt độ hiển thị liên tục trên LED matrix</label>
+            <label><input type="checkbox"> LED cảnh báo bật khi nhiệt độ &gt; 30°C</label>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>❓ Quiz ôn tập</h4>
+          <div class="quiz-wrap">
+            <div class="quiz-q"><p>1. Biến số dùng để làm gì?</p>
+              <div class="quiz-opt" data-correct="false">Phát âm thanh</div>
+              <div class="quiz-opt" data-correct="true">Lưu tạm một giá trị để dùng lại</div>
+              <div class="quiz-opt" data-correct="false">Nối dây điện</div>
+            </div>
+            <div class="quiz-q"><p>2. Khối nào lấy giá trị nhiệt độ hiện tại?</p>
+              <div class="quiz-opt" data-correct="true">temperature (°C)</div>
+              <div class="quiz-opt" data-correct="false">light level</div>
+              <div class="quiz-opt" data-correct="false">show number</div>
+            </div>
+            <div class="quiz-q"><p>3. Nước sôi ở nhiệt độ khoảng bao nhiêu?</p>
+              <div class="quiz-opt" data-correct="false">37°C</div>
+              <div class="quiz-opt" data-correct="false">50°C</div>
+              <div class="quiz-opt" data-correct="true">100°C</div>
+            </div>
+          </div>
+          <p class="quizScore"></p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🎯 Thử thách mở rộng</h4>
+          <div class="extend-box">Hiển thị nhiệt độ bằng biểu đồ cột LED (càng nóng càng nhiều đèn sáng theo cột dọc) thay vì chỉ hiện con số.</div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>📝 Ghi chú cho giáo viên</h4>
+          <p style="font-size:.86rem;">Có thể cho học sinh thử áp tay vào board hoặc thổi hơi ấm gần cảm biến để thấy số liệu thay đổi trực quan, giúp bài học sinh động hơn.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>➡️ Buổi sau</h4><p>Buổi 5 sẽ kết hợp <b>tất cả</b> những gì đã học — đèn, còi, cảm biến — thành một hệ thống "Ngôi nhà thông minh mini" hoàn chỉnh!</p></div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subfooter"><button class="prevSub">◀ Phần trước</button><span class="subprogress"></span><button class="nextSub">Phần sau ▶</button></div>
+</section>
+
+<!-- ============ BUỔI 5 ============ -->
+<section class="buoi-panel" id="b5" data-multi>
+  <div class="panel-title">
+    <div><h2>🏠 Buổi 5: Dự án tổng hợp — Ngôi nhà thông minh mini</h2><div class="goalline">Dự án cuối khóa: Kết hợp toàn bộ kiến thức đã học</div></div>
+  </div>
+  <div class="subnav">
+    <button class="active">1. Ôn tập</button>
+    <button>2. Lắp ráp</button>
+    <button>3. Lập trình</button>
+    <button>4. Tổng kết khóa</button>
+  </div>
+
+  <div class="subslide active">
+    <div class="slide-head"><h3 class="big">Ôn tập toàn khóa &amp; ý tưởng dự án</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🔁 Nhắc lại 4 buổi trước</h4>
+          <div class="agenda">
+            <div class="a-item"><b>Buổi 1</b>Điện tử cơ bản, mô hình dòng nước, nối LED, khối forever</div>
+            <div class="a-item"><b>Buổi 2</b>Biến số, tuần tự, chu trình đèn giao thông</div>
+            <div class="a-item"><b>Buổi 3</b>Cảm biến ánh sáng, if/else, and/or, còi báo động</div>
+            <div class="a-item"><b>Buổi 4</b>Cảm biến nhiệt độ, biến số, cảnh báo</div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>💡 Ôn lại toàn bộ kiến thức điện tử</h4>
+          <p>Tổng hợp lại: dòng điện cần mạch kín để chạy, mô hình dòng nước giúp hình dung điện áp/dòng điện/điện trở, chất dẫn điện vs cách điện, mạch nối tiếp vs song song, và các quy tắc an toàn khi dùng điện. Đây chính là nền tảng cho mọi mạch điện tử ta đã lắp trong 4 buổi qua.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🌐 IoT là gì? (Internet of Things)</h4>
+          <p><b>IoT (Internet vạn vật)</b> là các thiết bị điện tử có thể cảm nhận môi trường xung quanh (qua cảm biến) và tự động phản ứng lại, đôi khi còn kết nối internet để gửi dữ liệu đi xa. Nhà thông minh, đồng hồ thông minh theo dõi sức khỏe, xe tự lái, tủ lạnh tự đặt hàng thực phẩm... đều là ví dụ của IoT. Dự án "Ngôi nhà thông minh mini" hôm nay chính là một phiên bản đơn giản của IoT!</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🏠 Ý tưởng: Ngôi nhà thông minh mini</h4>
+          <p>Kết hợp tất cả linh kiện đã lắp ráp trong 4 buổi trước vào một hệ thống duy nhất: <b>đèn LED cửa</b> (bật khi trời tối), <b>còi báo động</b> (kêu khi bấm nút khẩn cấp), và <b>cảnh báo nhiệt độ</b>. Học sinh tự thiết kế logic riêng cho "ngôi nhà" của mình.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🏠 Bảng điều khiển tổng hợp — thử vận hành "ngôi nhà"</h4>
+          <div class="dashboard-sim">
+            <div class="dash-item">
+              <label style="font-size:.8rem;font-weight:600;">☀️ Mức ánh sáng ngoài trời</label>
+              <input type="range" id="dashLight" min="0" max="255" value="180" oninput="updateDashboard()">
+              <div class="dash-indicator" id="dashLedIndicator">💡 Đèn cửa: TẮT</div>
+            </div>
+            <div class="dash-item">
+              <label style="font-size:.8rem;font-weight:600;">🌡️ Nhiệt độ trong nhà</label>
+              <input type="range" id="dashTemp" min="0" max="50" value="24" oninput="updateDashboard()">
+              <div class="dash-indicator" id="dashTempIndicator">⚠️ Cảnh báo nhiệt: bình thường</div>
+            </div>
+            <div class="dash-item" style="grid-column:1 / -1;">
+              <button class="emerg-btn" onclick="triggerEmergency()">🚨 Bấm nút khẩn cấp (còi kêu 2 giây)</button>
+              <div class="dash-indicator" id="dashBuzzerIndicator" style="margin-top:8px;">🔊 Còi: TẮT</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🕹 Câu hỏi thảo luận tổng hợp</h4>
+          <div class="discuss-box">❓ Nếu muốn thêm một cảm biến mưa để tự động đóng cửa sổ, em nghĩ cần thêm chân nào và logic if/else ra sao?</div>
+          <div class="discuss-box">❓ Ngôi nhà thông minh có thể giúp tiết kiệm điện như thế nào so với nhà bình thường?</div>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Lắp ráp hệ thống hoàn chỉnh</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>📦 Toàn bộ module cần lắp</h4>
+          <div class="grid3">
+            <div class="comp-card"><div class="emoji">🔴</div><b>LED cửa</b><span>(+) → P0, (-) → GND</span></div>
+            <div class="comp-card"><div class="emoji">🔊</div><b>Buzzer</b><span>(+) → P1, (-) → GND</span></div>
+            <div class="comp-card"><div class="emoji">🔘</div><b>Nút khẩn cấp</b><span>dây 1 → 3V, dây 2 → P2</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>⚡ Ôn lại toàn bộ nguyên tắc lắp ráp</h4>
+          <p>Trước khi lắp, hãy cùng nhắc lại: mọi LED và buzzer đều cần điện trở và đúng cực +/-; mọi thiết bị đều cần một đường về GND chung; luôn tắt nguồn trước khi đấu nối lại dây để đảm bảo an toàn.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🎮 Mô phỏng: Kéo dây nối toàn bộ hệ thống</h4>
+          <div class="sim-wrap" data-sim="5">
+            <div class="components-col">
+              <div class="wire-plug" draggable="true" data-correct="P0" data-label="LED cửa (+) → P0"><span class="dot" style="background:#ef4444"></span> LED cửa (+) → P0</div>
+              <div class="wire-plug" draggable="true" data-correct="GND" data-label="LED cửa (-) → GND"><span class="dot" style="background:#334155"></span> LED cửa (-) → GND</div>
+              <div class="wire-plug" draggable="true" data-correct="P1" data-label="Buzzer (+) → P1"><span class="dot" style="background:#f97316"></span> Buzzer (+) → P1</div>
+              <div class="wire-plug" draggable="true" data-correct="GND" data-label="Buzzer (-) → GND"><span class="dot" style="background:#334155"></span> Buzzer (-) → GND</div>
+              <div class="wire-plug" draggable="true" data-correct="3V" data-label="Nút khẩn cấp dây 1 → 3V"><span class="dot" style="background:#eab308"></span> Nút khẩn cấp dây 1 → 3V</div>
+              <div class="wire-plug" draggable="true" data-correct="P2" data-label="Nút khẩn cấp dây 2 → P2"><span class="dot" style="background:#0ea5e9"></span> Nút khẩn cấp dây 2 → P2</div>
+              <button class="resetbtn" onclick="resetSim(5)">↺ Làm lại</button>
+            </div>
+            <div class="board-col">
+              <div class="board-visual"></div>
+              <div class="simResult"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧯 Xử lý lỗi thường gặp toàn hệ thống</h4>
+          <p>Khi lắp nhiều linh kiện cùng lúc, nếu có lỗi hãy tháo bớt và kiểm tra từng linh kiện một (chỉ để lại LED trước, test xong mới lắp thêm Buzzer, rồi mới lắp nút nhấn) thay vì kiểm tra tất cả cùng lúc — cách này giúp tìm lỗi nhanh hơn nhiều.</p>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Lập trình hệ thống hoàn chỉnh</h3><span class="time-chip">⏱ 40 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>👣 Hướng dẫn ghép chương trình</h4>
+          <ol class="steps">
+            <li>Trong <b>"forever"</b>: nếu <b>light level &lt; 50</b> thì bật LED cửa (P0 = 1), ngược lại tắt (P0 = 0).</li>
+            <li>Thêm biến <b>nhietdo</b> = temperature(°C); nếu <b>nhietdo &gt; 30</b> thì show icon cảnh báo ⚠️.</li>
+            <li>Thêm <b>"on button (P2) pressed"</b>: phát <b>"play tone"</b> qua Buzzer (P1) làm còi khẩn cấp.</li>
+            <li>Chạy thử toàn bộ chương trình, kiểm tra từng chức năng hoạt động đúng.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🔁 Ôn lại cấu trúc chương trình hoàn chỉnh</h4>
+          <p>Một chương trình micro:bit hoàn chỉnh thường có: khối "on start" (chạy 1 lần lúc bật nguồn), khối "forever" (lặp lại liên tục kiểm tra cảm biến), và các khối "on button/pin pressed" (phản ứng ngay khi có sự kiện xảy ra) — 3 khối nền tảng này ta đã dùng xuyên suốt cả 5 buổi học.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🛠 Mẹo gỡ lỗi toàn diện</h4>
+          <p>Nếu chương trình không hoạt động như mong muốn, hãy kiểm tra lần lượt: (1) các chân trong code có khớp với chân đã nối dây thực tế không, (2) các ngưỡng so sánh có hợp lý không, (3) có khối nào bị đặt sai vị trí (ví dụ nằm ngoài forever) không.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🖥️ Hoàn thiện dự án trên MakeCode</h4>
+          <div class="iframe-wrap"><iframe src="https://makecode.microbit.org/" title="MakeCode" allow="fullscreen"></iframe></div>
+          <a class="btn" href="https://makecode.microbit.org/" target="_blank" rel="noopener">🔗 Mở MakeCode ở tab mới</a>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Tổng kết khóa học</h3><span class="time-chip">⏱ 20 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🎤 Thuyết trình sản phẩm</h4>
+          <p>Mỗi nhóm trình bày trong 2–3 phút: giới thiệu hệ thống, giải thích cách nối dây và logic lập trình, demo trực tiếp.</p>
+          <table class="rubric">
+            <tr><th>Tiêu chí</th><th>Điểm tối đa</th></tr>
+            <tr><td>Lắp ráp đúng, chắc chắn</td><td>3 điểm</td></tr>
+            <tr><td>Chương trình chạy đúng logic</td><td>4 điểm</td></tr>
+            <tr><td>Trình bày rõ ràng, tự tin</td><td>3 điểm</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>❓ Quiz tổng kết toàn khóa</h4>
+          <div class="quiz-wrap">
+            <div class="quiz-q"><p>1. Chân nào dùng để cấp nguồn dương cho linh kiện ngoài?</p>
+              <div class="quiz-opt" data-correct="true">3V</div>
+              <div class="quiz-opt" data-correct="false">GND</div>
+              <div class="quiz-opt" data-correct="false">P2</div>
+            </div>
+            <div class="quiz-q"><p>2. Khối nào giúp so sánh và ra quyết định?</p>
+              <div class="quiz-opt" data-correct="false">forever</div>
+              <div class="quiz-opt" data-correct="true">if...then...else</div>
+              <div class="quiz-opt" data-correct="false">show string</div>
+            </div>
+            <div class="quiz-q"><p>3. Cảm biến nào KHÔNG cần nối dây vì đã có sẵn trên board?</p>
+              <div class="quiz-opt" data-correct="false">LED ngoài</div>
+              <div class="quiz-opt" data-correct="true">Cảm biến ánh sáng &amp; nhiệt độ</div>
+              <div class="quiz-opt" data-correct="false">Buzzer</div>
+            </div>
+            <div class="quiz-q"><p>4. IoT là viết tắt của cụm từ nào?</p>
+              <div class="quiz-opt" data-correct="false">Input of Technology</div>
+              <div class="quiz-opt" data-correct="true">Internet of Things</div>
+              <div class="quiz-opt" data-correct="false">Idea of Team</div>
+            </div>
+          </div>
+          <p class="quizScore"></p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🎯 Định hướng học tiếp theo</h4>
+          <div class="extend-box">Học sinh yêu thích có thể tìm hiểu thêm: lập trình micro:bit bằng ngôn ngữ Python (thay vì kéo thả), thử các module cảm biến khác (khoảng cách, độ ẩm đất), hoặc tham gia các cuộc thi sáng tạo khoa học kỹ thuật dành cho học sinh.</div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>📝 Ghi chú cho giáo viên (tổng kết khóa)</h4>
+          <p style="font-size:.86rem;">Nên lưu lại hình ảnh/video sản phẩm của từng nhóm để làm tư liệu trưng bày hoặc chia sẻ với phụ huynh. Có thể trao giấy chứng nhận nhỏ ghi nhận sự cố gắng của học sinh sau khi hoàn thành khóa học.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🏆 Chúc mừng hoàn thành khóa học!</h4>
+          <p>Học sinh đã học được: điện tử cơ bản, cấu tạo micro:bit, lập trình kéo thả với biến số/vòng lặp/điều kiện, và cách lắp ráp mạch với nhiều loại cảm biến — đủ nền tảng để tự sáng tạo các dự án IoT đơn giản tiếp theo.</p>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subfooter"><button class="prevSub">◀ Phần trước</button><span class="subprogress"></span><button class="nextSub">Phần sau ▶</button></div>
+</section>
+
+</main>
+
+<script>
+  // Realistic micro:bit board SVG (LED matrix, buttons A/B, edge-connector gold pads)
+  // Big pad order left→right on the real board: P0, P1, P2, 3V, GND
+  const microbitBoardSVG = `
+    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+      <rect x="20" y="20" width="360" height="230" rx="20" fill="#f8fafc" stroke="#94a3b8" stroke-width="2.5"/>
+      <rect x="55" y="8" width="34" height="16" rx="2" fill="#94a3b8"/>
+      <circle cx="112" cy="16" r="6" fill="#1e293b"/>
+      <rect x="298" y="8" width="42" height="16" rx="3" fill="#1e293b"/>
+      <text x="319" y="19" font-size="8" fill="#fbbf24" text-anchor="middle" font-family="sans-serif">BAT</text>
+      <circle cx="60" cy="115" r="16" fill="#111827" stroke="#475569" stroke-width="2"/>
+      <text x="60" y="145" font-size="11" fill="#334155" text-anchor="middle" font-family="sans-serif" font-weight="bold">A</text>
+      <circle cx="340" cy="115" r="16" fill="#111827" stroke="#475569" stroke-width="2"/>
+      <text x="340" y="145" font-size="11" fill="#334155" text-anchor="middle" font-family="sans-serif" font-weight="bold">B</text>
+      <rect x="128" y="53" width="144" height="124" rx="6" fill="#0f172a" stroke="#334155"/>
+      <g id="ledmatrixgrid"></g>
+      <text x="200" y="200" font-size="9" fill="#64748b" text-anchor="middle" font-family="sans-serif">micro:bit</text>
+      <rect x="20" y="224" width="360" height="26" fill="#eab308" opacity="0.12"/>
+      <g id="edgepads"></g>
+    </svg>`;
+
+  function buildLedMatrix(){
+    const lit = [
+      [0,1,0,1,0],
+      [0,1,0,1,0],
+      [0,0,0,0,0],
+      [1,0,0,0,1],
+      [0,1,1,1,0]
+    ];
+    let dots = '';
+    for(let r=0;r<5;r++){
+      for(let c=0;c<5;c++){
+        const cx = 148 + c*26, cy = 68 + r*26;
+        const on = lit[r][c];
+        dots += `<circle cx="${cx}" cy="${cy}" r="8" fill="${on?'#f87171':'#1e293b'}" stroke="${on?'#fca5a5':'#334155'}" stroke-width="1"/>`;
+      }
+    }
+    return dots;
+  }
+
+  const edgePins = [
+    {name:'P0', cx:50},
+    {name:'P1', cx:128},
+    {name:'P2', cx:205},
+    {name:'3V', cx:283},
+    {name:'GND', cx:360}
+  ];
+  function buildEdgePads(){
+    let out = '';
+    edgePins.forEach(p=>{
+      out += `<rect x="${p.cx-15}" y="228" width="30" height="20" rx="6" fill="#facc15" stroke="#ca8a04" stroke-width="1"/>`;
+      out += `<circle cx="${p.cx}" cy="238" r="4" fill="#78350f"/>`;
+      out += `<text x="${p.cx}" y="216" font-size="10" fill="#1e293b" text-anchor="middle" font-family="sans-serif" font-weight="bold">${p.name}</text>`;
+    });
+    return out;
+  }
+  function buildPinSockets(){
+    const labels = {P0:'tín hiệu', P1:'tín hiệu', P2:'tín hiệu', '3V':'nguồn (+)', GND:'mass (-)'};
+    let out = '';
+    edgePins.forEach(p=>{
+      const leftPct = (p.cx/400*100).toFixed(2);
+      out += `<div class="pin-socket" data-pin="${p.name}" style="left:${leftPct}%; top:79.3%;"><b>${p.name}</b>${labels[p.name]}</div>`;
+    });
+    return out;
+  }
+
+  document.querySelectorAll('.board-visual').forEach(el=>{
+    el.innerHTML = microbitBoardSVG + buildPinSockets();
+    el.querySelector('#ledmatrixgrid').innerHTML = buildLedMatrix();
+    el.querySelector('#edgepads').innerHTML = buildEdgePads();
+  });
+
+  // Top-level buổi tab navigation
+  document.querySelectorAll('.buoi-tab').forEach(t=>{
+    t.addEventListener('click', ()=>{
+      document.querySelectorAll('.buoi-tab').forEach(x=>x.classList.remove('active'));
+      t.classList.add('active');
+      document.querySelectorAll('.buoi-panel').forEach(p=>p.classList.remove('active'));
+      document.getElementById(t.dataset.target).classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+
+  // Micro-slide deck navigation (one card per screen, click/arrow through pages)
+  const microDeckResets = new Map();
+  document.querySelectorAll('.subslide').forEach(sub=>{
+    const deck = sub.querySelector('.micro-deck');
+    if(!deck) return;
+    const micros = deck.querySelectorAll('.microslide');
+    const nav = sub.querySelector('.micro-nav');
+    const prevM = nav ? nav.querySelector('.microPrev') : null;
+    const nextM = nav ? nav.querySelector('.microNext') : null;
+    const prog = nav ? nav.querySelector('.microProgress') : null;
+    let curM = 0;
+    function renderM(){
+      micros.forEach((m,i)=>m.classList.toggle('active', i===curM));
+      if(prevM) prevM.disabled = curM===0;
+      if(nextM) nextM.disabled = curM===micros.length-1;
+      if(prog) prog.textContent = (curM+1)+' / '+micros.length;
+      deck.scrollTop = 0;
+    }
+    if(prevM) prevM.addEventListener('click', ()=>{ if(curM>0){ curM--; renderM(); } });
+    if(nextM) nextM.addEventListener('click', ()=>{ if(curM<micros.length-1){ curM++; renderM(); } });
+    renderM();
+    microDeckResets.set(sub, ()=>{ curM = 0; renderM(); });
+  });
+
+  // Phase-level (subnav) navigation within each buổi panel
+  document.querySelectorAll('.buoi-panel[data-multi]').forEach(panel=>{
+    const subBtns = panel.querySelectorAll('.subnav button');
+    const subSlides = panel.querySelectorAll('.subslide');
+    const prevBtn = panel.querySelector('.prevSub');
+    const nextBtn = panel.querySelector('.nextSub');
+    const progress = panel.querySelector('.subprogress');
+    let cur = 0;
+    function render(){
+      subSlides.forEach((s,i)=>s.classList.toggle('active', i===cur));
+      subBtns.forEach((b,i)=>b.classList.toggle('active', i===cur));
+      prevBtn.disabled = cur===0;
+      nextBtn.disabled = cur===subSlides.length-1;
+      progress.textContent = 'Phần '+(cur+1)+' / '+subSlides.length;
+      const resetFn = microDeckResets.get(subSlides[cur]);
+      if(resetFn) resetFn();
+    }
+    subBtns.forEach((b,i)=>b.addEventListener('click', ()=>{ cur=i; render(); window.scrollTo({top:0,behavior:'smooth'}); }));
+    prevBtn.addEventListener('click', ()=>{ if(cur>0){ cur--; render(); window.scrollTo({top:0,behavior:'smooth'}); } });
+    nextBtn.addEventListener('click', ()=>{ if(cur<subSlides.length-1){ cur++; render(); window.scrollTo({top:0,behavior:'smooth'}); } });
+    render();
+  });
+
+  // Keyboard arrow navigation: moves within a micro-deck first, otherwise switches phase
+  document.addEventListener('keydown', e=>{
+    if(e.key!=='ArrowRight' && e.key!=='ArrowLeft') return;
+    const activePanel = document.querySelector('.buoi-panel.active');
+    if(!activePanel) return;
+    const activeSub = activePanel.querySelector('.subslide.active');
+    if(activeSub){
+      const btn = e.key==='ArrowRight' ? activeSub.querySelector('.microNext') : activeSub.querySelector('.microPrev');
+      if(btn && !btn.disabled){ btn.click(); return; }
+    }
+    const navBtn = e.key==='ArrowRight' ? activePanel.querySelector('.nextSub') : activePanel.querySelector('.prevSub');
+    if(navBtn && !navBtn.disabled) navBtn.click();
+  });
+
+  // Generic drag & drop wiring simulator (works for all buổi)
+  document.querySelectorAll('.wire-plug').forEach(p=>{
+    if(!p.id) p.id = 'w'+Math.random().toString(36).slice(2);
+    p.addEventListener('dragstart', e=>{
+      e.dataTransfer.setData('text/plain', p.dataset.correct+'|'+p.dataset.label+'|'+p.id);
+    });
+  });
+  document.querySelectorAll('.pin-socket').forEach(sock=>{
+    sock.addEventListener('dragover', e=>{ e.preventDefault(); sock.classList.add('over'); });
+    sock.addEventListener('dragleave', ()=> sock.classList.remove('over'));
+    sock.addEventListener('drop', e=>{
+      e.preventDefault();
+      sock.classList.remove('over');
+      const parts = e.dataTransfer.getData('text/plain').split('|');
+      const correctPin = parts[0], label = parts[1], elid = parts[2];
+      const plugEl = document.getElementById(elid);
+      const simWrap = sock.closest('.sim-wrap');
+      const resultEl = simWrap.querySelector('.simResult');
+      const totalWires = simWrap.querySelectorAll('.wire-plug').length;
+      if(correctPin === sock.dataset.pin){
+        const chip = document.createElement('span');
+        chip.className = 'chip';
+        chip.textContent = label.split('→')[0].trim();
+        sock.appendChild(chip);
+        if(plugEl){ plugEl.classList.add('placed'); plugEl.setAttribute('draggable','false'); }
+        const placed = simWrap.querySelectorAll('.wire-plug.placed').length;
+        resultEl.innerHTML = placed===totalWires
+          ? '🎉 <span style="color:#4ade80;">Hoàn thành! Mạch đã nối đúng toàn bộ.</span>'
+          : '<span style="color:#4ade80;">✅ Đúng! ('+placed+'/'+totalWires+')</span>';
+      } else {
+        sock.style.background = '#7f1d1d';
+        setTimeout(()=> sock.style.background = '', 400);
+        resultEl.innerHTML = '<span style="color:#f87171;">❌ Sai chân rồi, thử lại nhé!</span>';
+      }
+    });
+  });
+  function resetSim(simId){
+    const wrap = document.querySelector('.sim-wrap[data-sim="'+simId+'"]');
+    wrap.querySelectorAll('.pin-socket .chip').forEach(c=>c.remove());
+    wrap.querySelectorAll('.wire-plug').forEach(p=>{ p.classList.remove('placed'); p.setAttribute('draggable','true'); });
+    wrap.querySelector('.simResult').innerHTML = '';
+  }
+
+  // Generic quiz scoring (works for all buổi)
+  document.querySelectorAll('.quiz-wrap').forEach(wrap=>{
+    const qs = wrap.querySelectorAll('.quiz-q');
+    qs.forEach(q=>{
+      const opts = q.querySelectorAll('.quiz-opt');
+      opts.forEach(o=>{
+        o.addEventListener('click', ()=>{
+          if(q.dataset.answered) return;
+          q.dataset.answered = '1';
+          opts.forEach(x=> x.classList.add(x.dataset.correct==='true' ? 'correct':'wrong'));
+          const answered = wrap.querySelectorAll('.quiz-q[data-answered]').length;
+          const correct = wrap.querySelectorAll('.quiz-opt.correct').length;
+          wrap.querySelector('.quizScore').textContent = 'Điểm: '+correct+' / '+qs.length+' câu đúng ('+answered+' câu đã trả lời)';
+        });
+      });
+    });
+  });
+
+  // === Animated circuit (toggle switch, current flow, LED) — Buổi 1 ===
+  let circuitOn = false;
+  let sparkRunning = false;
+  let sparkStart = null;
+  const loopPoints = [[40,120],[40,40],[120,40],[220,40],[260,40],[380,40],[380,120],[40,120]];
+  function computeLoopMeta(points){
+    let segs = []; let total = 0;
+    for(let i=0;i<points.length-1;i++){
+      const [x1,y1] = points[i], [x2,y2] = points[i+1];
+      const d = Math.hypot(x2-x1, y2-y1);
+      segs.push({x1,y1,x2,y2,d});
+      total += d;
+    }
+    return {segs, total};
+  }
+  const loopMeta = computeLoopMeta(loopPoints);
+  function pointAt(dist){
+    let d = ((dist % loopMeta.total) + loopMeta.total) % loopMeta.total;
+    for(const s of loopMeta.segs){
+      if(d <= s.d){
+        const t = s.d===0 ? 0 : d/s.d;
+        return {x: s.x1+(s.x2-s.x1)*t, y: s.y1+(s.y2-s.y1)*t};
+      }
+      d -= s.d;
+    }
+    return {x: loopPoints[0][0], y: loopPoints[0][1]};
+  }
+  function animateSparks(ts){
+    if(!circuitOn){ sparkRunning = false; return; }
+    if(!sparkStart) sparkStart = ts;
+    const elapsed = (ts - sparkStart)/1000;
+    const speed = 70;
+    const dist = elapsed*speed;
+    const p1 = pointAt(dist);
+    const p2 = pointAt(dist + loopMeta.total/2);
+    const s1 = document.getElementById('spark1');
+    const s2 = document.getElementById('spark2');
+    if(s1){ s1.setAttribute('cx', p1.x); s1.setAttribute('cy', p1.y); }
+    if(s2){ s2.setAttribute('cx', p2.x); s2.setAttribute('cy', p2.y); }
+    requestAnimationFrame(animateSparks);
+  }
+  function toggleCircuit(){
+    circuitOn = !circuitOn;
+    const line = document.getElementById('switchLine');
+    const led = document.getElementById('ledDemo');
+    const status = document.getElementById('circuitStatus');
+    if(!line || !led || !status) return;
+    if(circuitOn){
+      line.setAttribute('x2','152'); line.setAttribute('y2','40');
+      led.setAttribute('fill','#facc15'); led.setAttribute('stroke','#fde68a');
+      status.textContent = '🟢 Công tắc đang ĐÓNG — mạch kín, dòng điện chạy, LED sáng!';
+      sparkStart = null;
+      if(!sparkRunning){ sparkRunning = true; requestAnimationFrame(animateSparks); }
+    } else {
+      line.setAttribute('x2','155'); line.setAttribute('y2','20');
+      led.setAttribute('fill','#334155'); led.setAttribute('stroke','#64748b');
+      status.textContent = '🔴 Công tắc đang MỞ — mạch hở, LED không sáng.';
+      const s1 = document.getElementById('spark1'); const s2 = document.getElementById('spark2');
+      if(s1) s1.setAttribute('cx','-10');
+      if(s2) s2.setAttribute('cx','-10');
+    }
+  }
+
+  // === LED matrix designer — Buổi 1 ===
+  function buildLedDesigner(){
+    const grid = document.getElementById('ledDesignerGrid');
+    if(!grid) return;
+    for(let i=0;i<25;i++){
+      const cell = document.createElement('div');
+      cell.className = 'led-cell';
+      cell.addEventListener('click', ()=> cell.classList.toggle('on'));
+      grid.appendChild(cell);
+    }
+  }
+  function clearLedDesigner(){
+    document.querySelectorAll('#ledDesignerGrid .led-cell').forEach(c=>c.classList.remove('on'));
+  }
+  buildLedDesigner();
+
+  // === Traffic light sequencer — Buổi 2 ===
+  let trafficRunning = false, trafficTimer = null, trafficIdx = 0, trafficRemain = 0;
+  const trafficSeq = [
+    {id:'tlRed', cls:'on-red', dur:3, label:'🔴 ĐỎ — Dừng lại'},
+    {id:'tlYellow', cls:'on-yellow', dur:1, label:'🟡 VÀNG — Chuẩn bị'},
+    {id:'tlGreen', cls:'on-green', dur:3, label:'🟢 XANH — Được đi'}
+  ];
+  function clearTrafficLights(){
+    ['tlRed','tlYellow','tlGreen'].forEach(id=>{
+      const el = document.getElementById(id);
+      if(el) el.className = 'traffic-light';
+    });
+  }
+  function trafficStep(){
+    clearTrafficLights();
+    const cur = trafficSeq[trafficIdx];
+    const el = document.getElementById(cur.id);
+    if(el) el.classList.add(cur.cls);
+    const lbl = document.getElementById('tlLabel');
+    if(lbl) lbl.textContent = cur.label;
+    trafficRemain = cur.dur;
+    const cnt = document.getElementById('tlCount');
+    if(cnt) cnt.textContent = trafficRemain;
+  }
+  function toggleTraffic(){
+    const btn = document.getElementById('tlToggleBtn');
+    if(!btn) return;
+    if(!trafficRunning){
+      trafficRunning = true; btn.textContent = '⏸ Dừng lại';
+      trafficIdx = 0; trafficStep();
+      trafficTimer = setInterval(()=>{
+        trafficRemain--;
+        if(trafficRemain <= 0){
+          trafficIdx = (trafficIdx+1) % trafficSeq.length;
+          trafficStep();
+        } else {
+          const cnt = document.getElementById('tlCount');
+          if(cnt) cnt.textContent = trafficRemain;
+        }
+      }, 1000);
+    } else {
+      trafficRunning = false; btn.textContent = '▶ Bắt đầu';
+      clearInterval(trafficTimer);
+      clearTrafficLights();
+      const lbl = document.getElementById('tlLabel');
+      if(lbl) lbl.textContent = 'Bấm Bắt đầu để xem chu trình';
+      const cnt = document.getElementById('tlCount');
+      if(cnt) cnt.textContent = '--';
+    }
+  }
+
+  // === Light sensor slider — Buổi 3 ===
+  function updateLightSim(val){
+    const label = document.getElementById('lightValueLabel');
+    const badge = document.getElementById('lightStatusBadge');
+    if(!label || !badge) return;
+    label.textContent = 'Mức ánh sáng: '+val;
+    if(Number(val) < 50){
+      badge.textContent = '🔔 Còi kêu! (trời tối)';
+      badge.className = 'status-badge status-alert';
+    } else {
+      badge.textContent = '🔕 Yên tĩnh (đủ sáng)';
+      badge.className = 'status-badge status-ok';
+    }
+  }
+  const lightSliderEl = document.getElementById('lightSlider');
+  if(lightSliderEl) updateLightSim(lightSliderEl.value);
+
+  // === Temperature slider — Buổi 4 ===
+  function updateTempSim(val){
+    const label = document.getElementById('tempValueLabel');
+    const badge = document.getElementById('tempStatusBadge');
+    if(!label || !badge) return;
+    label.textContent = 'Nhiệt độ: '+val+'°C';
+    if(Number(val) > 30){
+      badge.textContent = '⚠️ Cảnh báo nóng!';
+      badge.className = 'status-badge status-alert';
+    } else {
+      badge.textContent = '✅ Bình thường';
+      badge.className = 'status-badge status-ok';
+    }
+  }
+  const tempSliderEl = document.getElementById('tempSlider');
+  if(tempSliderEl) updateTempSim(tempSliderEl.value);
+
+  // === Combined dashboard — Buổi 5 ===
+  function updateDashboard(){
+    const lightEl = document.getElementById('dashLight');
+    const tempEl = document.getElementById('dashTemp');
+    if(!lightEl || !tempEl) return;
+    const light = Number(lightEl.value);
+    const temp = Number(tempEl.value);
+    const ledInd = document.getElementById('dashLedIndicator');
+    const tempInd = document.getElementById('dashTempIndicator');
+    if(light < 50){ ledInd.textContent = '💡 Đèn cửa: BẬT (trời tối)'; ledInd.classList.add('active'); }
+    else { ledInd.textContent = '💡 Đèn cửa: TẮT'; ledInd.classList.remove('active'); }
+    if(temp > 30){ tempInd.textContent = '⚠️ Cảnh báo nhiệt: NÓNG!'; tempInd.classList.add('active'); }
+    else { tempInd.textContent = '⚠️ Cảnh báo nhiệt: bình thường'; tempInd.classList.remove('active'); }
+  }
+  function triggerEmergency(){
+    const buzzInd = document.getElementById('dashBuzzerIndicator');
+    if(!buzzInd) return;
+    buzzInd.textContent = '🔊 Còi: ĐANG KÊU!!!'; buzzInd.classList.add('active');
+    setTimeout(()=>{ buzzInd.textContent = '🔊 Còi: TẮT'; buzzInd.classList.remove('active'); }, 2000);
+  }
+  updateDashboard();
+</script>
+</body>
+</html>

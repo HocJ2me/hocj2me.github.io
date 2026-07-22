@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Công cụ tạo mã hash — Dành cho giáo viên</title>
+<style>
+  body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:#f4f7fb;margin:0;padding:30px 16px;display:flex;justify-content:center;}
+  .box{background:#fff;border-radius:16px;padding:26px;max-width:520px;width:100%;box-shadow:0 4px 16px rgba(0,0,0,.08);}
+  h1{font-size:1.2rem;color:#1e40af;margin-top:0;}
+  p{font-size:.88rem;color:#475569;line-height:1.6;}
+  label{display:block;font-weight:600;font-size:.85rem;margin:14px 0 6px;color:#334155;}
+  input{width:100%;padding:10px 12px;border:2px solid #e2e8f0;border-radius:10px;font-size:.95rem;box-sizing:border-box;}
+  button{margin-top:14px;background:#2563eb;color:#fff;border:none;padding:10px 18px;border-radius:10px;font-weight:700;cursor:pointer;}
+  .result{margin-top:16px;background:#eef2ff;border-radius:10px;padding:12px;font-family:monospace;font-size:.82rem;word-break:break-all;display:none;}
+  .snippet{margin-top:10px;background:#0f172a;color:#4ade80;border-radius:10px;padding:12px;font-family:monospace;font-size:.8rem;white-space:pre-wrap;display:none;}
+  .copybtn{margin-top:8px;background:#64748b;font-size:.8rem;padding:6px 12px;}
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>🔑 Công cụ tạo mã hash mật khẩu (dành cho giáo viên)</h1>
+  <p>Vì <b>users.json</b> lưu mật khẩu dưới dạng đã băm (SHA-256), không lưu chữ thường trực tiếp. Nhập tên đăng nhập và mật khẩu bạn muốn cấp cho học sinh, công cụ sẽ tạo sẵn dòng JSON để dán vào <b>users.json</b>.</p>
+
+  <label for="uname">Tên đăng nhập</label>
+  <input type="text" id="uname" placeholder="VD: nguyenvana_6a1">
+
+  <label for="pass">Mật khẩu muốn cấp</label>
+  <input type="text" id="pass" placeholder="VD: microbit2026">
+
+  <button onclick="genHash()">Tạo mã hash</button>
+
+  <div class="result" id="hashResult"></div>
+  <div class="snippet" id="snippetResult"></div>
+  <button class="copybtn" id="copyBtn" style="display:none;" onclick="copySnippet()">📋 Sao chép dòng JSON</button>
+</div>
+
+<script>
+async function sha256Hex(text) {
+  const enc = new TextEncoder().encode(text);
+  const buf = await crypto.subtle.digest('SHA-256', enc);
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function genHash(){
+  const uname = document.getElementById('uname').value.trim();
+  const pass = document.getElementById('pass').value;
+  if(!uname || !pass){ alert('Nhập đủ tên đăng nhập và mật khẩu.'); return; }
+  const hash = await sha256Hex(pass);
+  const hashBox = document.getElementById('hashResult');
+  hashBox.style.display = 'block';
+  hashBox.textContent = 'SHA-256: ' + hash;
+  const snippet = `"${uname}": "${hash}"`;
+  const snipBox = document.getElementById('snippetResult');
+  snipBox.style.display = 'block';
+  snipBox.textContent = 'Dán dòng này vào users.json (nhớ thêm dấu phẩy nếu không phải dòng cuối):\n\n' + snippet + ',';
+  document.getElementById('copyBtn').style.display = 'inline-block';
+  window._lastSnippet = snippet + ',';
+}
+
+function copySnippet(){
+  navigator.clipboard.writeText(window._lastSnippet || '');
+  alert('Đã sao chép!');
+}
+</script>
+</body>
+</html>

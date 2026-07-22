@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yêu cầu cấp tài khoản — Khóa học Micro:bit</title>
+<style>
+  :root{ --blue:#2563eb; --blue-dark:#1e40af; --purple:#7c3aed; --orange:#f97316; --bg:#f4f7fb; }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:linear-gradient(135deg,var(--blue),var(--purple));
+    min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;
+  }
+  .box{background:#fff;border-radius:18px;padding:32px 28px;max-width:420px;width:100%;box-shadow:0 10px 40px rgba(0,0,0,.25);}
+  .box h1{font-size:1.25rem;color:var(--blue-dark);margin:0 0 4px;text-align:center;}
+  .box .sub{text-align:center;color:#64748b;font-size:.85rem;margin-bottom:18px;}
+  label{display:block;font-size:.85rem;font-weight:600;color:#334155;margin-bottom:6px;}
+  input{width:100%;padding:10px 12px;border:2px solid #e2e8f0;border-radius:10px;font-size:.95rem;margin-bottom:14px;}
+  input:focus{outline:none;border-color:var(--blue);}
+  button{width:100%;background:var(--blue);color:#fff;border:none;padding:12px;border-radius:10px;font-weight:700;font-size:.95rem;cursor:pointer;}
+  button:hover{background:var(--blue-dark);}
+  .note{background:#fff7ed;border-left:4px solid var(--orange);padding:10px 12px;border-radius:8px;font-size:.8rem;color:#475569;margin-bottom:16px;line-height:1.5;}
+  .footlink{text-align:center;margin-top:16px;font-size:.85rem;color:#64748b;}
+  .footlink a{color:var(--blue);text-decoration:none;font-weight:600;}
+</style>
+</head>
+<body>
+  <div class="box">
+    <h1>📝 Yêu cầu cấp tài khoản</h1>
+    <div class="sub">Điền thông tin, giáo viên sẽ cấp tài khoản cho bạn</div>
+    <div class="note">
+      ⚠️ Vì lý do an toàn, form này <b>không gửi mật khẩu công khai</b>. Sau khi giáo viên duyệt yêu cầu (gửi trên GitHub Issues), giáo viên sẽ báo mật khẩu cho bạn riêng qua nhóm lớp — không phải qua GitHub.
+    </div>
+    <form id="regForm">
+      <label for="name">Họ và tên</label>
+      <input type="text" id="name" required>
+      <label for="cls">Lớp</label>
+      <input type="text" id="cls" placeholder="VD: 6A1" required>
+      <label for="uname">Tên đăng nhập mong muốn</label>
+      <input type="text" id="uname" placeholder="VD: nguyenvana_6a1" required>
+      <button type="submit">Gửi yêu cầu tới giáo viên</button>
+    </form>
+    <div class="footlink">Đã có tài khoản? <a href="login.html">Đăng nhập</a></div>
+  </div>
+
+<script>
+  // GitHub repo nhận yêu cầu cấp tài khoản — sửa lại đúng repo của bạn nếu cần.
+  const REPO = 'HocJ2me/hocj2me.github.io';
+
+  document.getElementById('regForm').addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const cls = document.getElementById('cls').value.trim();
+    const uname = document.getElementById('uname').value.trim();
+
+    const title = encodeURIComponent('[Yêu cầu tài khoản] ' + name + ' (' + cls + ')');
+    const body = encodeURIComponent(
+`Họ và tên: ${name}
+Lớp: ${cls}
+Tên đăng nhập mong muốn: ${uname}
+
+--
+Giáo viên vui lòng: tạo mật khẩu, dùng hash-tool.html để băm SHA-256,
+thêm một dòng vào users.json, commit, rồi báo mật khẩu cho học sinh
+qua kênh riêng (không trả lời công khai trong issue này).`
+    );
+    const url = `https://github.com/${REPO}/issues/new?title=${title}&body=${body}&labels=dang-ky-tai-khoan`;
+    window.open(url, '_blank');
+  });
+</script>
+</body>
+</html>

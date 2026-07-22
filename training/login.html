@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đăng nhập — Khóa học Micro:bit</title>
+<style>
+  :root{ --blue:#2563eb; --blue-dark:#1e40af; --purple:#7c3aed; --red:#dc2626; --bg:#f4f7fb; }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:linear-gradient(135deg,var(--blue),var(--purple));
+    min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;
+  }
+  .box{background:#fff;border-radius:18px;padding:32px 28px;max-width:380px;width:100%;box-shadow:0 10px 40px rgba(0,0,0,.25);}
+  .box h1{font-size:1.3rem;color:var(--blue-dark);margin:0 0 4px;text-align:center;}
+  .box .sub{text-align:center;color:#64748b;font-size:.85rem;margin-bottom:22px;}
+  label{display:block;font-size:.85rem;font-weight:600;color:#334155;margin-bottom:6px;}
+  input{width:100%;padding:10px 12px;border:2px solid #e2e8f0;border-radius:10px;font-size:.95rem;margin-bottom:16px;}
+  input:focus{outline:none;border-color:var(--blue);}
+  button{width:100%;background:var(--blue);color:#fff;border:none;padding:12px;border-radius:10px;font-weight:700;font-size:.95rem;cursor:pointer;}
+  button:hover{background:var(--blue-dark);}
+  .error{background:#fef2f2;color:var(--red);padding:9px 12px;border-radius:8px;font-size:.85rem;margin-bottom:14px;display:none;}
+  .footlink{text-align:center;margin-top:16px;font-size:.85rem;color:#64748b;}
+  .footlink a{color:var(--blue);text-decoration:none;font-weight:600;}
+  .demo{background:#eef2ff;border-radius:8px;padding:9px 12px;font-size:.78rem;color:#475569;margin-top:16px;}
+</style>
+</head>
+<body>
+  <div class="box">
+    <h1>🔧 Khóa học Micro:bit</h1>
+    <div class="sub">Đăng nhập để vào học</div>
+    <div class="error" id="errBox">Sai tên đăng nhập hoặc mật khẩu.</div>
+    <form id="loginForm">
+      <label for="u">Tên đăng nhập</label>
+      <input type="text" id="u" autocomplete="username" required>
+      <label for="p">Mật khẩu</label>
+      <input type="password" id="p" autocomplete="current-password" required>
+      <button type="submit">Đăng nhập</button>
+    </form>
+    <div class="footlink">Chưa có tài khoản? <a href="register.html">Yêu cầu cấp tài khoản</a></div>
+    <div class="demo">💡 Tài khoản demo để dùng thử: <b>hocsinh_demo</b> / mật khẩu <b>demo123</b></div>
+  </div>
+
+<script src="auth.js"></script>
+<script>
+  document.getElementById('loginForm').addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const u = document.getElementById('u').value;
+    const p = document.getElementById('p').value;
+    const errBox = document.getElementById('errBox');
+    try{
+      const ok = await tryLogin(u, p);
+      if(ok){
+        setSession(u.trim());
+        const params = new URLSearchParams(location.search);
+        const next = params.get('next');
+        location.href = (next && next.endsWith('.html')) ? next : 'microbit.html';
+      } else {
+        errBox.style.display = 'block';
+      }
+    }catch(err){
+      errBox.textContent = 'Không tải được danh sách tài khoản (users.json). Kiểm tra lại file có nằm cùng thư mục không.';
+      errBox.style.display = 'block';
+    }
+  });
+</script>
+</body>
+</html>
