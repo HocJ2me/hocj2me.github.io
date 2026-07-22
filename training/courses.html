@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Danh sách khóa học — Khóa học STEM online AIJAM Bảo Châu</title>
+<style>
+  :root{
+    --blue:#2563eb; --blue-dark:#1e40af; --purple:#7c3aed; --orange:#f97316;
+    --green:#16a34a; --bg:#f4f7fb; --ink:#1e293b; --sub:#64748b;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink);}
+  header{
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    color:#fff;padding:22px 24px 28px;box-shadow:0 2px 10px rgba(0,0,0,.15);
+  }
+  .header-top{display:flex;justify-content:flex-end;align-items:center;margin-bottom:10px;}
+  .whoami{font-size:.78rem;opacity:.85;margin-right:10px;}
+  .logout-btn{background:rgba(0,0,0,.25);color:#fff;border:1px solid rgba(255,255,255,.5);padding:5px 12px;border-radius:20px;font-size:.76rem;font-weight:700;cursor:pointer;}
+  header h1{font-size:1.4rem;margin:0 0 4px;text-align:center;}
+  header .sub{font-size:.88rem;opacity:.92;text-align:center;font-weight:400;}
+  main{max-width:1080px;margin:0 auto;padding:28px 20px 60px;}
+  .search-row{display:flex;gap:10px;margin-bottom:26px;flex-wrap:wrap;}
+  .search-row input{
+    flex:1;min-width:220px;padding:11px 16px;border-radius:24px;border:2px solid #e2e8f0;
+    font-size:.9rem;background:#fff;
+  }
+  .search-row input:focus{outline:none;border-color:var(--blue);}
+  .section-title{font-size:1.05rem;font-weight:700;color:var(--blue-dark);margin:0 0 14px;}
+  .course-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media(max-width:900px){.course-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:600px){.course-grid{grid-template-columns:1fr;}}
+  .course-card{
+    background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.08);
+    display:flex;flex-direction:column;transition:transform .15s ease, box-shadow .15s ease;
+    text-decoration:none;color:inherit;
+  }
+  .course-card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.14);}
+  .course-thumb{
+    height:130px;display:flex;align-items:center;justify-content:center;font-size:2.6rem;
+    background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;position:relative;
+  }
+  .course-thumb.microbit{background:linear-gradient(135deg,#0891b2,#2563eb);}
+  .course-thumb.soon{background:linear-gradient(135deg,#94a3b8,#cbd5e1);}
+  .badge{
+    position:absolute;top:10px;left:10px;background:rgba(255,255,255,.92);color:var(--blue-dark);
+    font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:12px;
+  }
+  .fire{position:absolute;top:8px;right:10px;font-size:1.1rem;}
+  .course-body{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1;}
+  .course-title{font-size:1rem;font-weight:700;color:var(--ink);margin:0 0 4px;}
+  .course-provider{font-size:.76rem;color:var(--sub);margin-bottom:6px;}
+  .course-desc{font-size:.82rem;color:var(--sub);margin-bottom:10px;flex:1;}
+  .course-meta{display:flex;align-items:center;gap:6px;font-size:.78rem;color:#b45309;font-weight:700;margin-bottom:12px;}
+  .course-meta .stars{color:#f59e0b;}
+  .course-cta{
+    background:var(--blue);color:#fff;text-align:center;padding:9px;border-radius:10px;
+    font-weight:700;font-size:.86rem;
+  }
+  .course-card.soon .course-cta{background:#94a3b8;}
+  .course-card.soon{opacity:.85;cursor:default;}
+  .course-card.soon:hover{transform:none;box-shadow:0 3px 12px rgba(0,0,0,.08);}
+  footer{text-align:center;color:var(--sub);font-size:.78rem;padding:20px;}
+</style>
+<script src="auth.js"></script>
+<script>
+  requireAuth();
+</script>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <span class="whoami" id="whoamiLabel"></span>
+    <button class="logout-btn" onclick="logout()">Đăng xuất</button>
+  </div>
+  <h1>🎓 Khóa học STEM online AIJAM Bảo Châu</h1>
+  <div class="sub">Chọn một khóa học bên dưới để bắt đầu học</div>
+</header>
+<script>
+  (function(){
+    var u = sessionStorage.getItem('mb_auth_user');
+    var el = document.getElementById('whoamiLabel');
+    if (el) el.textContent = u ? ('👤 ' + u) : '';
+  })();
+</script>
+
+<main>
+  <div class="search-row">
+    <input type="text" id="searchBox" placeholder="🔍 Tìm khóa học..." oninput="filterCourses()">
+  </div>
+
+  <p class="section-title">Tất cả khóa học</p>
+  <div class="course-grid" id="courseGrid">
+    <a href="microbit.html" class="course-card" data-name="micro:bit điện tử lập trình kéo thả lớp 6">
+      <div class="course-thumb microbit">
+        <span class="fire">🔥</span>
+        🔧
+      </div>
+      <div class="course-body">
+        <div class="course-provider">AIJAM Bảo Châu · Lớp 6</div>
+        <p class="course-title">Micro:bit — Điện tử &amp; Lập trình kéo thả</p>
+        <p class="course-desc">Học điện tử cơ bản và lập trình kéo thả qua 5 buổi thực hành: đèn giao thông, còi báo động, trạm đo nhiệt độ, ngôi nhà thông minh mini.</p>
+        <div class="course-meta"><span class="stars">★★★★★</span> 5 buổi × 2 giờ</div>
+        <div class="course-cta">Vào học →</div>
+      </div>
+    </a>
+
+    <div class="course-card soon" data-name="sắp ra mắt">
+      <div class="course-thumb soon">✨</div>
+      <div class="course-body">
+        <div class="course-provider">AIJAM Bảo Châu</div>
+        <p class="course-title">Khóa học mới sắp ra mắt</p>
+        <p class="course-desc">Thêm nội dung STEM mới đang được chuẩn bị. Quay lại sau nhé!</p>
+        <div class="course-meta">&nbsp;</div>
+        <div class="course-cta">Sắp mở</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>© Khóa học STEM online AIJAM Bảo Châu</footer>
+
+<script>
+  function filterCourses(){
+    const q = document.getElementById('searchBox').value.trim().toLowerCase();
+    document.querySelectorAll('#courseGrid > *').forEach(card=>{
+      const name = card.dataset.name || '';
+      card.style.display = name.includes(q) ? '' : 'none';
+    });
+  }
+</script>
+</body>
+</html>

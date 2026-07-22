@@ -4,7 +4,8 @@
 
 ```
 training/
-  microbit.html      ← khóa học (bản đã có cổng đăng nhập)
+  courses.html       ← danh sách khóa học (trang sau khi đăng nhập)
+  microbit.html      ← khóa học Micro:bit (bản đã có cổng đăng nhập)
   login.html
   register.html
   hash-tool.html
@@ -12,6 +13,11 @@ training/
   users.json
   admin-huong-dan.md
 ```
+
+Khi thêm khóa học mới, tạo thêm 1 file .html (ví dụ `khoa-moi.html`, cũng nhúng
+`auth.js` + `requireAuth()` như các file khác), rồi thêm 1 thẻ khóa học mới
+vào `courses.html` (sao chép thẻ `<a href="microbit.html" class="course-card">`
+và sửa lại nội dung, đường link).
 
 Toàn bộ thư mục `training/` này upload nguyên vẹn vào repo
 `HocJ2me/hocj2me.github.io`. Sau đó vào `index.html` hiện tại, dán snippet

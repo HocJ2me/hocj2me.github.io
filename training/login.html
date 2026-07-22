@@ -54,7 +54,7 @@
         setSession(u.trim());
         const params = new URLSearchParams(location.search);
         const next = params.get('next');
-        location.href = (next && next.endsWith('.html')) ? next : 'microbit.html';
+        location.href = (next && next.endsWith('.html')) ? next : 'courses.html';
       } else {
         errBox.style.display = 'block';
       }
