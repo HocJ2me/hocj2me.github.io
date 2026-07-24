@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Danh sách khóa học Thầy Lê Chí Tuyền — Chế tạo kính thông minh AI — Cuộc thi AIJAM 2026</title>
+<style>
+  :root{
+    --blue:#7c3aed; --blue-dark:#5b21b6; --orange:#f97316; --green:#16a34a;
+    --red:#dc2626; --bg:#f4f7fb; --card:#ffffff; --ink:#1e293b; --sub:#64748b;
+    --purple:#db2777; --yellow:#eab308; --cyan:#0891b2;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink);}
+  header{
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    color:#fff;padding:10px 24px;position:sticky;top:0;z-index:60;box-shadow:0 2px 10px rgba(0,0,0,.15);
+  }
+  header h1{font-size:1.1rem;margin:0 0 2px;}
+  header .sub{font-size:.78rem;opacity:.9;font-weight:400;}
+  .contest-chip{display:inline-block;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.5);padding:2px 10px;border-radius:14px;font-size:.72rem;font-weight:700;margin-top:4px;}
+  .buoi-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+  .buoi-tab{
+    border:2px solid rgba(255,255,255,.6);background:transparent;color:#fff;padding:6px 13px;border-radius:20px;
+    cursor:pointer;font-weight:700;font-size:.8rem;transition:.2s;
+  }
+  .buoi-tab.active{background:#fff;color:var(--blue-dark);border-color:#fff;}
+  main{max-width:1080px;margin:0 auto;padding:16px 18px 40px;}
+  .buoi-panel{display:none;}
+  .buoi-panel.active{display:block;animation:fade .3s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+  .panel-title{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+  .panel-title h2{margin:0;font-size:1.3rem;color:var(--blue-dark);}
+  .panel-title .goalline{color:var(--sub);font-size:.88rem;margin-top:2px;}
+  .subnav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+  .subnav button{
+    background:#e2e8f0;border:none;padding:7px 13px;border-radius:20px;font-weight:600;font-size:.8rem;
+    cursor:pointer;color:var(--ink);
+  }
+  .subnav button.active{background:var(--blue);color:#fff;}
+  .subslide{display:none;}
+  .subslide.active{display:block;animation:fade .3s ease;}
+  .slide-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:10px;}
+  .slide-head h3.big{margin:0;font-size:1.12rem;color:var(--blue-dark);}
+  .time-chip{background:var(--orange);color:#fff;padding:4px 11px;border-radius:20px;font-weight:700;font-size:.76rem;white-space:nowrap;}
+  .micro-deck{max-height:calc(100vh - 300px);min-height:220px;overflow-y:auto;padding-right:4px;}
+  .microslide{display:none;}
+  .microslide.active{display:block;animation:fade .25s ease;}
+  .micro-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:10px;}
+  .micro-nav button{background:var(--blue-dark);color:#fff;border:none;width:36px;height:36px;border-radius:50%;font-weight:700;cursor:pointer;font-size:1rem;line-height:1;}
+  .micro-nav button:disabled{opacity:.3;cursor:not-allowed;}
+  .micro-nav span{color:var(--sub);font-size:.82rem;font-weight:700;min-width:46px;text-align:center;}
+  .card{background:var(--card);border-radius:14px;padding:15px 17px;margin-bottom:0;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+  .card h4{margin-top:0;color:var(--blue-dark);font-size:1rem;border-left:5px solid var(--orange);padding-left:10px;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  @media(max-width:760px){.grid2,.grid3{grid-template-columns:1fr;}}
+  .comp-card{background:#eef2ff;border-radius:12px;padding:9px;text-align:center;}
+  .comp-card .emoji{font-size:1.8rem;}
+  .comp-card b{display:block;margin:4px 0 2px;color:var(--blue-dark);font-size:.86rem;}
+  .comp-card span{font-size:.75rem;color:var(--sub);}
+  .steps{padding-left:0;list-style:none;counter-reset:step;}
+  .steps li{counter-increment:step;margin-bottom:8px;padding-left:34px;position:relative;line-height:1.45;font-size:.89rem;}
+  .steps li::before{
+    content:counter(step);position:absolute;left:0;top:0;background:var(--blue);color:#fff;
+    width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.76rem;
+  }
+  .note{background:#fff7ed;border-left:4px solid var(--orange);padding:8px 12px;border-radius:8px;font-size:.84rem;margin-top:8px;}
+  .warn{background:#fef2f2;border-left:4px solid var(--red);padding:8px 12px;border-radius:8px;font-size:.84rem;margin-top:8px;}
+  .goal{background:#ecfdf5;border-left:4px solid var(--green);padding:8px 12px;border-radius:8px;font-size:.84rem;}
+  .teacher-note{background:#f5f3ff;border-left:4px solid var(--purple);padding:8px 12px;border-radius:8px;font-size:.84rem;margin-top:8px;}
+  .extend-box{background:#ecfeff;border-left:4px solid var(--cyan);padding:8px 12px;border-radius:8px;font-size:.86rem;}
+  .discuss-box{background:#fefce8;border-left:4px solid var(--yellow);padding:8px 12px;border-radius:8px;font-size:.86rem;margin-top:6px;}
+  .btn{display:inline-block;background:var(--blue);color:#fff;padding:8px 15px;border-radius:10px;text-decoration:none;font-weight:700;font-size:.82rem;margin-top:8px;}
+  .quiz-q{margin-bottom:12px;}
+  .quiz-q p{font-weight:700;margin-bottom:5px;font-size:.88rem;}
+  .quiz-opt{display:block;background:#f1f5f9;border:2px solid transparent;border-radius:8px;padding:6px 10px;margin-bottom:5px;cursor:pointer;font-size:.85rem;}
+  .quiz-opt.correct{background:#dcfce7;border-color:var(--green);}
+  .quiz-opt.wrong{background:#fee2e2;border-color:var(--red);}
+  .checklist label{display:flex;align-items:center;gap:8px;margin-bottom:7px;font-size:.88rem;}
+  table.rubric{width:100%;border-collapse:collapse;font-size:.81rem;}
+  table.rubric th,table.rubric td{border:1px solid #e2e8f0;padding:6px;text-align:left;}
+  table.rubric th{background:#eef2ff;color:var(--blue-dark);}
+  .agenda{display:flex;flex-wrap:wrap;gap:8px;}
+  .agenda .a-item{flex:1;min-width:140px;background:#eef2ff;border-radius:10px;padding:8px;text-align:center;font-size:.78rem;}
+  .agenda b{display:block;color:var(--blue-dark);font-size:.9rem;}
+  .quizScore{font-weight:700;color:var(--blue-dark);}
+  .ov-row{display:flex;gap:14px;align-items:flex-start;background:#fff;border-radius:14px;padding:14px 18px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+  .ov-num{background:var(--blue);color:#fff;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;}
+  .ov-row h4{margin:0 0 4px;color:var(--blue-dark);}
+  .ov-row p{margin:2px 0;font-size:.86rem;color:var(--sub);}
+  .status-badge{padding:6px 13px;border-radius:20px;font-weight:700;font-size:.82rem;}
+  .status-ok{background:#dcfce7;color:#166534;}
+  .status-alert{background:#fee2e2;color:#991b1b;}
+  .slider-sim{background:#eef2ff;border-radius:14px;padding:16px;}
+  .slider-sim input[type=range]{width:100%;}
+  .slider-sim .readout{display:flex;align-items:center;justify-content:space-between;margin-top:10px;flex-wrap:wrap;gap:8px;}
+  .dashboard-sim{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:700px){.dashboard-sim{grid-template-columns:1fr;}}
+  .dash-item{background:#eef2ff;border-radius:12px;padding:11px;}
+  .dash-indicator{width:100%;padding:7px;border-radius:8px;background:#cbd5e1;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.78rem;color:#334155;margin-top:8px;transition:.2s;text-align:center;}
+  .dash-indicator.active{background:var(--green);color:#fff;}
+  .resetbtn{background:var(--sub);color:#fff;border:none;padding:7px 13px;border-radius:20px;font-weight:700;cursor:pointer;margin-top:8px;font-size:.8rem;}
+  .logout-btn{background:rgba(0,0,0,.25);color:#fff;border:1px solid rgba(255,255,255,.5);padding:5px 12px;border-radius:20px;font-size:.76rem;font-weight:700;cursor:pointer;}
+  .whoami{font-size:.76rem;opacity:.85;margin-right:8px;}
+  .mic-bars{display:flex;align-items:flex-end;justify-content:center;gap:22px;height:110px;background:#0f172a;border-radius:14px;padding:14px;}
+  .mic-bar-wrap{text-align:center;color:#e2e8f0;font-size:.76rem;}
+  .mic-bar{width:34px;background:linear-gradient(180deg,#facc15,#f97316);border-radius:6px 6px 0 0;margin:0 auto;transition:.2s;}
+  .glasses-screen{background:#0f172a;border-radius:14px;padding:18px;text-align:center;}
+  .glasses-lcd{background:#052e16;color:#4ade80;font-family:'Courier New',monospace;padding:14px;border-radius:8px;font-size:1rem;min-height:50px;display:flex;align-items:center;justify-content:center;}
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
+  .dirbtn{background:var(--blue-dark);color:#fff;border:none;padding:10px 16px;border-radius:10px;font-weight:700;cursor:pointer;font-size:.86rem;}
+  .dirbtn.active{background:var(--orange);}
+</style>
+<script src="auth.js"></script>
+<script>
+  // Simple client-side login gate. Not real security — see admin-huong-dan.md.
+  requireAuth();
+</script>
+</head>
+<body>
+
+<header>
+  <div style="display:flex;justify-content:space-between;align-items:center;">
+    <a href="courses.html" style="color:#fff;font-size:.78rem;opacity:.9;text-decoration:none;font-weight:700;">← Danh sách khóa học</a>
+    <div style="display:flex;align-items:center;">
+      <span class="whoami" id="whoamiLabel"></span>
+      <button class="logout-btn" onclick="logout()">Đăng xuất</button>
+    </div>
+  </div>
+  <h1>🎓 Danh sách khóa học Thầy Lê Chí Tuyền</h1>
+  <div class="sub">Khóa học: 🕶️ Chế tạo kính thông minh hỗ trợ người khiếm thính bằng AI âm thanh · 5 buổi × 2 giờ · Dùng phím ← → hoặc nút để chuyển trang</div>
+  <span class="contest-chip">🏆 Cuộc thi AIJAM 2026</span>
+  <div class="buoi-tabs">
+    <button class="buoi-tab active" data-target="ov">📋 Tổng quan</button>
+    <button class="buoi-tab" data-target="b1">Buổi 1 🧠</button>
+    <button class="buoi-tab" data-target="b2">Buổi 2 🔊</button>
+    <button class="buoi-tab" data-target="b3">Buổi 3 🧭</button>
+    <button class="buoi-tab" data-target="b4">Buổi 4 💬</button>
+    <button class="buoi-tab" data-target="b5">Buổi 5 🚨</button>
+  </div>
+</header>
+<script>
+  (function(){
+    var u = sessionStorage.getItem('mb_auth_user');
+    var el = document.getElementById('whoamiLabel');
+    if (el) el.textContent = u ? ('👤 ' + u) : '';
+  })();
+</script>
+
+<main>
+
+<!-- ============ OVERVIEW ============ -->
+<section class="buoi-panel active" id="ov">
+  <div class="panel-title"><h2>📋 Tổng quan khóa học (5 buổi × 120 phút = 10 giờ)</h2></div>
+  <div class="card" style="margin-bottom:12px;">
+    <h4>🏆 Dự thi AIJAM 2026</h4>
+    <p style="font-size:.88rem;">Khóa học này hướng học sinh chế tạo mô hình thử nghiệm <b>kính thông minh hỗ trợ người khiếm thính bằng AI âm thanh</b> để tham gia cuộc thi <b>AIJAM 2026</b>. Kính không chỉ hiển thị lời nói mà còn phát hiện âm thanh nguy hiểm, xác định hướng nguồn âm và cảnh báo bằng hình ảnh/rung để người dùng phản ứng kịp thời — dựa trên báo cáo ý tưởng đề tài "Kính thông minh hỗ trợ người khiếm thính bằng AI âm thanh".</p>
+  </div>
+  <div class="ov-row">
+    <div class="ov-num">1</div>
+    <div><h4>🧠 Nền tảng: Kiến trúc hệ thống AI âm thanh</h4>
+    <p>Bối cảnh, mục tiêu đề tài, kiến trúc tổng thể (mic → AI xử lý → Wi-Fi → kính hiển thị + rung), khái niệm AI/machine learning cơ bản, làm quen board ESP32/Arduino.</p>
+    <p><b>Sản phẩm:</b> Sơ đồ hệ thống + thu âm thử nghiệm đầu tiên.</p></div>
+  </div>
+  <div class="ov-row">
+    <div class="ov-num">2</div>
+    <div><h4>🔊 Dự án: Nhận diện âm thanh môi trường</h4>
+    <p>Phân loại âm thanh bằng AI (còi xe, báo cháy, gõ cửa, gọi tên) dùng mô hình YAMNet/CNN nhỏ trên mel-spectrogram.</p>
+    <p><b>Sản phẩm:</b> Chương trình nhận diện đúng loại âm thanh mẫu và hiện nhãn cảnh báo.</p></div>
+  </div>
+  <div class="ov-row">
+    <div class="ov-num">3</div>
+    <div><h4>🧭 Dự án: Xác định hướng nguồn âm</h4>
+    <p>Dùng nhiều microphone, so sánh biên độ tín hiệu từng kênh để suy ra hướng trái/phải/trước.</p>
+    <p><b>Sản phẩm:</b> Kính rung đúng bên tương ứng với hướng phát ra âm thanh.</p></div>
+  </div>
+  <div class="ov-row">
+    <div class="ov-num">4</div>
+    <div><h4>💬 Dự án: Speech-to-Text &amp; Lọc nhiễu AI</h4>
+    <p>Chuyển lời nói thành văn bản thời gian thực, lọc nhiễu nền, hiển thị lên màn hình OLED/LCD gắn trên gọng kính.</p>
+    <p><b>Sản phẩm:</b> Màn hình kính hiển thị đúng nội dung câu nói ngắn.</p></div>
+  </div>
+  <div class="ov-row">
+    <div class="ov-num">5</div>
+    <div><h4>🚨 Hoàn thiện: Cảnh báo khẩn cấp theo bối cảnh</h4>
+    <p>Ưu tiên cảnh báo theo bối cảnh indoor/outdoor, hoàn thiện toàn bộ kính, thử nghiệm, định hướng phát triển nâng cao (Gemini API, smart home).</p>
+    <p><b>Sản phẩm:</b> Mô hình kính thông minh hoàn chỉnh sẵn sàng dự thi + báo cáo trình bày.</p></div>
+  </div>
+  <div class="card">
+    <h4>🗂️ Cấu trúc mỗi buổi (120 phút)</h4>
+    <table class="rubric">
+      <tr><th>Phần</th><th>Thời lượng</th><th>Nội dung</th></tr>
+      <tr><td>1. Lý thuyết</td><td>30 phút</td><td>Kiến thức AI/phần cứng mới, mô phỏng tương tác, câu hỏi thảo luận</td></tr>
+      <tr><td>2. Lắp ráp / Chế tạo</td><td>30 phút</td><td>Đấu nối linh kiện, gắn lên gọng kính, xử lý lỗi thường gặp</td></tr>
+      <tr><td>3. Lập trình</td><td>40 phút</td><td>Thực hành xử lý âm thanh/AI + thực hành trực tiếp trên board</td></tr>
+      <tr><td>4. Tổng kết</td><td>20 phút</td><td>Checklist dự án, quiz ôn tập, thử thách mở rộng</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ============ BUỔI 1 ============ -->
+<section class="buoi-panel" id="b1" data-multi>
+  <div class="panel-title">
+    <div><h2>🧠 Buổi 1: Kiến trúc hệ thống AI âm thanh</h2><div class="goalline">Dự án: Sơ đồ hệ thống + thu âm thử nghiệm</div></div>
+  </div>
+  <div class="subnav">
+    <button class="active">1. Lý thuyết</button>
+    <button>2. Lắp ráp</button>
+    <button>3. Lập trình</button>
+    <button>4. Tổng kết</button>
+  </div>
+
+  <div class="subslide active">
+    <div class="slide-head"><h3 class="big">Bối cảnh, mục tiêu &amp; kiến trúc hệ thống</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>👂 Vì sao cần kính thông minh cho người khiếm thính?</h4>
+          <p>Người khiếm thính khó nhận biết các âm thanh quan trọng trong môi trường sống: còi xe, chuông báo cháy, tiếng gõ cửa, tiếng ai đó gọi tên mình. Kính thông minh trong khóa học này không chỉ hiển thị lời nói thành chữ, mà còn <b>phát hiện âm thanh nguy hiểm</b>, <b>xác định hướng nguồn âm</b> và chuyển thành <b>cảnh báo trực quan hoặc rung</b> để người dùng phản ứng kịp thời.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🏗️ Kiến trúc tổng thể hệ thống</h4>
+          <p style="font-size:.86rem;">Hệ thống gồm 2 phần chính hoạt động phối hợp qua Wi-Fi:</p>
+          <div class="grid2">
+            <div class="comp-card"><div class="emoji">🎙️</div><b>Phần xử lý AI</b><span>Microphone thu âm → mô hình AI phân loại/lọc nhiễu/nhận dạng lời nói → gửi kết quả qua Wi-Fi</span></div>
+            <div class="comp-card"><div class="emoji">🕶️</div><b>Phần kính thông minh</b><span>ESP32/Arduino nhận dữ liệu → điều khiển màn hình hiển thị + mô-tơ rung, chạy bằng pin sạc</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🤖 AI / Machine Learning là gì? (giải thích đơn giản)</h4>
+          <p>AI (Trí tuệ nhân tạo) ở đây là một chương trình máy tính đã được "huấn luyện" từ rất nhiều mẫu âm thanh có sẵn (tiếng còi xe, tiếng chuông, tiếng nói...), để khi nghe một âm thanh mới, nó có thể tự đoán xem âm thanh đó thuộc loại nào — giống như một đứa trẻ học phân biệt các loại tiếng động sau khi nghe đi nghe lại nhiều lần.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧩 4 bài toán AI cốt lõi của dự án</h4>
+          <table class="rubric">
+            <tr><th>Bài toán</th><th>Mục tiêu</th></tr>
+            <tr><td>1. Phân loại âm thanh</td><td>Nhận biết còi xe, chuông cửa, báo cháy, tiếng gọi (Buổi 2)</td></tr>
+            <tr><td>2. Xác định hướng</td><td>Biết âm thanh phát ra từ bên trái/phải/trước (Buổi 3)</td></tr>
+            <tr><td>3. Speech-to-text</td><td>Chuyển lời nói thành chữ hiển thị (Buổi 4)</td></tr>
+            <tr><td>4. Lọc nhiễu &amp; ưu tiên cảnh báo</td><td>Tránh báo sai, ưu tiên đúng tình huống (Buổi 5)</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧠 Vì sao nên làm AI trước khi hoàn thiện phần cứng?</h4>
+          <p>Vì phần kính cần thiết kế cơ khí và in 3D tốn thời gian, nhóm nên triển khai và thử nghiệm thuật toán AI trước bằng laptop hoặc Raspberry Pi. Cách này giúp kiểm thử thuật toán, thu dữ liệu, đánh giá độ chính xác — chỉ chuyển sang phần cứng đeo được khi logic xử lý đã ổn định.</p>
+          <div class="note">💡 Đây là lý do Buổi 1-2 tập trung vào xử lý AI trên máy tính, còn việc lắp ráp lên gọng kính thật sẽ hoàn chỉnh dần ở các buổi sau.</div>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Chọn linh kiện &amp; bố trí sơ bộ</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🧰 Bảng linh kiện chính</h4>
+          <table class="rubric">
+            <tr><th>Khối</th><th>Linh kiện gợi ý</th><th>Ghi chú</th></tr>
+            <tr><td>Thu âm</td><td>USB mic array / ReSpeaker 2-4 mic</td><td>Ưu tiên loại dễ dùng với laptop/Raspberry Pi</td></tr>
+            <tr><td>Xử lý AI</td><td>Laptop / Raspberry Pi 4-5 / Orange Pi</td><td>Giai đoạn đầu dùng laptop, sau chuyển máy nhúng</td></tr>
+            <tr><td>Kính</td><td>ESP32/Arduino + OLED/LCD nhỏ + mô-tơ rung + LED</td><td>Nhận dữ liệu qua Wi-Fi/BLE, hiển thị cảnh báo</td></tr>
+            <tr><td>Nguồn</td><td>Pin Li-Po + mạch sạc TP4056 + boost 5V</td><td>Đủ dòng cho màn hình, ESP32, mô-tơ rung</td></tr>
+            <tr><td>Cơ khí</td><td>Gọng kính in 3D / hộp module nhỏ</td><td>Ban đầu làm mô hình đeo thử, chưa cần tối ưu thẩm mỹ</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🛠️ Bố trí sơ bộ gọng kính</h4>
+          <ol class="steps">
+            <li>Đặt ESP32 và mạch pin ở phần gọng bên (đối trọng hai bên để cân bằng khi đeo).</li>
+            <li>Vị trí màn hình OLED/LCD nhỏ nên đặt ở góc trong tầm nhìn phụ, không che khuất tầm nhìn chính.</li>
+            <li>Mô-tơ rung đặt sát thái dương, nơi da nhạy cảm dễ cảm nhận rung.</li>
+            <li>Dây nối giữa các khối cần gọn, cố định chắc để tránh đứt khi đeo/tháo kính.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🔌 Đấu nối cơ bản ESP32</h4>
+          <p>Đấu màn hình OLED (thường dùng giao tiếp I2C — chỉ cần 4 dây: VCC, GND, SDA, SCL) và mô-tơ rung (qua 1 chân tín hiệu số) vào ESP32. Đây là bước đấu nối phần cứng cơ bản, sẽ được lập trình điều khiển chi tiết hơn ở Buổi 4-5.</p>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Thu âm thử nghiệm đầu tiên</h3><span class="time-chip">⏱ 40 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🎚️ Lấy mẫu âm thanh (sampling) là gì?</h4>
+          <p>Âm thanh thật là sóng liên tục, máy tính không lưu được sóng liên tục nên phải "chụp" giá trị biên độ sóng tại từng thời điểm rất nhỏ cách đều nhau — gọi là <b>lấy mẫu (sampling)</b>. Tần số lấy mẫu phổ biến cho giọng nói là 16.000 mẫu/giây (16kHz).</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🎙️ Thực hành: ghi âm &amp; phát lại</h4>
+          <ol class="steps">
+            <li>Kết nối mic vào laptop/Raspberry Pi, dùng thư viện thu âm cơ bản (ví dụ PyAudio trong Python) để ghi âm 3 giây.</li>
+            <li>Lưu đoạn ghi âm thành file .wav, phát lại để kiểm tra chất lượng thu âm.</li>
+            <li>Thử ghi âm ở môi trường yên tĩnh và ồn ào để so sánh chất lượng tín hiệu.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>📊 Sóng âm nhìn như thế nào?</h4>
+          <div class="glasses-screen">
+            <svg viewBox="0 0 480 100" xmlns="http://www.w3.org/2000/svg">
+              <polyline points="0,50 20,20 40,70 60,30 80,60 100,40 120,55 140,25 160,65 180,35 200,50 220,20 240,70 260,30 280,60 300,40 320,55 340,25 360,65 380,35 400,50 420,45 440,52 460,48 480,50" fill="none" stroke="#4ade80" stroke-width="2"/>
+            </svg>
+          </div>
+          <p style="font-size:.82rem;color:var(--sub);margin-top:6px;">Đây là dạng "dạng sóng" (waveform) — trục ngang là thời gian, trục dọc là biên độ. Ở Buổi 2, ta sẽ biến đổi sóng này thành <b>mel-spectrogram</b> để AI dễ "nhìn" và phân loại hơn.</p>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Tổng kết Buổi 1</h3><span class="time-chip">⏱ 20 phút</span></div>
+    <div class="card">
+      <h4>✅ Checklist dự án</h4>
+      <div class="checklist">
+        <label><input type="checkbox"> Vẽ được sơ đồ kiến trúc hệ thống (mic → AI → Wi-Fi → kính)</label>
+        <label><input type="checkbox"> Đã chọn xong danh sách linh kiện chính</label>
+        <label><input type="checkbox"> Bố trí sơ bộ vị trí linh kiện trên gọng kính</label>
+        <label><input type="checkbox"> Ghi âm và phát lại được đoạn âm thanh thử nghiệm</label>
+      </div>
+    </div>
+    <div class="card" style="margin-top:12px;">
+      <h4>📝 Quiz ôn tập Buổi 1</h4>
+      <div class="quiz-wrap" id="quizB1">
+        <div class="quiz-q"><p>1. Kính thông minh trong dự án hỗ trợ đối tượng người dùng nào?</p>
+          <div class="quiz-opt">Người khiếm thị</div>
+          <div class="quiz-opt" data-correct="true">Người khiếm thính</div>
+          <div class="quiz-opt">Người cao tuổi nói chung</div>
+        </div>
+        <div class="quiz-q"><p>2. Ngoài hiển thị lời nói, kính còn có chức năng gì?</p>
+          <div class="quiz-opt">Chỉ phát nhạc</div>
+          <div class="quiz-opt" data-correct="true">Phát hiện âm thanh nguy hiểm và xác định hướng nguồn âm</div>
+          <div class="quiz-opt">Đo nhịp tim</div>
+        </div>
+        <div class="quiz-q"><p>3. Trong kiến trúc hệ thống, phần nào chịu trách nhiệm phân loại âm thanh bằng AI?</p>
+          <div class="quiz-opt">Phần kính (ESP32/Arduino)</div>
+          <div class="quiz-opt" data-correct="true">Phần xử lý AI (microphone + mô hình AI)</div>
+          <div class="quiz-opt">Mô-tơ rung</div>
+        </div>
+        <div class="quiz-q"><p>4. Hai phần của hệ thống giao tiếp với nhau qua đâu?</p>
+          <div class="quiz-opt">Bluetooth bắt buộc</div>
+          <div class="quiz-opt" data-correct="true">Wi-Fi</div>
+          <div class="quiz-opt">Dây USB duy nhất</div>
+        </div>
+        <div class="quiz-q"><p>5. Vì sao nên phát triển AI trước khi hoàn thiện phần cứng đeo được?</p>
+          <div class="quiz-opt">Vì AI không cần phần cứng</div>
+          <div class="quiz-opt" data-correct="true">Để kiểm thử thuật toán ổn định trước khi tốn thời gian thiết kế cơ khí/in 3D</div>
+          <div class="quiz-opt">Vì luật thi yêu cầu vậy</div>
+        </div>
+        <div class="quiz-q"><p>6. "Lấy mẫu âm thanh" (sampling) nghĩa là gì?</p>
+          <div class="quiz-opt">Ghi âm không giới hạn thời gian</div>
+          <div class="quiz-opt" data-correct="true">Chụp lại giá trị biên độ sóng âm tại các thời điểm rất nhỏ cách đều nhau</div>
+          <div class="quiz-opt">Xóa bớt âm thanh nền</div>
+        </div>
+        <div class="quiz-q"><p>7. Tần số lấy mẫu phổ biến cho giọng nói là bao nhiêu?</p>
+          <div class="quiz-opt">16 mẫu/giây</div>
+          <div class="quiz-opt" data-correct="true">16.000 mẫu/giây (16kHz)</div>
+          <div class="quiz-opt">16 triệu mẫu/giây</div>
+        </div>
+        <div class="quiz-q"><p>8. Mô-tơ rung trên kính nên đặt ở vị trí nào để người dùng dễ cảm nhận?</p>
+          <div class="quiz-opt">Ở giữa tròng kính</div>
+          <div class="quiz-opt" data-correct="true">Sát thái dương</div>
+          <div class="quiz-opt">Ở đầu gọng phía sau tai</div>
+        </div>
+      </div>
+      <p class="quizScore"></p>
+      <button class="resetbtn" style="background:var(--green);" onclick="submitQuizResult('quizB1','Kính thông minh - Buổi 1',8)">📤 Nộp kết quả lên GitHub</button>
+      <p style="font-size:.74rem;color:var(--sub);margin-top:6px;">Bấm nộp sẽ mở 1 tab GitHub Issue đã điền sẵn điểm số của bạn — bấm "Submit new issue" để hoàn tất nộp bài.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BUỔI 2 ============ -->
+<section class="buoi-panel" id="b2" data-multi>
+  <div class="panel-title">
+    <div><h2>🔊 Buổi 2: Nhận diện âm thanh môi trường</h2><div class="goalline">Dự án: Phân loại âm thanh bằng AI</div></div>
+  </div>
+  <div class="subnav">
+    <button class="active">1. Lý thuyết</button>
+    <button>2. Lắp ráp</button>
+    <button>3. Lập trình</button>
+    <button>4. Tổng kết</button>
+  </div>
+
+  <div class="subslide active">
+    <div class="slide-head"><h3 class="big">Phân loại âm thanh bằng AI</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🎯 Environmental Sound Detection là gì?</h4>
+          <p>Là chức năng nhận diện các âm thanh môi trường quan trọng: còi xe, chuông báo cháy, tiếng gõ cửa, tiếng gọi tên. Khi phát hiện đúng loại âm thanh, hệ thống sẽ hiển thị chữ/cảnh báo màu tương ứng trên kính và kích hoạt mô-tơ rung.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🌈 Mel-spectrogram — "ảnh chụp" của âm thanh</h4>
+          <p style="font-size:.86rem;">Máy tính khó phân loại trực tiếp từ dạng sóng thô, nên âm thanh được biến đổi thành <b>mel-spectrogram</b> — một dạng "ảnh" thể hiện năng lượng âm thanh theo tần số và thời gian, mô phỏng cách tai người cảm nhận âm thanh. Mô hình AI sau đó "nhìn" ảnh mel-spectrogram này để phân loại, tương tự cách AI nhận diện ảnh vật thể.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧠 Các mô hình AI có thể dùng</h4>
+          <div class="grid3">
+            <div class="comp-card"><div class="emoji">📦</div><b>YAMNet</b><span>Mô hình có sẵn (pretrained), nhận diện hàng trăm loại âm thanh phổ biến</span></div>
+            <div class="comp-card"><div class="emoji">📱</div><b>TensorFlow Lite</b><span>Phiên bản nhẹ, chạy được trên Raspberry Pi/thiết bị nhúng</span></div>
+            <div class="comp-card"><div class="emoji">🧮</div><b>CNN nhỏ tự huấn luyện</b><span>Mạng nơ-ron tích chập tự xây dựng trên tập dữ liệu riêng của nhóm</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>📈 Độ tin cậy (confidence score)</h4>
+          <p>Mô hình AI không chỉ trả về "nhãn" (label) mà còn kèm theo một con số <b>độ tin cậy</b> (ví dụ 0.92 = 92% chắc chắn). Ta thường chỉ chấp nhận cảnh báo khi độ tin cậy vượt một ngưỡng nhất định, tránh báo sai khi AI không chắc chắn.</p>
+          <div class="slider-sim">
+            <input type="range" id="confSlider" min="0" max="100" value="50" oninput="updateConfSim(this.value)">
+            <div class="readout">
+              <span id="confValueLabel">Độ tin cậy AI: 50%</span>
+              <span class="status-badge status-alert" id="confStatusBadge">🔕 Chưa đủ tin cậy, bỏ qua</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🕹 Câu hỏi thảo luận</h4>
+          <div class="discuss-box">❓ Vì sao AI cần rất nhiều mẫu âm thanh khác nhau để học phân loại chính xác?</div>
+          <div class="discuss-box">❓ Nếu độ tin cậy chỉ đạt 40%, hệ thống nên cảnh báo hay im lặng? Vì sao?</div>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Đấu nối mic &amp; kiểm tra tín hiệu</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🛠️ Đấu nối microphone</h4>
+          <ol class="steps">
+            <li>Cắm USB mic array vào laptop/Raspberry Pi (hoặc đấu mic I2S theo sơ đồ chân nếu dùng loại mic rời).</li>
+            <li>Cài đặt driver/thư viện thu âm cần thiết (ví dụ PyAudio, sounddevice cho Python).</li>
+            <li>Kiểm tra mức âm lượng thu được bằng một đoạn ghi âm test ngắn.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🔍 Kiểm tra chất lượng tín hiệu</h4>
+          <div class="grid2">
+            <div class="goal">✅ Tín hiệu rõ, không rè, mức âm lượng đủ lớn</div>
+            <div class="warn">❌ Tín hiệu quá nhỏ hoặc rè nhiều — kiểm tra lại cổng kết nối, khoảng cách mic</div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧯 Lỗi thường gặp</h4>
+          <table class="rubric">
+            <tr><th>Hiện tượng</th><th>Nguyên nhân</th><th>Cách khắc phục</th></tr>
+            <tr><td>Không thu được âm thanh</td><td>Sai driver hoặc chưa cấp quyền micro cho ứng dụng</td><td>Kiểm tra driver, cấp quyền truy cập micro trong hệ điều hành</td></tr>
+            <tr><td>Tín hiệu nhiễu nhiều</td><td>Mic đặt gần nguồn nhiễu (quạt, loa)</td><td>Di chuyển mic xa nguồn nhiễu, dùng mic có khử ồn</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Chạy thử mô hình phân loại</h3><span class="time-chip">⏱ 40 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>📥 Sử dụng mô hình có sẵn (pretrained)</h4>
+          <p>Thay vì tự huấn luyện AI từ đầu (rất tốn dữ liệu và thời gian), nhóm dùng mô hình YAMNet/TensorFlow Lite đã được huấn luyện sẵn, chỉ cần đưa đoạn âm thanh ghi được vào mô hình và đọc kết quả nhãn + độ tin cậy trả về.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧪 Thực hành: nhận diện âm thanh mẫu</h4>
+          <ol class="steps">
+            <li>Chuẩn bị vài đoạn âm thanh mẫu: tiếng còi xe, tiếng chuông, tiếng gõ cửa (tải từ nguồn học liệu mở hoặc tự ghi âm).</li>
+            <li>Đưa từng đoạn vào mô hình, ghi lại nhãn và độ tin cậy mô hình trả về.</li>
+            <li>So sánh kết quả AI với thực tế — nhận xét trường hợp nào AI đoán đúng, trường hợp nào chưa chính xác.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🚦 Ánh xạ kết quả AI sang cảnh báo trên kính</h4>
+          <table class="rubric">
+            <tr><th>Nhãn AI nhận diện</th><th>Cảnh báo hiển thị</th><th>Màu</th></tr>
+            <tr><td>Còi xe</td><td>⚠️ CÒI XE</td><td>Đỏ</td></tr>
+            <tr><td>Báo cháy</td><td>🔥 BÁO CHÁY</td><td>Đỏ nhấp nháy</td></tr>
+            <tr><td>Gõ cửa</td><td>🚪 CÓ NGƯỜI GÕ CỬA</td><td>Vàng</td></tr>
+            <tr><td>Gọi tên</td><td>🙋 CÓ NGƯỜI GỌI</td><td>Xanh dương</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Tổng kết Buổi 2</h3><span class="time-chip">⏱ 20 phút</span></div>
+    <div class="card">
+      <h4>✅ Checklist dự án</h4>
+      <div class="checklist">
+        <label><input type="checkbox"> Microphone đấu nối và thu âm tốt, không nhiễu</label>
+        <label><input type="checkbox"> Chạy được mô hình AI phân loại trên ít nhất 3 loại âm thanh mẫu</label>
+        <label><input type="checkbox"> Hiểu được ý nghĩa của độ tin cậy (confidence score)</label>
+        <label><input type="checkbox"> Có bảng ánh xạ nhãn AI sang nội dung cảnh báo hiển thị</label>
+      </div>
+    </div>
+    <div class="card" style="margin-top:12px;">
+      <h4>📝 Quiz ôn tập Buổi 2</h4>
+      <div class="quiz-wrap" id="quizB2">
+        <div class="quiz-q"><p>1. Mel-spectrogram dùng để làm gì?</p>
+          <div class="quiz-opt">Tăng âm lượng thu âm</div>
+          <div class="quiz-opt" data-correct="true">Biến âm thanh thành dạng "ảnh" để AI dễ phân loại</div>
+          <div class="quiz-opt">Nén file âm thanh nhỏ lại</div>
+        </div>
+        <div class="quiz-q"><p>2. YAMNet là gì?</p>
+          <div class="quiz-opt">Một loại microphone</div>
+          <div class="quiz-opt" data-correct="true">Một mô hình AI có sẵn để phân loại âm thanh</div>
+          <div class="quiz-opt">Một giao thức Wi-Fi</div>
+        </div>
+        <div class="quiz-q"><p>3. Độ tin cậy (confidence score) của AI thể hiện điều gì?</p>
+          <div class="quiz-opt">Tốc độ xử lý của mô hình</div>
+          <div class="quiz-opt" data-correct="true">Mức độ chắc chắn của AI về kết quả phân loại</div>
+          <div class="quiz-opt">Dung lượng file âm thanh</div>
+        </div>
+        <div class="quiz-q"><p>4. Vì sao nên đặt ngưỡng độ tin cậy tối thiểu trước khi cảnh báo?</p>
+          <div class="quiz-opt">Để tiết kiệm pin</div>
+          <div class="quiz-opt" data-correct="true">Để tránh cảnh báo sai khi AI chưa đủ chắc chắn</div>
+          <div class="quiz-opt">Để mô hình chạy nhanh hơn</div>
+        </div>
+        <div class="quiz-q"><p>5. Vì sao nhóm nên dùng mô hình pretrained thay vì tự huấn luyện từ đầu?</p>
+          <div class="quiz-opt">Vì pretrained luôn chính xác 100%</div>
+          <div class="quiz-opt" data-correct="true">Vì tự huấn luyện từ đầu tốn rất nhiều dữ liệu và thời gian</div>
+          <div class="quiz-opt">Vì luật thi cấm tự huấn luyện</div>
+        </div>
+        <div class="quiz-q"><p>6. TensorFlow Lite phù hợp để chạy trên loại thiết bị nào?</p>
+          <div class="quiz-opt">Chỉ máy chủ siêu máy tính</div>
+          <div class="quiz-opt" data-correct="true">Thiết bị nhúng như Raspberry Pi</div>
+          <div class="quiz-opt">Chỉ điện thoại đời mới nhất</div>
+        </div>
+        <div class="quiz-q"><p>7. Khi AI nhận diện "báo cháy", cảnh báo trên kính nên hiển thị như thế nào theo bảng ánh xạ?</p>
+          <div class="quiz-opt">Chữ xanh dương, không nhấp nháy</div>
+          <div class="quiz-opt" data-correct="true">🔥 BÁO CHÁY, màu đỏ nhấp nháy</div>
+          <div class="quiz-opt">Không hiển thị gì, chỉ rung nhẹ</div>
+        </div>
+        <div class="quiz-q"><p>8. Bước nào nên làm trước khi chạy mô hình AI phân loại?</p>
+          <div class="quiz-opt">In 3D gọng kính hoàn chỉnh</div>
+          <div class="quiz-opt" data-correct="true">Đấu nối và kiểm tra chất lượng tín hiệu microphone</div>
+          <div class="quiz-opt">Lắp mô-tơ rung lên kính</div>
+        </div>
+      </div>
+      <p class="quizScore"></p>
+      <button class="resetbtn" style="background:var(--green);" onclick="submitQuizResult('quizB2','Kính thông minh - Buổi 2',8)">📤 Nộp kết quả lên GitHub</button>
+      <p style="font-size:.74rem;color:var(--sub);margin-top:6px;">Bấm nộp sẽ mở 1 tab GitHub Issue đã điền sẵn điểm số của bạn — bấm "Submit new issue" để hoàn tất nộp bài.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BUỔI 3 ============ -->
+<section class="buoi-panel" id="b3" data-multi>
+  <div class="panel-title">
+    <div><h2>🧭 Buổi 3: Xác định hướng nguồn âm</h2><div class="goalline">Dự án: Cảnh báo rung theo hướng (Direction-Aware Alerts)</div></div>
+  </div>
+  <div class="subnav">
+    <button class="active">1. Lý thuyết</button>
+    <button>2. Lắp ráp</button>
+    <button>3. Lập trình</button>
+    <button>4. Tổng kết</button>
+  </div>
+
+  <div class="subslide active">
+    <div class="slide-head"><h3 class="big">Nguyên lý xác định hướng âm thanh</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🎯 Vì sao cần biết hướng nguồn âm?</h4>
+          <p>Biết được âm thanh (còi xe, tiếng gọi) phát ra từ hướng nào giúp người dùng phản ứng chính xác hơn — ví dụ quay đầu đúng hướng có xe đang tới, thay vì chỉ biết "có nguy hiểm" mà không biết từ đâu.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🎙️🎙️🎙️ Dùng nhiều microphone (mic array)</h4>
+          <p>Đặt 3 microphone ở ba vị trí khác nhau trên gọng kính (trái, phải, giữa). Vì khoảng cách từ nguồn âm đến mỗi mic khác nhau, âm thanh sẽ đến mỗi mic ở thời điểm và biên độ hơi khác nhau một chút — đây chính là "manh mối" để suy luận ra hướng.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>📊 Cách đơn giản: so sánh biên độ</h4>
+          <p style="font-size:.86rem;">Cách dễ triển khai nhất cho học sinh: so sánh biên độ (độ lớn) tín hiệu thu được ở từng kênh mic. Kênh nào có biên độ lớn nhất → âm thanh đến gần hướng đó nhất.</p>
+          <div class="mic-bars">
+            <div class="mic-bar-wrap"><div class="mic-bar" id="micBarL" style="height:40px;"></div>Mic Trái</div>
+            <div class="mic-bar-wrap"><div class="mic-bar" id="micBarC" style="height:40px;"></div>Mic Giữa</div>
+            <div class="mic-bar-wrap"><div class="mic-bar" id="micBarR" style="height:40px;"></div>Mic Phải</div>
+          </div>
+          <div class="btn-row">
+            <button class="dirbtn" onclick="micDemo('left')">🔊 Âm thanh từ TRÁI</button>
+            <button class="dirbtn" onclick="micDemo('center')">🔊 Âm thanh từ TRƯỚC</button>
+            <button class="dirbtn" onclick="micDemo('right')">🔊 Âm thanh từ PHẢI</button>
+          </div>
+          <p style="text-align:center;font-size:.82rem;color:var(--sub);margin-top:6px;" id="micDemoLabel">Bấm một nút để xem biên độ mic thay đổi theo hướng âm thanh.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🚀 Kỹ thuật nâng cao: TDOA &amp; GCC-PHAT</h4>
+          <p>Ở mức nâng cao hơn (sau khi thành thạo cách so sánh biên độ), có thể dùng <b>TDOA (Time Difference Of Arrival — chênh lệch thời gian đến)</b> hoặc thuật toán <b>GCC-PHAT</b> để tính hướng chính xác hơn, dựa trên độ trễ thời gian cực nhỏ giữa các mic thay vì chỉ so biên độ.</p>
+          <div class="extend-box">🎓 Đây là hướng tìm hiểu mở rộng dành cho nhóm muốn nâng cao độ chính xác khi dự thi AIJAM 2026.</div>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Lắp mic array lên gọng kính</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🛠️ Các bước lắp đặt</h4>
+          <ol class="steps">
+            <li>Gắn 3 mic nhỏ (hoặc dùng 1 module mic array có sẵn 3-4 mic) tại vị trí trái, phải và giữa gọng kính.</li>
+            <li>Đảm bảo khoảng cách giữa các mic đủ để tạo chênh lệch tín hiệu rõ rệt, nhưng vẫn gọn trong khung gọng kính.</li>
+            <li>Đấu dây tín hiệu từng mic về board xử lý (Raspberry Pi hoặc module xử lý riêng), đánh dấu rõ mic nào là trái/giữa/phải.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🔍 Kiểm tra sau khi lắp</h4>
+          <div class="grid2">
+            <div class="goal">✅ Cả 3 mic đều thu được tín hiệu khi test lần lượt</div>
+            <div class="warn">❌ Một mic không có tín hiệu — kiểm tra lại dây nối hoặc mic bị lỗi</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Lập trình xác định hướng &amp; rung cảnh báo</h3><span class="time-chip">⏱ 40 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🧮 So sánh biên độ 3 kênh</h4>
+          <p>Chương trình đọc biên độ tín hiệu từ 3 kênh mic trong cùng một thời điểm, so sánh giá trị lớn nhất trong 3 kênh đó để xác định "hướng ban đầu": kênh trái lớn nhất → hướng trái; kênh phải lớn nhất → hướng phải; kênh giữa lớn nhất hoặc gần bằng nhau → hướng trước mặt.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>📳 Gửi lệnh rung theo hướng qua Wi-Fi</h4>
+          <p>Sau khi xác định hướng, phần xử lý AI gửi một mã lệnh nhỏ qua Wi-Fi tới ESP32 trên kính (ví dụ: 1 = rung bên trái, 2 = rung bên phải, 3 = rung cả hai bên nhẹ = phía trước). ESP32 nhận mã và kích hoạt đúng mô-tơ rung tương ứng.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🔁 Kết hợp với nhãn phân loại âm thanh (Buổi 2)</h4>
+          <p>Kết quả cuối cùng gửi tới kính sẽ gồm cả 2 thông tin: <b>loại âm thanh</b> (từ Buổi 2) và <b>hướng phát ra</b> (Buổi 3) — ví dụ "⚠️ CÒI XE — hướng phải", giúp người dùng vừa biết nguy hiểm gì, vừa biết cần chú ý hướng nào.</p>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Tổng kết Buổi 3</h3><span class="time-chip">⏱ 20 phút</span></div>
+    <div class="card">
+      <h4>✅ Checklist dự án</h4>
+      <div class="checklist">
+        <label><input type="checkbox"> 3 mic lắp chắc chắn trên gọng kính, đều thu được tín hiệu</label>
+        <label><input type="checkbox"> Lập trình so sánh biên độ 3 kênh để xác định hướng</label>
+        <label><input type="checkbox"> Kính rung đúng bên tương ứng với hướng âm thanh thử nghiệm</label>
+        <label><input type="checkbox"> Kết hợp được thông tin loại âm thanh + hướng phát ra</label>
+      </div>
+    </div>
+    <div class="card" style="margin-top:12px;">
+      <h4>📝 Quiz ôn tập Buổi 3</h4>
+      <div class="quiz-wrap" id="quizB3">
+        <div class="quiz-q"><p>1. Vì sao cần biết hướng nguồn âm, không chỉ loại âm thanh?</p>
+          <div class="quiz-opt">Để tiết kiệm pin</div>
+          <div class="quiz-opt" data-correct="true">Để người dùng phản ứng chính xác hơn, ví dụ quay đúng hướng có nguy hiểm</div>
+          <div class="quiz-opt">Để mô hình AI chạy nhanh hơn</div>
+        </div>
+        <div class="quiz-q"><p>2. Cách đơn giản nhất để xác định hướng âm thanh trong dự án này là gì?</p>
+          <div class="quiz-opt">Dùng GPS</div>
+          <div class="quiz-opt" data-correct="true">So sánh biên độ tín hiệu giữa các kênh microphone</div>
+          <div class="quiz-opt">Đo nhiệt độ không khí</div>
+        </div>
+        <div class="quiz-q"><p>3. Nếu mic bên phải có biên độ lớn nhất, âm thanh nhiều khả năng đến từ hướng nào?</p>
+          <div class="quiz-opt">Phía trước</div>
+          <div class="quiz-opt" data-correct="true">Bên phải</div>
+          <div class="quiz-opt">Bên trái</div>
+        </div>
+        <div class="quiz-q"><p>4. TDOA là viết tắt của cụm từ nào?</p>
+          <div class="quiz-opt">Total Data Of Audio</div>
+          <div class="quiz-opt" data-correct="true">Time Difference Of Arrival</div>
+          <div class="quiz-opt">Two Direction Output Array</div>
+        </div>
+        <div class="quiz-q"><p>5. Mã lệnh rung được gửi từ đâu tới ESP32?</p>
+          <div class="quiz-opt">Từ mô-tơ rung</div>
+          <div class="quiz-opt" data-correct="true">Từ phần xử lý AI, qua Wi-Fi</div>
+          <div class="quiz-opt">Từ màn hình OLED</div>
+        </div>
+        <div class="quiz-q"><p>6. Kết quả cuối cùng gửi tới kính nên gồm những thông tin gì?</p>
+          <div class="quiz-opt">Chỉ có mức pin còn lại</div>
+          <div class="quiz-opt" data-correct="true">Loại âm thanh và hướng phát ra</div>
+          <div class="quiz-opt">Chỉ có thời gian hiện tại</div>
+        </div>
+        <div class="quiz-q"><p>7. Vì sao cần đặt 3 mic ở các vị trí khác nhau thay vì chỉ 1 mic?</p>
+          <div class="quiz-opt">Để tiết kiệm chi phí</div>
+          <div class="quiz-opt" data-correct="true">Để tạo ra chênh lệch tín hiệu giữa các mic, làm cơ sở suy luận hướng</div>
+          <div class="quiz-opt">Để tăng âm lượng phát ra</div>
+        </div>
+        <div class="quiz-q"><p>8. GCC-PHAT là kỹ thuật thuộc mức độ nào so với so sánh biên độ đơn giản?</p>
+          <div class="quiz-opt">Đơn giản hơn, dùng cho người mới bắt đầu</div>
+          <div class="quiz-opt" data-correct="true">Nâng cao hơn, cho độ chính xác tốt hơn</div>
+          <div class="quiz-opt">Không liên quan đến xác định hướng âm thanh</div>
+        </div>
+      </div>
+      <p class="quizScore"></p>
+      <button class="resetbtn" style="background:var(--green);" onclick="submitQuizResult('quizB3','Kính thông minh - Buổi 3',8)">📤 Nộp kết quả lên GitHub</button>
+      <p style="font-size:.74rem;color:var(--sub);margin-top:6px;">Bấm nộp sẽ mở 1 tab GitHub Issue đã điền sẵn điểm số của bạn — bấm "Submit new issue" để hoàn tất nộp bài.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BUỔI 4 ============ -->
+<section class="buoi-panel" id="b4" data-multi>
+  <div class="panel-title">
+    <div><h2>💬 Buổi 4: Speech-to-Text &amp; Lọc nhiễu AI</h2><div class="goalline">Dự án: Hiển thị lời nói lên màn hình kính</div></div>
+  </div>
+  <div class="subnav">
+    <button class="active">1. Lý thuyết</button>
+    <button>2. Lắp ráp</button>
+    <button>3. Lập trình</button>
+    <button>4. Tổng kết</button>
+  </div>
+
+  <div class="subslide active">
+    <div class="slide-head"><h3 class="big">Chuyển giọng nói thành văn bản</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>💬 Live Speech-to-Text là gì?</h4>
+          <p>Là chức năng chuyển lời nói thành văn bản thời gian thực, hiển thị lên màn hình kính hoặc ứng dụng đi kèm — giúp người khiếm thính "đọc" được nội dung người khác đang nói mà không cần biết ngôn ngữ ký hiệu.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🛠️ Công cụ speech-to-text phù hợp học sinh</h4>
+          <div class="grid3">
+            <div class="comp-card"><div class="emoji">📴</div><b>Vosk</b><span>Chạy offline, nhẹ, phù hợp Raspberry Pi</span></div>
+            <div class="comp-card"><div class="emoji">🐳</div><b>Whisper tiny</b><span>Mô hình nhỏ của OpenAI, độ chính xác khá tốt</span></div>
+            <div class="comp-card"><div class="emoji">☁️</div><b>API online</b><span>Dùng khi demo, cần kết nối mạng ổn định</span></div>
+          </div>
+          <div class="note">💡 Giai đoạn đầu chỉ cần chuyển được câu ngắn thành văn bản để hiển thị — chưa cần xử lý hội thoại dài hay đa ngôn ngữ.</div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧹 Lọc nhiễu AI (Noise Filtering)</h4>
+          <p>Trong lớp học, quán cà phê hay ngoài đường có rất nhiều tạp âm nền. <b>Lọc nhiễu AI</b> áp dụng tiền xử lý âm thanh (loại bỏ tần số nhiễu nền) kết hợp mô hình phân loại để tăng độ chính xác nhận diện giọng nói/âm thanh mục tiêu trong môi trường ồn.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>⏳ Thử nghiệm hiển thị văn bản</h4>
+          <div class="glasses-screen">
+            <div class="glasses-lcd" id="sttDemo">Đang chờ giọng nói...</div>
+          </div>
+          <div class="btn-row">
+            <button class="dirbtn" onclick="sttDemo()">🎙️ Mô phỏng nói một câu</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Lắp màn hình hiển thị</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🛠️ Lắp OLED/LCD lên gọng kính</h4>
+          <ol class="steps">
+            <li>Gắn màn hình OLED/LCD nhỏ vào vị trí đã bố trí từ Buổi 1 (góc trong tầm nhìn phụ).</li>
+            <li>Đấu 4 dây I2C (VCC, GND, SDA, SCL) từ màn hình vào ESP32.</li>
+            <li>Nạp chương trình test hiển thị chữ "Xin chào" để kiểm tra màn hình hoạt động đúng trước khi tích hợp.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧯 Lỗi thường gặp với màn hình OLED/LCD</h4>
+          <table class="rubric">
+            <tr><th>Hiện tượng</th><th>Nguyên nhân</th><th>Cách khắc phục</th></tr>
+            <tr><td>Màn hình không sáng</td><td>Sai địa chỉ I2C hoặc thiếu nguồn</td><td>Kiểm tra lại địa chỉ I2C trong code, đo lại điện áp nguồn cấp</td></tr>
+            <tr><td>Chữ hiển thị bị vỡ/nhòe</td><td>Sai thư viện điều khiển màn hình</td><td>Dùng đúng thư viện tương thích với loại màn hình đang dùng</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Lập trình gửi văn bản qua Wi-Fi</h3><span class="time-chip">⏱ 40 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>📡 Truyền văn bản từ AI tới ESP32</h4>
+          <p>Sau khi mô hình speech-to-text chuyển giọng nói thành chữ trên laptop/Raspberry Pi, đoạn văn bản ngắn đó được gửi qua Wi-Fi (giao thức HTTP đơn giản hoặc MQTT) tới ESP32 trên kính.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🖥️ Hiển thị văn bản lên màn hình</h4>
+          <p>ESP32 nhận được chuỗi văn bản, cắt bớt nếu quá dài (màn hình nhỏ chỉ hiển thị được một số ký tự nhất định mỗi dòng), sau đó xuất ra màn hình OLED/LCD theo từng dòng.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧹 Áp dụng lọc nhiễu trước khi hiển thị</h4>
+          <p>Trước khi gửi văn bản, chương trình kiểm tra độ tin cậy của kết quả speech-to-text — nếu quá thấp (do quá nhiều nhiễu nền), hệ thống có thể hiển thị "..." thay vì hiển thị một câu sai lệch gây hiểu nhầm.</p>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Tổng kết Buổi 4</h3><span class="time-chip">⏱ 20 phút</span></div>
+    <div class="card">
+      <h4>✅ Checklist dự án</h4>
+      <div class="checklist">
+        <label><input type="checkbox"> Màn hình OLED/LCD lắp và hiển thị đúng trên gọng kính</label>
+        <label><input type="checkbox"> Chạy được mô hình speech-to-text trên câu nói ngắn</label>
+        <label><input type="checkbox"> Gửi văn bản qua Wi-Fi thành công từ AI tới ESP32</label>
+        <label><input type="checkbox"> Có cơ chế bỏ qua hiển thị khi độ tin cậy quá thấp</label>
+      </div>
+    </div>
+    <div class="card" style="margin-top:12px;">
+      <h4>📝 Quiz ôn tập Buổi 4</h4>
+      <div class="quiz-wrap" id="quizB4">
+        <div class="quiz-q"><p>1. Live Speech-to-Text giúp người khiếm thính làm gì?</p>
+          <div class="quiz-opt">Nghe rõ hơn qua tai nghe</div>
+          <div class="quiz-opt" data-correct="true">Đọc được nội dung lời nói dưới dạng văn bản</div>
+          <div class="quiz-opt">Tăng âm lượng giọng nói</div>
+        </div>
+        <div class="quiz-q"><p>2. Vosk và Whisper tiny có điểm chung nào?</p>
+          <div class="quiz-opt">Đều là loại microphone</div>
+          <div class="quiz-opt" data-correct="true">Đều là công cụ/mô hình chuyển giọng nói thành văn bản</div>
+          <div class="quiz-opt">Đều là màn hình hiển thị</div>
+        </div>
+        <div class="quiz-q"><p>3. Lọc nhiễu AI giúp ích điều gì trong môi trường ồn?</p>
+          <div class="quiz-opt">Làm màn hình sáng hơn</div>
+          <div class="quiz-opt" data-correct="true">Tăng độ chính xác nhận diện giọng nói/âm thanh mục tiêu</div>
+          <div class="quiz-opt">Tăng tốc độ Wi-Fi</div>
+        </div>
+        <div class="quiz-q"><p>4. Màn hình OLED/LCD thường giao tiếp với ESP32 qua chuẩn nào?</p>
+          <div class="quiz-opt">HDMI</div>
+          <div class="quiz-opt" data-correct="true">I2C (VCC, GND, SDA, SCL)</div>
+          <div class="quiz-opt">USB-C</div>
+        </div>
+        <div class="quiz-q"><p>5. Vì sao cần cắt bớt văn bản trước khi hiển thị lên màn hình nhỏ?</p>
+          <div class="quiz-opt">Để tiết kiệm pin</div>
+          <div class="quiz-opt" data-correct="true">Vì màn hình nhỏ chỉ hiển thị được giới hạn ký tự mỗi dòng</div>
+          <div class="quiz-opt">Để tăng tốc độ AI</div>
+        </div>
+        <div class="quiz-q"><p>6. Nếu độ tin cậy speech-to-text quá thấp, hệ thống nên làm gì?</p>
+          <div class="quiz-opt">Hiển thị nguyên văn kết quả dù có thể sai</div>
+          <div class="quiz-opt" data-correct="true">Hiển thị "..." hoặc bỏ qua thay vì hiển thị câu sai lệch</div>
+          <div class="quiz-opt">Tắt màn hình hoàn toàn</div>
+        </div>
+        <div class="quiz-q"><p>7. Văn bản được truyền từ phần xử lý AI tới ESP32 qua đâu?</p>
+          <div class="quiz-opt">Qua dây USB bắt buộc</div>
+          <div class="quiz-opt" data-correct="true">Qua Wi-Fi</div>
+          <div class="quiz-opt">Qua sóng FM</div>
+        </div>
+        <div class="quiz-q"><p>8. Ở giai đoạn đầu, mục tiêu speech-to-text nên đặt ra là gì?</p>
+          <div class="quiz-opt">Dịch được nhiều ngôn ngữ cùng lúc</div>
+          <div class="quiz-opt" data-correct="true">Chuyển được câu ngắn thành văn bản để hiển thị</div>
+          <div class="quiz-opt">Tóm tắt cả cuộc hội thoại dài</div>
+        </div>
+      </div>
+      <p class="quizScore"></p>
+      <button class="resetbtn" style="background:var(--green);" onclick="submitQuizResult('quizB4','Kính thông minh - Buổi 4',8)">📤 Nộp kết quả lên GitHub</button>
+      <p style="font-size:.74rem;color:var(--sub);margin-top:6px;">Bấm nộp sẽ mở 1 tab GitHub Issue đã điền sẵn điểm số của bạn — bấm "Submit new issue" để hoàn tất nộp bài.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BUỔI 5 ============ -->
+<section class="buoi-panel" id="b5" data-multi>
+  <div class="panel-title">
+    <div><h2>🚨 Buổi 5: Cảnh báo khẩn cấp theo bối cảnh &amp; Hoàn thiện</h2><div class="goalline">Sản phẩm cuối: Kính thông minh hoàn chỉnh + báo cáo</div></div>
+  </div>
+  <div class="subnav">
+    <button class="active">1. Lý thuyết</button>
+    <button>2. Lắp ráp</button>
+    <button>3. Lập trình</button>
+    <button>4. Tổng kết</button>
+  </div>
+
+  <div class="subslide active">
+    <div class="slide-head"><h3 class="big">Ưu tiên cảnh báo theo bối cảnh</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🚨 Emergency Detection System là gì?</h4>
+          <p>Là hệ thống ưu tiên cảnh báo theo bối cảnh sử dụng: khi ở <b>ngoài trời</b>, hệ thống ưu tiên cảnh báo âm thanh giao thông (còi xe, phanh gấp); khi ở <b>trong nhà</b>, hệ thống ưu tiên cảnh báo cháy, tiếng gõ cửa, tiếng kính vỡ. Cách này giúp giảm cảnh báo thừa và đúng tình huống hơn.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🏠🌳 Cách xác định bối cảnh indoor/outdoor</h4>
+          <p style="font-size:.86rem;">Có thể cho người dùng tự chọn chế độ (đơn giản nhất), hoặc dùng ngưỡng mức tiếng ồn nền / dữ liệu GPS / thiết lập trong ứng dụng đi kèm để tự động thay đổi mức ưu tiên cảnh báo mà không cần thao tác thủ công.</p>
+          <div class="dashboard-sim">
+            <div class="dash-item">
+              <b>Chế độ hiện tại</b>
+              <select id="contextMode" onchange="updateContextDemo()" style="width:100%;padding:6px;border-radius:8px;">
+                <option value="outdoor">🌳 Ngoài trời</option>
+                <option value="indoor">🏠 Trong nhà</option>
+              </select>
+              <div class="dash-indicator" id="contextIndicator">🌳 Ưu tiên: còi xe, phanh gấp</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧹 Nhắc lại: Lọc nhiễu &amp; tránh cảnh báo lặp</h4>
+          <p>Kết hợp thêm cơ chế "bỏ qua âm thanh lặp lại trong thời gian ngắn" (ví dụ còi xe kêu liên tục không cần báo lại mỗi giây) để tránh làm phiền người dùng bằng quá nhiều cảnh báo trùng lặp.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🚀 Giai đoạn nâng cao (sau khóa học)</h4>
+          <div class="extend-box">🗣️ Nhận diện người nói quen thuộc, học thói quen cảnh báo cá nhân theo thời gian sử dụng.</div>
+          <div class="discuss-box">🤖 Kết hợp API Gemini để tóm tắt hội thoại và trả lời theo ngữ cảnh.</div>
+          <div class="discuss-box">🏠 Liên kết smart home để điều khiển thiết bị trong nhà bằng giao tiếp tự nhiên.</div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🗓️ Lộ trình phát triển tổng thể (4 tuần)</h4>
+          <table class="rubric">
+            <tr><th>Tuần</th><th>Nội dung</th></tr>
+            <tr><td>Tuần 1</td><td>Thu dữ liệu âm thanh, chạy thử mô hình phân loại trên laptop</td></tr>
+            <tr><td>Tuần 2</td><td>Thêm speech-to-text, lọc nhiễu, cơ chế ưu tiên indoor/outdoor</td></tr>
+            <tr><td>Tuần 3</td><td>ESP32 nhận dữ liệu qua Wi-Fi, điều khiển màn hình và mô-tơ rung</td></tr>
+            <tr><td>Tuần 4</td><td>Ghép mô hình kính hoàn chỉnh, thử nghiệm thực tế, đo độ trễ và tỷ lệ đúng</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Hoàn thiện lắp ráp kính</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🛠️ Kiểm tra tổng thể trước khi hoàn thiện</h4>
+          <ol class="steps">
+            <li>Rà soát toàn bộ dây nối giữa mic, ESP32, màn hình, mô-tơ rung — cố định gọn gàng, tránh đứt khi đeo/tháo.</li>
+            <li>Kiểm tra pin Li-Po và mạch sạc TP4056 hoạt động ổn định, đo thời lượng sử dụng thực tế.</li>
+            <li>Cân chỉnh lại trọng lượng hai bên gọng kính để đeo thoải mái, không bị lệch.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>📋 Bảng kiểm tra hoàn thiện (final checklist)</h4>
+          <table class="rubric">
+            <tr><th>Hạng mục</th><th>Đạt / Chưa đạt</th></tr>
+            <tr><td>Mic array thu âm rõ, đủ 3 kênh</td><td>____</td></tr>
+            <tr><td>AI phân loại đúng &gt;80% với âm thanh mẫu</td><td>____</td></tr>
+            <tr><td>Xác định hướng rung đúng bên</td><td>____</td></tr>
+            <tr><td>Speech-to-text hiển thị đúng câu ngắn</td><td>____</td></tr>
+            <tr><td>Chuyển chế độ indoor/outdoor hoạt động đúng</td><td>____</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Hoàn thiện chương trình tổng hợp</h3><span class="time-chip">⏱ 40 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🧩 Ghép toàn bộ logic đã học</h4>
+          <p>Chương trình cuối cùng kết hợp toàn bộ 4 buổi trước: thu âm (Buổi 1) → phân loại âm thanh + độ tin cậy (Buổi 2) → xác định hướng (Buổi 3) → speech-to-text + lọc nhiễu (Buổi 4) → áp dụng mức ưu tiên theo bối cảnh (Buổi 5) → gửi kết quả cuối cùng qua Wi-Fi tới kính để hiển thị và rung.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🐞 Mẹo gỡ lỗi (debug) hệ thống</h4>
+          <ol class="steps">
+            <li>Kiểm tra từng khối riêng lẻ (mic → AI → Wi-Fi → kính) trước khi ghép toàn bộ pipeline.</li>
+            <li>In log (nhật ký) từng bước xử lý ra màn hình laptop để dễ theo dõi lỗi xảy ra ở khối nào.</li>
+            <li>Nếu cảnh báo bị trễ nhiều, đo thời gian xử lý từng bước để tìm ra khối đang làm chậm hệ thống.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🏆 Chuẩn bị thuyết trình dự thi AIJAM 2026</h4>
+          <table class="rubric">
+            <tr><th>Tiêu chí</th><th>Mô tả</th></tr>
+            <tr><td>Ý nghĩa xã hội</td><td>Giải quyết đúng nhu cầu thực tế của người khiếm thính</td></tr>
+            <tr><td>Kỹ thuật AI</td><td>Độ chính xác phân loại âm thanh, xác định hướng, speech-to-text</td></tr>
+            <tr><td>Hoàn thiện phần cứng</td><td>Kính đeo được, gọn nhẹ, hoạt động ổn định</td></tr>
+            <tr><td>Thuyết trình</td><td>Trình bày rõ kiến trúc hệ thống, quá trình phát triển và hướng mở rộng</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Tổng kết khóa học</h3><span class="time-chip">⏱ 20 phút</span></div>
+    <div class="card">
+      <h4>✅ Checklist hoàn thiện dự thi</h4>
+      <div class="checklist">
+        <label><input type="checkbox"> Kính hoàn chỉnh, đeo được, hoạt động ổn định</label>
+        <label><input type="checkbox"> Chương trình tổng hợp chạy mượt, ít lỗi</label>
+        <label><input type="checkbox"> Đã chuẩn bị báo cáo/thuyết trình về nguyên lý hoạt động</label>
+        <label><input type="checkbox"> Sẵn sàng dự thi AIJAM 2026</label>
+      </div>
+    </div>
+    <div class="card" style="margin-top:12px;">
+      <h4>📝 Quiz tổng kết Buổi 5</h4>
+      <div class="quiz-wrap" id="quizB5">
+        <div class="quiz-q"><p>1. Emergency Detection System ưu tiên cảnh báo dựa trên yếu tố nào?</p>
+          <div class="quiz-opt">Thời gian trong ngày</div>
+          <div class="quiz-opt" data-correct="true">Bối cảnh indoor/outdoor</div>
+          <div class="quiz-opt">Màu sắc môi trường xung quanh</div>
+        </div>
+        <div class="quiz-q"><p>2. Khi ở trong nhà, hệ thống nên ưu tiên cảnh báo loại âm thanh nào?</p>
+          <div class="quiz-opt">Còi xe, phanh gấp</div>
+          <div class="quiz-opt" data-correct="true">Cháy, gõ cửa, kính vỡ</div>
+          <div class="quiz-opt">Tiếng chim hót</div>
+        </div>
+        <div class="quiz-q"><p>3. Vì sao cần cơ chế bỏ qua âm thanh lặp lại trong thời gian ngắn?</p>
+          <div class="quiz-opt">Để tiết kiệm màn hình hiển thị</div>
+          <div class="quiz-opt" data-correct="true">Để tránh làm phiền người dùng bằng cảnh báo trùng lặp</div>
+          <div class="quiz-opt">Để tăng tốc độ AI</div>
+        </div>
+        <div class="quiz-q"><p>4. Theo lộ trình 4 tuần, Tuần 3 tập trung vào nội dung gì?</p>
+          <div class="quiz-opt">Thu dữ liệu âm thanh ban đầu</div>
+          <div class="quiz-opt" data-correct="true">ESP32 nhận dữ liệu qua Wi-Fi, điều khiển màn hình và mô-tơ rung</div>
+          <div class="quiz-opt">Kết hợp API Gemini</div>
+        </div>
+        <div class="quiz-q"><p>5. API Gemini được đề cập dùng cho mục đích gì ở giai đoạn nâng cao?</p>
+          <div class="quiz-opt">Sạc pin nhanh hơn</div>
+          <div class="quiz-opt" data-correct="true">Tóm tắt hội thoại và trả lời theo ngữ cảnh</div>
+          <div class="quiz-opt">Tăng độ phân giải màn hình</div>
+        </div>
+        <div class="quiz-q"><p>6. Bước nào nên làm trước khi ghép toàn bộ pipeline hệ thống?</p>
+          <div class="quiz-opt">Thuyết trình trước ban giám khảo</div>
+          <div class="quiz-opt" data-correct="true">Kiểm tra từng khối riêng lẻ (mic → AI → Wi-Fi → kính)</div>
+          <div class="quiz-opt">Sạc đầy pin dự phòng</div>
+        </div>
+        <div class="quiz-q"><p>7. Tiêu chí "Ý nghĩa xã hội" khi thuyết trình dự thi AIJAM 2026 đánh giá điều gì?</p>
+          <div class="quiz-opt">Giá thành sản phẩm rẻ nhất</div>
+          <div class="quiz-opt" data-correct="true">Sản phẩm giải quyết đúng nhu cầu thực tế của người khiếm thính</div>
+          <div class="quiz-opt">Số lượng linh kiện sử dụng</div>
+        </div>
+        <div class="quiz-q"><p>8. Nếu hệ thống cảnh báo bị trễ nhiều, nên làm gì để tìm nguyên nhân?</p>
+          <div class="quiz-opt">Thay toàn bộ linh kiện mới</div>
+          <div class="quiz-opt" data-correct="true">Đo thời gian xử lý từng bước để tìm khối đang làm chậm hệ thống</div>
+          <div class="quiz-opt">Tắt mô-tơ rung để tiết kiệm pin</div>
+        </div>
+      </div>
+      <p class="quizScore"></p>
+      <button class="resetbtn" style="background:var(--green);" onclick="submitQuizResult('quizB5','Kính thông minh - Buổi 5',8)">📤 Nộp kết quả lên GitHub</button>
+      <p style="font-size:.74rem;color:var(--sub);margin-top:6px;">Bấm nộp sẽ mở 1 tab GitHub Issue đã điền sẵn điểm số của bạn — bấm "Submit new issue" để hoàn tất nộp bài.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+  // Top-level buổi tab navigation
+  document.querySelectorAll('.buoi-tab').forEach(t=>{
+    t.addEventListener('click', ()=>{
+      document.querySelectorAll('.buoi-tab').forEach(x=>x.classList.remove('active'));
+      t.classList.add('active');
+      document.querySelectorAll('.buoi-panel').forEach(p=>p.classList.remove('active'));
+      document.getElementById(t.dataset.target).classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+
+  // Micro-slide deck navigation (one card per screen, click/arrow through pages)
+  const microDeckResets = new Map();
+  document.querySelectorAll('.subslide').forEach(sub=>{
+    const deck = sub.querySelector('.micro-deck');
+    if(!deck) return;
+    const micros = deck.querySelectorAll('.microslide');
+    const nav = sub.querySelector('.micro-nav');
+    const prevM = nav ? nav.querySelector('.microPrev') : null;
+    const nextM = nav ? nav.querySelector('.microNext') : null;
+    const prog = nav ? nav.querySelector('.microProgress') : null;
+    let curM = 0;
+    function renderM(){
+      micros.forEach((m,i)=>m.classList.toggle('active', i===curM));
+      if(prevM) prevM.disabled = curM===0;
+      if(nextM) nextM.disabled = curM===micros.length-1;
+      if(prog) prog.textContent = (curM+1)+' / '+micros.length;
+      deck.scrollTop = 0;
+    }
+    if(prevM) prevM.addEventListener('click', ()=>{ if(curM>0){ curM--; renderM(); } });
+    if(nextM) nextM.addEventListener('click', ()=>{ if(curM<micros.length-1){ curM++; renderM(); } });
+    renderM();
+    microDeckResets.set(sub, ()=>{ curM = 0; renderM(); });
+  });
+
+  // Phase-level (subnav) navigation within each buổi panel
+  document.querySelectorAll('.buoi-panel[data-multi]').forEach(panel=>{
+    const subBtns = panel.querySelectorAll('.subnav button');
+    const subSlides = panel.querySelectorAll('.subslide');
+    let cur = 0;
+    function render(){
+      subSlides.forEach((s,i)=>s.classList.toggle('active', i===cur));
+      subBtns.forEach((b,i)=>b.classList.toggle('active', i===cur));
+      const resetFn = microDeckResets.get(subSlides[cur]);
+      if(resetFn) resetFn();
+    }
+    subBtns.forEach((b,i)=>b.addEventListener('click', ()=>{ cur=i; render(); window.scrollTo({top:0,behavior:'smooth'}); }));
+    render();
+  });
+
+  // Keyboard arrow navigation: moves within a micro-deck first, otherwise switches phase
+  document.addEventListener('keydown', e=>{
+    if(e.key!=='ArrowRight' && e.key!=='ArrowLeft') return;
+    const activePanel = document.querySelector('.buoi-panel.active');
+    if(!activePanel) return;
+    const activeSub = activePanel.querySelector('.subslide.active');
+    if(activeSub){
+      const btn = e.key==='ArrowRight' ? activeSub.querySelector('.microNext') : activeSub.querySelector('.microPrev');
+      if(btn && !btn.disabled){ btn.click(); return; }
+    }
+  });
+
+  // Submit quiz result as a pre-filled GitHub Issue (no backend/token needed — teacher reviews & records results)
+  function submitQuizResult(wrapId, buoiLabel, totalQ){
+    const wrap = document.getElementById(wrapId);
+    if(!wrap) return;
+    const answered = wrap.querySelectorAll('.quiz-q[data-answered]').length;
+    if(answered < totalQ){
+      alert('Bạn cần trả lời hết '+totalQ+' câu (hiện đã trả lời '+answered+'/'+totalQ+') trước khi nộp kết quả nhé!');
+      return;
+    }
+    const correct = wrap.querySelectorAll('.quiz-opt.correct').length;
+    const username = sessionStorage.getItem('mb_auth_user') || 'khach';
+    const REPO = 'HocJ2me/hocj2me.github.io';
+    const title = encodeURIComponent('[Kết quả quiz] '+buoiLabel+' - '+username+' - '+correct+'/'+totalQ);
+    const body = encodeURIComponent(
+`Học sinh: ${username}
+Buổi: ${buoiLabel}
+Điểm: ${correct}/${totalQ}
+Thời gian nộp: ${new Date().toLocaleString('vi-VN')}`
+    );
+    const url = `https://github.com/${REPO}/issues/new?title=${title}&body=${body}&labels=ket-qua-quiz`;
+    window.open(url, '_blank');
+  }
+
+  // Generic quiz scoring (works for all buổi)
+  document.querySelectorAll('.quiz-wrap').forEach(wrap=>{
+    const qs = wrap.querySelectorAll('.quiz-q');
+    qs.forEach(q=>{
+      const opts = q.querySelectorAll('.quiz-opt');
+      opts.forEach(o=>{
+        o.addEventListener('click', ()=>{
+          if(q.dataset.answered) return;
+          q.dataset.answered = '1';
+          opts.forEach(x=> x.classList.add(x.dataset.correct==='true' ? 'correct':'wrong'));
+          const answered = wrap.querySelectorAll('.quiz-q[data-answered]').length;
+          const correct = wrap.querySelectorAll('.quiz-opt.correct').length;
+          wrap.querySelector('.quizScore').textContent = 'Điểm: '+correct+' / '+qs.length+' câu đúng ('+answered+' câu đã trả lời)';
+        });
+      });
+    });
+  });
+
+  // === AI confidence slider — Buổi 2 ===
+  function updateConfSim(val){
+    const label = document.getElementById('confValueLabel');
+    const badge = document.getElementById('confStatusBadge');
+    if(!label || !badge) return;
+    label.textContent = 'Độ tin cậy AI: '+val+'%';
+    if(Number(val) >= 70){
+      badge.textContent = '✅ Đủ tin cậy — hiển thị cảnh báo';
+      badge.className = 'status-badge status-ok';
+    } else {
+      badge.textContent = '🔕 Chưa đủ tin cậy, bỏ qua';
+      badge.className = 'status-badge status-alert';
+    }
+  }
+
+  // === Mic array direction demo — Buổi 3 ===
+  function micDemo(dir){
+    const l = document.getElementById('micBarL');
+    const c = document.getElementById('micBarC');
+    const r = document.getElementById('micBarR');
+    const label = document.getElementById('micDemoLabel');
+    if(!l || !c || !r) return;
+    if(dir === 'left'){ l.style.height='90px'; c.style.height='40px'; r.style.height='20px'; label.textContent = 'Mic Trái có biên độ lớn nhất → xác định hướng: TRÁI. Kính sẽ rung bên trái.'; }
+    else if(dir === 'right'){ l.style.height='20px'; c.style.height='40px'; r.style.height='90px'; label.textContent = 'Mic Phải có biên độ lớn nhất → xác định hướng: PHẢI. Kính sẽ rung bên phải.'; }
+    else { l.style.height='45px'; c.style.height='90px'; r.style.height='45px'; label.textContent = 'Mic Giữa có biên độ lớn nhất → xác định hướng: TRƯỚC MẶT. Kính rung nhẹ cả hai bên.'; }
+  }
+
+  // === Speech-to-text demo — Buổi 4 ===
+  function sttDemo(){
+    const el = document.getElementById('sttDemo');
+    if(!el) return;
+    const samples = ['"Bạn ơi, có xe phía sau!"', '"Chuông cửa đang reo."', '"Chào bạn, hôm nay khỏe không?"'];
+    const pick = samples[Math.floor(Math.random()*samples.length)];
+    el.textContent = 'Đang nhận dạng...';
+    setTimeout(()=>{ el.textContent = pick; }, 700);
+  }
+
+  // === Context indoor/outdoor demo — Buổi 5 ===
+  function updateContextDemo(){
+    const sel = document.getElementById('contextMode');
+    const ind = document.getElementById('contextIndicator');
+    if(!sel || !ind) return;
+    if(sel.value === 'indoor'){ ind.textContent = '🏠 Ưu tiên: cháy, gõ cửa, kính vỡ'; ind.classList.add('active'); }
+    else { ind.textContent = '🌳 Ưu tiên: còi xe, phanh gấp'; ind.classList.remove('active'); }
+  }
+</script>
+</body>
+</html>

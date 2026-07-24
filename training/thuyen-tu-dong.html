@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Danh sách khóa học Thầy Lê Chí Tuyền — Chế tạo thuyền tự động (ROV) — Cuộc thi AIJAM 2026</title>
+<style>
+  :root{
+    --blue:#0891b2; --blue-dark:#0e7490; --orange:#f97316; --green:#16a34a;
+    --red:#dc2626; --bg:#f4f7fb; --card:#ffffff; --ink:#1e293b; --sub:#64748b;
+    --purple:#2563eb; --yellow:#eab308; --cyan:#0891b2;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink);}
+  header{
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    color:#fff;padding:10px 24px;position:sticky;top:0;z-index:60;box-shadow:0 2px 10px rgba(0,0,0,.15);
+  }
+  header h1{font-size:1.1rem;margin:0 0 2px;}
+  header .sub{font-size:.78rem;opacity:.9;font-weight:400;}
+  .contest-chip{display:inline-block;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.5);padding:2px 10px;border-radius:14px;font-size:.72rem;font-weight:700;margin-top:4px;}
+  .buoi-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+  .buoi-tab{
+    border:2px solid rgba(255,255,255,.6);background:transparent;color:#fff;padding:6px 13px;border-radius:20px;
+    cursor:pointer;font-weight:700;font-size:.8rem;transition:.2s;
+  }
+  .buoi-tab.active{background:#fff;color:var(--blue-dark);border-color:#fff;}
+  main{max-width:1080px;margin:0 auto;padding:16px 18px 40px;}
+  .buoi-panel{display:none;}
+  .buoi-panel.active{display:block;animation:fade .3s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+  .panel-title{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+  .panel-title h2{margin:0;font-size:1.3rem;color:var(--blue-dark);}
+  .panel-title .goalline{color:var(--sub);font-size:.88rem;margin-top:2px;}
+  .subnav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+  .subnav button{
+    background:#e2e8f0;border:none;padding:7px 13px;border-radius:20px;font-weight:600;font-size:.8rem;
+    cursor:pointer;color:var(--ink);
+  }
+  .subnav button.active{background:var(--blue);color:#fff;}
+  .subslide{display:none;}
+  .subslide.active{display:block;animation:fade .3s ease;}
+  .subfooter{display:flex;align-items:center;justify-content:space-between;margin-top:14px;}
+  .subfooter button{background:var(--purple);color:#fff;border:none;padding:8px 16px;border-radius:20px;font-weight:700;cursor:pointer;font-size:.8rem;}
+  .subfooter button:disabled{opacity:.35;cursor:not-allowed;}
+  .subfooter span{color:var(--sub);font-size:.78rem;font-weight:600;}
+  .slide-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:10px;}
+  .slide-head h3.big{margin:0;font-size:1.12rem;color:var(--blue-dark);}
+  .time-chip{background:var(--orange);color:#fff;padding:4px 11px;border-radius:20px;font-weight:700;font-size:.76rem;white-space:nowrap;}
+  .micro-deck{max-height:calc(100vh - 300px);min-height:220px;overflow-y:auto;padding-right:4px;}
+  .microslide{display:none;}
+  .microslide.active{display:block;animation:fade .25s ease;}
+  .micro-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:10px;}
+  .micro-nav button{background:var(--blue-dark);color:#fff;border:none;width:36px;height:36px;border-radius:50%;font-weight:700;cursor:pointer;font-size:1rem;line-height:1;}
+  .micro-nav button:disabled{opacity:.3;cursor:not-allowed;}
+  .micro-nav span{color:var(--sub);font-size:.82rem;font-weight:700;min-width:46px;text-align:center;}
+  .card{background:var(--card);border-radius:14px;padding:15px 17px;margin-bottom:0;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+  .card h4{margin-top:0;color:var(--blue-dark);font-size:1rem;border-left:5px solid var(--orange);padding-left:10px;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  @media(max-width:760px){.grid2,.grid3{grid-template-columns:1fr;}}
+  .comp-card{background:#eef2ff;border-radius:12px;padding:9px;text-align:center;}
+  .comp-card .emoji{font-size:1.8rem;}
+  .comp-card b{display:block;margin:4px 0 2px;color:var(--blue-dark);font-size:.86rem;}
+  .comp-card span{font-size:.75rem;color:var(--sub);}
+  .steps{padding-left:0;list-style:none;counter-reset:step;}
+  .steps li{counter-increment:step;margin-bottom:8px;padding-left:34px;position:relative;line-height:1.45;font-size:.89rem;}
+  .steps li::before{
+    content:counter(step);position:absolute;left:0;top:0;background:var(--blue);color:#fff;
+    width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.76rem;
+  }
+  .note{background:#fff7ed;border-left:4px solid var(--orange);padding:8px 12px;border-radius:8px;font-size:.84rem;margin-top:8px;}
+  .warn{background:#fef2f2;border-left:4px solid var(--red);padding:8px 12px;border-radius:8px;font-size:.84rem;margin-top:8px;}
+  .goal{background:#ecfdf5;border-left:4px solid var(--green);padding:8px 12px;border-radius:8px;font-size:.84rem;}
+  .teacher-note{background:#f5f3ff;border-left:4px solid var(--purple);padding:8px 12px;border-radius:8px;font-size:.84rem;margin-top:8px;}
+  .extend-box{background:#ecfeff;border-left:4px solid var(--cyan);padding:8px 12px;border-radius:8px;font-size:.86rem;}
+  .discuss-box{background:#fefce8;border-left:4px solid var(--yellow);padding:8px 12px;border-radius:8px;font-size:.86rem;margin-top:6px;}
+  .btn{display:inline-block;background:var(--blue);color:#fff;padding:8px 15px;border-radius:10px;text-decoration:none;font-weight:700;font-size:.82rem;margin-top:8px;}
+  .quiz-q{margin-bottom:12px;}
+  .quiz-q p{font-weight:700;margin-bottom:5px;font-size:.88rem;}
+  .quiz-opt{display:block;background:#f1f5f9;border:2px solid transparent;border-radius:8px;padding:6px 10px;margin-bottom:5px;cursor:pointer;font-size:.85rem;}
+  .quiz-opt.correct{background:#dcfce7;border-color:var(--green);}
+  .quiz-opt.wrong{background:#fee2e2;border-color:var(--red);}
+  .checklist label{display:flex;align-items:center;gap:8px;margin-bottom:7px;font-size:.88rem;}
+  table.rubric{width:100%;border-collapse:collapse;font-size:.81rem;}
+  table.rubric th,table.rubric td{border:1px solid #e2e8f0;padding:6px;text-align:left;}
+  table.rubric th{background:#eef2ff;color:var(--blue-dark);}
+  .agenda{display:flex;flex-wrap:wrap;gap:8px;}
+  .agenda .a-item{flex:1;min-width:140px;background:#eef2ff;border-radius:10px;padding:8px;text-align:center;font-size:.78rem;}
+  .agenda b{display:block;color:var(--blue-dark);font-size:.9rem;}
+  .quizScore{font-weight:700;color:var(--blue-dark);}
+  .ov-row{display:flex;gap:14px;align-items:flex-start;background:#fff;border-radius:14px;padding:14px 18px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+  .ov-num{background:var(--blue);color:#fff;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;}
+  .ov-row h4{margin:0 0 4px;color:var(--blue-dark);}
+  .ov-row p{margin:2px 0;font-size:.86rem;color:var(--sub);}
+  .water-wrap{background:#f0f9ff;border-radius:14px;padding:14px;text-align:center;}
+  .water-wrap svg{max-width:480px;width:100%;}
+  .status-badge{padding:6px 13px;border-radius:20px;font-weight:700;font-size:.82rem;}
+  .status-ok{background:#dcfce7;color:#166534;}
+  .status-alert{background:#fee2e2;color:#991b1b;}
+  .slider-sim{background:#eef2ff;border-radius:14px;padding:16px;}
+  .slider-sim input[type=range]{width:100%;}
+  .slider-sim .readout{display:flex;align-items:center;justify-content:space-between;margin-top:10px;flex-wrap:wrap;gap:8px;}
+  .dashboard-sim{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:700px){.dashboard-sim{grid-template-columns:1fr;}}
+  .dash-item{background:#eef2ff;border-radius:12px;padding:11px;}
+  .dash-indicator{width:100%;padding:7px;border-radius:8px;background:#cbd5e1;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.78rem;color:#334155;margin-top:8px;transition:.2s;text-align:center;}
+  .dash-indicator.active{background:var(--green);color:#fff;}
+  .resetbtn{background:var(--sub);color:#fff;border:none;padding:7px 13px;border-radius:20px;font-weight:700;cursor:pointer;margin-top:8px;font-size:.8rem;}
+  .logout-btn{background:rgba(0,0,0,.25);color:#fff;border:1px solid rgba(255,255,255,.5);padding:5px 12px;border-radius:20px;font-size:.76rem;font-weight:700;cursor:pointer;}
+  .whoami{font-size:.76rem;opacity:.85;margin-right:8px;}
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
+  .dirbtn{background:var(--blue-dark);color:#fff;border:none;padding:10px 16px;border-radius:10px;font-weight:700;cursor:pointer;font-size:.86rem;}
+  .dirbtn.active{background:var(--orange);}
+  .boat-arrow{font-size:2.2rem;text-align:center;margin:8px 0;transition:.2s;}
+</style>
+<script src="auth.js"></script>
+<script>
+  // Simple client-side login gate. Not real security — see admin-huong-dan.md.
+  requireAuth();
+</script>
+</head>
+<body>
+
+<header>
+  <div style="display:flex;justify-content:space-between;align-items:center;">
+    <a href="courses.html" style="color:#fff;font-size:.78rem;opacity:.9;text-decoration:none;font-weight:700;">← Danh sách khóa học</a>
+    <div style="display:flex;align-items:center;">
+      <span class="whoami" id="whoamiLabel"></span>
+      <button class="logout-btn" onclick="logout()">Đăng xuất</button>
+    </div>
+  </div>
+  <h1>🎓 Danh sách khóa học Thầy Lê Chí Tuyền</h1>
+  <div class="sub">Khóa học: 🚤 Chế tạo thuyền tự động (ROV) · 5 buổi × 2 giờ · Dùng phím ← → hoặc nút để chuyển trang</div>
+  <span class="contest-chip">🏆 Cuộc thi AIJAM 2026</span>
+  <div class="buoi-tabs">
+    <button class="buoi-tab active" data-target="ov">📋 Tổng quan</button>
+    <button class="buoi-tab" data-target="b1">Buổi 1 🌊</button>
+    <button class="buoi-tab" data-target="b2">Buổi 2 ⚙️</button>
+    <button class="buoi-tab" data-target="b3">Buổi 3 🛡️</button>
+    <button class="buoi-tab" data-target="b4">Buổi 4 📡</button>
+    <button class="buoi-tab" data-target="b5">Buổi 5 🏁</button>
+  </div>
+</header>
+<script>
+  (function(){
+    var u = sessionStorage.getItem('mb_auth_user');
+    var el = document.getElementById('whoamiLabel');
+    if (el) el.textContent = u ? ('👤 ' + u) : '';
+  })();
+</script>
+
+<main>
+
+<!-- ============ OVERVIEW ============ -->
+<section class="buoi-panel active" id="ov">
+  <div class="panel-title"><h2>📋 Tổng quan khóa học (5 buổi × 120 phút = 10 giờ)</h2></div>
+  <div class="card" style="margin-bottom:12px;">
+    <h4>🏆 Dự thi AIJAM 2026</h4>
+    <p style="font-size:.88rem;">Khóa học này hướng học sinh chế tạo một mô hình <b>thuyền/tàu tự động điều khiển từ xa (ROV — Remotely Operated Vehicle)</b> để tham gia cuộc thi <b>AIJAM 2026</b>. Mẫu thân thuyền tham khảo theo thiết kế in 3D "ROV Part Design" (Printables.com): thân thuôn dòng chảy, có khối dằn (ballast) để cân bằng, có hệ thống quản lý dây tether — học sinh có thể in 3D hoặc tự chế bằng vật liệu tái chế (chai nhựa, ống nhựa, xốp).</p>
+  </div>
+  <div class="ov-row">
+    <div class="ov-num">1</div>
+    <div><h4>🌊 Nền tảng: Lực nổi &amp; Thiết kế thân thuyền</h4>
+    <p>Lực đẩy Archimedes, vì sao vật nổi/vật chìm, hình dáng thân thuyền khí động học dưới nước, ROV là gì, làm quen board điều khiển.</p>
+    <p><b>Sản phẩm:</b> Thân thuyền hoàn chỉnh, nổi ổn định trên mặt nước.</p></div>
+  </div>
+  <div class="ov-row">
+    <div class="ov-num">2</div>
+    <div><h4>⚙️ Dự án: Lắp động cơ đẩy (Thruster)</h4>
+    <p>Động cơ DC, chân vịt, mạch cầu H điều khiển động cơ, tín hiệu PWM để điều chỉnh tốc độ.</p>
+    <p><b>Sản phẩm:</b> Thuyền tự di chuyển tiến/lùi bằng động cơ.</p></div>
+  </div>
+  <div class="ov-row">
+    <div class="ov-num">3</div>
+    <div><h4>🛡️ Dự án: Chống thấm nước &amp; Cân bằng dằn</h4>
+    <p>Kỹ thuật chống thấm mạch điện, khối dằn ballast, trọng tâm con thuyền, điều khiển 2 động cơ độc lập để rẽ hướng.</p>
+    <p><b>Sản phẩm:</b> Thuyền chống nước, tự rẽ trái/phải khi thử nghiệm.</p></div>
+  </div>
+  <div class="ov-row">
+    <div class="ov-num">4</div>
+    <div><h4>📡 Dự án: Điều khiển từ xa &amp; Cảm biến tránh vật cản</h4>
+    <p>Điều khiển qua dây tether hoặc sóng không dây, cảm biến siêu âm phát hiện vật cản, xử lý tín hiệu điều khiển.</p>
+    <p><b>Sản phẩm:</b> Thuyền điều khiển từ xa, tự tránh chướng ngại vật.</p></div>
+  </div>
+  <div class="ov-row">
+    <div class="ov-num">5</div>
+    <div><h4>🏁 Hoàn thiện &amp; Thử nghiệm dự thi AIJAM 2026</h4>
+    <p>Quy trình kiểm thử an toàn, tiêu chí chấm thi, ghép toàn bộ hệ thống, thuyết trình sản phẩm, định hướng mở rộng (camera, cảm biến chất lượng nước, GPS).</p>
+    <p><b>Sản phẩm:</b> Mô hình thuyền tự động hoàn chỉnh sẵn sàng dự thi + báo cáo trình bày.</p></div>
+  </div>
+  <div class="card">
+    <h4>🗂️ Cấu trúc mỗi buổi (120 phút)</h4>
+    <table class="rubric">
+      <tr><th>Phần</th><th>Thời lượng</th><th>Nội dung</th></tr>
+      <tr><td>1. Lý thuyết</td><td>30 phút</td><td>Kiến thức mới, mô phỏng tương tác, ví dụ thực tế, câu hỏi thảo luận</td></tr>
+      <tr><td>2. Lắp ráp / Chế tạo</td><td>30 phút</td><td>Lắp ráp cơ khí, đấu nối mạch điện, xử lý lỗi thường gặp</td></tr>
+      <tr><td>3. Lập trình</td><td>40 phút</td><td>Hướng dẫn từng bước điều khiển động cơ/cảm biến + thực hành</td></tr>
+      <tr><td>4. Tổng kết</td><td>20 phút</td><td>Checklist dự án, quiz ôn tập, thử thách mở rộng</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ============ BUỔI 1 ============ -->
+<section class="buoi-panel" id="b1" data-multi>
+  <div class="panel-title">
+    <div><h2>🌊 Buổi 1: Lực nổi &amp; Thiết kế thân thuyền</h2><div class="goalline">Dự án: Thân thuyền nổi ổn định</div></div>
+  </div>
+  <div class="subnav">
+    <button class="active">1. Lý thuyết</button>
+    <button>2. Lắp ráp</button>
+    <button>3. Lập trình</button>
+    <button>4. Tổng kết</button>
+  </div>
+
+  <div class="subslide active">
+    <div class="slide-head"><h3 class="big">Vì sao thuyền nổi? &amp; ROV là gì</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>⚓ Lực đẩy Archimedes</h4>
+          <p>Khi một vật được nhúng vào nước, nước sẽ đẩy ngược vật đó lên với một lực gọi là <b>lực đẩy Ác-si-mét (Archimedes)</b>, có độ lớn đúng bằng trọng lượng phần nước bị vật chiếm chỗ. Nếu lực đẩy này lớn hơn hoặc bằng trọng lượng vật thì vật nổi; nếu nhỏ hơn thì vật chìm.</p>
+          <div class="grid2">
+            <div class="goal">✅ <b>Nổi:</b> Lực đẩy nước ≥ Trọng lượng vật</div>
+            <div class="warn">❌ <b>Chìm:</b> Lực đẩy nước &lt; Trọng lượng vật</div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧊 Vì sao tàu thép nặng vẫn nổi?</h4>
+          <p style="font-size:.86rem;">Một khối thép đặc sẽ chìm ngay, nhưng vỏ tàu thép rỗng bên trong (chứa không khí) lại chiếm một thể tích nước rất lớn so với trọng lượng của nó — nên lực đẩy nước đủ lớn để nâng cả con tàu. Đây chính là lý do thân thuyền của chúng ta cần <b>rỗng và kín nước</b>, không phải là một khối đặc.</p>
+          <div class="water-wrap">
+            <svg viewBox="0 0 480 160" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0" y="90" width="480" height="70" fill="#38bdf8" opacity=".55"/>
+              <path d="M60 95 Q120 60 220 90 Q320 115 420 90 L420 100 Q320 122 220 100 Q120 75 60 100 Z" fill="#0e7490" stroke="#0c4a6e" stroke-width="2"/>
+              <text x="240" y="55" font-size="11" fill="#0c4a6e" text-anchor="middle" font-weight="bold">Thân rỗng chứa không khí → thể tích choán nước lớn</text>
+              <text x="240" y="140" font-size="10" fill="#0369a1" text-anchor="middle">Nước (tạo lực đẩy lên từ mọi phía dưới thân thuyền)</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🚢 ROV là gì?</h4>
+          <p><b>ROV (Remotely Operated Vehicle)</b> — phương tiện điều khiển từ xa — là loại robot hoạt động dưới nước hoặc trên mặt nước, được người điều khiển từ xa qua dây (tether) hoặc sóng không dây, thường dùng để quan sát san hô, kiểm tra đáy biển, khảo sát môi trường nước mà con người khó tiếp cận trực tiếp.</p>
+          <div class="note">💡 Mẫu thiết kế thân thuyền tham khảo trong khóa học này lấy ý tưởng từ mô hình in 3D <b>"ROV Part Design"</b> trên Printables.com: thân thuôn dòng chảy (giảm lực cản nước), có khối dằn (ballast) để giữ thăng bằng, và có hệ thống quản lý dây tether gọn gàng.</div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🐬 Hình dáng khí động học dưới nước</h4>
+          <p>Thân thuôn dài, đầu nhọn/tròn và đuôi thon nhỏ dần giúp nước "lướt" qua thân dễ dàng hơn, giảm lực cản (drag), giúp thuyền di chuyển nhanh hơn và tiết kiệm năng lượng động cơ hơn — giống hình dáng của cá heo hay tàu ngầm.</p>
+          <div class="grid2">
+            <div class="goal">✅ Thân thuôn dài: lướt nước tốt, ít cản</div>
+            <div class="warn">❌ Thân hình hộp vuông: cản nước lớn, tốn nhiều năng lượng</div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧩 Các bộ phận chính của một ROV/thuyền tự động</h4>
+          <div class="grid3">
+            <div class="comp-card"><div class="emoji">🛶</div><b>Thân vỏ</b><span>Khung chứa toàn bộ linh kiện, phải kín nước</span></div>
+            <div class="comp-card"><div class="emoji">⚙️</div><b>Động cơ &amp; chân vịt</b><span>Tạo lực đẩy giúp thuyền di chuyển (Buổi 2)</span></div>
+            <div class="comp-card"><div class="emoji">🪨</div><b>Khối dằn (ballast)</b><span>Cân bằng, giữ thuyền không bị lật (Buổi 3)</span></div>
+            <div class="comp-card"><div class="emoji">📡</div><b>Bộ thu tín hiệu</b><span>Nhận lệnh điều khiển từ xa (Buổi 4)</span></div>
+            <div class="comp-card"><div class="emoji">🔋</div><b>Pin</b><span>Cấp năng lượng cho toàn hệ thống</span></div>
+            <div class="comp-card"><div class="emoji">🧠</div><b>Board điều khiển</b><span>"Bộ não" xử lý và ra lệnh cho động cơ</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧠 Board điều khiển dùng trong khóa học</h4>
+          <p>Chúng ta dùng board vi điều khiển (micro:bit hoặc ESP32/Arduino tuỳ điều kiện lớp học) làm "bộ não" của thuyền: nhận lệnh điều khiển, xử lý tín hiệu cảm biến, và ra lệnh cho động cơ quay. Board được lập trình bằng ngôn ngữ kéo-thả (block coding), rất trực quan và dễ học cho học sinh.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🕹 Câu hỏi thảo luận</h4>
+          <div class="discuss-box">❓ Vì sao một cục kim loại đặc thì chìm, nhưng con thuyền kim loại lại nổi?</div>
+          <div class="discuss-box">❓ Nếu thân thuyền bị thủng một lỗ nhỏ, điều gì sẽ xảy ra sau một thời gian?</div>
+          <div class="discuss-box">❓ Cá và tàu ngầm đều di chuyển được dưới nước ở nhiều độ sâu khác nhau — chúng làm điều đó bằng cách nào?</div>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Chế tạo thân thuyền</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🧰 Vật liệu gợi ý</h4>
+          <div class="grid3">
+            <div class="comp-card"><div class="emoji">🖨️</div><b>In 3D (PLA)</b><span>Chính xác, bền, theo đúng mẫu ROV thuôn dòng</span></div>
+            <div class="comp-card"><div class="emoji">🍾</div><b>Chai nhựa tái chế</b><span>Rẻ, dễ kiếm, nhẹ, sẵn có phao nổi tự nhiên</span></div>
+            <div class="comp-card"><div class="emoji">🧊</div><b>Tấm xốp (foam)</b><span>Dễ cắt gọt tạo hình thuôn dòng, tự nổi tốt</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🛠️ Các bước chế tạo thân thuyền</h4>
+          <ol class="steps">
+            <li>Vẽ hoặc in 3D thân thuyền theo dáng thuôn dòng (tham khảo mẫu ROV Part Design), hoặc cắt gọt chai nhựa/xốp theo hình dáng tương tự.</li>
+            <li>Tạo một khoang kín ở giữa thân để đặt board điều khiển, pin và dây điện — đây là phần bắt buộc phải chống thấm nước hoàn toàn.</li>
+            <li>Khoét lỗ nhỏ ở đuôi thuyền để lắp trục động cơ và chân vịt (sẽ lắp ở Buổi 2).</li>
+            <li>Gắn tạm khối dằn nhỏ (đá cuội, ốc vít bọc túi nilon) dưới đáy để thử độ cân bằng ban đầu.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🌊 Thử nghiệm nổi lần đầu</h4>
+          <ol class="steps">
+            <li>Thả thân thuyền (chưa lắp điện) vào chậu nước hoặc xô lớn.</li>
+            <li>Quan sát: thuyền có nổi thẳng đứng (không bị nghiêng/lật úp) không?</li>
+            <li>Nếu bị nghiêng một bên: thêm một ít khối dằn ở phía đối diện.</li>
+            <li>Nếu chìm quá sâu (ngập gần hết thân): cần thân rỗng hơn hoặc giảm bớt vật nặng bên trong.</li>
+          </ol>
+          <div class="warn">⚠️ Chưa lắp board điều khiển/pin khi thử nổi lần đầu — chỉ thử với thân rỗng để tránh hỏng linh kiện điện tử nếu nước lọt vào.</div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧯 Lỗi thường gặp</h4>
+          <table class="rubric">
+            <tr><th>Hiện tượng</th><th>Nguyên nhân</th><th>Cách khắc phục</th></tr>
+            <tr><td>Thuyền bị lật úp</td><td>Trọng tâm quá cao</td><td>Đặt khối dằn thấp xuống đáy thân</td></tr>
+            <tr><td>Thuyền chìm hẳn</td><td>Thân không đủ rỗng / bị nước lọt vào</td><td>Kiểm tra lại các mối nối, tăng thể tích rỗng</td></tr>
+            <tr><td>Thuyền nghiêng một bên</td><td>Phân bố khối lượng không đều</td><td>Cân chỉnh lại vị trí khối dằn hai bên</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Làm quen board điều khiển</h3><span class="time-chip">⏱ 40 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>💻 Input &amp; Output là gì?</h4>
+          <p><b>Input (đầu vào)</b> là tín hiệu board nhận được (nút bấm, cảm biến, tín hiệu điều khiển từ xa). <b>Output (đầu ra)</b> là hành động board thực hiện (bật LED, quay động cơ, phát âm thanh). Toàn bộ chương trình điều khiển thuyền tự động đều xoay quanh việc: <i>nhận Input → xử lý → ra Output</i>.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🚦 Bài tập đầu tiên: đèn báo hiệu</h4>
+          <p>Trước khi lắp động cơ, ta lập trình một đèn LED trên board nhấp nháy liên tục để báo hiệu "thuyền đã bật nguồn" — dùng khối lệnh <b>forever</b> (lặp mãi mãi) kết hợp <b>bật LED → chờ (pause) → tắt LED → chờ</b>.</p>
+          <div class="note">💡 Khối lệnh <b>forever</b> sẽ được dùng xuyên suốt khóa học — mọi hành vi tự động của thuyền (bơi, tránh vật cản, nhận lệnh điều khiển) đều đặt bên trong một vòng lặp forever để board luôn kiểm tra liên tục.</div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🔢 Biến (Variable) — bộ nhớ tạm của board</h4>
+          <p>Biến là một "hộp chứa" giá trị có thể thay đổi trong lúc chương trình chạy, ví dụ biến <code>tocDo</code> lưu tốc độ hiện tại của động cơ. Ta sẽ dùng biến rất nhiều ở Buổi 2 khi điều khiển tốc độ động cơ bằng PWM.</p>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Tổng kết Buổi 1</h3><span class="time-chip">⏱ 20 phút</span></div>
+    <div class="card">
+      <h4>✅ Checklist dự án</h4>
+      <div class="checklist">
+        <label><input type="checkbox"> Thân thuyền có hình dáng thuôn dòng, giảm cản nước</label>
+        <label><input type="checkbox"> Khoang chứa board/pin kín nước</label>
+        <label><input type="checkbox"> Thuyền nổi thẳng đứng khi thử trong chậu nước (chưa lắp điện)</label>
+        <label><input type="checkbox"> Lập trình được đèn LED nhấp nháy báo hiệu bằng forever + pause</label>
+      </div>
+    </div>
+    <div class="card" style="margin-top:12px;">
+      <h4>📝 Quiz ôn tập Buổi 1</h4>
+      <div class="quiz-wrap" id="quizB1">
+        <div class="quiz-q"><p>1. Lực đẩy Ác-si-mét có phương chiều như thế nào?</p>
+          <div class="quiz-opt" data-correct="true">Hướng lên trên, ngược chiều trọng lực</div>
+          <div class="quiz-opt">Hướng xuống dưới, cùng chiều trọng lực</div>
+          <div class="quiz-opt">Hướng ngang, song song mặt nước</div>
+        </div>
+        <div class="quiz-q"><p>2. Vật sẽ NỔI khi nào?</p>
+          <div class="quiz-opt">Lực đẩy nước nhỏ hơn trọng lượng vật</div>
+          <div class="quiz-opt" data-correct="true">Lực đẩy nước lớn hơn hoặc bằng trọng lượng vật</div>
+          <div class="quiz-opt">Vật không có trọng lượng</div>
+        </div>
+        <div class="quiz-q"><p>3. Vì sao tàu thép rất nặng vẫn nổi được trên mặt nước?</p>
+          <div class="quiz-opt">Vì thép nhẹ hơn nước</div>
+          <div class="quiz-opt" data-correct="true">Vì thân tàu rỗng, chiếm thể tích nước lớn nên lực đẩy đủ lớn</div>
+          <div class="quiz-opt">Vì tàu luôn di chuyển liên tục</div>
+        </div>
+        <div class="quiz-q"><p>4. ROV là viết tắt của cụm từ nào?</p>
+          <div class="quiz-opt" data-correct="true">Remotely Operated Vehicle</div>
+          <div class="quiz-opt">Robotic Ocean Vessel</div>
+          <div class="quiz-opt">Rapid Ocean Voyager</div>
+        </div>
+        <div class="quiz-q"><p>5. Hình dáng thân thuyền nào giúp giảm lực cản nước tốt nhất?</p>
+          <div class="quiz-opt">Hình hộp vuông</div>
+          <div class="quiz-opt" data-correct="true">Thuôn dài, đầu nhọn/tròn, đuôi thon nhỏ</div>
+          <div class="quiz-opt">Hình cầu tròn đều</div>
+        </div>
+        <div class="quiz-q"><p>6. Khối dằn (ballast) trong thiết kế ROV dùng để làm gì?</p>
+          <div class="quiz-opt">Trang trí cho đẹp</div>
+          <div class="quiz-opt" data-correct="true">Cân bằng, giữ thuyền không bị lật</div>
+          <div class="quiz-opt">Tăng tốc độ động cơ</div>
+        </div>
+        <div class="quiz-q"><p>7. Trong lập trình kéo-thả, khối lệnh nào giúp một hành động lặp lại mãi mãi?</p>
+          <div class="quiz-opt">if / else</div>
+          <div class="quiz-opt" data-correct="true">forever</div>
+          <div class="quiz-opt">variable</div>
+        </div>
+        <div class="quiz-q"><p>8. Vì sao KHÔNG nên lắp board điều khiển và pin vào thân thuyền trước khi thử nổi lần đầu?</p>
+          <div class="quiz-opt">Vì board quá nặng</div>
+          <div class="quiz-opt" data-correct="true">Để tránh hỏng linh kiện điện tử nếu nước lọt vào thân chưa được kiểm tra kín nước</div>
+          <div class="quiz-opt">Vì luật thi đấu AIJAM 2026 cấm điều đó</div>
+        </div>
+      </div>
+      <p class="quizScore"></p>
+      <button class="resetbtn" style="background:var(--green);" onclick="submitQuizResult('quizB1','Thuyền tự động - Buổi 1',8)">📤 Nộp kết quả lên GitHub</button>
+      <p style="font-size:.74rem;color:var(--sub);margin-top:6px;">Bấm nộp sẽ mở 1 tab GitHub Issue đã điền sẵn điểm số của bạn — bấm "Submit new issue" để hoàn tất nộp bài.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BUỔI 2 ============ -->
+<section class="buoi-panel" id="b2" data-multi>
+  <div class="panel-title">
+    <div><h2>⚙️ Buổi 2: Động cơ đẩy (Thruster) &amp; Nguồn điện</h2><div class="goalline">Dự án: Thuyền tự di chuyển tiến/lùi</div></div>
+  </div>
+  <div class="subnav">
+    <button class="active">1. Lý thuyết</button>
+    <button>2. Lắp ráp</button>
+    <button>3. Lập trình</button>
+    <button>4. Tổng kết</button>
+  </div>
+
+  <div class="subslide active">
+    <div class="slide-head"><h3 class="big">Động cơ, chân vịt &amp; mạch điều khiển</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>⚙️ Động cơ DC là gì?</h4>
+          <p>Động cơ DC (Direct Current — dòng điện một chiều) là loại động cơ điện phổ biến nhất trong các dự án robot: khi cấp điện, trục động cơ quay tròn liên tục. Gắn một <b>chân vịt (propeller)</b> vào trục sẽ đẩy nước ra phía sau, tạo lực đẩy ngược lại giúp thuyền tiến về phía trước — giống nguyên lý của cánh quạt máy bay hay quạt máy.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🌀 Chân vịt (propeller) hoạt động thế nào?</h4>
+          <p style="font-size:.86rem;">Các cánh chân vịt được vặn nghiêng một góc — khi quay, mỗi cánh "cắt" vào nước theo một góc chéo, đẩy khối nước về phía sau. Theo định luật III Newton (lực và phản lực), nước bị đẩy lùi sẽ tạo ra một phản lực đẩy chân vịt (và cả con thuyền) tiến về phía trước.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🔌 Mạch cầu H (H-bridge) — điều khiển chiều quay</h4>
+          <p>Động cơ DC chỉ có 2 dây, muốn đảo chiều quay (tiến ↔ lùi) ta cần đảo chiều dòng điện qua động cơ. Mạch <b>cầu H</b> (ví dụ IC L298N) làm việc này: board điều khiển chỉ cần ra lệnh "tiến" hoặc "lùi", mạch cầu H sẽ tự đảo cực tính dòng điện cấp cho động cơ.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>📶 PWM — điều chỉnh tốc độ động cơ</h4>
+          <p><b>PWM (Pulse Width Modulation — điều chế độ rộng xung)</b> là kỹ thuật bật/tắt dòng điện rất nhanh (hàng nghìn lần/giây) để "giả lập" một mức điện áp trung bình thấp hơn điện áp nguồn. Xung "bật" càng dài (tỷ lệ % càng cao) thì động cơ quay càng nhanh; xung "bật" càng ngắn thì động cơ quay càng chậm.</p>
+          <div class="slider-sim">
+            <input type="range" id="pwmSlider" min="0" max="100" value="0" oninput="updatePwmSim(this.value)">
+            <div class="readout">
+              <span id="pwmValueLabel">Công suất động cơ: 0%</span>
+              <span class="status-badge status-ok" id="pwmStatusBadge">🛑 Động cơ đứng yên</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🔋 Nguồn điện cho thuyền</h4>
+          <p>Động cơ tiêu thụ dòng điện lớn hơn nhiều so với LED hay cảm biến, nên cần dùng <b>pin Li-Po (pin sạc)</b> hoặc bộ pin AA đủ dòng, thường qua một mạch sạc/bảo vệ pin riêng (như TP4056) để an toàn, tránh sạc quá dòng hoặc xả cạn kiệt pin.</p>
+          <div class="warn">⚠️ Không đấu ngược cực tính pin — có thể làm hỏng mạch cầu H hoặc board điều khiển ngay lập tức.</div>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Lắp động cơ vào thân thuyền</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🛠️ Các bước lắp đặt</h4>
+          <ol class="steps">
+            <li>Luồn trục động cơ qua lỗ đã khoét sẵn ở đuôi thuyền (Buổi 1), gắn chặt động cơ vào khung bên trong.</li>
+            <li>Lắp chân vịt vào trục động cơ, đảm bảo chân vịt xoay tự do không bị cọ vào thân thuyền.</li>
+            <li>Đấu 2 dây động cơ vào 2 chân đầu ra của mạch cầu H (không cần quan tâm cực + / − vì mạch cầu H tự xử lý chiều quay).</li>
+            <li>Đấu mạch cầu H với board điều khiển theo đúng sơ đồ chân của mạch (chân IN1, IN2, ENA...).</li>
+            <li>Đấu nguồn pin vào mạch cầu H, kiểm tra kỹ cực tính trước khi bật nguồn.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🔍 Kiểm tra trước khi thử nước</h4>
+          <div class="grid2">
+            <div class="goal">✅ Chân vịt quay êm, không kẹt, không chạm thân thuyền</div>
+            <div class="goal">✅ Toàn bộ mối nối dây điện chắc chắn, không hở</div>
+          </div>
+          <div class="warn">⚠️ Tuyệt đối chưa thử dưới nước ở bước này — khoang điện chưa được chống thấm (sẽ làm ở Buổi 3)! Chỉ thử động cơ trên cạn.</div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧯 Lỗi thường gặp khi lắp động cơ</h4>
+          <table class="rubric">
+            <tr><th>Hiện tượng</th><th>Nguyên nhân</th><th>Cách khắc phục</th></tr>
+            <tr><td>Động cơ không quay</td><td>Dây lỏng hoặc pin yếu</td><td>Kiểm tra lại mối nối, đo lại điện áp pin</td></tr>
+            <tr><td>Động cơ chỉ quay 1 chiều dù đổi lệnh</td><td>Đấu sai chân IN1/IN2 trên mạch cầu H</td><td>Kiểm tra lại sơ đồ đấu nối theo tài liệu mạch cầu H</td></tr>
+            <tr><td>Chân vịt rung lắc mạnh</td><td>Chân vịt lắp lệch tâm hoặc cong vênh</td><td>Lắp lại thẳng tâm trục, thay chân vịt nếu cong</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Lập trình điều khiển động cơ</h3><span class="time-chip">⏱ 40 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>▶️ Lệnh tiến / lùi cơ bản</h4>
+          <p>Bắt đầu đơn giản: lập trình khối lệnh "quay động cơ chiều tiến, chờ 2 giây, dừng động cơ" khi bấm nút A trên board — tương tự lệnh "bật LED → chờ → tắt LED" đã học ở Buổi 1, chỉ thay LED bằng động cơ.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🔧 Điều khiển tốc độ bằng biến</h4>
+          <p>Tạo một biến <code>tocDo</code> (giá trị 0-100), gán giá trị cho biến này rồi dùng khối lệnh "đặt tốc độ động cơ = tocDo" — đây chính là cách chương trình "nói" cho mạch cầu H biết cần tạo xung PWM với tỷ lệ bao nhiêu phần trăm.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🔁 Vòng lặp forever điều khiển liên tục</h4>
+          <p>Đặt toàn bộ logic điều khiển động cơ bên trong khối <b>forever</b>: board sẽ liên tục kiểm tra "nút nào đang được bấm" và cập nhật tốc độ/chiều quay động cơ theo thời gian thực, thay vì chỉ chạy một lần rồi dừng.</p>
+          <div name="pgm-demo"></div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧪 Thử nghiệm tăng giảm tốc độ</h4>
+          <ol class="steps">
+            <li>Lập trình: bấm nút A → tăng biến tocDo thêm 20 (tối đa 100).</li>
+            <li>Lập trình: bấm nút B → giảm biến tocDo bớt 20 (tối thiểu 0).</li>
+            <li>Hiển thị giá trị tocDo hiện tại lên màn hình LED của board để dễ theo dõi khi thử nghiệm.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Tổng kết Buổi 2</h3><span class="time-chip">⏱ 20 phút</span></div>
+    <div class="card">
+      <h4>✅ Checklist dự án</h4>
+      <div class="checklist">
+        <label><input type="checkbox"> Động cơ + chân vịt lắp chắc chắn ở đuôi thuyền, quay êm</label>
+        <label><input type="checkbox"> Mạch cầu H đấu nối đúng với board điều khiển</label>
+        <label><input type="checkbox"> Lập trình được lệnh tiến/lùi cơ bản bằng nút bấm</label>
+        <label><input type="checkbox"> Điều khiển được tốc độ động cơ bằng biến tocDo (PWM)</label>
+      </div>
+    </div>
+    <div class="card" style="margin-top:12px;">
+      <h4>📝 Quiz ôn tập Buổi 2</h4>
+      <div class="quiz-wrap" id="quizB2">
+        <div class="quiz-q"><p>1. Bộ phận nào tạo lực đẩy giúp thuyền di chuyển?</p>
+          <div class="quiz-opt">Khối dằn ballast</div>
+          <div class="quiz-opt" data-correct="true">Động cơ và chân vịt</div>
+          <div class="quiz-opt">Board điều khiển</div>
+        </div>
+        <div class="quiz-q"><p>2. PWM là viết tắt của cụm từ nào?</p>
+          <div class="quiz-opt" data-correct="true">Pulse Width Modulation</div>
+          <div class="quiz-opt">Power Wire Motor</div>
+          <div class="quiz-opt">Propeller Water Motion</div>
+        </div>
+        <div class="quiz-q"><p>3. Mạch cầu H (H-bridge) dùng để làm gì?</p>
+          <div class="quiz-opt">Sạc pin cho thuyền</div>
+          <div class="quiz-opt" data-correct="true">Đảo chiều dòng điện để điều khiển chiều quay động cơ</div>
+          <div class="quiz-opt">Đo tốc độ dòng nước</div>
+        </div>
+        <div class="quiz-q"><p>4. Tỷ lệ xung PWM càng cao thì động cơ sẽ:</p>
+          <div class="quiz-opt">Quay càng chậm</div>
+          <div class="quiz-opt" data-correct="true">Quay càng nhanh</div>
+          <div class="quiz-opt">Không thay đổi tốc độ</div>
+        </div>
+        <div class="quiz-q"><p>5. Vì sao chân vịt quay lại đẩy được thuyền tiến lên?</p>
+          <div class="quiz-opt">Vì chân vịt hút nước vào trong</div>
+          <div class="quiz-opt" data-correct="true">Vì chân vịt đẩy nước ra sau, tạo phản lực đẩy thuyền tới trước (định luật III Newton)</div>
+          <div class="quiz-opt">Vì nước tự chảy theo thuyền</div>
+        </div>
+        <div class="quiz-q"><p>6. Vì sao KHÔNG nên đấu ngược cực tính pin vào mạch cầu H?</p>
+          <div class="quiz-opt">Vì thuyền sẽ chạy chậm hơn</div>
+          <div class="quiz-opt" data-correct="true">Vì có thể làm hỏng mạch cầu H hoặc board điều khiển ngay lập tức</div>
+          <div class="quiz-opt">Vì pin sẽ hết nhanh hơn</div>
+        </div>
+        <div class="quiz-q"><p>7. Ở bước lắp động cơ, vì sao chưa nên thử thuyền dưới nước?</p>
+          <div class="quiz-opt">Vì động cơ chưa được lập trình xong</div>
+          <div class="quiz-opt" data-correct="true">Vì khoang điện chưa được chống thấm nước (sẽ làm ở Buổi 3)</div>
+          <div class="quiz-opt">Vì luật thi đấu không cho phép</div>
+        </div>
+        <div class="quiz-q"><p>8. Biến <code>tocDo</code> trong chương trình dùng để lưu giá trị gì?</p>
+          <div class="quiz-opt">Nhiệt độ động cơ</div>
+          <div class="quiz-opt" data-correct="true">Mức tốc độ hiện tại của động cơ (0-100)</div>
+          <div class="quiz-opt">Số lần bấm nút</div>
+        </div>
+      </div>
+      <p class="quizScore"></p>
+      <button class="resetbtn" style="background:var(--green);" onclick="submitQuizResult('quizB2','Thuyền tự động - Buổi 2',8)">📤 Nộp kết quả lên GitHub</button>
+      <p style="font-size:.74rem;color:var(--sub);margin-top:6px;">Bấm nộp sẽ mở 1 tab GitHub Issue đã điền sẵn điểm số của bạn — bấm "Submit new issue" để hoàn tất nộp bài.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BUỔI 3 ============ -->
+<section class="buoi-panel" id="b3" data-multi>
+  <div class="panel-title">
+    <div><h2>🛡️ Buổi 3: Chống thấm nước &amp; Cân bằng dằn</h2><div class="goalline">Dự án: Thuyền chống nước, tự rẽ trái/phải</div></div>
+  </div>
+  <div class="subnav">
+    <button class="active">1. Lý thuyết</button>
+    <button>2. Lắp ráp</button>
+    <button>3. Lập trình</button>
+    <button>4. Tổng kết</button>
+  </div>
+
+  <div class="subslide active">
+    <div class="slide-head"><h3 class="big">Chống thấm nước &amp; trọng tâm</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>💧 Vì sao phải chống thấm nước?</h4>
+          <p>Board điều khiển, mạch cầu H và pin đều là linh kiện điện tử — nếu nước lọt vào có thể gây chập mạch, hỏng hóc vĩnh viễn hoặc thậm chí nguy hiểm với pin Li-Po. Toàn bộ khoang điện phải được bọc kín hoàn toàn trước khi thử nghiệm dưới nước.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧴 Các vật liệu chống thấm phổ biến</h4>
+          <div class="grid3">
+            <div class="comp-card"><div class="emoji">🧪</div><b>Keo silicon</b><span>Trám kín các khe hở, mối nối vỏ thuyền</span></div>
+            <div class="comp-card"><div class="emoji">🧦</div><b>Ống co nhiệt</b><span>Bọc kín từng mối nối dây điện nhỏ</span></div>
+            <div class="comp-card"><div class="emoji">📦</div><b>Hộp nhựa kín (hộp kín nước)</b><span>Đặt cả board + pin bên trong, chỉ để lộ dây ra ngoài qua điểm bịt kín</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>⚖️ Trọng tâm &amp; sự ổn định</h4>
+          <p><b>Trọng tâm</b> là điểm coi như toàn bộ khối lượng con thuyền tập trung tại đó. Trọng tâm càng thấp (gần đáy thuyền) thì thuyền càng khó bị lật; trọng tâm càng cao (gần đỉnh) thì thuyền càng dễ mất thăng bằng khi có sóng hoặc gió.</p>
+          <div class="note">💡 Đây là lý do khối dằn (ballast) luôn được đặt ở đáy thân thuyền, không đặt ở phía trên.</div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🪨 Cân chỉnh khối dằn (ballast)</h4>
+          <p style="font-size:.86rem;">Thêm hoặc bớt khối dằn ở hai bên và phía trước/sau thân thuyền để thuyền nổi đúng mực nước mong muốn (không quá cao khiến dễ lật, không quá thấp khiến nước tràn vào) và không bị nghiêng về bất kỳ hướng nào.</p>
+          <div class="slider-sim">
+            <input type="range" id="ballastSlider" min="0" max="100" value="50" oninput="updateBallastSim(this.value)">
+            <div class="readout">
+              <span id="ballastValueLabel">Khối dằn: 50 (cân bằng)</span>
+              <span class="status-badge status-ok" id="ballastStatusBadge">✅ Thuyền nổi cân bằng</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>↔️ Điều khiển vi sai (differential steering)</h4>
+          <p>Với 2 động cơ trái/phải độc lập, ta có thể điều khiển hướng đi mà không cần bánh lái riêng: nếu 2 động cơ quay cùng tốc độ, thuyền đi thẳng. Nếu động cơ bên phải quay nhanh hơn bên trái, thuyền sẽ rẽ trái (và ngược lại) — giống cách xe tăng hay xe lăn điện đổi hướng.</p>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Bọc kín mạch &amp; gắn khối dằn</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🛠️ Các bước chống thấm</h4>
+          <ol class="steps">
+            <li>Bọc board điều khiển và pin vào túi nilon kín hoặc hộp nhựa nhỏ có nắp đậy chặt.</li>
+            <li>Bọc từng mối nối dây điện bằng ống co nhiệt (dùng máy sấy tóc hơ nhẹ để ống co khít lại) hoặc băng keo điện quấn kỹ nhiều lớp.</li>
+            <li>Trám keo silicon quanh mép nắp khoang điện và quanh lỗ xuyên trục động cơ ở đuôi thuyền.</li>
+            <li>Để keo silicon khô hoàn toàn theo đúng thời gian khuyến nghị trên bao bì trước khi thử nước (thường 12-24 giờ).</li>
+          </ol>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🪨 Gắn khối dằn cố định</h4>
+          <ol class="steps">
+            <li>Đặt các khối dằn (đá cuội bọc túi nilon, ốc vít, cát trong túi kín) vào đáy thân thuyền.</li>
+            <li>Thử nổi trong chậu nước, quan sát mực nước ngập quanh thân thuyền.</li>
+            <li>Thêm/bớt dằn và di chuyển vị trí đến khi thuyền nổi thẳng, không nghiêng.</li>
+            <li>Cố định khối dằn bằng keo hoặc dây buộc để không bị xê dịch khi thuyền di chuyển.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧪 Thử nghiệm chống thấm (quan trọng!)</h4>
+          <div class="warn">⚠️ Trước khi thả cả thuyền có board/pin bên trong xuống nước, hãy thử: nhúng riêng khoang điện đã bọc kín vào một chậu nước nông trong 1-2 phút, lấy ra kiểm tra bên trong có khô ráo không. Chỉ tiến hành thử nghiệm thuyền hoàn chỉnh khi khoang điện đã được xác nhận kín hoàn toàn.</div>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Lập trình rẽ hướng</h3><span class="time-chip">⏱ 40 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🔧 2 biến tốc độ cho 2 động cơ</h4>
+          <p>Tạo 2 biến <code>tocDoTrai</code> và <code>tocDoPhai</code> để điều khiển riêng từng động cơ. Khi cả hai bằng nhau, thuyền đi thẳng.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>↩️ Lập trình rẽ trái / rẽ phải</h4>
+          <p>Bấm nút trái → giảm <code>tocDoTrai</code>, giữ nguyên <code>tocDoPhai</code> (thuyền rẽ trái). Bấm nút phải → giảm <code>tocDoPhai</code>, giữ nguyên <code>tocDoTrai</code> (thuyền rẽ phải). Toàn bộ đặt trong khối forever để phản ứng liên tục theo thời gian thực.</p>
+          <div class="btn-row">
+            <button class="dirbtn" onclick="steerSim('left')">⬅️ Rẽ trái</button>
+            <button class="dirbtn" onclick="steerSim('straight')">⬆️ Đi thẳng</button>
+            <button class="dirbtn" onclick="steerSim('right')">➡️ Rẽ phải</button>
+          </div>
+          <div class="boat-arrow" id="boatArrow">⬆️</div>
+          <p style="text-align:center;font-size:.82rem;color:var(--sub);" id="steerLabel">Thuyền đang đi thẳng — hai động cơ cùng tốc độ.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧮 Câu lệnh điều kiện if/else</h4>
+          <p>Dùng <code>if (nút trái được bấm) → giảm tocDoTrai; else if (nút phải được bấm) → giảm tocDoPhai; else → tocDoTrai = tocDoPhai = tocDo (đi thẳng bình thường)</code>. Đây chính là logic điều khiển hướng đi hoàn chỉnh cho thuyền.</p>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Tổng kết Buổi 3</h3><span class="time-chip">⏱ 20 phút</span></div>
+    <div class="card">
+      <h4>✅ Checklist dự án</h4>
+      <div class="checklist">
+        <label><input type="checkbox"> Khoang điện được bọc kín hoàn toàn (đã thử nhúng nước riêng)</label>
+        <label><input type="checkbox"> Khối dằn cố định chắc chắn, thuyền nổi cân bằng</label>
+        <label><input type="checkbox"> Lập trình được rẽ trái/phải bằng điều khiển vi sai 2 động cơ</label>
+        <label><input type="checkbox"> Đã thử nghiệm thuyền hoàn chỉnh nổi và di chuyển trong chậu nước</label>
+      </div>
+    </div>
+    <div class="card" style="margin-top:12px;">
+      <h4>📝 Quiz ôn tập Buổi 3</h4>
+      <div class="quiz-wrap" id="quizB3">
+        <div class="quiz-q"><p>1. Vì sao cần bọc kín board điều khiển và pin?</p>
+          <div class="quiz-opt">Để thuyền nhẹ hơn</div>
+          <div class="quiz-opt" data-correct="true">Để tránh nước lọt vào gây chập mạch, hỏng linh kiện</div>
+          <div class="quiz-opt">Để thuyền chạy nhanh hơn</div>
+        </div>
+        <div class="quiz-q"><p>2. Trọng tâm càng thấp thì thuyền sẽ:</p>
+          <div class="quiz-opt">Càng dễ bị lật</div>
+          <div class="quiz-opt" data-correct="true">Càng khó bị lật, ổn định hơn</div>
+          <div class="quiz-opt">Không ảnh hưởng gì</div>
+        </div>
+        <div class="quiz-q"><p>3. Khối dằn nên được đặt ở vị trí nào trên thân thuyền?</p>
+          <div class="quiz-opt">Ở đỉnh thân thuyền</div>
+          <div class="quiz-opt" data-correct="true">Ở đáy thân thuyền</div>
+          <div class="quiz-opt">Ở giữa lưng chừng thân thuyền</div>
+        </div>
+        <div class="quiz-q"><p>4. Điều khiển vi sai (differential steering) nghĩa là gì?</p>
+          <div class="quiz-opt">Dùng một bánh lái cơ khí riêng để rẽ hướng</div>
+          <div class="quiz-opt" data-correct="true">Đổi hướng bằng cách chênh lệch tốc độ giữa 2 động cơ trái/phải</div>
+          <div class="quiz-opt">Chỉ dùng một động cơ duy nhất</div>
+        </div>
+        <div class="quiz-q"><p>5. Nếu động cơ bên phải quay nhanh hơn bên trái, thuyền sẽ:</p>
+          <div class="quiz-opt">Đi thẳng</div>
+          <div class="quiz-opt" data-correct="true">Rẽ trái</div>
+          <div class="quiz-opt">Rẽ phải</div>
+        </div>
+        <div class="quiz-q"><p>6. Trước khi thử thuyền hoàn chỉnh dưới nước, nên làm gì trước?</p>
+          <div class="quiz-opt">Sạc đầy pin</div>
+          <div class="quiz-opt" data-correct="true">Thử nhúng riêng khoang điện đã bọc kín vào nước nông để kiểm tra chống thấm</div>
+          <div class="quiz-opt">Tháo hết khối dằn ra</div>
+        </div>
+        <div class="quiz-q"><p>7. Vật liệu nào phù hợp để trám kín mép nắp khoang điện?</p>
+          <div class="quiz-opt">Băng dính giấy</div>
+          <div class="quiz-opt" data-correct="true">Keo silicon</div>
+          <div class="quiz-opt">Hồ dán học sinh</div>
+        </div>
+        <div class="quiz-q"><p>8. Trong chương trình, biến nào dùng để điều khiển riêng động cơ bên trái?</p>
+          <div class="quiz-opt">tocDoPhai</div>
+          <div class="quiz-opt" data-correct="true">tocDoTrai</div>
+          <div class="quiz-opt">tocDo chung cho cả hai</div>
+        </div>
+      </div>
+      <p class="quizScore"></p>
+      <button class="resetbtn" style="background:var(--green);" onclick="submitQuizResult('quizB3','Thuyền tự động - Buổi 3',8)">📤 Nộp kết quả lên GitHub</button>
+      <p style="font-size:.74rem;color:var(--sub);margin-top:6px;">Bấm nộp sẽ mở 1 tab GitHub Issue đã điền sẵn điểm số của bạn — bấm "Submit new issue" để hoàn tất nộp bài.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BUỔI 4 ============ -->
+<section class="buoi-panel" id="b4" data-multi>
+  <div class="panel-title">
+    <div><h2>📡 Buổi 4: Điều khiển từ xa &amp; Cảm biến tránh vật cản</h2><div class="goalline">Dự án: Thuyền điều khiển từ xa, tự tránh vật cản</div></div>
+  </div>
+  <div class="subnav">
+    <button class="active">1. Lý thuyết</button>
+    <button>2. Lắp ráp</button>
+    <button>3. Lập trình</button>
+    <button>4. Tổng kết</button>
+  </div>
+
+  <div class="subslide active">
+    <div class="slide-head"><h3 class="big">Điều khiển từ xa &amp; cảm biến khoảng cách</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🔌 Điều khiển qua dây (tether)</h4>
+          <p>Cách đơn giản và tin cậy nhất: nối một dây dài từ tay điều khiển trên bờ xuống board trên thuyền để truyền tín hiệu điều khiển trực tiếp. Đây cũng là cách các ROV khảo sát đáy biển thật sự dùng — "quản lý dây tether" chính là một phần quan trọng trong thiết kế ROV Part Design mà khóa học tham khảo.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>📶 Điều khiển không dây</h4>
+          <p>Nếu board có sẵn module radio/Bluetooth (như micro:bit có Radio tích hợp), ta có thể dùng 2 board: một board cầm tay làm tay điều khiển (gửi lệnh), một board đặt trên thuyền (nhận lệnh và điều khiển động cơ) — không cần dây, thuyền di chuyển tự do hơn.</p>
+          <table class="rubric">
+            <tr><th>Kiểu điều khiển</th><th>Ưu điểm</th><th>Nhược điểm</th></tr>
+            <tr><td>Dây tether</td><td>Tín hiệu ổn định, không lo hết pin tay điều khiển ảnh hưởng thuyền</td><td>Dây có thể vướng, giới hạn khoảng cách</td></tr>
+            <tr><td>Không dây (radio/BLE)</td><td>Thuyền di chuyển tự do, không vướng dây</td><td>Có thể mất tín hiệu nếu quá xa hoặc nhiễu sóng</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>📏 Cảm biến siêu âm (Ultrasonic) là gì?</h4>
+          <p>Cảm biến siêu âm phát ra sóng âm tần số cao (con người không nghe được), đo thời gian sóng phản xạ lại từ vật cản để tính ra khoảng cách. Gắn cảm biến này ở mũi thuyền giúp thuyền "biết" phía trước có vật cản (bờ, đá, thuyền khác) hay không.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🚨 Ngưỡng cảnh báo &amp; tự động tránh vật cản</h4>
+          <p style="font-size:.86rem;">Đặt một "ngưỡng khoảng cách an toàn" (ví dụ 20cm). Nếu cảm biến đo được khoảng cách nhỏ hơn ngưỡng này, chương trình sẽ tự động cho thuyền dừng lại hoặc rẽ hướng khác, bất kể người điều khiển đang ra lệnh gì — đây là một lớp an toàn tự động bổ sung cho điều khiển từ xa.</p>
+          <div class="slider-sim">
+            <input type="range" id="distSlider" min="0" max="60" value="60" oninput="updateDistSim(this.value)">
+            <div class="readout">
+              <span id="distValueLabel">Khoảng cách vật cản: 60 cm</span>
+              <span class="status-badge status-ok" id="distStatusBadge">✅ An toàn, tiếp tục di chuyển</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Lắp module điều khiển &amp; cảm biến</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🛠️ Lắp dây tether (nếu dùng điều khiển có dây)</h4>
+          <ol class="steps">
+            <li>Chọn dây điện mềm, đủ dài (dài hơn khoảng cách dự kiến điều khiển khoảng 1-2m để có dư).</li>
+            <li>Bó gọn các dây tín hiệu lại với nhau bằng ống gen hoặc dây rút để tránh rối, vướng khi thuyền di chuyển.</li>
+            <li>Cố định điểm dây đi ra khỏi thân thuyền bằng khớp nối kín nước, tránh để nước theo dây thấm vào khoang điện.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🛠️ Lắp cảm biến siêu âm ở mũi thuyền</h4>
+          <ol class="steps">
+            <li>Gắn cảm biến siêu âm hướng thẳng về phía trước ở mũi thuyền, cao hơn mặt nước để tránh sóng nước ảnh hưởng phép đo.</li>
+            <li>Đấu dây cảm biến vào board điều khiển theo đúng chân tín hiệu (Trig, Echo, VCC, GND).</li>
+            <li>Bọc kín điểm đấu nối cảm biến bằng ống co nhiệt như đã làm ở Buổi 3.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧯 Lỗi thường gặp</h4>
+          <table class="rubric">
+            <tr><th>Hiện tượng</th><th>Nguyên nhân</th><th>Cách khắc phục</th></tr>
+            <tr><td>Cảm biến báo khoảng cách sai lệch nhiều</td><td>Cảm biến bị ướt hoặc bị sóng nước che khuất</td><td>Nâng cao vị trí gắn cảm biến, lau khô bề mặt cảm biến</td></tr>
+            <tr><td>Mất tín hiệu điều khiển đột ngột</td><td>Dây tether bị đứt ngầm hoặc board không dây quá xa vùng phủ sóng</td><td>Kiểm tra lại dây, giảm khoảng cách thử nghiệm</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Lập trình nhận lệnh &amp; tránh vật cản</h3><span class="time-chip">⏱ 40 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>📥 Nhận lệnh điều khiển</h4>
+          <p>Trên board tay cầm: mỗi lần bấm nút, gửi một tín hiệu radio (hoặc tín hiệu qua dây) mang mã lệnh (ví dụ số 1 = tiến, 2 = lùi, 3 = trái, 4 = phải). Trên board thuyền: dùng khối lệnh "khi nhận được tín hiệu radio" để đọc mã lệnh và gọi đúng hàm điều khiển động cơ tương ứng.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🛑 Ưu tiên an toàn: kiểm tra cảm biến trước lệnh điều khiển</h4>
+          <p>Logic tổng quát: <code>forever { nếu khoảng cách phía trước &lt; ngưỡng an toàn → dừng động cơ hoặc lùi lại; ngược lại → thực hiện theo lệnh điều khiển mới nhất nhận được }</code>. Cảm biến an toàn luôn được kiểm tra <b>trước</b>, ghi đè lên lệnh điều khiển nếu cần thiết.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🧩 Hàm (function) — gom nhóm lệnh lặp lại</h4>
+          <p>Vì các hành động "tiến", "lùi", "rẽ trái", "rẽ phải" được gọi đi gọi lại nhiều lần, ta nên gom mỗi hành động thành một <b>hàm (function)</b> riêng, giúp chương trình gọn gàng, dễ đọc và dễ sửa lỗi hơn so với viết lặp lại toàn bộ khối lệnh nhiều lần.</p>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Tổng kết Buổi 4</h3><span class="time-chip">⏱ 20 phút</span></div>
+    <div class="card">
+      <h4>✅ Checklist dự án</h4>
+      <div class="checklist">
+        <label><input type="checkbox"> Đã lắp xong hệ thống điều khiển từ xa (dây tether hoặc không dây)</label>
+        <label><input type="checkbox"> Cảm biến siêu âm lắp chắc chắn ở mũi thuyền, đấu nối đúng</label>
+        <label><input type="checkbox"> Lập trình nhận lệnh điều khiển và gọi đúng hàm tiến/lùi/rẽ</label>
+        <label><input type="checkbox"> Thuyền tự động dừng/tránh khi phát hiện vật cản gần</label>
+      </div>
+    </div>
+    <div class="card" style="margin-top:12px;">
+      <h4>📝 Quiz ôn tập Buổi 4</h4>
+      <div class="quiz-wrap" id="quizB4">
+        <div class="quiz-q"><p>1. Cảm biến siêu âm dùng để làm gì trên thuyền?</p>
+          <div class="quiz-opt">Đo tốc độ động cơ</div>
+          <div class="quiz-opt" data-correct="true">Đo khoảng cách tới vật cản phía trước</div>
+          <div class="quiz-opt">Đo nhiệt độ nước</div>
+        </div>
+        <div class="quiz-q"><p>2. Ưu điểm chính của điều khiển bằng dây tether là gì?</p>
+          <div class="quiz-opt">Thuyền di chuyển hoàn toàn tự do, không giới hạn</div>
+          <div class="quiz-opt" data-correct="true">Tín hiệu điều khiển ổn định, ít bị nhiễu</div>
+          <div class="quiz-opt">Không cần board điều khiển</div>
+        </div>
+        <div class="quiz-q"><p>3. Trong logic an toàn, cảm biến khoảng cách nên được kiểm tra khi nào?</p>
+          <div class="quiz-opt">Chỉ khi người dùng yêu cầu</div>
+          <div class="quiz-opt" data-correct="true">Liên tục, ưu tiên trước cả lệnh điều khiển từ xa</div>
+          <div class="quiz-opt">Chỉ một lần khi khởi động thuyền</div>
+        </div>
+        <div class="quiz-q"><p>4. Hàm (function) trong lập trình giúp ích điều gì?</p>
+          <div class="quiz-opt">Làm chương trình chạy chậm hơn</div>
+          <div class="quiz-opt" data-correct="true">Gom nhóm các lệnh lặp lại, giúp chương trình gọn gàng và dễ sửa</div>
+          <div class="quiz-opt">Tăng dung lượng pin</div>
+        </div>
+        <div class="quiz-q"><p>5. Vì sao cần bọc kín điểm đấu nối cảm biến siêu âm?</p>
+          <div class="quiz-opt">Để cảm biến đo xa hơn</div>
+          <div class="quiz-opt" data-correct="true">Để tránh nước thấm vào gây hỏng cảm biến/mạch điện</div>
+          <div class="quiz-opt">Để cảm biến nhẹ hơn</div>
+        </div>
+        <div class="quiz-q"><p>6. Nếu khoảng cách đo được nhỏ hơn ngưỡng an toàn, thuyền nên:</p>
+          <div class="quiz-opt">Tăng tốc để vượt qua nhanh</div>
+          <div class="quiz-opt" data-correct="true">Tự động dừng lại hoặc đổi hướng</div>
+          <div class="quiz-opt">Không phản ứng gì, chờ lệnh người dùng</div>
+        </div>
+        <div class="quiz-q"><p>7. micro:bit có thể điều khiển không dây bằng cách nào?</p>
+          <div class="quiz-opt">Bằng dây tether duy nhất</div>
+          <div class="quiz-opt" data-correct="true">Bằng module Radio tích hợp sẵn trên board</div>
+          <div class="quiz-opt">Bằng cảm biến ánh sáng</div>
+        </div>
+        <div class="quiz-q"><p>8. Vì sao nên gắn cảm biến siêu âm cao hơn mặt nước một chút?</p>
+          <div class="quiz-opt">Để tiết kiệm pin</div>
+          <div class="quiz-opt" data-correct="true">Để tránh sóng nước làm nhiễu/sai lệch phép đo khoảng cách</div>
+          <div class="quiz-opt">Để dễ tháo lắp hơn</div>
+        </div>
+      </div>
+      <p class="quizScore"></p>
+      <button class="resetbtn" style="background:var(--green);" onclick="submitQuizResult('quizB4','Thuyền tự động - Buổi 4',8)">📤 Nộp kết quả lên GitHub</button>
+      <p style="font-size:.74rem;color:var(--sub);margin-top:6px;">Bấm nộp sẽ mở 1 tab GitHub Issue đã điền sẵn điểm số của bạn — bấm "Submit new issue" để hoàn tất nộp bài.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BUỔI 5 ============ -->
+<section class="buoi-panel" id="b5" data-multi>
+  <div class="panel-title">
+    <div><h2>🏁 Buổi 5: Hoàn thiện, Thử nghiệm &amp; Dự thi AIJAM 2026</h2><div class="goalline">Sản phẩm cuối: Thuyền tự động hoàn chỉnh + báo cáo</div></div>
+  </div>
+  <div class="subnav">
+    <button class="active">1. Lý thuyết</button>
+    <button>2. Lắp ráp</button>
+    <button>3. Lập trình</button>
+    <button>4. Tổng kết</button>
+  </div>
+
+  <div class="subslide active">
+    <div class="slide-head"><h3 class="big">Quy trình kiểm thử &amp; tiêu chí thi</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🧪 Quy trình kiểm thử (test) một sản phẩm kỹ thuật</h4>
+          <ol class="steps">
+            <li>Kiểm tra từng bộ phận riêng lẻ trước (thân nổi, động cơ quay, cảm biến đo đúng).</li>
+            <li>Kiểm tra tích hợp toàn hệ thống trên cạn (chưa xuống nước).</li>
+            <li>Thử nghiệm thực tế trong môi trường nước nông, có người giám sát.</li>
+            <li>Ghi lại lỗi phát sinh, sửa và thử lại — lặp lại quy trình đến khi ổn định.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🦺 An toàn khi thử nghiệm trên nước</h4>
+          <ol class="steps">
+            <li>Luôn thử nghiệm ở vùng nước nông, có người lớn giám sát.</li>
+            <li>Không chạm tay vào chân vịt đang quay.</li>
+            <li>Ngắt nguồn pin ngay khi phát hiện dấu hiệu bất thường (khói, mùi khét, nóng bất thường).</li>
+            <li>Vệ sinh và lau khô thuyền sau mỗi lần thử nghiệm.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🏆 Tiêu chí tham khảo khi chấm thi AIJAM 2026</h4>
+          <table class="rubric">
+            <tr><th>Tiêu chí</th><th>Mô tả</th></tr>
+            <tr><td>Kỹ thuật chế tạo</td><td>Thân thuyền chắc chắn, chống thấm tốt, nổi cân bằng</td></tr>
+            <tr><td>Khả năng vận hành</td><td>Di chuyển ổn định, điều khiển chính xác, phản ứng đúng với cảm biến</td></tr>
+            <tr><td>Tính sáng tạo</td><td>Có cải tiến/mở rộng riêng so với mẫu cơ bản</td></tr>
+            <tr><td>Thuyết trình</td><td>Trình bày rõ nguyên lý hoạt động, quá trình chế tạo và bài học rút ra</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🚀 Hướng mở rộng sau khóa học</h4>
+          <div class="extend-box">📷 Gắn thêm camera mini để quan sát dưới nước qua màn hình/điện thoại.</div>
+          <div class="discuss-box">🧪 Gắn cảm biến đo chất lượng nước (độ pH, độ đục) để làm thuyền khảo sát môi trường.</div>
+          <div class="discuss-box">🛰️ Kết hợp module GPS để thuyền tự hành theo một hành trình định sẵn.</div>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Lắp ráp hoàn chỉnh</h3><span class="time-chip">⏱ 30 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🔧 Kiểm tra tổng thể trước khi hoàn thiện</h4>
+          <ol class="steps">
+            <li>Rà soát lại toàn bộ mối nối điện, siết chặt các ốc vít/khớp nối cơ khí.</li>
+            <li>Kiểm tra lại độ kín nước của toàn bộ khoang điện lần cuối.</li>
+            <li>Sạc đầy pin, kiểm tra thời lượng hoạt động thực tế của thuyền.</li>
+            <li>Vệ sinh bên ngoài thân thuyền, hoàn thiện tính thẩm mỹ (sơn, dán decal nếu muốn).</li>
+          </ol>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>📋 Bảng kiểm tra hoàn thiện (final checklist)</h4>
+          <table class="rubric">
+            <tr><th>Hạng mục</th><th>Đạt / Chưa đạt</th></tr>
+            <tr><td>Thân thuyền chắc chắn, kín nước</td><td>____</td></tr>
+            <tr><td>Động cơ + chân vịt hoạt động êm, đúng chiều</td><td>____</td></tr>
+            <tr><td>Cân bằng dằn, nổi thẳng không nghiêng</td><td>____</td></tr>
+            <tr><td>Điều khiển từ xa phản hồi nhanh, ổn định</td><td>____</td></tr>
+            <tr><td>Cảm biến tránh vật cản hoạt động đúng</td><td>____</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Hoàn thiện chương trình tổng hợp</h3><span class="time-chip">⏱ 40 phút</span></div>
+    <div class="micro-deck">
+      <div class="microslide active">
+        <div class="card"><h4>🧩 Ghép toàn bộ logic đã học</h4>
+          <p>Chương trình cuối cùng kết hợp toàn bộ 4 buổi trước: nhận lệnh điều khiển (Buổi 4) → kiểm tra cảm biến an toàn (Buổi 4) → tính toán tốc độ 2 động cơ theo hướng mong muốn (Buổi 3) → xuất tín hiệu PWM ra mạch cầu H (Buổi 2) — tất cả chạy liên tục trong một khối <code>forever</code> duy nhất.</p>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🔎 Bảng mô phỏng bảng điều khiển tổng hợp</h4>
+          <div class="dashboard-sim">
+            <div class="dash-item">
+              <b>Cảm biến vật cản</b>
+              <input type="range" id="finalDist" min="0" max="60" value="60" oninput="updateFinalDashboard()">
+              <div class="dash-indicator" id="finalDistIndicator">✅ An toàn</div>
+            </div>
+            <div class="dash-item">
+              <b>Lệnh điều khiển</b>
+              <select id="finalCmd" onchange="updateFinalDashboard()" style="width:100%;padding:6px;border-radius:8px;">
+                <option value="forward">⬆️ Tiến</option>
+                <option value="left">⬅️ Rẽ trái</option>
+                <option value="right">➡️ Rẽ phải</option>
+                <option value="stop">🛑 Dừng</option>
+              </select>
+              <div class="dash-indicator" id="finalCmdIndicator">⬆️ Đang tiến thẳng</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="microslide">
+        <div class="card"><h4>🐞 Mẹo gỡ lỗi (debug) chương trình</h4>
+          <ol class="steps">
+            <li>Hiển thị giá trị các biến quan trọng (tocDoTrai, tocDoPhai, khoảng cách cảm biến) lên màn hình LED để theo dõi trực tiếp.</li>
+            <li>Kiểm tra từng khối lệnh riêng lẻ trước khi ghép toàn bộ chương trình lại.</li>
+            <li>Nếu thuyền phản ứng sai, kiểm tra lại thứ tự ưu tiên: cảm biến an toàn phải luôn được kiểm tra trước lệnh điều khiển.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <div class="micro-nav"><button class="microPrev">◀</button><span class="microProgress"></span><button class="microNext">▶</button></div>
+  </div>
+
+  <div class="subslide">
+    <div class="slide-head"><h3 class="big">Tổng kết khóa học</h3><span class="time-chip">⏱ 20 phút</span></div>
+    <div class="card">
+      <h4>✅ Checklist hoàn thiện dự thi</h4>
+      <div class="checklist">
+        <label><input type="checkbox"> Thuyền hoàn chỉnh, đã thử nghiệm ổn định trên nước</label>
+        <label><input type="checkbox"> Chương trình tổng hợp chạy mượt, không lỗi</label>
+        <label><input type="checkbox"> Đã chuẩn bị báo cáo/thuyết trình về nguyên lý hoạt động</label>
+        <label><input type="checkbox"> Sẵn sàng dự thi AIJAM 2026</label>
+      </div>
+    </div>
+    <div class="card" style="margin-top:12px;">
+      <h4>📝 Quiz tổng kết Buổi 5</h4>
+      <div class="quiz-wrap" id="quizB5">
+        <div class="quiz-q"><p>1. Trong chương trình tổng hợp, điều gì luôn được kiểm tra ưu tiên trước lệnh điều khiển?</p>
+          <div class="quiz-opt">Mức pin còn lại</div>
+          <div class="quiz-opt" data-correct="true">Cảm biến an toàn (khoảng cách vật cản)</div>
+          <div class="quiz-opt">Màu sắc thân thuyền</div>
+        </div>
+        <div class="quiz-q"><p>2. Bước nào nên làm ĐẦU TIÊN trong quy trình kiểm thử sản phẩm?</p>
+          <div class="quiz-opt">Thử nghiệm trực tiếp trên nước sâu</div>
+          <div class="quiz-opt" data-correct="true">Kiểm tra từng bộ phận riêng lẻ trước</div>
+          <div class="quiz-opt">Thuyết trình sản phẩm</div>
+        </div>
+        <div class="quiz-q"><p>3. Vì sao không nên chạm tay vào chân vịt đang quay?</p>
+          <div class="quiz-opt">Vì sẽ làm bẩn tay</div>
+          <div class="quiz-opt" data-correct="true">Vì có thể gây thương tích</div>
+          <div class="quiz-opt">Vì sẽ làm thuyền chìm</div>
+        </div>
+        <div class="quiz-q"><p>4. Tiêu chí nào KHÔNG nằm trong bảng chấm thi AIJAM 2026 được đề cập?</p>
+          <div class="quiz-opt">Kỹ thuật chế tạo</div>
+          <div class="quiz-opt">Khả năng vận hành</div>
+          <div class="quiz-opt" data-correct="true">Giá thành sản phẩm rẻ nhất</div>
+        </div>
+        <div class="quiz-q"><p>5. Gắn thêm camera mini vào thuyền phục vụ mục đích gì?</p>
+          <div class="quiz-opt">Tăng tốc độ động cơ</div>
+          <div class="quiz-opt" data-correct="true">Quan sát dưới nước qua màn hình/điện thoại</div>
+          <div class="quiz-opt">Chống thấm nước tốt hơn</div>
+        </div>
+        <div class="quiz-q"><p>6. Khi thuyền phản ứng sai, bước gỡ lỗi đầu tiên nên làm là gì?</p>
+          <div class="quiz-opt">Tháo rời toàn bộ thuyền</div>
+          <div class="quiz-opt" data-correct="true">Hiển thị giá trị các biến quan trọng để theo dõi trực tiếp</div>
+          <div class="quiz-opt">Đổi hẳn sang board điều khiển khác</div>
+        </div>
+        <div class="quiz-q"><p>7. Module nào có thể giúp thuyền tự hành theo một hành trình định sẵn?</p>
+          <div class="quiz-opt">Cảm biến siêu âm</div>
+          <div class="quiz-opt" data-correct="true">Module GPS</div>
+          <div class="quiz-opt">Mạch cầu H</div>
+        </div>
+        <div class="quiz-q"><p>8. Nên làm gì ngay khi phát hiện thuyền có mùi khét hoặc nóng bất thường khi thử nghiệm?</p>
+          <div class="quiz-opt">Tiếp tục thử thêm vài phút để chắc chắn</div>
+          <div class="quiz-opt" data-correct="true">Ngắt nguồn pin ngay lập tức</div>
+          <div class="quiz-opt">Tăng tốc độ động cơ lên tối đa</div>
+        </div>
+      </div>
+      <p class="quizScore"></p>
+      <button class="resetbtn" style="background:var(--green);" onclick="submitQuizResult('quizB5','Thuyền tự động - Buổi 5',8)">📤 Nộp kết quả lên GitHub</button>
+      <p style="font-size:.74rem;color:var(--sub);margin-top:6px;">Bấm nộp sẽ mở 1 tab GitHub Issue đã điền sẵn điểm số của bạn — bấm "Submit new issue" để hoàn tất nộp bài.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+  // Top-level buổi tab navigation
+  document.querySelectorAll('.buoi-tab').forEach(t=>{
+    t.addEventListener('click', ()=>{
+      document.querySelectorAll('.buoi-tab').forEach(x=>x.classList.remove('active'));
+      t.classList.add('active');
+      document.querySelectorAll('.buoi-panel').forEach(p=>p.classList.remove('active'));
+      document.getElementById(t.dataset.target).classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+
+  // Micro-slide deck navigation (one card per screen, click/arrow through pages)
+  const microDeckResets = new Map();
+  document.querySelectorAll('.subslide').forEach(sub=>{
+    const deck = sub.querySelector('.micro-deck');
+    if(!deck) return;
+    const micros = deck.querySelectorAll('.microslide');
+    const nav = sub.querySelector('.micro-nav');
+    const prevM = nav ? nav.querySelector('.microPrev') : null;
+    const nextM = nav ? nav.querySelector('.microNext') : null;
+    const prog = nav ? nav.querySelector('.microProgress') : null;
+    let curM = 0;
+    function renderM(){
+      micros.forEach((m,i)=>m.classList.toggle('active', i===curM));
+      if(prevM) prevM.disabled = curM===0;
+      if(nextM) nextM.disabled = curM===micros.length-1;
+      if(prog) prog.textContent = (curM+1)+' / '+micros.length;
+      deck.scrollTop = 0;
+    }
+    if(prevM) prevM.addEventListener('click', ()=>{ if(curM>0){ curM--; renderM(); } });
+    if(nextM) nextM.addEventListener('click', ()=>{ if(curM<micros.length-1){ curM++; renderM(); } });
+    renderM();
+    microDeckResets.set(sub, ()=>{ curM = 0; renderM(); });
+  });
+
+  // Phase-level (subnav) navigation within each buổi panel
+  document.querySelectorAll('.buoi-panel[data-multi]').forEach(panel=>{
+    const subBtns = panel.querySelectorAll('.subnav button');
+    const subSlides = panel.querySelectorAll('.subslide');
+    let cur = 0;
+    function render(){
+      subSlides.forEach((s,i)=>s.classList.toggle('active', i===cur));
+      subBtns.forEach((b,i)=>b.classList.toggle('active', i===cur));
+      const resetFn = microDeckResets.get(subSlides[cur]);
+      if(resetFn) resetFn();
+    }
+    subBtns.forEach((b,i)=>b.addEventListener('click', ()=>{ cur=i; render(); window.scrollTo({top:0,behavior:'smooth'}); }));
+    render();
+  });
+
+  // Keyboard arrow navigation: moves within a micro-deck first, otherwise switches phase
+  document.addEventListener('keydown', e=>{
+    if(e.key!=='ArrowRight' && e.key!=='ArrowLeft') return;
+    const activePanel = document.querySelector('.buoi-panel.active');
+    if(!activePanel) return;
+    const activeSub = activePanel.querySelector('.subslide.active');
+    if(activeSub){
+      const btn = e.key==='ArrowRight' ? activeSub.querySelector('.microNext') : activeSub.querySelector('.microPrev');
+      if(btn && !btn.disabled){ btn.click(); return; }
+    }
+  });
+
+  // Submit quiz result as a pre-filled GitHub Issue (no backend/token needed — teacher reviews & records results)
+  function submitQuizResult(wrapId, buoiLabel, totalQ){
+    const wrap = document.getElementById(wrapId);
+    if(!wrap) return;
+    const answered = wrap.querySelectorAll('.quiz-q[data-answered]').length;
+    if(answered < totalQ){
+      alert('Bạn cần trả lời hết '+totalQ+' câu (hiện đã trả lời '+answered+'/'+totalQ+') trước khi nộp kết quả nhé!');
+      return;
+    }
+    const correct = wrap.querySelectorAll('.quiz-opt.correct').length;
+    const username = sessionStorage.getItem('mb_auth_user') || 'khach';
+    const REPO = 'HocJ2me/hocj2me.github.io';
+    const title = encodeURIComponent('[Kết quả quiz] '+buoiLabel+' - '+username+' - '+correct+'/'+totalQ);
+    const body = encodeURIComponent(
+`Học sinh: ${username}
+Buổi: ${buoiLabel}
+Điểm: ${correct}/${totalQ}
+Thời gian nộp: ${new Date().toLocaleString('vi-VN')}`
+    );
+    const url = `https://github.com/${REPO}/issues/new?title=${title}&body=${body}&labels=ket-qua-quiz`;
+    window.open(url, '_blank');
+  }
+
+  // Generic quiz scoring (works for all buổi)
+  document.querySelectorAll('.quiz-wrap').forEach(wrap=>{
+    const qs = wrap.querySelectorAll('.quiz-q');
+    qs.forEach(q=>{
+      const opts = q.querySelectorAll('.quiz-opt');
+      opts.forEach(o=>{
+        o.addEventListener('click', ()=>{
+          if(q.dataset.answered) return;
+          q.dataset.answered = '1';
+          opts.forEach(x=> x.classList.add(x.dataset.correct==='true' ? 'correct':'wrong'));
+          const answered = wrap.querySelectorAll('.quiz-q[data-answered]').length;
+          const correct = wrap.querySelectorAll('.quiz-opt.correct').length;
+          wrap.querySelector('.quizScore').textContent = 'Điểm: '+correct+' / '+qs.length+' câu đúng ('+answered+' câu đã trả lời)';
+        });
+      });
+    });
+  });
+
+  // === PWM motor power slider — Buổi 2 ===
+  function updatePwmSim(val){
+    const label = document.getElementById('pwmValueLabel');
+    const badge = document.getElementById('pwmStatusBadge');
+    if(!label || !badge) return;
+    label.textContent = 'Công suất động cơ: '+val+'%';
+    const v = Number(val);
+    if(v === 0){ badge.textContent = '🛑 Động cơ đứng yên'; badge.className = 'status-badge status-ok'; }
+    else if(v < 50){ badge.textContent = '🐢 Quay chậm'; badge.className = 'status-badge status-ok'; }
+    else { badge.textContent = '🚀 Quay nhanh'; badge.className = 'status-badge status-alert'; }
+  }
+
+  // === Ballast balance slider — Buổi 3 ===
+  function updateBallastSim(val){
+    const label = document.getElementById('ballastValueLabel');
+    const badge = document.getElementById('ballastStatusBadge');
+    if(!label || !badge) return;
+    const v = Number(val);
+    if(v < 35){ label.textContent = 'Khối dằn: '+val+' (quá ít)'; badge.textContent = '⚠️ Thuyền nổi quá cao, dễ lật'; badge.className = 'status-badge status-alert'; }
+    else if(v > 65){ label.textContent = 'Khối dằn: '+val+' (quá nhiều)'; badge.textContent = '⚠️ Thuyền chìm quá sâu'; badge.className = 'status-badge status-alert'; }
+    else { label.textContent = 'Khối dằn: '+val+' (cân bằng)'; badge.textContent = '✅ Thuyền nổi cân bằng'; badge.className = 'status-badge status-ok'; }
+  }
+
+  // === Differential steering demo — Buổi 3 ===
+  function steerSim(dir){
+    const arrow = document.getElementById('boatArrow');
+    const label = document.getElementById('steerLabel');
+    document.querySelectorAll('.dirbtn').forEach(b=>b.classList.remove('active'));
+    if(!arrow || !label) return;
+    if(dir === 'left'){
+      arrow.textContent = '↖️';
+      label.textContent = 'Thuyền rẽ trái — động cơ phải quay nhanh hơn động cơ trái.';
+      event.target.classList.add('active');
+    } else if(dir === 'right'){
+      arrow.textContent = '↗️';
+      label.textContent = 'Thuyền rẽ phải — động cơ trái quay nhanh hơn động cơ phải.';
+      event.target.classList.add('active');
+    } else {
+      arrow.textContent = '⬆️';
+      label.textContent = 'Thuyền đang đi thẳng — hai động cơ cùng tốc độ.';
+      event.target.classList.add('active');
+    }
+  }
+
+  // === Ultrasonic distance slider — Buổi 4 ===
+  function updateDistSim(val){
+    const label = document.getElementById('distValueLabel');
+    const badge = document.getElementById('distStatusBadge');
+    if(!label || !badge) return;
+    label.textContent = 'Khoảng cách vật cản: '+val+' cm';
+    if(Number(val) < 20){
+      badge.textContent = '🚨 Vật cản gần! Tự động dừng/tránh';
+      badge.className = 'status-badge status-alert';
+    } else {
+      badge.textContent = '✅ An toàn, tiếp tục di chuyển';
+      badge.className = 'status-badge status-ok';
+    }
+  }
+
+  // === Final combined dashboard — Buổi 5 ===
+  function updateFinalDashboard(){
+    const distEl = document.getElementById('finalDist');
+    const cmdEl = document.getElementById('finalCmd');
+    const distInd = document.getElementById('finalDistIndicator');
+    const cmdInd = document.getElementById('finalCmdIndicator');
+    if(!distEl || !cmdEl) return;
+    const dist = Number(distEl.value);
+    if(dist < 20){ distInd.textContent = '🚨 Vật cản gần — ghi đè lệnh, tự dừng'; distInd.classList.add('active'); }
+    else { distInd.textContent = '✅ An toàn'; distInd.classList.remove('active'); }
+    const labels = {forward:'⬆️ Đang tiến thẳng', left:'⬅️ Đang rẽ trái', right:'➡️ Đang rẽ phải', stop:'🛑 Đang dừng'};
+    if(dist < 20 && cmdEl.value !== 'stop'){
+      cmdInd.textContent = '🛑 Bị ghi đè: tự động dừng vì vật cản gần';
+      cmdInd.classList.add('active');
+    } else {
+      cmdInd.textContent = labels[cmdEl.value];
+      cmdInd.classList.remove('active');
+    }
+  }
+</script>
+</body>
+</html>
