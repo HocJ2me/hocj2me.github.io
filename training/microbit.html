@@ -1720,30 +1720,7 @@
     wrap.querySelector('.simResult').innerHTML = '';
   }
 
-  // Submit quiz result as a pre-filled GitHub Issue (no backend/token needed — teacher reviews & records results)
-  function submitQuizResult(wrapId, buoiLabel, totalQ){
-    const wrap = document.getElementById(wrapId);
-    if(!wrap) return;
-    const answered = wrap.querySelectorAll('.quiz-q[data-answered]').length;
-    if(answered < totalQ){
-      alert('Bạn cần trả lời hết '+totalQ+' câu (hiện đã trả lời '+answered+'/'+totalQ+') trước khi nộp kết quả nhé!');
-      return;
-    }
-    const correct = wrap.querySelectorAll('.quiz-opt.correct').length;
-    const username = sessionStorage.getItem('mb_auth_user') || 'khach';
-    const REPO = 'HocJ2me/hocj2me.github.io';
-    const title = encodeURIComponent('[Kết quả quiz] '+buoiLabel+' - '+username+' - '+correct+'/'+totalQ);
-    const body = encodeURIComponent(
-`Học sinh: ${username}
-Buổi: ${buoiLabel}
-Điểm: ${correct}/${totalQ}
-Thời gian nộp: ${new Date().toLocaleString('vi-VN')}`
-    );
-    const url = `https://github.com/${REPO}/issues/new?title=${title}&body=${body}&labels=ket-qua-quiz`;
-    window.open(url, '_blank');
-  }
-
-  // Generic quiz scoring (works for all buổi)
+  // Generic quiz scoring (works for all buổi) — tracks the exact option the student clicked
   document.querySelectorAll('.quiz-wrap').forEach(wrap=>{
     const qs = wrap.querySelectorAll('.quiz-q');
     qs.forEach(q=>{
@@ -1752,14 +1729,61 @@ Thời gian nộp: ${new Date().toLocaleString('vi-VN')}`
         o.addEventListener('click', ()=>{
           if(q.dataset.answered) return;
           q.dataset.answered = '1';
-          opts.forEach(x=> x.classList.add(x.dataset.correct==='true' ? 'correct':'wrong'));
-          const answered = wrap.querySelectorAll('.quiz-q[data-answered]').length;
-          const correct = wrap.querySelectorAll('.quiz-opt.correct').length;
-          wrap.querySelector('.quizScore').textContent = 'Điểm: '+correct+' / '+qs.length+' câu đúng ('+answered+' câu đã trả lời)';
+          q.dataset.chosenText = o.textContent.trim();
+          const isCorrect = o.dataset.correct === 'true';
+          q.dataset.isCorrect = isCorrect ? '1' : '0';
+          o.classList.add(isCorrect ? 'correct' : 'wrong');
+          if(!isCorrect){
+            const correctOpt = q.querySelector('.quiz-opt[data-correct="true"]');
+            if(correctOpt) correctOpt.classList.add('correct');
+          }
+          const answeredCount = wrap.querySelectorAll('.quiz-q[data-answered]').length;
+          const correctCount = wrap.querySelectorAll('.quiz-q[data-is-correct="1"]').length;
+          wrap.querySelector('.quizScore').textContent = 'Điểm: '+correctCount+' / '+qs.length+' câu đúng ('+answeredCount+' câu đã trả lời)';
         });
       });
     });
   });
+
+  // Submit FULL bài làm (không chỉ điểm số) as a pre-filled GitHub Issue (no backend/token needed)
+  function submitQuizResult(wrapId, buoiLabel, totalQ){
+    const wrap = document.getElementById(wrapId);
+    if(!wrap) return;
+    const qs = wrap.querySelectorAll('.quiz-q');
+    const answered = wrap.querySelectorAll('.quiz-q[data-answered]').length;
+    if(answered < totalQ){
+      alert('Bạn cần trả lời hết '+totalQ+' câu (hiện đã trả lời '+answered+'/'+totalQ+') trước khi nộp kết quả nhé!');
+      return;
+    }
+    const correct = wrap.querySelectorAll('.quiz-q[data-is-correct="1"]').length;
+    const username = sessionStorage.getItem('mb_auth_user') || 'khach';
+    const REPO = 'HocJ2me/hocj2me.github.io';
+
+    const lines = [];
+    qs.forEach((q,i)=>{
+      const chosen = q.dataset.chosenText || '(chưa trả lời)';
+      if(q.dataset.isCorrect === '1'){
+        lines.push('C'+(i+1)+': ĐÚNG — '+chosen);
+      } else {
+        const correctOpt = q.querySelector('.quiz-opt[data-correct="true"]');
+        const correctText = correctOpt ? correctOpt.textContent.trim() : '?';
+        lines.push('C'+(i+1)+': SAI — Bạn chọn: '+chosen+' | Đáp án đúng: '+correctText);
+      }
+    });
+
+    const title = encodeURIComponent('[Kết quả quiz] '+buoiLabel+' - '+username+' - '+correct+'/'+totalQ);
+    const body = encodeURIComponent(
+`Học sinh: ${username}
+Buổi: ${buoiLabel}
+Điểm: ${correct}/${totalQ}
+Thời gian nộp: ${new Date().toLocaleString('vi-VN')}
+
+Bài làm chi tiết:
+${lines.join('\n')}`
+    );
+    const url = `https://github.com/${REPO}/issues/new?title=${title}&body=${body}&labels=ket-qua-quiz`;
+    window.open(url, '_blank');
+  }
 
   // === Animated circuit (toggle switch, current flow, LED) — Buổi 1 ===
   let circuitOn = false;
