@@ -1328,7 +1328,8 @@
           }
           const answeredCount = wrap.querySelectorAll('.quiz-q[data-answered]').length;
           const correctCount = wrap.querySelectorAll('.quiz-q[data-is-correct="1"]').length;
-          wrap.querySelector('.quizScore').textContent = 'Điểm: '+correctCount+' / '+qs.length+' câu đúng ('+answeredCount+' câu đã trả lời)';
+          const scoreEl = wrap.querySelector('.quizScore') || wrap.nextElementSibling;
+          if(scoreEl) scoreEl.textContent = 'Điểm: '+correctCount+' / '+qs.length+' câu đúng ('+answeredCount+' câu đã trả lời)';
         });
       });
     });
