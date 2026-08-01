@@ -1,988 +1,1027 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="vi">
 <head>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4768151107093925"
-     crossorigin="anonymous"></script>
-    <meta charset="utf-8">
-    <meta name="robots" content="index, follow">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="language" content="English">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="assets/ico.png">
-    <link rel="shortcut icon" href="assets/ico.png">
-    <title>Tuyen Le Chi | hocj2me</title>
-    <meta name="apple-mobile-web-app-title" content="Tuyen Le Chi | hocj2me">
-    <meta name="application-name" content="Tuyen Le Chi | hocj2me">
-    <meta name="twitter:title" content="Tuyen Le Chi | hocj2me">
-    <meta property="og:title" content="Tuyen Le Chi | hocj2me">
-    <meta name="description" content="An electronic engineering with robotics enthusiast.">
-    <meta name="twitter:description" content="An electronic engineering with robotics enthusiast.">
-    <meta property="og:description" content="An electronic engineering with robotics enthusiast.">
-    <meta name="keywords" content="hocj2me, tuyen, le chi tuyen, tuyen chi le, chi tuyen le, chemtroi99, hust, bk, parabol xanh, parabol, BK Galaxy, BK, BKG, Galaxy, SPARC, SPARC LAB, HUST">
-    <meta name="author" content="Tuyen from SPARC lab, HUST">
-    <meta property="og:url" content="https://hocj2me.github.io">
-    <meta name="msapplication-TileColor" content="#27ae60">
-    <meta name="theme-color" content="#27ae60">
-    <meta property="og:image" content="https://hocj2me.github.io/assets/banner.png">
-    <meta property="og:image:url" content="https://hocj2me.github.io/assets/banner.png">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link rel="stylesheet" href="https://wallet.duinocoin.com/css/bulma-prefers-dark.min.css" type="text/css">
-    <script src="https://wallet.duinocoin.com/js/fontawesome.js"></script>
-    <style>
-    .link {
-        color: #27ae60;
-        text-decoration: none;
-        background-image: linear-gradient(90deg, #2ecc71, #1abc9c, #2ecc71);
-        background-repeat: no-repeat;
-        background-position: bottom left;
-        background-size: 0% 2px;
-        transition: background-size 400ms ease-in-out;
-        transition: 0.5s;
-    }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lê Chí Tuyền — Giáo viên Điện tử &amp; Robotics</title>
+<meta name="description" content="Lê Chí Tuyền — giáo viên STEM, dạy Điện tử, Lập trình và Robotics cho học sinh phổ thông. Kỹ sư Bách khoa Hà Nội, cựu đội trưởng BK Galaxy Robocon.">
+<meta name="author" content="Lê Chí Tuyền">
+<meta name="theme-color" content="#0f2237">
+<style>
+:root{
+  --paper:#f5f8fa; --panel:#fff;
+  --ink:#0f2237; --ink-2:#41576e; --ink-3:#7d90a3;
+  --line:#d3dde6; --line-2:#b7c6d4;
+  --blue:#14568f; --blue-2:#2b7fc4; --blue-soft:#e7f0f8;
+  --orange:#bf5f0b;
+  --sans:"Segoe UI",-apple-system,BlinkMacSystemFont,"Helvetica Neue","Roboto",Arial,sans-serif;
+  --serif:"Cambria","Constantia","Times New Roman","Nimbus Roman",serif;
+  --mono:"Consolas","SFMono-Regular","Liberation Mono",monospace;
+  --grid:rgba(20,86,143,.05); --grid-2:rgba(20,86,143,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.72;-webkit-font-smoothing:antialiased;
+  background-color:var(--paper);
+  background-image:
+    linear-gradient(var(--grid-2) 1px,transparent 1px),linear-gradient(90deg,var(--grid-2) 1px,transparent 1px),
+    linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:140px 140px,140px 140px,28px 28px,28px 28px}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{width:min(1240px,92vw);margin:0 auto}
 
-    .link:hover {
-        color: #1abc9c;
-        background-size: 100% 2px;
-    }
+.code{font-family:var(--mono);font-size:.78rem;color:var(--blue)}
+.label{font-size:.79rem;font-weight:600;color:var(--orange);line-height:1.5}
+.tick{position:relative}
+.tick::before,.tick::after{content:"";position:absolute;width:10px;height:10px;pointer-events:none;z-index:4}
+.tick::before{top:-1px;left:-1px;border-top:1.5px solid var(--blue);border-left:1.5px solid var(--blue)}
+.tick::after{bottom:-1px;right:-1px;border-bottom:1.5px solid var(--blue);border-right:1.5px solid var(--blue)}
+.dim{position:relative;height:1px;background:var(--line-2)}
+.dim::before,.dim::after{content:"";position:absolute;top:-4px;width:1px;height:9px;background:var(--line-2)}
+.dim::before{left:0}.dim::after{right:0}
 
-    .social {
-        color: #27ae60;
-    }
+/* nav */
+.nav{position:sticky;top:0;z-index:60;background:rgba(245,248,250,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line-2)}
+.nav-in{display:flex;align-items:center;height:64px;gap:26px}
+.sig{display:flex;align-items:center;gap:11px;text-decoration:none;white-space:nowrap}
+.sig .bx{width:30px;height:30px;border:1.5px solid var(--blue);display:grid;place-items:center;
+  font-family:var(--mono);font-size:.72rem;color:var(--blue)}
+.sig .nm{font-family:var(--serif);font-size:1.2rem;line-height:1.4}
+.sig .nm em{font-style:italic;color:var(--blue)}
+.nav nav{margin-left:auto;display:flex;gap:22px}
+.nav nav a{font-size:.87rem;color:var(--ink-2);text-decoration:none;padding:3px 0;border-bottom:1px solid transparent}
+.nav nav a:hover{color:var(--blue);border-bottom-color:var(--blue)}
+.burger{display:none;margin-left:auto;background:var(--panel);border:1px solid var(--line-2);padding:6px 11px;
+  font-size:.88rem;cursor:pointer;font-family:var(--sans);color:var(--ink)}
 
-    #nick_container {
-        height: 1.3em;
-        overflow: hidden;
-        display: inline-block;
-    }
+/* hero */
+.hero{padding:56px 0 46px}
+.hero-in{display:grid;grid-template-columns:1.45fr 1fr;gap:52px;align-items:center}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.2rem,4.8vw,3.45rem);line-height:1.2;margin-top:14px}
+.hero h1 i{font-style:italic;color:var(--blue)}
+.hero .lede{margin-top:20px;font-size:1.05rem;color:var(--ink-2);max-width:52ch}
+.hero .lede b{font-weight:600;color:var(--ink)}
+.spec{margin-top:26px;display:grid;grid-template-columns:repeat(3,minmax(0,185px));border-top:1px solid var(--line-2)}
+.spec div{padding:11px 16px 11px 0;border-right:1px dashed var(--line)}
+.spec div:last-child{border-right:0}
+.spec dt{font-family:var(--mono);font-size:.71rem;color:var(--blue)}
+.spec dd{font-size:.89rem;color:var(--ink-2);margin-top:2px;line-height:1.5}
+.hero-foot{margin-top:24px;display:flex;gap:13px;align-items:center;flex-wrap:wrap}
+.lnk{font-size:.93rem;text-decoration:none;border-bottom:1.5px solid var(--blue);padding-bottom:1px;color:var(--blue);font-weight:600}
+.lnk:hover{background:var(--blue-soft)}
+.sep{color:var(--line-2)}
 
-    .rotate,
-    .social {
-        transition: all 0.2s ease-in-out 0s;
-    }
+/* khung ảnh */
+.fig{background:var(--panel);border:1px solid var(--line-2)}
+.frame{position:relative;overflow:hidden;background:repeating-linear-gradient(45deg,#eef3f7 0 10px,#e7eef4 10px 20px);cursor:zoom-in}
+.frame img{width:100%;height:100%;object-fit:cover;position:relative;z-index:1;
+  transition:transform .65s cubic-bezier(.2,.8,.3,1)}
+.frame:hover img{transform:scale(1.05)}
+.fcap{display:flex;align-items:baseline;gap:9px;padding:8px 11px;border-top:1px solid var(--line);font-size:.8rem;color:var(--ink-2);line-height:1.45}
+.fcap .ft{font-family:var(--mono);font-size:.7rem;color:var(--orange);flex:none}
 
-    .rotate:hover {
-        cursor: default;
-        transform: rotate(360deg);
-        transition: all 0.5s ease-in-out 0s;
+/* đầu mục */
+section{padding:62px 0}
+.rule-top{border-top:1px solid var(--line-2)}
+.shead{margin-bottom:34px}
+.shead .bar{display:flex;align-items:baseline;gap:18px}
+.shead .no{font-family:var(--serif);font-size:clamp(1.3rem,2.6vw,1.75rem);color:var(--line-2);
+  font-style:italic;flex:none;line-height:1.3;letter-spacing:-.01em}
+.shead h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.5rem,3vw,2.02rem);line-height:1.3}
+.shead .note{margin-left:auto;font-size:.85rem;color:var(--ink-3);text-align:right;max-width:37ch;flex:none;line-height:1.55}
+.shead .dim{margin-top:12px}
 
-    }
+/* dự án */
+.feat{display:grid;grid-template-columns:1.35fr 1fr;gap:32px;margin-bottom:36px}
+.f-side{display:flex;flex-direction:column;gap:24px}
+a.item{text-decoration:none;display:block}
+a.item:hover h3{color:var(--blue)}
+a .frame{cursor:pointer}
+.f-main .frame{aspect-ratio:16/10}
+.f-side .frame{aspect-ratio:16/9}
+.meta{margin-top:14px;font-size:.79rem;font-weight:600;color:var(--orange)}
+.f-main h3{font-family:var(--serif);font-size:1.64rem;font-weight:400;line-height:1.3;margin-top:6px}
+.f-side h3{font-family:var(--serif);font-size:1.14rem;font-weight:400;line-height:1.38;margin-top:5px}
+.desc{color:var(--ink-2);font-size:.94rem;margin-top:9px;max-width:58ch}
+.f-side .desc{font-size:.89rem}
+.role{font-size:.85rem;color:var(--ink-3);margin-top:9px}
+.role b{color:var(--ink-2);font-weight:600}
+.play{position:absolute;left:0;bottom:0;z-index:3;background:var(--ink);color:#fff;font-size:.73rem;font-weight:600;padding:5px 11px}
 
-    #nick {
-        float: right;
-        display: inline-block;
-        animation: popin 2s ease-in-out infinite;
-    }
+.pidx{border-top:1px solid var(--ink)}
+.prow{display:grid;grid-template-columns:44px 90px 1fr 1.2fr 148px;gap:20px;align-items:center;
+  padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;transition:background .15s}
+.prow:hover{background:var(--panel)}
+.prow .id{font-family:var(--mono);font-size:.75rem;color:var(--ink-3)}
+.prow .thumb{aspect-ratio:4/3;overflow:hidden;background:#e9eff4;border:1px solid var(--line-2)}
+.prow .thumb img{width:100%;height:100%;object-fit:cover}
+.prow .t{font-family:var(--serif);font-size:1.04rem;line-height:1.4}
+.prow .d{font-size:.88rem;color:var(--ink-2);line-height:1.55}
+.prow .y{font-size:.81rem;color:var(--ink-3);text-align:right}
+.morebtn{margin-top:24px;background:var(--panel);border:1px solid var(--ink);padding:11px 22px;
+  font-family:var(--sans);font-size:.89rem;cursor:pointer;color:var(--ink)}
+.morebtn:hover{background:var(--ink);color:var(--paper)}
+.hidden{display:none}
 
-    .imgshadow {
-        -webkit-filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.6));
-        -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=2, OffY=2, Color='#444')";
-        filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=2, OffY=2, Color='#444')";
-    }
+/* thư viện ảnh */
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.gal .frame{aspect-ratio:4/3}
 
-    .lightshadow {
-        -webkit-filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.3));
-        -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=0, Color='#222')";
-        filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=0, Color='#222')";
-    }
+/* nút hành động */
+.btn{display:inline-block;padding:12px 24px;font-size:.92rem;font-weight:600;text-decoration:none;
+  border:1px solid var(--blue);transition:.18s;font-family:var(--sans);cursor:pointer}
+.btn-a{background:var(--blue);color:#fff}
+.btn-a:hover{background:var(--ink);border-color:var(--ink)}
+.btn-b{background:transparent;color:var(--blue)}
+.btn-b:hover{background:var(--blue-soft)}
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
 
-    p {
-        text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
-    }
+/* 4 lý do */
+.why{border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);background:var(--panel);padding:44px 0}
+.why-lead{font-family:var(--serif);font-size:1.3rem;line-height:1.45;max-width:62ch;margin-bottom:32px}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.why-grid div{padding:0 26px;border-left:1px solid var(--line)}
+.why-grid div:first-child{padding-left:0;border-left:0}
+.why-grid h4{font-family:var(--serif);font-size:1.12rem;font-weight:400;line-height:1.35}
+.why-grid p{font-size:.89rem;color:var(--ink-2);margin-top:8px}
 
-    @media (prefers-color-scheme: light) {
-        html {
-            background-color: #FBF7F4;
-        }
+/* khối chữ lớn + cụm ảnh */
+.bigstate{display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:center}
+.bigwords{font-family:var(--serif);font-size:clamp(1.9rem,4.4vw,3rem);line-height:1.12;font-weight:400}
+.bigwords span{display:block}
+.bigwords span:nth-child(2){color:var(--blue);padding-left:.9em}
+.bigwords span:nth-child(3){padding-left:1.8em}
+.bigstate p{margin-top:22px;color:var(--ink-2);font-size:.98rem;max-width:48ch}
+.cluster{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cluster .frame{aspect-ratio:1/1}
+.cluster .fig:nth-child(2),.cluster .fig:nth-child(3){margin-top:26px}
 
-        .heading {
-            color: #1e272e;
-        }
+/* 3 điều bạn nhận được */
+.wants{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--ink)}
+.wants div{padding:24px 26px 24px 0;border-right:1px dashed var(--line)}
+.wants div:last-child{border-right:0;padding-right:0}
+.wants .no2{font-family:var(--mono);font-size:.74rem;color:var(--orange)}
+.wants h4{font-family:var(--serif);font-size:1.2rem;font-weight:400;line-height:1.35;margin-top:6px}
+.wants p{font-size:.9rem;color:var(--ink-2);margin-top:8px}
 
-        #projektysmall:after {
-            content: "";
-            position: absolute;
-            z-index: 1;
-            bottom: 0;
-            left: 0;
-            pointer-events: none;
-            background-image: linear-gradient(to bottom, #FBF7F400, #FBF7F4EE);
-            width: 100%;
-            height: 14em;
-        }
-    }
+/* cảm nhận */
+.quotes{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.qcard{background:var(--panel);border:1px solid var(--line-2);padding:26px 28px;position:relative}
+.qcard .mark{font-family:var(--serif);font-size:2.6rem;line-height:.7;color:var(--line-2)}
+.qcard blockquote{font-family:var(--serif);font-size:1.06rem;line-height:1.6;font-style:italic;margin-top:10px}
+.qcard .who{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);font-size:.88rem}
+.qcard .who b{display:block;font-weight:600}
+.qcard .who span{color:var(--ink-3);font-size:.84rem}
+.qcard.empty{border-style:dashed;background:transparent}
+.qcard.empty blockquote{color:var(--ink-3);font-style:normal;font-family:var(--sans);font-size:.94rem}
 
-    @media (prefers-color-scheme: dark) {
-        .heading {
-            color: #fbfbfb;
-        }
+/* đơn vị đã hợp tác */
+.partners{background:var(--panel);border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);padding:34px 0}
+.plabel{font-family:var(--mono);font-size:.73rem;color:var(--blue);margin-bottom:16px}
+.plist{display:flex;flex-wrap:wrap;gap:10px 12px}
+.plist span{border:1px solid var(--line-2);padding:7px 15px;font-size:.87rem;color:var(--ink-2);background:var(--paper)}
 
-        #projektysmall:after {
-            content: "";
-            position: absolute;
-            z-index: 1;
-            bottom: 0;
-            left: 0;
-            pointer-events: none;
-            background-image: linear-gradient(to bottom, #17181C00, #17181CEE);
-            width: 100%;
-            height: 14em;
-        }
-    }
+/* dải kêu gọi */
+.ctaband{background:var(--ink);color:#fff;padding:46px 0}
+.ctaband h3{font-family:var(--serif);font-size:clamp(1.4rem,3vw,1.95rem);font-weight:400;line-height:1.3}
+.ctaband p{color:rgba(255,255,255,.72);margin-top:12px;max-width:56ch;font-size:.97rem}
+.ctaband .btn-a{background:#fff;color:var(--ink);border-color:#fff}
+.ctaband .btn-a:hover{background:var(--blue-2);border-color:var(--blue-2);color:#fff}
+.ctaband .btn-b{color:#fff;border-color:rgba(255,255,255,.5)}
+.ctaband .btn-b:hover{background:rgba(255,255,255,.14)}
 
-    @media only screen and (min-width: 768px) {
-        html {
-            zoom: 1.1;
-        }
+/* khóa học */
+.course{display:block;border:1px solid var(--line-2);background:var(--panel);border-radius:22px;overflow:hidden;box-shadow:0 14px 38px rgba(23,50,77,.06)}
+.course-l{padding:32px 34px}
+.course-r{padding:28px 34px;border-left:0;border-top:1px dashed var(--line-2)}
+.course-r .syl{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.course-r .syl li{padding:16px 14px;border:1px solid var(--line);border-radius:12px}.course-r .syl li::before{position:static;display:inline-block;margin-bottom:10px}
+.course h3{font-family:var(--serif);font-size:1.76rem;font-weight:400;line-height:1.32;margin-top:12px}
+.course p{margin-top:15px;color:var(--ink-2);font-size:.97rem}
+.facts{margin-top:24px;border-top:1px solid var(--line-2)}
+.facts div{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:.91rem}
+.facts div span:first-child{color:var(--ink-3)}
+.facts div span:last-child{font-weight:600;text-align:right}
+.cpics{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.cpics .frame{aspect-ratio:4/3}
+ol.syl{list-style:none;counter-reset:s}
+ol.syl li{counter-increment:s;display:grid;grid-template-columns:42px 1fr;gap:14px;padding:14px 0;border-bottom:1px dashed var(--line)}
+ol.syl li:first-child{border-top:1px solid var(--ink)}
+ol.syl li:last-child{border-bottom:0}
+ol.syl li::before{content:"B" counter(s);font-family:var(--mono);font-size:.76rem;color:var(--blue);
+  border:1px solid var(--line-2);text-align:center;height:22px;line-height:20px;margin-top:3px}
+ol.syl b{font-weight:600;font-size:.96rem}
+ol.syl small{display:block;color:var(--ink-2);font-size:.87rem;margin-top:3px;line-height:1.6}
 
-        .avatar {
-            margin-left: auto !important;
-        }
-    }
+/* giới thiệu */
+.about{display:block}
+.about .prose{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:30px 32px}
+.prose p{margin-bottom:16px;color:var(--ink-2)}
+.prose p:first-child{font-size:1.09rem;color:var(--ink)}
+.prose strong{color:var(--ink);font-weight:600}
+.pull{font-family:var(--serif);font-size:1.24rem;line-height:1.55;font-style:italic;color:var(--ink);
+  border-left:2px solid var(--orange);padding:6px 0 6px 22px;margin:24px 0}
+.aside-col{display:grid;grid-template-columns:1fr 1.08fr;gap:18px;margin-top:22px;align-items:stretch}
+.aside-col>figure,.aside-col>.cv{background:var(--panel);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.aside-col>figure{display:flex;flex-direction:column}.aside-col>figure .frame{flex:1;aspect-ratio:auto;min-height:430px}.aside-col>figure .fcap{flex:none}
+.aside-col>.cv{padding:22px 24px}
+.aside-col .frame{aspect-ratio:4/3}
+dl.cv{background:var(--panel);border:1px solid var(--line-2);padding:6px 20px 16px}
+dl.cv dt{font-family:var(--mono);font-size:.71rem;color:var(--blue);padding-top:13px;border-top:1px dashed var(--line)}
+dl.cv dt:first-of-type{border-top:0}
+dl.cv dd{margin:4px 0 13px;font-size:.92rem}
+dl.cv dd b{display:block;font-weight:600}
+dl.cv dd span{color:var(--ink-3);font-size:.87rem}
 
-    .heading {
-        margin-bottom: 0.5em !important;
-    }
+/* giảng dạy */
+.teach{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.tblock{background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column}
+.tblock .frame{aspect-ratio:16/9}
+.tb-body{padding:18px 20px 20px;flex:1}
+.tblock .lv{font-family:var(--mono);font-size:.72rem;color:#fff;background:var(--ink-2);padding:2px 7px;display:inline-block}
+.tblock h4{font-family:var(--serif);font-size:1.17rem;font-weight:400;line-height:1.35;margin-top:10px}
+.tblock p{font-size:.9rem;color:var(--ink-2);margin-top:8px}
+.tblock ul{list-style:none;margin-top:11px;font-size:.85rem;color:var(--ink-3);border-top:1px dashed var(--line);padding-top:9px}
+.tblock ul li{padding:2px 0}
+.tblock ul li::before{content:"▸ ";color:var(--blue-2)}
 
-    #projektysmall {
-        max-height: 1024px;
-        overflow: hidden;
-        position: relative;
-    }
+/* kinh nghiệm */
+.exp{display:grid;grid-template-columns:1.15fr 1fr;gap:52px;align-items:start}
+.job{display:grid;grid-template-columns:98px 1fr;gap:20px;padding:17px 0;border-bottom:1px dashed var(--line)}
+.job:first-of-type{border-top:1px solid var(--ink)}
+.job .when{font-family:var(--mono);font-size:.78rem;color:var(--blue);padding-top:4px}
+.job h4{font-size:.99rem;font-weight:600;line-height:1.5}
+.job p{font-size:.89rem;color:var(--ink-2);margin-top:4px}
+.awards{list-style:none}
+.awards li{padding:12px 0;border-bottom:1px dashed var(--line);display:grid;grid-template-columns:1fr auto;gap:16px;align-items:baseline}
+.awards li:first-child{border-top:1px solid var(--ink)}
+.awards b{font-weight:600;font-size:.94rem}
+.awards span.s{display:block;font-size:.86rem;color:var(--ink-3);margin-top:2px}
+.awards .yy{font-family:var(--mono);font-size:.78rem;color:var(--blue)}
+.sub{font-family:var(--serif);font-size:1.22rem;font-weight:400;margin-bottom:15px;line-height:1.4}
 
-    .removeBar:after {
-        content: none !important;
-    }
+/* liên hệ */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start}
+.contact p{color:var(--ink-2)}
+.clist{background:var(--panel);border:1px solid var(--line-2)}
+.clist a{display:grid;grid-template-columns:94px 1fr;gap:16px;padding:13px 18px;border-bottom:1px dashed var(--line);
+  text-decoration:none;font-size:.93rem}
+.clist a:last-child{border-bottom:0}
+.clist a:hover{background:var(--blue-soft)}
+.clist .k{font-family:var(--mono);font-size:.71rem;color:var(--blue);padding-top:4px}
+.clist .v{border-bottom:1px solid var(--line-2);justify-self:start}
 
-    @keyframes popin {
+footer{border-top:1px solid var(--ink);padding:26px 0 44px;font-size:.85rem;color:var(--ink-3);background:var(--panel)}
+.fin{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 
-        0%,
-        30% {
-            transform: translate(0px, 0px);
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:200;background:rgba(10,20,32,.95);display:none;grid-template-rows:1fr auto;padding:20px}
+.lb.on{display:grid}
+.lb-stage{position:relative;display:grid;place-items:center;overflow:hidden}
+.lb-stage img{max-width:100%;max-height:100%;object-fit:contain;border:1px solid rgba(255,255,255,.25)}
+.lb-bar{display:flex;align-items:center;gap:16px;color:#e6eef6;padding-top:14px;border-top:1px solid rgba(255,255,255,.18);margin-top:14px}
+.lb-bar .n{font-family:var(--mono);font-size:.78rem;color:#8fb8dd;flex:none}
+.lb-bar .c{font-size:.92rem;line-height:1.5}
+.lb-btn{background:transparent;border:1px solid rgba(255,255,255,.4);color:#fff;width:40px;height:40px;
+  font-size:1.05rem;cursor:pointer;flex:none;font-family:var(--sans)}
+.lb-btn:hover{background:rgba(255,255,255,.15)}
+.lb-x{position:absolute;top:0;right:0;z-index:5}
+.lb-nav{margin-left:auto;display:flex;gap:8px;flex:none}
 
-        }
-
-        40%,
-        90% {
-            transform: translate(0px, -1.5em);
-        }
-    }
-
-    @-moz-keyframes rotate {
-        100% {
-            -moz-transform: rotate(360deg);
-        }
-    }
-
-    @-webkit-keyframes rotate {
-        100% {
-            -webkit-transform: rotate(360deg);
-        }
-    }
-
-    @keyframes rotate {
-        100% {
-            -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-        }
-    }
-
-    html {
-        --scrollbarBG: #FBF7F4;
-        --thumbBG: #49C78E;
-    }
-
-    @media (prefers-color-scheme: dark) {
-        html {
-            --scrollbarBG: #rgb(23, 24, 28);
-            --thumbBG: #1DA64C;
-        }
-    }
-
-    *::-webkit-scrollbar {
-        width: 11px;
-    }
-
-    * {
-        scrollbar-width: thin;
-        scrollbar-color: var(--thumbBG) var(--scrollbarBG);
-    }
-
-    *::-webkit-scrollbar-track {
-        background: var(--scrollbarBG);
-    }
-
-    *::-webkit-scrollbar-thumb {
-        background-color: var(--thumbBG);
-        border-radius: 6px;
-        border: 3px solid var(--scrollbarBG);
-    }
-
-    .cta-banner {
-        background: linear-gradient(120deg, #27ae60, #1abc9c);
-        border-radius: 18px;
-        padding: 28px 32px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 20px;
-        box-shadow: 0 8px 24px rgba(39, 174, 96, 0.35);
-        margin: 6px 0 26px;
-    }
-
-    .cta-eyebrow {
-        color: rgba(255,255,255,.85);
-        font-size: .76rem;
-        font-weight: 700;
-        letter-spacing: .06em;
-        margin-bottom: 6px;
-        text-transform: uppercase;
-    }
-
-    .cta-title {
-        color: #fff;
-        font-size: 1.28rem;
-        font-weight: 700;
-        margin-bottom: 6px;
-        text-shadow: none;
-    }
-
-    .cta-sub {
-        color: rgba(255,255,255,.92);
-        font-size: .9rem;
-        max-width: 560px;
-        text-shadow: none;
-        margin-bottom: 2px;
-    }
-
-    .cta-sub-en {
-        color: rgba(255,255,255,.75);
-        font-size: .8rem;
-        font-style: italic;
-    }
-
-    .cta-btn {
-        background: #fff;
-        color: #1e8449 !important;
-        font-weight: 700;
-        padding: 12px 26px;
-        border-radius: 30px;
-        white-space: nowrap;
-        transition: transform .2s ease, box-shadow .2s ease;
-        box-shadow: 0 4px 14px rgba(0,0,0,.15);
-        text-decoration: none;
-        flex-shrink: 0;
-    }
-
-    .cta-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(0,0,0,.2);
-        color: #146c3a !important;
-    }
-
-    @media (max-width: 600px) {
-        .cta-banner {
-            flex-direction: column;
-            text-align: center;
-        }
-        .cta-btn {
-            width: 100%;
-            text-align: center;
-        }
-    }
-    </style>
+@media(max-width:1100px){.why-grid{grid-template-columns:repeat(2,1fr);gap:26px 0}
+  .why-grid div:nth-child(3){padding-left:0;border-left:0}}
+@media(max-width:980px){
+  .hero-in,.about,.exp,.contact,.bigstate{grid-template-columns:1fr;gap:36px}
+  .quotes{grid-template-columns:1fr}
+  .wants{grid-template-columns:1fr}
+  .wants div{border-right:0;border-bottom:1px dashed var(--line);padding-right:0}
+  .wants div:last-child{border-bottom:0}
+  .feat{grid-template-columns:1fr;gap:28px}
+  .course{grid-template-columns:1fr}
+  .course-r{border-left:0;border-top:1px dashed var(--line-2)}
+  .teach{grid-template-columns:1fr 1fr}
+  .prow{grid-template-columns:36px 72px 1fr;gap:14px}
+  .prow .d{display:none}
+  .prow .y{text-align:left;grid-column:3}
+  .shead .note{display:none}
+  .spec{grid-template-columns:1fr 1fr}
+}
+@media(max-width:760px){.gal{grid-template-columns:repeat(2,1fr)}
+  .why-grid{grid-template-columns:1fr}
+  .why-grid div{padding-left:0;border-left:0;border-top:1px dashed var(--line);padding-top:18px}
+  .why-grid div:first-child{border-top:0;padding-top:0}
+  .cluster .fig:nth-child(2),.cluster .fig:nth-child(3){margin-top:0}
+  .bigwords span{padding-left:0!important}}
+@media(max-width:620px){
+  body{font-size:16px;background-size:100px 100px,100px 100px,22px 22px,22px 22px}
+  .nav nav{display:none;position:absolute;top:64px;left:0;right:0;background:var(--panel);flex-direction:column;
+    gap:0;border-bottom:1px solid var(--ink);padding:6px 4vw 12px}
+  .nav nav.open{display:flex}
+  .nav nav a{padding:10px 0;border-bottom:1px dashed var(--line)}
+  .burger{display:block}
+  section{padding:44px 0}
+  .teach{grid-template-columns:1fr}
+  .spec{grid-template-columns:1fr}
+  .spec div{border-right:0;border-bottom:1px dashed var(--line)}
+  .course-l,.course-r{padding:24px 20px}
+  .shead .bar{flex-wrap:wrap;gap:10px}
+}
+@media(max-width:460px){.gal{grid-template-columns:1fr}}
+/* Tinh chỉnh 2026 — ấm áp, dễ đọc và gần gũi hơn với học sinh */
+:root{
+  --paper:#f7f4ec; --panel:#fffdf8;
+  --ink:#17324d; --ink-2:#506478; --ink-3:#718397;
+  --line:#dfe4df; --line-2:#c5d0cc;
+  --blue:#176b78; --blue-2:#248b91; --blue-soft:#e5f3f1;
+  --orange:#d56a3a;
+  --grid:rgba(23,107,120,.025); --grid-2:rgba(23,107,120,.04);
+}
+body{background-size:160px 160px,160px 160px,32px 32px,32px 32px}
+.wrap{width:min(1180px,calc(100vw - 40px))}
+.nav{background:rgba(247,244,236,.9);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(23,50,77,.05)}
+.nav-in{height:72px}.sig .bx{border-radius:10px;background:var(--blue);color:#fff;border-color:var(--blue)}
+.nav nav a{font-weight:600}.nav nav a:hover{border-bottom-color:transparent}
+.hero{padding:76px 0 64px}.hero-in{gap:72px}.hero h1{font-size:clamp(2.45rem,5vw,4.25rem);letter-spacing:-.035em}
+.hero .lede{font-size:1.11rem;line-height:1.8}.hero .fig{transform:rotate(1.2deg);box-shadow:18px 20px 0 var(--blue-soft)}
+.hero .fig:hover{transform:rotate(0)}
+.hero .portrait-frame{background:#e7f2f0;padding:0}.hero .portrait-frame img{width:100%;height:100%;object-fit:cover;object-position:center 22%;filter:none}
+.fig,.qcard,.course-card{border-radius:18px;overflow:hidden;border-color:rgba(23,50,77,.14);box-shadow:0 10px 30px rgba(23,50,77,.055)}
+.frame{border-radius:17px 17px 0 0}.fcap{background:var(--panel)}
+section{padding:78px 0}.shead h2{font-size:clamp(1.7rem,3vw,2.45rem);letter-spacing:-.02em}
+.shead .no{color:var(--orange);opacity:.65}.shead .dim{background:linear-gradient(90deg,var(--blue),var(--line) 35%,transparent)}
+.why{background:#17324d;color:#fff;border:0}.why-lead{font-size:1.55rem}.why-grid p{color:#d8e2e8}.why-grid div{border-color:rgba(255,255,255,.18)}
+.why-grid h4{color:#8ed7d2}.btn{border-radius:999px;padding:13px 25px}.btn-a{box-shadow:0 8px 20px rgba(23,107,120,.2)}
+.pidx{border-top:0;display:grid;gap:10px}.prow{background:rgba(255,253,248,.72);border:1px solid var(--line);border-radius:14px;padding:13px 14px}
+.prow:hover{background:#fff;transform:translateY(-2px);box-shadow:0 10px 24px rgba(23,50,77,.07)}
+.morebtn{border-radius:999px;border-color:var(--blue);color:var(--blue);font-weight:650}
+.qcard{padding:32px}.qcard .mark{color:var(--orange)}
+#feedback{display:none}
+.student-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}.student-card{display:grid;grid-template-columns:180px 1fr;background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(23,50,77,.055)}
+.student-card .frame{height:100%;min-height:210px;border-radius:0}.student-body{padding:24px}.student-body .meta{margin-top:0}.student-body h3{font-family:var(--serif);font-size:1.28rem;font-weight:400;line-height:1.35;margin-top:6px}.student-body p{font-size:.9rem;color:var(--ink-2);margin-top:9px}.student-body .outcome{display:block;margin-top:12px;color:var(--blue);font-weight:650;font-size:.82rem}
+.roadmap-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin:54px 0 20px}.roadmap-head h3{font-family:var(--serif);font-size:1.55rem;font-weight:400}.roadmap-head p{max-width:58ch;color:var(--ink-2);font-size:.9rem}
+.roadmap{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.road-step{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:20px 18px 18px;min-height:180px}.road-step::before{content:attr(data-step);position:absolute;top:14px;right:15px;font-family:var(--mono);font-size:.72rem;color:var(--orange)}.road-step .phase{font-size:.7rem;font-weight:700;color:var(--blue);letter-spacing:.04em}.road-step h4{font-family:var(--serif);font-size:1.08rem;font-weight:400;line-height:1.35;margin-top:10px}.road-step p{font-size:.82rem;color:var(--ink-2);line-height:1.55;margin-top:8px}.road-step:nth-child(n+4):nth-child(-n+6){border-top:3px solid #e3a54b}.road-step:nth-child(n+7):nth-child(-n+9){border-top:3px solid #7b91d2}.road-step:nth-child(n+10){border-top:3px solid var(--blue)}
+.proof-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}.proof{padding:18px;border-radius:14px;background:var(--blue-soft)}.proof b{display:block;font-family:var(--serif);font-size:1.55rem;color:var(--blue);font-weight:500}.proof span{font-size:.82rem;color:var(--ink-2)}
+.media-strip{margin-top:26px;padding:24px 28px;background:#17324d;color:#fff;border-radius:18px;display:flex;align-items:center;gap:24px}.media-strip p{color:#d8e2e8;font-size:.9rem;max-width:65ch}.media-strip .btns{margin:0 0 0 auto;flex:none}.media-strip .btn{color:#fff;border-color:rgba(255,255,255,.55)}
+.video-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}.video-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden}.video-thumb{position:relative;display:block;aspect-ratio:16/9;overflow:hidden;background:#10283e}.video-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .3s}.video-thumb:hover img{transform:scale(1.035)}.play-circle{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:rgba(213,106,58,.94);color:#fff;font-size:1.35rem;box-shadow:0 10px 30px rgba(0,0,0,.25)}.video-card .video-copy{padding:16px 18px}.video-card h3{font-family:var(--serif);font-size:1.15rem;font-weight:400}.video-card p{font-size:.84rem;color:var(--ink-2);margin-top:5px}.event-gallery{display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:16px;margin-top:28px}.event-gallery figure{background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden}.event-gallery img{width:100%;height:240px;object-fit:cover}.event-gallery figcaption{padding:12px 14px;font-size:.82rem;color:var(--ink-2)}.social-embed{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px}.social-panel{display:grid;grid-template-columns:180px 1fr;gap:20px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;overflow:hidden}.social-panel img{width:100%;height:150px;object-fit:cover;border-radius:12px}.social-panel h3{font-family:var(--serif);font-weight:400}.social-panel p{font-size:.86rem;color:var(--ink-2);margin:7px 0 10px}
+.partners{background:var(--blue-soft)}
+.contact{background:var(--panel);border-radius:24px;padding:36px;box-shadow:0 16px 40px rgba(23,50,77,.06)}
+.ctaband{background:linear-gradient(135deg,#176b78,#17324d);color:#fff}.ctaband p{color:#e3efef}
+.ctaband .btn-a{background:#fff;color:var(--blue);border-color:#fff}.ctaband .btn-b{color:#fff;border-color:rgba(255,255,255,.65)}
+footer{background:#10283e;color:#dce5ea}
+@media(max-width:760px){
+  .wrap{width:min(100% - 28px,1180px)}.hero{padding:50px 0}.hero-in{gap:38px}.hero .fig{transform:none;box-shadow:9px 11px 0 var(--blue-soft)}
+  section{padding:58px 0}.contact{padding:24px}.prow{border-radius:12px}.why{padding:52px 0}
+  .student-grid{grid-template-columns:1fr}.student-card{grid-template-columns:125px 1fr}.student-card .frame{min-height:230px}.student-body{padding:20px}.proof-grid{grid-template-columns:repeat(2,1fr)}.media-strip{display:block}.media-strip .btns{margin-top:18px}.aside-col{grid-template-columns:1fr}.aside-col>figure .frame{min-height:360px}.course-r .syl{grid-template-columns:repeat(2,1fr)}.roadmap{grid-template-columns:repeat(2,1fr)}.video-grid,.social-embed{grid-template-columns:1fr}.event-gallery{grid-template-columns:1fr 1fr}.event-gallery figure:first-child{grid-column:1/-1}
+}
+@media(max-width:460px){.student-card{grid-template-columns:1fr}.student-card .frame{height:190px;min-height:0}.proof-grid{grid-template-columns:1fr 1fr}.roadmap,.course-r .syl{grid-template-columns:1fr}.road-step{min-height:0}.roadmap-head{display:block}.roadmap-head p{margin-top:8px}.social-panel{grid-template-columns:1fr}.social-panel img{height:190px}.event-gallery{grid-template-columns:1fr}.event-gallery figure:first-child{grid-column:auto}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
 </head>
-
 <body>
-    <section class="section">
-        <div class="container">
-            <div class="columns is-centered is-vcentered">
-                <div class="column has-text-right">
-                    <div class="columns is-multiline is-centered">
-                        <div class="column is-full">
-                            <figure class="image is-128x128 avatar">
-                                <img class="is-rounded imgshadow" src="assets/assets/hocj2me.JPG">
-                            </figure>
-                        </div>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="columns is-multiline is-centered">
-                        <div class="column is-full">
-                            <div>
-                                <p class="heading mb-0"><b>Hey</b>, I'm</p>
-                                <p class="title"><b>Tuyen</b> <span class="has-text-weight-light">Chi Le</span></p>
-                                <p class="subtitle">
-                                    <div id="nick_container">
-                                        also known as <b>hocj2me </b>
-                                        <span class="has-text-weight-light" id="nick"> SPARC Lab<br> BK Galaxy</span>
-                                    </div>
-                                </p>
-                                <div class="content">
-                                    <a href="https://github.com/hocj2me" class="social lightshadow">
-                                        <i class="fab fa-github"></i>
-                                    </a>
-                                    &nbsp;
-                                    <a href="https://www.instagram.com/hocj2me/" class="social lightshadow">
-                                        <i class="fab fa-instagram"></i>
-                                    </a>
-                                    &nbsp;
-                                    <a href="https://www.youtube.com/c/TuyenLeChi/" class="social lightshadow">
-                                        <i class="fab fa-youtube"></i>
-                                    </a>
-                                    &nbsp;
-                                    <a href="mailto:lctuyenvn@gmail.com" class="social lightshadow">
-                                        <i class="fa fa-at"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="columns is-centered">
-                <div class="column is-10">
-                    <a href="training/login.html" target="_blank" style="text-decoration:none;">
-                        <div class="cta-banner">
-                            <div>
-                                <p class="cta-eyebrow">🎓 Khóa học mới · New course</p>
-                                <p class="cta-title">🔧 Danh sách khóa học Thầy Lê Chí Tuyền</p>
-                                <p class="cta-sub">Nội dung hiện tại: Điện tử cơ bản &amp; lập trình kéo thả Micro:bit — 5 buổi học tương tác, có mô phỏng lắp mạch và bài tập thực hành.</p>
-                                <p class="cta-sub cta-sub-en">Current course: Micro:bit electronics &amp; block coding — 5 interactive sessions with circuit simulation and hands-on exercises.</p>
-                            </div>
-                            <span class="cta-btn">Vào làm bài tập · Start learning&nbsp;<i class="fa fa-arrow-right"></i></span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="columns mb-0 mt-3 is-gapless">
-                <div class="column is-2"></div>
-                <div class="column has-text-right-desktop mr-5">
-                    <div class="columns is-multiline is-centered">
-                        <div class="column is-full">
-                            <div>
-                                <p class="heading mb-0 is-size-6">ABOUT <b>ME</b></p>
-                                <div class="content">
-                                    I'm <b id="age"></b> years old,</br> I'm living in <b>Ho Chi Minh City</b>, <b>Vietnam</b>. </br>
-					I graduated from <b> Bách khoa Hà Nội </b><br/><b>Hanoi University of Science and Technology</b><br/>
-					in School of Electrical and Electronics Engineering,<br/> majoring in Computer Engineering.
-									<br/>
-					<br/>I am currently the technical manager of EcoVision Vietnam company.
-<br/>I am also the former captain of the BKG - <br/><b>Robocon BK Galaxy Club</b><br/> at Hanoi University of Science and Technology<br/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column is-full">
-                            <p class="heading mb-0 is-size-6">
-                                <b>My projects</b>
-                            </p>
-                            <div class="columns is-multiline">
-                                <div class="column is-full" id="projektysmall">
-                                    <div class="columns is-multiline is-mobile">
-                                        <div class='column is-half'>
-                                            <div class="card">
-                                                <div class="card-content has-text-left">
-                                                    <div class="content">
-                                                        <a href="training/login.html" target="_blank">
-                                                            <b>🔧 Khóa học Micro:bit cho lớp 6</b></br> Điện tử &amp; lập trình kéo thả — 5 buổi
-                                                            <i class="fa fa-link"></i>
-                                                        </a>
-                                                        <p class="heading mt-3 has-text-grey">
-                                                            Cần đăng nhập để vào học
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-						<div class='column is-half'>
-                                            <div class="card">
-                                                <div class="card-image">
-                                                    <figure class="image">
-							    <img src="assets/AI_BOX.jpg" loading="lazy">
-                                                    </figure>
-                                                </div>
-                                                <div class="card-content has-text-left">
-                                                    <div class="content">
-                                                        <a href="eco-vision.com.vn" target="_blank">
-                                                            <b>AI central processing box for smart home </b></br> Technical lead
-                                                            <i class="fa fa-link"></i>
-                                                        </a>
-                                                        <p class="heading mt-3 has-text-grey">
-                                                            Commercial products from 9/2025
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
 
-					    <div class='column is-half'>
-                                            <div class="card">
-                                                <div class="card-image">
-                                                    <figure class="image">
-							    <img src="assets/ecomes.jpg" loading="lazy">
-                                                    </figure>
-                                                </div>
-                                                <div class="card-content has-text-left">
-                                                    <div class="content">
-                                                        <a href="#" target="_blank">
-                                                            <b>IOT monitoring system in lora connected factory </b></br> Technical lead
-                                                            <i class="fa fa-link"></i>
-                                                        </a>
-                                                        <p class="heading mt-3 has-text-grey">
-                                                            Commercial products from 6/2025
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="sig"><span class="bx">LCT</span><span class="nm">Lê Chí <em>Tuyền</em></span></a>
+    <button class="burger" id="burger" aria-label="Mở menu">Menu</button>
+    <nav id="menu">
+      <a href="#about">Giới thiệu</a>
+      <a href="#gallery">Lớp học</a>
+      <a href="#teach">Giảng dạy</a>
+      <a href="#course">Khóa học</a>
+      <a href="#student-projects">Dự án học sinh</a>
+      <a href="#projects">Dự án</a>
+      <a href="#media">Video</a>
+      <a href="#contact">Liên hệ</a>
+    </nav>
+  </div>
+</header>
 
+<div id="top" class="hero">
+  <div class="wrap hero-in">
+    <div>
+      <div class="label">Giáo viên Điện tử · Lập trình · Robotics</div>
+      <h1>Dạy kỹ thuật<br>bằng <i>thực hành</i></h1>
+      <p class="lede">Tôi là <b>Lê Chí Tuyền</b>, kỹ sư Điện tử — Viễn thông, Đại học Bách khoa Hà Nội. Từ năm 2020, tôi thiết kế bài giảng và trực tiếp dạy STEM, Lập trình, Điện tử và Robotics cho học sinh THCS, THPT và sinh viên. Kinh nghiệm làm sản phẩm IoT thực tế được tôi đưa trực tiếp vào bài giảng.</p>
+      <dl class="spec">
+        <div><dt>CHUYÊN MÔN</dt><dd>Điện tử, hệ nhúng, IoT</dd></div>
+        <div><dt>ĐỘ TUỔI DẠY</dt><dd>Học sinh lớp 4 — lớp 12</dd></div>
+        <div><dt>KHU VỰC</dt><dd>Hà Nội &amp; trực tuyến</dd></div>
+      </dl>
+      <div class="btns">
+        <a href="#course" class="btn btn-a">Xem khóa học đang mở →</a>
+        <a href="#contact" class="btn btn-b">Liên hệ tư vấn</a>
+      </div>
+    </div>
+    <figure class="fig tick">
+       <div class="frame portrait-frame" style="aspect-ratio:4/5"><img src="img/thuyet-trinh.jpg" alt="Giáo viên Lê Chí Tuyền đang hướng dẫn học sinh"></div>
+       <figcaption class="fcap"><span class="ft">LÊ CHÍ TUYỀN</span> Trong một buổi hướng dẫn dự án STEM</figcaption>
+    </figure>
+  </div>
+</div>
 
-					    <div class='column is-half'>
-                                            <div class="card">
-                                                <div class="card-image">
-                                                    <figure class="image">
-							    <img src="assets/iot24_spc.jpg" loading="lazy">
-                                                    </figure>
-                                                </div>
-                                                <div class="card-content has-text-left">
-                                                    <div class="content">
-                                                        <a href="https://youtu.be/7OC8f86hMGE" target="_blank">
-                                                            <b>Smart Parking Car System </b></br> Team Captain
-                                                            <i class="fa fa-link"></i>
-                                                        </a>
-                                                        <p class="heading mt-3 has-text-grey">
-                                                            IOT Challenge 2024, TOP 18 team
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+<!-- VÌ SAO -->
+<div class="why">
+  <div class="wrap">
+    <p class="why-lead">Đồng hành cùng học sinh từ ý tưởng đến sản phẩm có thể kiểm thử và trình bày.</p>
+    <div class="why-grid">
+      <div>
+        <h4>Học theo dự án</h4><p>Mỗi khóa học xoay quanh một sản phẩm cụ thể, có mục tiêu và kết quả sau từng buổi.</p>
+      </div>
+      <div>
+        <h4>Nền tảng kỹ thuật thực tế</h4><p>Nội dung kết hợp điện tử, lập trình, IoT, AI và kinh nghiệm triển khai hệ thống.</p>
+      </div>
+      <div>
+        <h4>Lộ trình 12 buổi</h4><p>Đi từ xác định bài toán, làm nguyên mẫu, kiểm thử đến hoàn thiện hồ sơ và thuyết trình.</p>
+      </div>
+      <div>
+        <h4>Huấn luyện đội thi</h4><p>Hướng dẫn kỹ thuật, phân công nhóm, báo cáo, poster, video và phần phản biện trước hội đồng.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
-					<div class='column is-half'>
-                                            <div class="card">
-                                                <div class="card-image">
-                                                    <figure class="image">
-                                                        <img src="assets/usv24.jpg" loading="lazy">
-                                                    </figure>
-                                                </div>
-                                                <div class="card-content has-text-left">
-                                                    <div class="content">
-                                                        <a href="https://github.com/BKG-Robocon-team/Unmanned-Surface-Vehicle" target="_blank">
-                                                            <b>Unmanned Surface Vehicle (USV)</b></br> Observe bottom corals and marine life
-                                                            <i class="fa fa-link"></i>
-                                                        </a>
-                                                        <p class="heading mt-3 has-text-grey">
-                                                            Engineering graduation project, 2024
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class='column is-half'>
-                                            <div class="card">
-                                                <div class="card-image">
-                                                    <figure class="image">
-                                                        <img src="assets/rbc24.jpg" loading="lazy">
-                                                    </figure>
-                                                </div>
-                                                <div class="card-content has-text-left">
-                                                    <div class="content">
-                                                        <a href="https://www.facebook.com/BKGalaxy123" target="_blank">
-                                                            <b>BK Galaxy </b></br> Team Captain
-                                                            <i class="fa fa-link"></i>
-                                                        </a>
-                                                        <p class="heading mt-3 has-text-grey">
-                                                            ABU Robocon, 2024
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class='column is-half'>
-                                            <div class="card">
-                                                <div class="card-image">
-                                                    <figure class="image">
-                                                        <img src="assets/airsense2023.jpg" loading="lazy">
-                                                    </figure>
-                                                </div>
-                                                <div class="card-content has-text-left">
-                                                    <div class="content">
-                                                        <a href="https://github.com/Air-SENSE" target="_blank">
-                                                            <b>AirSENSE </b></br> Team Captain
-                                                            <i class="fa fa-link"></i>
-                                                        </a>
-                                                        <p class="heading mt-3 has-text-grey">
-                                                            SPARC Lab, 2021-2023
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class='column is-half'>
-                                            <div class="card">
-                                                    <div class="card-image">
-                                                        <figure class="image">
-                                                            <img src="assets/ozo2023.jpg" loading="lazy">
-                                                        </figure>
-                                                </div>
-                                                <div class="card-content has-text-left">
-                                                    <div class="content">
-                                                        <a href="https://www.facebook.com/ozo.water">
-                                                            <b>OZO</b> Water purifier</br> founder
-                                                            <i class="fa fa-link"></i>
-                                                        </a>
-                                                        <p class="heading mt-3 has-text-grey">
-                                                            Green Youth Labs Vietnam, 2023
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class='column is-half'>
-                                            <div class="card">
-                                                <div class="card-image">
-                                                    <figure class="image">
-                                                        <img src="assets/rbc23.jpg" loading="lazy">
-                                                    </figure>
-                                                </div>
-                                                <div class="card-content has-text-left">
-                                                    <div class="content">
-                                                        <a href="https://www.facebook.com/BKGalaxy123" target="_blank">
-                                                            <b>BK Galaxy </b></br> Team Captain
-                                                            <i class="fa fa-link"></i>
-                                                        </a>
-                                                        <p class="heading mt-3 has-text-grey">
-                                                            ABU Robocon, 2023
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class='column is-half'>
-                                            <div class="card">
-                                                <div class="card-image">
-                                                    <figure class="image">
-                                                        <img src="assets/iot23.jpg" loading="lazy">
-                                                    </figure>
-                                                </div>
-                                                <div class="card-content has-text-left">
-                                                    <div class="content">
-                                                        <a href="https://github.com/HocJ2me/FISDL-FPT-team" target="_blank">
-                                                            <b>Smart Face ID using ESP32</b></br> Team Captain
-                                                            <i class="fa fa-link"></i>
-                                                        </a>
-                                                        <p class="heading mt-3 has-text-grey">
-                                                            IoT Challenge 2023 (Top 20)
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class='column is-half'>
-                                            <div class="card">
-                                                <div class="card-image">
-                                                    <figure class="image">
-                                                        <img src="assets/tdc21.jpg" loading="lazy">
-                                                    </figure>
-                                                </div>
-                                                <div class="card-content has-text-left">
-                                                    <div class="content">
-                                                        <a href="https://www.facebook.com/photo/?fbid=493557982103337&set=a.123259759133163&__tn__=%2CO*F">
-                                                            <b>Technical Design Contest</b></br> Mentor
-                                                            <i class="fa fa-link"></i>
-                                                        </a>
-                                                        <p class="heading mt-3 has-text-grey">
-                                                            AirSENSE, 2019-2020-2021
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class='column is-half'>
-                                            <div class="card">
-                                                <div class="card-image">
-                                                    <figure class="image">
-                                                        <img src="assets/bkstar25.png" loading="lazy">
-                                                    </figure>
-                                                </div>
-                                                <div class="card-content has-text-left">
-                                                    <div class="content">
-                                                        <a href="https://www.youtube.com/playlist?list=PLQPfdTFl29zd5Lq_Dsf3AWSLaJvUD696S">
-                                                            <b>Smart prompt box</b></br> Leader Harware and Firmware
-                                                            <i class="fa fa-link"></i>
-                                                        </a>
-                                                        <p class="heading mt-3 has-text-grey">
-                                                            BK Star, 2020
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class='column is-half'>
-                                            <div class="card">
-                                                <div class="card-image">
-                                                    <figure class="image">
-                                                        <img src="assets/vrc20.jpg" loading="lazy">
-                                                    </figure>
-                                                </div>
-                                                <div class="card-content has-text-left">
-                                                    <div class="content">
-                                                        <a href="https://youtu.be/YZQOlVouxQs">
-                                                            <b>Bac Ninh High School for Gifted Students</b> Mentor
-                                                            <i class="fa fa-link"></i>
-                                                        </a>
-                                                        <p class="heading mt-3 has-text-grey">
-                                                            Vietnam Robotics Challenge 2020-2022-2023 (Second prize 2020, top 20 in 2023)
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class='column is-half'>
-                                            <div class="card">
-                                                <div class="card-image">
-                                                    <figure class="image">
-                                                        <img src="assets/ixr20.jpg" loading="lazy">
-                                                    </figure>
-                                                </div>
-                                                <div class="card-content has-text-left">
-                                                    <div class="content">
-														<a href="https://www.youtube.com/playlist?list=PLQPfdTFl29zdOoFGP2EtNpF9-xMsqMr9S">
-                                                            Intelligent "Xe Rác" <b>(garbage truck)</b></br> Leader Harware and Firmware
-                                                            <i class="fa fa-link"></i>
-                                                        </a>
+<!-- GIỚI THIỆU -->
+<section id="about" class="rule-top">
+  <div class="wrap">
+    <div class="shead">
+      <div class="bar"><span class="no">01</span><h2>Giới thiệu</h2></div>
+      <div class="dim"></div>
+    </div>
+    <div class="about">
+      <div class="prose">
+        <p class="pull">Tôi giúp học sinh hiểu kỹ thuật bằng cách biến kiến thức thành một sản phẩm có thể quan sát, đo lường và cải tiến.</p>
+        <p>Tôi là kỹ sư Điện tử — Viễn thông, tốt nghiệp Đại học Bách khoa Hà Nội. Từ năm 2019, tôi tham gia hướng dẫn Robotics, hệ thống nhúng và các đề tài khoa học kỹ thuật; từ năm 2020 trực tiếp xây dựng bài giảng và giảng dạy STEM, lập trình, điện tử cho học sinh phổ thông.</p>
+        <p>Hiện tôi phụ trách kỹ thuật tại ECOTEL và đào tạo các nhóm học sinh làm dự án IoT, AI và Robotics. Mỗi lộ trình hướng tới ba kết quả: nguyên mẫu hoạt động, dữ liệu kiểm thử và bộ hồ sơ trình bày hoàn chỉnh.</p>
+      </div>
+      <div class="aside-col">
+        <figure class="fig tick">
+          <div class="frame"><img src="img/giang-day-01-t.jpg" data-full="img/giang-day-01.jpg" data-cap="Giờ học tại phòng thực hành" alt="Giờ học tại phòng thực hành" loading="lazy"></div>
+          <figcaption class="fcap"><span class="ft">HÌNH 02</span> Giờ học tại phòng thực hành</figcaption>
+        </figure>
+        <dl class="cv">
+          <dt>HỌC VẤN</dt>
+          <dd><b>Kỹ sư Điện tử — Viễn thông</b><span>Đại học Bách khoa Hà Nội (HUST)</span></dd>
+          <dt>NGHIÊN CỨU</dt>
+          <dd><b>SPARC Lab, Bách khoa Hà Nội</b><span>Dự án AirSENSE — quan trắc chất lượng không khí</span></dd>
+          <dt>CÂU LẠC BỘ</dt>
+          <dd><b>Đội trưởng CLB Robocon BK Galaxy</b><span>Bách khoa Hà Nội, 2023–2024</span></dd>
+          <dt>CÔNG VIỆC HIỆN TẠI</dt>
+          <dd><b>Trưởng bộ phận kỹ thuật, Công ty ECOTEL</b><span>Giải pháp IoT và chuyển đổi số</span></dd>
+          <dt>NƠI CÔNG TÁC</dt>
+          <dd><b>Hà Nội</b><span>Nhận lớp trực tiếp và trực tuyến</span></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
 
-                                                        <p class="heading mt-3 has-text-grey">
-                                                            Hanoi University of Science and Technology 2020-2021 (Second prize)
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class='column is-half'>
-                                            <div class="card">
-                                                <div class="card-image">
-                                                    <figure class="image">
-                                                        <img src="assets/chitech20.jpg" loading="lazy">
-                                                    </figure>
-                                                </div>
-                                                <div class="card-content has-text-left">
-                                                    <div class="content">
-                                                        <a href="https://youtu.be/7uNeqP7pm3w">
-                                                            <b>Action Team</b></br> Leader Harware and Firmware
-                                                            <i class="fa fa-link"></i>
-                                                        </a>
-                                                        <p class="heading mt-3 has-text-grey">
-                                                            Canon Chie-tech 2020 (Top 20)
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class='column is-half'>
-                                            <div class="card">
-                                                <div class="card-image">
-                                                    <figure class="image">
-                                                        <img src="assets/systech20.jpg" loading="lazy">
-                                                    </figure>
-                                                </div>
-                                                <div class="card-content has-text-left">
-                                                    <div class="content">
-                                                        <a href="https://youtu.be/q9NyUUeILGI">
-                                                            <b>ONLINE bracelet monitoring device</b> </br> Programming
-                                                            <i class="fa fa-link"></i>
-                                                        </a>
-                                                        <p class="heading mt-3 has-text-grey">
-                                                            Systech Vietnam 2021
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+<!-- LỚP HỌC -->
+<section id="gallery" class="rule-top">
+  <div class="wrap">
+    <div class="shead">
+      <div class="bar">
+        <span class="no">02</span>
+        <h2>Lớp học của tôi</h2>
+        <span class="note">Bấm vào ảnh để xem lớn. Dùng phím ← → để chuyển ảnh.</span>
+      </div>
+      <div class="dim"></div>
+    </div>
 
-                                        <div class='column is-full'>
-                                            <div class="card">
-                                                <div class="card-content has-text-left">
-                                                    <div class="content">
-                                                        I've made much more projects over the years, but I don't have time to write it here. </b>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card">
-                                                <div class="card-image">
-                                                    <figure class="image">
-                                                        <img src="assets/airsense23_1.jpg" loading="lazy">
-                                                    </figure>
-                                                </div>
-                                            </div>
-                                            <div class="card">
-                                                <div class="card-image">
-                                                    <figure class="image">
-                                                        <img src="assets/parabol20.jpg" loading="lazy">
-                                                    </figure>
-                                                </div>
-                                            </div>
-                                            <div class="card">
-                                                <div class="card-image">
-                                                    <figure class="image">
-                                                        <img src="assets/parabol19.jpg" loading="lazy">
-                                                    </figure>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button onclick="showProjects()" id="projektybutton" class="button is-success is-fullwidth mt-3 mb-5">
-                                    Show more&nbsp;<i class="fa fa-arrow-down"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="columns is-multiline is-centered">
-                        <div class="column is-full">
-                            <div>
-                                <p class="heading mb-0 is-size-6"><b>PROGRAMMING LANGUAGES</b> I KNOW</p>
-                                <div class="columns is-multiline">
-                                    <div class="column is-full">
-                                        <div class="columns is-mobile">
-                                            <div class="column">
-                                                <span>C/C++</span>
-                                            </div>
-                                            <div class="column">
-                                                <progress class="progress is-success mt-1" value="95" max="100">95%</progress>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="column is-full">
-                                        <div class="columns is-mobile">
-                                            <div class="column">
-                                                <span>PYTHON</span>
-                                            </div>
-                                            <div class="column">
-                                                <progress class="progress is-success mt-1" value="95" max="100">95%</progress>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="column is-full">
-                                        <div class="columns is-mobile">
-                                            <div class="column">
-                                                <span>Assembly</span>
-                                            </div>
-                                            <div class="column">
-                                                <progress class="progress is-success mt-1" value="90" max="100">90%</progress>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="column is-full">
-                                        <div class="columns is-mobile">
-                                            <div class="column">
-                                                <span>C#</span>
-                                            </div>
-                                            <div class="column">
-                                                <progress class="progress is-success mt-1" value="90" max="100">90%</progress>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="column is-full">
-                                        <div class="columns is-mobile">
-                                            <div class="column">
-                                                <span>HTML</span>
-                                            </div>
-                                            <div class="column">
-                                                <progress class="progress is-success mt-1" value="87" max="100">87%</progress>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="column is-full">
-                                        <div class="columns is-mobile">
-                                            <div class="column">
-                                                <span>PHP</span>
-                                            </div>
-                                            <div class="column">
-                                                <progress class="progress is-success mt-1" value="75" max="100">75%</progress>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="column is-full">
-                                        <div class="columns is-mobile">
-                                            <div class="column">
-                                                <span>JS</span>
-                                            </div>
-                                            <div class="column">
-                                                <progress class="progress is-success mt-1" value="60" max="100">60%</progress>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="column is-full">
-                                        <div class="columns is-mobile">
-                                            <div class="column">
-                                                <span>Kotlin</span>
-                                            </div>
-                                            <div class="column">
-                                                <progress class="progress is-success mt-1" value="60" max="100">60%</progress>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="column is-full">
-                                        <div class="columns is-mobile">
-                                            <div class="column">
-                                                <span>CSS</span>
-                                            </div>
-                                            <div class="column">
-                                                <progress class="progress is-success mt-1" value="40" max="100">40%</progress>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="column is-full">
-                                        <div class="columns is-mobile">
-                                            <div class="column">
-                                                <span>MySQL</span>
-                                            </div>
-                                            <div class="column">
-                                                <progress class="progress is-success mt-1" value="20" max="100">20%</progress>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column is-full">
-                            <p class="heading mb-0 is-size-6"><b>MY Experience</b> </p>
-                            <div class="columns is-multiline">
-				<div class="column is-full">
-                                    <img class="icon icon-text lightshadow rotate" src="https://ecotel.com.vn/images/200%2C2000x800%2B0%2B550/14586039/logo.png">
-                                    <a class="link" href="https://www.ecotel.com.vn/">
-                                        ECOTEL Co.,LTD
-                                    </a>
-                                    - I’m the Tech Lead at ECOTEL Co., Ltd., driving our digital transformation and IoT solution development.
-                                    <small class="has-text-grey">June 2024 - Now()</small>
-                                </div>
-                                <div class="column is-full">
-                                    <img class="icon icon-text lightshadow rotate" src="https://frenzband.com/cdn/shop/t/54/assets/favicon.png?v=176960449475991007131701792381">
-                                    <a class="link" href="https://www.earable.ai/">
-                                        Earable® Neuroscience
-                                    </a>
-                                    - I worked as a <b>Firmware Engineer</b> at a machine learning companies delivering scalable neuroscience solutions and services
-                                    <small class="has-text-grey">June 2022 - January 2023</small>
-                                </div>
-                                <div class="column is-full">
-                                    <img class="icon icon-text lightshadow rotate" src="https://bkstar.vn/wp-content/uploads//2024/03/logo.svg">
-                                    <a class="link" href="https://bkstar.vn/">
-                                        BK Star
-                                    </a>
-                                    -  A company about studying abroad and education stem
-                                    <small class="has-text-grey">2020 - 2022</small>
-                                </div>
-                                <div class="column is-full">
-                                    <img class="icon icon-text lightshadow rotate" src="https://systech.vn/wp-content/uploads/2022/01/cropped-logo-192x192.png">
-                                    <a class="link" href="https://systech.vn">
-                                        Systech Vietnam
-                                    </a>
-                                    -  I worked as a <b>Software Engineer</b>  and finish some applications to demo to some customer.</b>
-									<small class="has-text-grey">2020-2022</small>
-                                </div>
-
-                        </div>
-                        <div class="column is-full">
-                            <div>
-                                <p class="heading mb-0 is-size-6"> <b>MY INTEREST</b> </p>
-                                <div class="content">
-                                    <ul>
-                                        <li>
-										Playing game: Age Of Empires 1
-                                        </li>
-                                        <li>
-										Playing with Robots 😁
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="column is-2"></div>
-            </div>
-            <div class="columns is-gapless mt-5">
-                <div class="column has-text-right-desktop">
-                    <div class="columns is-multiline is-centered">
-                        <div class="column is-full mr-5">
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="bigstate" style="margin-bottom:44px">
+      <div>
+        <div class="bigwords">
+          <span>Học bằng</span>
+          <span>làm thật</span>
+          <span>sản phẩm thật</span>
         </div>
-    </section>
-</body>
+        <p>Học sinh làm việc theo nhóm nhỏ: thiết kế, lắp ráp, lập trình, đo kết quả và ghi lại những lần cải tiến.</p>
+        <div class="btns">
+          <a href="#course" class="btn btn-b">Xem lộ trình 12 buổi →</a>
+        </div>
+      </div>
+      <div class="cluster">
+        <div class="fig"><div class="frame"><img src="img/lop-hoc-01-t.jpg" data-full="img/lop-hoc-01.jpg" data-cap="Buổi học nhóm quanh bàn thực hành" alt="Buổi học nhóm" loading="lazy"></div></div>
+        <div class="fig"><div class="frame"><img src="img/han-mach-01-t.jpg" data-full="img/han-mach-01.jpg" data-cap="Học sinh tự hàn mạch" alt="Hàn mạch" loading="lazy"></div></div>
+        <div class="fig"><div class="frame"><img src="img/lop-robotics-t.jpg" data-full="img/lop-robotics.jpg" data-cap="Lớp Robotics — lắp ráp mô hình" alt="Lớp Robotics" loading="lazy"></div></div>
+        <div class="fig"><div class="frame"><img src="img/mo-hinh-duong-ray-t.jpg" data-full="img/mo-hinh-duong-ray.jpg" data-cap="Mô hình đường ray điều khiển tự động" alt="Mô hình đường ray" loading="lazy"></div></div>
+      </div>
+    </div>
+
+    <div class="gal" id="mosaic">
+      <figure class="fig"><div class="frame"><img src="img/lop-hoc-04-t.jpg" data-full="img/lop-hoc-04.jpg" data-cap="Giờ thực hành lập trình" alt="Giờ thực hành lập trình" loading="lazy"></div><figcaption class="fcap"><span class="ft">01</span> Giờ thực hành lập trình</figcaption></figure>
+      <figure class="fig"><div class="frame"><img src="img/lap-trinh-thu-nghiem-t.jpg" data-full="img/lap-trinh-thu-nghiem.jpg" data-cap="Lập trình và chạy thử trên máy" alt="Lập trình và chạy thử" loading="lazy"></div><figcaption class="fcap"><span class="ft">02</span> Lập trình và chạy thử trên máy</figcaption></figure>
+      <figure class="fig"><div class="frame"><img src="img/lop-hoc-03-t.jpg" data-full="img/lop-hoc-03.jpg" data-cap="Lớp nhỏ, mỗi em một bộ kit riêng" alt="Lớp nhỏ" loading="lazy"></div><figcaption class="fcap"><span class="ft">03</span> Lớp nhỏ, mỗi em một bộ kit riêng</figcaption></figure>
+      <figure class="fig"><div class="frame"><img src="img/ghi-chep-t.jpg" data-full="img/ghi-chep.jpg" data-cap="Tính toán và ghi chép trước khi lắp mạch" alt="Ghi chép" loading="lazy"></div><figcaption class="fcap"><span class="ft">04</span> Tính toán trước khi lắp mạch</figcaption></figure>
+      <figure class="fig"><div class="frame"><img src="img/thuyet-trinh-t.jpg" data-full="img/thuyet-trinh.jpg" data-cap="Thuyết trình giới thiệu dự án" alt="Thuyết trình" loading="lazy"></div><figcaption class="fcap"><span class="ft">05</span> Thuyết trình giới thiệu dự án</figcaption></figure>
+      <figure class="fig"><div class="frame"><img src="img/trao-giai-01-t.jpg" data-full="img/trao-giai-01.jpg" data-cap="Nhận giấy khen cùng sản phẩm dự thi" alt="Nhận giấy khen" loading="lazy"></div><figcaption class="fcap"><span class="ft">06</span> Nhận giấy khen cùng sản phẩm dự thi</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- GIẢNG DẠY -->
+<section id="teach" class="rule-top">
+  <div class="wrap">
+    <div class="shead">
+      <div class="bar">
+        <span class="no">03</span>
+        <h2>Các mảng tôi đang giảng dạy</h2>
+        <span class="note">Nội dung sắp xếp theo độ tuổi, đi từ trực quan đến trừu tượng.</span>
+      </div>
+      <div class="dim"></div>
+    </div>
+    <div class="teach">
+      <div class="tblock">
+        <div class="tb-body">
+          <span class="lv">LỚP 4–7</span>
+          <h4>Lập trình kéo thả</h4>
+          <p>Bước đệm giúp học sinh nắm tư duy tuần tự, vòng lặp và điều kiện trước khi phải gõ lệnh bằng chữ.</p>
+          <ul><li>Micro:bit MakeCode</li><li>Scratch</li></ul>
+        </div>
+      </div>
+      <div class="tblock">
+        <div class="tb-body">
+          <span class="lv">LỚP 5–9</span>
+          <h4>Điện tử cơ bản</h4>
+          <p>Linh kiện, cách đo đạc và hàn mạch an toàn. Học sinh hiểu vì sao đèn sáng chứ không chỉ nối dây theo mẫu.</p>
+          <ul><li>Sử dụng đồng hồ vạn năng</li><li>Lắp mạch breadboard, hàn thiếc</li></ul>
+        </div>
+      </div>
+      <div class="tblock">
+        <div class="tb-body">
+          <span class="lv">LỚP 8–12</span>
+          <h4>Lập trình C/C++ và Python</h4>
+          <p>Đi từ Arduino sang Python, hướng tới kỳ thi học sinh giỏi Tin học và các đề tài nghiên cứu khoa học.</p>
+          <ul><li>Arduino</li><li>Python từ cơ bản đến nâng cao</li></ul>
+        </div>
+      </div>
+      <div class="tblock">
+        <div class="tb-body">
+          <span class="lv">ĐỘI TUYỂN</span>
+          <h4>Robotics thi đấu</h4>
+          <p>Cơ khí, mạch điều khiển, chiến thuật sân đấu, và quan trọng nhất là kỹ năng phối hợp nhóm dưới áp lực thời gian.</p>
+          <ul><li>Vietnam Robotics Challenge, Robocon</li><li>IoT Challenge</li></ul>
+        </div>
+      </div>
+      <div class="tblock">
+        <div class="tb-body">
+          <span class="lv">LỚP 9–12</span>
+          <h4>IoT và nhà thông minh</h4>
+          <p>Vi điều khiển ESP32, cảm biến và cách đưa dữ liệu lên máy chủ. Sản phẩm điều khiển được bằng điện thoại.</p>
+          <ul><li>ESP32, mạng LoRa</li><li>Xây dựng giao diện giám sát</li></ul>
+        </div>
+      </div>
+      <div class="tblock">
+        <div class="tb-body">
+          <span class="lv">KÈM RIÊNG</span>
+          <h4>Hướng dẫn đề tài Khoa học Kỹ thuật</h4>
+          <p>Đồng hành cùng học sinh từ lúc chọn ý tưởng đến khi hoàn thiện poster và bảo vệ trước hội đồng.</p>
+          <ul><li>Cuộc thi cấp tỉnh và cấp quốc gia</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KHÓA HỌC -->
+<section id="course" class="rule-top">
+  <div class="wrap">
+    <div class="shead">
+      <div class="bar">
+        <span class="no">04</span>
+        <h2>Khóa học đang mở</h2>
+        <span class="note">Trao đổi nhanh qua Zalo hoặc điện thoại: 0359 581 461.</span>
+      </div>
+      <div class="dim"></div>
+    </div>
+    <div class="course">
+      <div class="course-l">
+        <div class="label">Đội thi THPT · 12 buổi · 120 phút/buổi</div>
+        <h3>Huấn luyện dự án<br>STEM — AIoT</h3>
+        <p>Lộ trình dành cho nhóm học sinh chuẩn bị dự thi: phân tích thể lệ, chọn bài toán, xây nguyên mẫu ESP32 — Web — Python — AI, kiểm thử và hoàn thiện hồ sơ.</p>
+        <div class="facts">
+          <div><span>Thời lượng</span><span>12 buổi, mỗi buổi 120 phút</span></div>
+          <div><span>Đối tượng</span><span>đội thi THPT</span></div>
+          <div><span>Nền tảng</span><span>ESP32, Web, Python và YOLO</span></div>
+          <div><span>Đầu ra</span><span>nguyên mẫu, số liệu và hồ sơ dự thi</span></div>
+        </div>
+        <div class="cpics">
+          <div class="fig"><div class="frame"><img src="img/lop-hoc-03-t.jpg" data-full="img/lop-hoc-03.jpg" data-cap="Lớp nhỏ, mỗi em một bộ kit riêng" alt="Lớp học" loading="lazy"></div></div>
+          <div class="fig"><div class="frame"><img src="img/ghi-chep-t.jpg" data-full="img/ghi-chep.jpg" data-cap="Tính toán và ghi chép trước khi lắp mạch" alt="Ghi chép" loading="lazy"></div></div>
+        </div>
+        <div class="btns"><a href="https://zalo.me/0359581461" target="_blank" rel="noopener" class="btn btn-a">Nhắn Zalo</a><a href="tel:+84359581461" class="btn btn-b">Gọi 0359 581 461</a></div>
+      </div>
+      <div class="course-r">
+        <div class="code">CHƯƠNG TRÌNH · 12 BUỔI</div>
+        <ol class="syl" style="margin-top:14px">
+          <li><div><b>Buổi 1–3 · Xác định đề tài</b><small>Thể lệ, vấn đề thực tế, người dùng, điểm mới và kiến trúc hệ thống</small></div></li>
+          <li><div><b>Buổi 4–6 · Nguyên mẫu kỹ thuật</b><small>ESP32, firmware, cảm biến, API và giao diện Web</small></div></li>
+          <li><div><b>Buổi 7–9 · AI và tích hợp</b><small>Dữ liệu, mô hình YOLO và chuỗi quan sát — quyết định — hành động</small></div></li>
+          <li><div><b>Buổi 10–12 · Hoàn thiện dự thi</b><small>Kiểm thử, báo cáo, poster, video, thuyết trình và phản biện</small></div></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="roadmap-head"><h3>Lộ trình huấn luyện chi tiết</h3><p>Mỗi buổi có một kết quả kiểm chứng được để nhóm theo dõi tiến độ và dùng làm minh chứng cho hồ sơ dự thi.</p></div>
+    <div class="roadmap">
+      <article class="road-step" data-step="01"><span class="phase">TÌM HIỂU</span><h4>Phân tích cuộc thi</h4><p>Đọc thể lệ, tiêu chí chấm, thời hạn; phân vai và lập bảng công việc.</p></article>
+      <article class="road-step" data-step="02"><span class="phase">TÌM HIỂU</span><h4>Chọn vấn đề</h4><p>Khảo sát người dùng, nhu cầu thực tế, giải pháp hiện có và điểm khác biệt.</p></article>
+      <article class="road-step" data-step="03"><span class="phase">TÌM HIỂU</span><h4>Thiết kế hệ thống</h4><p>Sơ đồ khối, danh mục linh kiện, chỉ số mục tiêu, rủi ro và kế hoạch thử nghiệm.</p></article>
+      <article class="road-step" data-step="04"><span class="phase">NGUYÊN MẪU</span><h4>Lắp phần cứng</h4><p>ESP32, cảm biến, màn hình, nguồn và cơ cấu chấp hành hoạt động ổn định.</p></article>
+      <article class="road-step" data-step="05"><span class="phase">NGUYÊN MẪU</span><h4>Viết firmware</h4><p>Chia chương trình thành module, hiệu chỉnh cảm biến, ghi log và xử lý lỗi.</p></article>
+      <article class="road-step" data-step="06"><span class="phase">NGUYÊN MẪU</span><h4>Kết nối Web</h4><p>Xây API và dashboard; truyền dữ liệu hai chiều giữa ESP32 và máy chủ.</p></article>
+      <article class="road-step" data-step="07"><span class="phase">AI &amp; TÍCH HỢP</span><h4>Thu thập dữ liệu</h4><p>Xác định bài toán AI, thu mẫu, gán nhãn và chạy mô hình cơ sở.</p></article>
+      <article class="road-step" data-step="08"><span class="phase">AI &amp; TÍCH HỢP</span><h4>Huấn luyện mô hình</h4><p>Đọc precision, recall, mAP; phân tích lỗi và cải thiện bộ dữ liệu.</p></article>
+      <article class="road-step" data-step="09"><span class="phase">AI &amp; TÍCH HỢP</span><h4>Ghép hệ thống</h4><p>AI nhận biết sự kiện, gửi quyết định đến Web và điều khiển thiết bị.</p></article>
+      <article class="road-step" data-step="10"><span class="phase">HOÀN THIỆN</span><h4>Kiểm thử có số liệu</h4><p>Đo độ chính xác, độ trễ, độ ổn định, nguồn điện và các điều kiện biên.</p></article>
+      <article class="road-step" data-step="11"><span class="phase">HOÀN THIỆN</span><h4>Hoàn thiện hồ sơ</h4><p>Đồng bộ báo cáo, poster, slide, video, mã nguồn và bộ dữ liệu.</p></article>
+      <article class="road-step" data-step="12"><span class="phase">HOÀN THIỆN</span><h4>Thi thử và phản biện</h4><p>Luyện demo, câu hỏi khó, bằng chứng kỹ thuật và kịch bản xử lý sự cố.</p></article>
+    </div>
+
+    <h3 class="sub" style="margin-top:52px">Học cùng tôi nếu bạn muốn</h3>
+    <div class="wants">
+      <div>
+        <span class="no2">01</span>
+        <h4>Con thích công nghệ nhưng chưa biết bắt đầu từ đâu</h4>
+        <p>Khóa nhập môn không đòi hỏi kiến thức trước. Con chỉ cần tò mò và chịu ngồi làm.</p>
+      </div>
+      <div>
+        <span class="no2">02</span>
+        <h4>Cần một đề tài nghiêm túc cho hồ sơ</h4>
+        <p>Tôi kèm riêng từ lúc chọn ý tưởng đến khi con bảo vệ trước hội đồng cuộc thi Khoa học Kỹ thuật.</p>
+      </div>
+      <div>
+        <span class="no2">03</span>
+        <h4>Muốn con thi đấu robot</h4>
+        <p>Huấn luyện đội tuyển VRC, Robocon, IoT Challenge — cả kỹ thuật lẫn cách làm việc nhóm dưới áp lực.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DỰ ÁN HỌC SINH -->
+<section id="student-projects" class="rule-top">
+  <div class="wrap">
+    <div class="shead"><div class="bar"><span class="no">05</span><h2>Dự án học sinh</h2><span class="note">Một số đề tài tiêu biểu được phát triển theo từng mục tiêu và trình độ của học sinh.</span></div><div class="dim"></div></div>
+    <div class="student-grid">
+      <article class="student-card"><div class="frame"><img src="img/project-rov.webp" alt="Minh họa thuyền ROV giám sát chất lượng nước" loading="lazy"></div><div class="student-body"><div class="meta">AIJAM 2026 · ESP32 · AI</div><h3>Thuyền ROV giám sát chất lượng nước</h3><p>Đo pH, TDS, nhiệt độ và hỗ trợ phát hiện người gặp nạn bằng radar, PIR và camera.</p><span class="outcome">Nguyên mẫu chạy trên hồ · dữ liệu đo · video kiểm thử</span></div></article>
+      <article class="student-card"><div class="frame"><img src="img/project-smart-glasses.webp" alt="Minh họa kính thông minh hỗ trợ người khiếm thính" loading="lazy"></div><div class="student-body"><div class="meta">AI ÂM THANH · ESP32</div><h3>Kính thông minh hỗ trợ người khiếm thính</h3><p>AI nhận biết âm thanh quan trọng, xác định hướng và gửi cảnh báo bằng chữ hoặc rung tới kính.</p><span class="outcome">Mô hình đeo được · chỉ số nhận diện · thử nghiệm thực tế</span></div></article>
+      <article class="student-card"><div class="frame"><img src="img/lop-robotics.jpg" alt="Học sinh lắp ráp robot" loading="lazy"></div><div class="student-body"><div class="meta">ROBOTICS · ĐỘI TUYỂN</div><h3>Robot thi đấu</h3><p>Thiết kế cơ khí, mạch điều khiển, lập trình và chiến thuật sân đấu theo vai trò của từng thành viên.</p><span class="outcome">Giải Nhì Vietnam Robotics Challenge 2020 · Top 20 năm 2023</span></div></article>
+      <article class="student-card"><div class="frame"><img src="img/poster-du-an.jpg" alt="Nhóm học sinh giới thiệu dự án" loading="lazy"></div><div class="student-body"><div class="meta">IoT · WEB · ỨNG DỤNG</div><h3>Bãi đỗ xe thông minh</h3><p>Cảm biến nhận biết vị trí trống, ứng dụng đăng ký chỗ đỗ và dashboard quản lý hệ thống.</p><span class="outcome">Hệ thống IoT hoàn chỉnh · hồ sơ thuyết trình</span></div></article>
+    </div>
+    <div class="proof-grid" aria-label="Một số dấu mốc đào tạo"><div class="proof"><b>2020–nay</b><span>Liên tục giảng dạy STEM và công nghệ</span></div><div class="proof"><b>Hàng trăm</b><span>Học viên đã tiếp cận lập trình và điện tử</span></div><div class="proof"><b>100+ triệu</b><span>Tài trợ doanh nghiệp huy động cho hai mùa Robocon</span></div><div class="proof"><b>2019–2024</b><span>Hướng dẫn hoạt động tại Robocon và SPARC Lab</span></div></div>
+    <div class="media-strip"><div><h3 style="font-family:var(--serif);font-weight:400;font-size:1.35rem">Xem bài giảng và quá trình làm dự án</h3><p>Video giúp học sinh xem lại từng thao tác, còn Facebook lưu lại hành trình lớp học, sản phẩm và các hoạt động cộng đồng.</p></div><div class="btns"><a class="btn" href="https://www.youtube.com/tuy%E1%BB%81nl%C3%AAch%C3%AD" target="_blank" rel="noopener">Kênh YouTube ↗</a><a class="btn" href="https://www.facebook.com/hocj2me/" target="_blank" rel="noopener">Facebook ↗</a></div></div>
+  </div>
+</section>
+
+<!-- CẢM NHẬN -->
+<section id="feedback" class="rule-top">
+  <div class="wrap">
+    <div class="shead">
+      <div class="bar">
+        <span class="no">06</span>
+        <h2>Cảm nhận của học sinh và phụ huynh</h2>
+        <span class="note">Bốn ô dưới đây đang để trống, chờ thầy điền lời thật.</span>
+      </div>
+      <div class="dim"></div>
+    </div>
+    <div class="quotes">
+      <div class="qcard empty">
+        <div class="mark">“</div>
+        <blockquote>[Dán vào đây lời của một phụ huynh — ví dụ về việc con thay đổi thế nào sau khóa học.]</blockquote>
+        <div class="who"><b>[Tên phụ huynh]</b><span>Phụ huynh học sinh lớp [—]</span></div>
+      </div>
+      <div class="qcard empty">
+        <div class="mark">“</div>
+        <blockquote>[Dán vào đây lời của một học sinh — điều em thích nhất ở buổi học.]</blockquote>
+        <div class="who"><b>[Tên học sinh]</b><span>Học sinh khóa Micro:bit</span></div>
+      </div>
+      <div class="qcard empty">
+        <div class="mark">“</div>
+        <blockquote>[Lời của một em trong đội tuyển robot — về quá trình ôn luyện và thi đấu.]</blockquote>
+        <div class="who"><b>[Tên học sinh]</b><span>Thành viên đội tuyển [—]</span></div>
+      </div>
+      <div class="qcard empty">
+        <div class="mark">“</div>
+        <blockquote>[Nhận xét của đồng nghiệp hoặc đại diện nhà trường đã hợp tác.]</blockquote>
+        <div class="who"><b>[Tên và chức vụ]</b><span>[Tên đơn vị]</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KINH NGHIỆM -->
+<section id="exp" class="rule-top">
+  <div class="wrap">
+    <div class="shead">
+      <div class="bar"><span class="no">06</span><h2>Kinh nghiệm và thành tích</h2></div>
+      <div class="dim"></div>
+    </div>
+    <div class="exp">
+      <div>
+        <h3 class="sub">Quá trình công tác</h3>
+        <div class="job"><div class="when">2024 — nay</div><div><h4>Trưởng phòng Kỹ thuật · ECOTEL — ECOVISION</h4><p>Quản lý các dự án tự động hóa và IoT: lập kế hoạch, điều phối tiến độ, giám sát triển khai và tổng hợp báo cáo kỹ thuật.</p></div></div>
+        <div class="job"><div class="when">2020 — nay</div><div><h4>Giáo viên · BK Star Education</h4><p>Thiết kế bài giảng và trực tiếp dạy STEM, lập trình, điện tử cho học sinh THCS, THPT và sinh viên; đã đào tạo hàng trăm học viên.</p></div></div>
+        <div class="job"><div class="when">2019 — 2024</div><div><h4>Chỉ đạo viên, Chủ nhiệm · CLB Robocon Bách khoa Hà Nội</h4><p>Đào tạo kỹ thuật, quản lý đội thi và huy động hơn 100 triệu đồng tài trợ cho hai mùa ABU Robocon 2023–2024.</p></div></div>
+        <div class="job"><div class="when">2019 — 2024</div><div><h4>Trưởng Lab · SPARC Lab, Đại học Bách khoa Hà Nội</h4><p>Quản lý nhóm 15 sinh viên, hướng dẫn hệ thống nhúng, thiết kế mạch, AirSENSE và robot quan trắc chất lượng nước.</p></div></div>
+        <div class="job"><div class="when">2022 — 2023</div><div><h4>Kỹ sư Firmware · Earable Neuroscience</h4><p>Phát triển chức năng cho chip Qualcomm QCC5141, thiết bị đo EEG qua BLE và phần mềm kiểm thử sản phẩm Frenz.</p></div></div>
+        <div class="job"><div class="when">2020 — 2022</div><div><h4>Kỹ sư phần mềm · Systech Vietnam</h4><p>Phát triển phần mềm quản lý thiết bị ESD và hệ thống điều khiển quạt cho môi trường phòng sạch.</p></div></div>
+      </div>
+      <div>
+        <h3 class="sub">Dấu mốc cùng học trò và dự án</h3>
+        <ul class="awards">
+          <li><div><b>Giải Nhì Vietnam Robotics Challenge</b><span class="s">THPT Chuyên Bắc Ninh — tôi làm cố vấn kỹ thuật</span></div><span class="yy">2020</span></li>
+          <li><div><b>Top 20 Vietnam Robotics Challenge</b><span class="s">THPT Chuyên Bắc Ninh — tôi làm cố vấn kỹ thuật</span></div><span class="yy">2023</span></li>
+          <li><div><b>Top 18 IoT Challenge</b><span class="s">Hệ thống bãi đỗ xe thông minh — đội trưởng</span></div><span class="yy">2024</span></li>
+          <li><div><b>Top 20 IoT Challenge</b><span class="s">Nhận diện khuôn mặt trên ESP32 — đội trưởng</span></div><span class="yy">2023</span></li>
+          <li><div><b>Giải Nhì cuộc thi sáng tạo Bách khoa Hà Nội</b><span class="s">Xe thu gom rác thông minh — phụ trách phần cứng</span></div><span class="yy">2021</span></li>
+          <li><div><b>Top 20 Canon Chie-Tech</b><span class="s">Action Team — phụ trách phần cứng</span></div><span class="yy">2020</span></li>
+          <li><div><b>Tài trợ 49,9 triệu đồng cho dự án OZO</b><span class="s">Máy lọc nước năng lượng mặt trời; tổ chức hoạt động cho 200 học sinh Hà Nội và 70 người dân Ninh Bình</span></div><span class="yy">2023</span></li>
+          <li><div><b>Giấy khen của Tổng Giám đốc VNPT</b><span class="s">Dự án hộp nhắc uống thuốc hỗ trợ bệnh viện trong giai đoạn Covid-19</span></div><span class="yy">2021</span></li>
+          <li><div><b>Giải Thiết kế công nghiệp</b><span class="s">Dự án thiết bị đo chất lượng không khí, chương trình có sự hỗ trợ của Đại sứ quán Hoa Kỳ</span></div><span class="yy">2020</span></li>
+          <li><div><b>Tham dự ABU Robocon</b><span class="s">BK Galaxy — đội trưởng hai mùa liên tiếp</span></div><span class="yy">2023 · 2024</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DỰ ÁN -->
+<section id="projects" class="rule-top">
+  <div class="wrap">
+    <div class="shead">
+      <div class="bar">
+        <span class="no">07</span>
+        <h2>Dự án kỹ thuật của tôi</h2>
+        <span class="note">Nhiều dự án trong số này được tôi rút gọn thành chuyên đề hoặc đề tài cho học sinh.</span>
+      </div>
+      <div class="dim"></div>
+    </div>
+
+    <div class="feat">
+      <a class="item f-main" href="https://youtu.be/7OC8f86hMGE" target="_blank" rel="noopener">
+        <div class="fig tick"><div class="frame">
+            <img src="assets/iot24_spc.jpg" alt="Hệ thống bãi đỗ xe thông minh">
+          <span class="play">▶ VIDEO</span>
+        </div></div>
+        <div class="meta">IoT Challenge 2024 · Top 18 toàn quốc</div>
+        <h3>Hệ thống bãi đỗ xe thông minh</h3>
+        <p class="desc">Hệ thống nhận diện biển số, dẫn hướng vào chỗ trống và tính phí tự động. Tôi thường lấy dự án này làm ví dụ mẫu khi hướng dẫn học sinh làm đề tài Khoa học Kỹ thuật: đủ phức tạp để học được nhiều thứ, nhưng vẫn chia nhỏ được thành các phần vừa sức với các em.</p>
+        <p class="role"><b>Đội trưởng</b> · phần cứng, phần mềm nhúng và kiến trúc hệ thống</p>
+      </a>
+
+      <div class="f-side">
+        <a class="item" href="https://github.com/BKG-Robocon-team/Unmanned-Surface-Vehicle" target="_blank" rel="noopener">
+          <div class="fig tick"><div class="frame">
+            <img src="assets/usv24.jpg" alt="Tàu mặt nước không người lái"></div></div>
+          <div class="meta">Đồ án tốt nghiệp · 2024</div>
+          <h3>Tàu mặt nước không người lái quan sát rạn san hô</h3>
+          <p class="desc">Điều khiển từ xa, có camera chìm và truyền hình ảnh về theo thời gian thực. Toàn bộ mã nguồn được công khai trên GitHub.</p>
+        </a>
+        <a class="item" href="https://www.facebook.com/BKGalaxy123" target="_blank" rel="noopener">
+          <div class="fig tick"><div class="frame">
+            <img src="assets/rbc24.jpg" alt="Đội tuyển BK Galaxy"></div></div>
+          <div class="meta">ABU Robocon · 2023 và 2024</div>
+          <h3>BK Galaxy — hai mùa Robocon với vai trò đội trưởng</h3>
+          <p class="desc">Mỗi mùa tôi phụ trách đào tạo kỹ thuật cho hơn 40 thành viên mới. Đây là nơi tôi học được cách truyền đạt kiến thức kỹ thuật cho người mới bắt đầu.</p>
+        </a>
+      </div>
+    </div>
+
+    <div class="pidx">
+      <a class="prow">
+        <span class="id">DA-01</span>
+            <div class="thumb"><img src="assets/AI_BOX.jpg" alt=""></div>
+        <div class="t">Hộp xử lý trung tâm AI cho nhà thông minh</div>
+        <div class="d">Sản phẩm được thương mại hóa từ tháng 9/2025, là cơ sở cho chuyên đề Nhà thông minh ở lớp nâng cao.</div>
+        <div class="y">Trưởng nhóm kỹ thuật · 2025</div>
+      </a>
+      <a class="prow">
+        <span class="id">DA-02</span>
+            <div class="thumb"><img src="assets/ecomes.jpg" alt=""></div>
+        <div class="t">Hệ thống giám sát nhà máy qua mạng LoRa</div>
+        <div class="d">Truyền dữ liệu không dây ở khoảng cách xa — ví dụ thực tế khi tôi dạy về mạng cảm biến.</div>
+        <div class="y">Trưởng nhóm kỹ thuật · 2025</div>
+      </a>
+      <a class="prow" href="https://github.com/Air-SENSE" target="_blank" rel="noopener">
+        <span class="id">DA-03</span>
+            <div class="thumb"><img src="assets/airsense2023.jpg" alt=""></div>
+        <div class="t">AirSENSE — trạm quan trắc chất lượng không khí</div>
+        <div class="d">Trạm đo được đặt tại trường học, dữ liệu thu được dùng làm bài tập phân tích cho học sinh.</div>
+        <div class="y">SPARC Lab · 2021–2023</div>
+      </a>
+      <a class="prow">
+        <span class="id">DA-04</span>
+            <div class="thumb"><img src="assets/iot23.jpg" alt=""></div>
+        <div class="t">Nhận diện khuôn mặt trên vi điều khiển ESP32</div>
+        <div class="d">Top 20 IoT Challenge 2023, hiện là chuyên đề nhập môn thị giác máy tính cho học sinh cấp 3.</div>
+        <div class="y">Đội trưởng · 2023</div>
+      </a>
+      <div class="hidden" id="more">
+        <a class="prow" href="https://youtu.be/YZQOlVouxQs" target="_blank" rel="noopener">
+          <span class="id">DA-05</span>
+            <div class="thumb"><img src="assets/vrc20.jpg" alt=""></div>
+          <div class="t">Đội tuyển Robotics THPT Chuyên Bắc Ninh</div>
+          <div class="d">Giải Nhì Vietnam Robotics Challenge 2020 và Top 20 năm 2023, tôi phụ trách hướng dẫn kỹ thuật.</div>
+          <div class="y">Cố vấn kỹ thuật · 2020–2023</div>
+        </a>
+        <a class="prow" href="https://www.facebook.com/ozo.water" target="_blank" rel="noopener">
+          <span class="id">DA-06</span>
+            <div class="thumb"><img src="assets/ozo2023.jpg" alt=""></div>
+          <div class="t">OZO — máy lọc nước cho cộng đồng</div>
+          <div class="d">Dự án khởi nghiệp xanh, tôi dùng làm ví dụ về việc ứng dụng kỹ thuật để giải quyết vấn đề xã hội.</div>
+          <div class="y">Sáng lập · 2023</div>
+        </a>
+        <a class="prow" href="https://www.youtube.com/playlist?list=PLQPfdTFl29zd5Lq_Dsf3AWSLaJvUD696S" target="_blank" rel="noopener">
+          <span class="id">DA-07</span>
+            <div class="thumb"><img src="assets/bkstar21.png" alt=""></div>
+          <div class="t">Hộp chuông rung trả lời nhanh</div>
+          <div class="d">Thiết bị dùng cho các cuộc thi rung chuông vàng ở trường, học sinh hoàn toàn có thể tự làm lại.</div>
+          <div class="y">BK Star · 2020</div>
+        </a>
+        <a class="prow" href="https://github.com/HocJ2me/IXR-HUST" target="_blank" rel="noopener">
+          <span class="id">DA-08</span>
+            <div class="thumb"><img src="assets/ixr20.jpg" alt=""></div>
+          <div class="t">Xe thu gom rác thông minh</div>
+          <div class="d">Giải Nhì cuộc thi sáng tạo Bách khoa Hà Nội, là bài mẫu khi dạy về cảm biến và cơ cấu chấp hành.</div>
+          <div class="y">HUST · 2020–2021</div>
+        </a>
+        <a class="prow" href="https://youtu.be/7uNeqP7pm3w" target="_blank" rel="noopener">
+          <span class="id">DA-09</span>
+            <div class="thumb"><img src="assets/chitech20.jpg" alt=""></div>
+          <div class="t">Action Team — cuộc thi Canon Chie-Tech</div>
+          <div class="d">Vào Top 20 toàn quốc, tôi phụ trách phần cứng và phần mềm nhúng của sản phẩm.</div>
+          <div class="y">Canon · 2020</div>
+        </a>
+        <a class="prow" href="https://youtu.be/q9NyUUeILGI" target="_blank" rel="noopener">
+          <span class="id">DA-10</span>
+            <div class="thumb"><img src="assets/systech20.jpg" alt=""></div>
+          <div class="t">Vòng tay giám sát sức khỏe trực tuyến</div>
+          <div class="d">Thiết bị đeo tay đo và gửi dữ liệu sức khỏe liên tục về máy chủ.</div>
+          <div class="y">Systech · 2021</div>
+        </a>
+      </div>
+    </div>
+    <button class="morebtn" id="morebtn">Xem thêm 6 dự án</button>
+  </div>
+</section>
+
+<!-- VIDEO VÀ MẠNG XÃ HỘI -->
+<section id="media" class="rule-top">
+  <div class="wrap">
+    <div class="shead"><div class="bar"><h2>Video dự án và hoạt động</h2><span class="note">Xem trực tiếp quá trình thử nghiệm, thi đấu và hoàn thiện sản phẩm.</span></div><div class="dim"></div></div>
+    <div class="video-grid">
+          <article class="video-card"><a class="video-thumb" href="https://youtu.be/7OC8f86hMGE" target="_blank" rel="noopener"><img src="img/youtube-bai-do-xe.jpg" alt="Video hệ thống bãi đỗ xe thông minh" loading="lazy"><span class="play-circle">▶</span></a><div class="video-copy"><h3>Hệ thống bãi đỗ xe thông minh</h3><p>Bấm để xem video trên YouTube.</p></div></article>
+          <article class="video-card"><a class="video-thumb" href="https://youtu.be/YZQOlVouxQs" target="_blank" rel="noopener"><img src="img/youtube-robotics.jpg" alt="Video đội tuyển Robotics học sinh" loading="lazy"><span class="play-circle">▶</span></a><div class="video-copy"><h3>Đội tuyển Robotics học sinh</h3><p>Bấm để xem video trên YouTube.</p></div></article>
+          <article class="video-card"><a class="video-thumb" href="https://youtu.be/7uNeqP7pm3w" target="_blank" rel="noopener"><img src="img/youtube-chie-tech.jpg" alt="Video dự án Canon Chie-Tech" loading="lazy"><span class="play-circle">▶</span></a><div class="video-copy"><h3>Action Team · Canon Chie-Tech</h3><p>Bấm để xem video trên YouTube.</p></div></article>
+          <article class="video-card"><a class="video-thumb" href="https://youtu.be/q9NyUUeILGI" target="_blank" rel="noopener"><img src="img/youtube-vong-tay.jpg" alt="Video vòng tay giám sát sức khỏe" loading="lazy"><span class="play-circle">▶</span></a><div class="video-copy"><h3>Vòng tay giám sát sức khỏe</h3><p>Bấm để xem video trên YouTube.</p></div></article>
+    </div>
+    <div class="event-gallery">
+      <figure><img src="img/khoa-hoc-tai-nang-2025.webp" alt="Thầy và học sinh tại cuộc thi Em yêu khoa học tài năng công nghệ nhí năm 2025" loading="lazy"><figcaption>Thầy trò tại cuộc thi “Em yêu khoa học — Tài năng công nghệ nhí” thành phố Hà Nội, 2025.</figcaption></figure>
+      <figure><img src="img/hoc-sinh-thuyet-trinh-du-an.webp" alt="Học sinh thuyết trình mô hình Future Hospital" loading="lazy"><figcaption>Học sinh giới thiệu mô hình trước ban đánh giá.</figcaption></figure>
+      <figure><img src="img/dai-ha-noi-khoa-hoc-nhi.webp" alt="Học sinh xuất hiện trong chương trình của Đài Hà Nội" loading="lazy"><figcaption>Dự án học sinh trong chương trình “Sân chơi sáng tạo chắp cánh tài năng khoa học nhí” của Đài Hà Nội.</figcaption></figure>
+    </div>
+    <div class="social-embed">
+      <a class="social-panel" href="https://www.facebook.com/hocj2me/" target="_blank" rel="noopener" style="text-decoration:none"><img src="img/giang-day-01.jpg" alt="Hoạt động giảng dạy của Lê Chí Tuyền" loading="lazy"><div><h3>Hoạt động giảng dạy trên Facebook</h3><p>Hình ảnh lớp học, quá trình hướng dẫn dự án và các sản phẩm học sinh.</p><span class="lnk">Mở Facebook ↗</span></div></a>
+      <a class="social-panel" href="https://www.facebook.com/ozo.water" target="_blank" rel="noopener" style="text-decoration:none"><img src="img/poster-du-an.jpg" alt="Dự án OZO về nước sạch cộng đồng" loading="lazy"><div><h3>Dự án OZO · Nước sạch cộng đồng</h3><p>Hành trình phát triển máy lọc nước năng lượng mặt trời và hoạt động cộng đồng.</p><span class="lnk">Mở trang OZO ↗</span></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ĐƠN VỊ ĐÃ HỢP TÁC -->
+<div class="partners">
+  <div class="wrap">
+    <div class="plabel">ĐÃ GIẢNG DẠY VÀ HỢP TÁC CÙNG</div>
+    <div class="plist">
+      <span>Đại học Bách khoa Hà Nội</span>
+      <span>SPARC Lab</span>
+      <span>CLB Robocon BK Galaxy</span>
+      <span>BK Star Education</span>
+      <span>THPT Chuyên Bắc Ninh</span>
+      <span>ECOTEL</span>
+      <span>Earable Neuroscience</span>
+      <span>Systech Vietnam</span>
+    </div>
+  </div>
+</div>
+
+<!-- LIÊN HỆ -->
+<section id="contact">
+  <div class="wrap">
+    <div class="shead">
+      <div class="bar"><span class="no">08</span><h2>Liên hệ</h2></div>
+      <div class="dim"></div>
+    </div>
+    <div class="contact">
+      <div>
+        <p style="font-size:1.08rem;color:var(--ink)">Phụ huynh cần tư vấn lộ trình học, hoặc nhà trường và trung tâm muốn hợp tác mở lớp STEM, vui lòng nhắn Zalo hoặc gọi trực tiếp cho tôi.</p>
+        <p style="margin-top:16px">Số điện thoại và Zalo: <b>0359 581 461</b>. Email được giữ lại cho hồ sơ và trao đổi tài liệu.</p>
+      </div>
+      <div class="clist">
+        <a href="https://zalo.me/0359581461" target="_blank" rel="noopener"><span class="k">ZALO</span><span class="v">0359 581 461</span></a>
+        <a href="tel:+84359581461"><span class="k">ĐIỆN THOẠI</span><span class="v">0359 581 461</span></a>
+        <a href="https://www.facebook.com/hocj2me/" target="_blank" rel="noopener"><span class="k">FACEBOOK</span><span class="v">facebook.com/hocj2me</span></a>
+        <a href="mailto:lctuyenvn@gmail.com"><span class="k">EMAIL</span><span class="v">lctuyenvn@gmail.com</span></a>
+        <a href="https://www.youtube.com/tuy%E1%BB%81nl%C3%AAch%C3%AD" target="_blank" rel="noopener"><span class="k">YOUTUBE</span><span class="v">YouTube · Tuyền Lê Chí</span></a>
+        <a href="https://github.com/hocj2me" target="_blank" rel="noopener"><span class="k">GITHUB</span><span class="v">github.com/hocj2me</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DẢI KÊU GỌI -->
+<div class="ctaband">
+  <div class="wrap">
+    <h3>Trao đổi về lớp học và dự án</h3>
+    <p>Liên hệ để xác định nội dung, trình độ và hình thức học phù hợp với từng học sinh hoặc đội thi.</p>
+    <div class="btns">
+      <a href="https://zalo.me/0359581461" target="_blank" rel="noopener" class="btn btn-a">Nhắn Zalo tư vấn</a>
+      <a href="tel:+84359581461" class="btn btn-b">Gọi 0359 581 461</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap fin">
+    <span>Lê Chí Tuyền — giáo viên Điện tử, Lập trình và Robotics</span>
+    <span>© <span id="yr">2026</span> · Hà Nội</span>
+  </div>
+</footer>
+
+<!-- XEM ẢNH LỚN -->
+<div class="lb" id="lb">
+  <div class="lb-stage">
+    <img id="lbImg" src="" alt="">
+    <button class="lb-btn lb-x" id="lbX" aria-label="Đóng">✕</button>
+  </div>
+  <div class="lb-bar">
+    <span class="n" id="lbN">01 / 23</span>
+    <span class="c" id="lbC"></span>
+    <span class="lb-nav">
+      <button class="lb-btn" id="lbP" aria-label="Ảnh trước">←</button>
+      <button class="lb-btn" id="lbNx" aria-label="Ảnh sau">→</button>
+    </span>
+  </div>
+</div>
+
 <script>
-function eng() {
-    setCookie("lang", "1", 1);
-    document.location.href = 'https://piotrowsky.dev';
-}
+document.getElementById('yr').textContent=new Date().getFullYear();
 
-function pl() {
-    setCookie("lang", "1", 1);
-    document.location.href = 'https://piotrowsky.dev/pl';
-}
+var b=document.getElementById('burger'),m=document.getElementById('menu');
+b.onclick=function(){m.classList.toggle('open')};
+m.onclick=function(e){if(e.target.tagName==='A')m.classList.remove('open')};
 
-const day = 24 * 60 * 60 * 1000;
-const age = document.getElementById("age");
+var mb=document.getElementById('morebtn'),more=document.getElementById('more');
+mb.onclick=function(){
+  var open=more.classList.toggle('hidden')===false;
+  mb.textContent=open?'Thu gọn danh sách':'Xem thêm 6 dự án';
+};
 
-round_to = function(precision, value) {
-    value = parseFloat(value);
-    power_of_ten = 10 ** precision;
-    return ((value * power_of_ten) / power_of_ten).toFixed(precision);
-}
-
-day_diff = function(d1, d2) {
-    /* totally not borrowed from kristians page */
-    return (d2 - Date.parse(d1)) / day;
-}
-
-function update_age() {
-    age.innerHTML = round_to(8, day_diff('Aug 28, 1996 00:00:00', new Date()) / 365.25);
-}
-
-function showProjects() {
-    document.getElementById("projektysmall").style.maxHeight = "100%";
-    document.getElementById("projektysmall").classList.add("removeBar");
-    document.getElementById("projektybutton").remove();
-}
-
-update_age();
-setInterval(function() {
-    update_age();
-}, 100);
-
-function setCookie(name, value, days) {
-    var expires = "";
-    if (days) {
-        var date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-        expires = "; expires=" + date.toUTCString();
-    }
-    document.cookie = name + "=" + (value || "") + expires + "; path=/";
-}
-
-function getCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-}
-
-var language = navigator.language || navigator.browserLanguage; //for IE
-
-if (language.indexOf('pl') > -1 && !getCookie("lang") && !document.location.href.includes("127.0.0.1")) {
-    document.location.href = 'https://piotrowsky.dev/pl.html';
-}
+/* Xem ảnh lớn */
+(function(){
+  var lb=document.getElementById('lb'),im=document.getElementById('lbImg'),
+      cp=document.getElementById('lbC'),nn=document.getElementById('lbN'),
+      list=[],cur=0;
+  function collect(){
+    list=[];
+    var seen={};
+    document.querySelectorAll('#mosaic img[data-full]').forEach(function(g){
+      list.push(g); seen[g.dataset.full]=1;
+    });
+    document.querySelectorAll('img[data-full]').forEach(function(g){
+      if(!seen[g.dataset.full]){list.push(g);seen[g.dataset.full]=1;}
+    });
+  }
+  function show(i){
+    if(!list.length)return;
+    cur=(i+list.length)%list.length;
+    var g=list[cur];
+    im.src=g.dataset.full; im.alt=g.dataset.cap||'';
+    cp.textContent=g.dataset.cap||'';
+    nn.textContent=('0'+(cur+1)).slice(-2)+' / '+list.length;
+    lb.classList.add('on');
+    document.body.style.overflow='hidden';
+  }
+  function close(){lb.classList.remove('on');document.body.style.overflow='';im.src='';}
+  collect();
+  document.addEventListener('click',function(e){
+    var g=e.target.closest?e.target.closest('img[data-full]'):null;
+    if(!g)return;
+    if(g.closest('a'))return;          /* ảnh dự án có link riêng, không mở lightbox */
+    e.preventDefault();
+    collect();
+    show(list.indexOf(g));
+  });
+  document.getElementById('lbX').onclick=close;
+  document.getElementById('lbP').onclick=function(e){e.stopPropagation();show(cur-1)};
+  document.getElementById('lbNx').onclick=function(e){e.stopPropagation();show(cur+1)};
+  lb.addEventListener('click',function(e){if(e.target===lb||e.target.classList.contains('lb-stage'))close()});
+  document.addEventListener('keydown',function(e){
+    if(!lb.classList.contains('on'))return;
+    if(e.key==='Escape')close();
+    else if(e.key==='ArrowLeft')show(cur-1);
+    else if(e.key==='ArrowRight')show(cur+1);
+  });
+})();
 </script>
-
+</body>
 </html>
