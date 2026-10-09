@@ -391,6 +391,31 @@ footer{background:#10283e;color:#dce5ea}
 .olc-body .meta{font-family:var(--mono);font-size:.74rem;color:var(--blue)}
 @media(max-width:980px){.olc-grid{grid-template-columns:repeat(2,1fr)}.olc-head{display:block}.olc-head p{margin-top:6px}}
 @media(max-width:520px){.olc-grid{grid-template-columns:1fr}}
+/* khóa học: nhóm + 2 nút */
+.olc-group{grid-column:1/-1;font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--orange);margin:8px 0 -4px;padding-top:6px;border-top:1px dashed var(--line-2)}
+.olc-group:first-child{border-top:0;padding-top:0;margin-top:0}
+.olc:hover{transform:none}
+.olc-act{display:flex;gap:8px;margin-top:12px}
+.olc-btn{flex:1;text-align:center;font-size:.82rem;font-weight:700;padding:8px 6px;border-radius:999px;border:1.5px solid var(--blue);color:var(--blue);text-decoration:none;transition:background .15s,color .15s}
+.olc-btn:hover{background:var(--blue-soft)}
+.olc-btn.reg{background:var(--blue);color:#fff}.olc-btn.reg:hover{background:var(--ink);border-color:var(--ink)}
+.olc-note{margin:-28px 0 40px;font-size:.88rem;color:var(--ink-2)}
+.nav-cta{background:var(--blue);color:#fff!important;padding:6px 14px!important;border-radius:999px}
+.nav-cta:hover{background:var(--ink)}
+/* form đăng ký */
+.regf{display:grid;grid-template-columns:1fr 1fr;gap:14px 20px;background:var(--panel);border:1px solid var(--line-2);border-radius:18px;padding:26px 28px;box-shadow:0 10px 30px rgba(23,50,77,.055)}
+.regf label{display:flex;flex-direction:column;gap:6px;font-size:.84rem;font-weight:600;color:var(--ink-2)}
+.regf input,.regf select,.regf textarea{font:inherit;font-size:.95rem;font-weight:400;color:var(--ink);padding:10px 12px;border:1px solid var(--line-2);border-radius:10px;background:#fff}
+.regf input:focus,.regf select:focus,.regf textarea:focus{outline:2px solid var(--blue-2);border-color:transparent}
+.regf .full{grid-column:1/-1}
+.regf .bad{border-color:#dc2626;background:#fef2f2}
+.regf-act{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.regf-act .btn{cursor:pointer;font-family:inherit}
+.regf-msg{font-size:.9rem;color:var(--ink-2)}
+.regf-msg.ok{color:#15803d;font-weight:600}.regf-msg.err{color:#dc2626;font-weight:600}
+.regf-copy{font-family:var(--mono);font-size:.85rem}
+.regf-note{margin-top:12px;font-size:.84rem;color:var(--ink-3)}
+@media(max-width:760px){.regf{grid-template-columns:1fr;padding:20px 18px}}
 </style>
 </head>
 <body>
@@ -402,12 +427,11 @@ footer{background:#10283e;color:#dce5ea}
     <nav id="menu">
       <a href="#about">Giới thiệu</a>
       <a href="#gallery">Lớp học</a>
-      <a href="#teach">Giảng dạy</a>
       <a href="#course">Khóa học</a>
       <a href="#student-projects">Dự án học sinh</a>
       <a href="#projects">Dự án</a>
-      <a href="#media">Video</a>
       <a href="#contact">Liên hệ</a>
+      <a href="#dang-ky" class="nav-cta">Đăng ký học</a>
     </nav>
   </div>
 </header>
@@ -424,8 +448,8 @@ footer{background:#10283e;color:#dce5ea}
         <div><dt>KHU VỰC</dt><dd>Hà Nội &amp; trực tuyến</dd></div>
       </dl>
       <div class="btns">
-        <a href="#course" class="btn btn-a">Xem khóa học đang mở →</a>
-        <a href="#contact" class="btn btn-b">Liên hệ tư vấn</a>
+        <a href="#dang-ky" class="btn btn-a">Đăng ký khóa học →</a>
+        <a href="#course" class="btn btn-b">Xem các khóa học</a>
       </div>
     </div>
     <figure class="fig tick">
@@ -466,8 +490,7 @@ footer{background:#10283e;color:#dce5ea}
     <div class="about">
       <div class="prose">
         <p class="pull">Tôi giúp học sinh hiểu kỹ thuật bằng cách biến kiến thức thành một sản phẩm có thể quan sát, đo lường và cải tiến.</p>
-        <p>Tôi là kỹ sư Điện tử — Viễn thông, tốt nghiệp Đại học Bách khoa Hà Nội. Từ năm 2019, tôi tham gia hướng dẫn Robotics, hệ thống nhúng và các đề tài khoa học kỹ thuật; từ năm 2020 trực tiếp xây dựng bài giảng và giảng dạy STEM, lập trình, điện tử cho học sinh phổ thông.</p>
-        <p>Hiện tôi phụ trách kỹ thuật tại ECOTEL và đào tạo các nhóm học sinh làm dự án IoT, AI và Robotics. Mỗi lộ trình hướng tới ba kết quả: nguyên mẫu hoạt động, dữ liệu kiểm thử và bộ hồ sơ trình bày hoàn chỉnh.</p>
+        <p>Từ năm 2019 tôi hướng dẫn Robotics, hệ thống nhúng và đề tài khoa học kỹ thuật; hiện phụ trách kỹ thuật tại ECOTEL và đào tạo các nhóm học sinh làm dự án IoT, AI, Robotics. Mỗi lộ trình hướng tới ba kết quả: nguyên mẫu hoạt động, dữ liệu kiểm thử và bộ hồ sơ trình bày hoàn chỉnh.</p>
       </div>
       <div class="aside-col">
         <figure class="fig tick">
@@ -501,26 +524,6 @@ footer{background:#10283e;color:#dce5ea}
         <span class="note">Bấm vào ảnh để xem lớn. Dùng phím ← → để chuyển ảnh.</span>
       </div>
       <div class="dim"></div>
-    </div>
-
-    <div class="bigstate" style="margin-bottom:44px">
-      <div>
-        <div class="bigwords">
-          <span>Học bằng</span>
-          <span>làm thật</span>
-          <span>sản phẩm thật</span>
-        </div>
-        <p>Học sinh làm việc theo nhóm nhỏ: thiết kế, lắp ráp, lập trình, đo kết quả và ghi lại những lần cải tiến.</p>
-        <div class="btns">
-          <a href="#course" class="btn btn-b">Xem lộ trình 12 buổi →</a>
-        </div>
-      </div>
-      <div class="cluster">
-        <div class="fig"><div class="frame"><img src="assets/img/lop-hoc-01-t.jpg" data-full="assets/img/lop-hoc-01.jpg" data-cap="Buổi học nhóm quanh bàn thực hành" alt="Buổi học nhóm" loading="lazy"></div></div>
-        <div class="fig"><div class="frame"><img src="assets/img/han-mach-01-t.jpg" data-full="assets/img/han-mach-01.jpg" data-cap="Học sinh tự hàn mạch" alt="Hàn mạch" loading="lazy"></div></div>
-        <div class="fig"><div class="frame"><img src="assets/img/lop-robotics-t.jpg" data-full="assets/img/lop-robotics.jpg" data-cap="Lớp Robotics — lắp ráp mô hình" alt="Lớp Robotics" loading="lazy"></div></div>
-        <div class="fig"><div class="frame"><img src="assets/img/mo-hinh-duong-ray-t.jpg" data-full="assets/img/mo-hinh-duong-ray.jpg" data-cap="Mô hình đường ray điều khiển tự động" alt="Mô hình đường ray" loading="lazy"></div></div>
-      </div>
     </div>
 
     <div class="gal" id="mosaic">
@@ -605,62 +608,62 @@ footer{background:#10283e;color:#dce5ea}
       <div class="bar">
         <span class="no">04</span>
         <h2>Khóa học đang mở</h2>
-        <span class="note">Trao đổi nhanh qua Zalo hoặc điện thoại: 0359 581 461.</span>
+        <span class="note">Mỗi khóa có tài liệu trực tuyến: bài giảng, hình minh hoạ, code mẫu chạy được. Học viên đã đăng ký được cấp tài khoản để vào học.</span>
       </div>
       <div class="dim"></div>
     </div>
-
-    <div class="olc-head">
-      <h3>Khóa học trực tuyến cho học viên</h3>
-      <p>Tài liệu học có bài giảng, hình minh hoạ và code mẫu. Cần đăng nhập — liên hệ thầy để được cấp tài khoản. Xem thêm <a href="bai-giang/">bài giảng mở</a> không cần đăng nhập.</p>
-    </div>
     <div class="olc-grid">
-      <a class="olc" href="training/login.html?next=microbit.html" target="_blank" rel="noopener">
+      <div class="olc-group">Dự án STEM · AIJAM 2026</div>
+      <article class="olc">
         <div class="olc-top" style="background:linear-gradient(135deg,#0891b2,#2563eb)">🔧<span class="tag">🏆 AIJAM 2026</span></div>
-        <div class="olc-body"><b>Micro:bit — Điện tử &amp; lập trình kéo thả</b><p>Đèn giao thông, còi báo động, trạm đo nhiệt độ, ngôi nhà thông minh mini.</p><span class="meta">Lớp 6 · 5 buổi × 2 giờ</span></div>
-      </a>
-      <a class="olc" href="training/login.html?next=thuyen-tu-dong.html" target="_blank" rel="noopener">
+        <div class="olc-body"><b>Micro:bit — Điện tử &amp; lập trình kéo thả</b><p>Đèn giao thông, còi báo động, trạm đo nhiệt độ, nhà thông minh mini.</p><span class="meta">Lớp 6 · 5 buổi</span>
+          <div class="olc-act"><a class="olc-btn" href="training/login.html?next=microbit.html" target="_blank" rel="noopener">Vào học</a><a class="olc-btn reg" href="#dang-ky" data-khoa="Micro:bit — Điện tử & lập trình kéo thả">Đăng ký</a></div></div>
+      </article>
+      <article class="olc">
         <div class="olc-top" style="background:linear-gradient(135deg,#0e7490,#2563eb)">🚤<span class="tag">🏆 AIJAM 2026</span></div>
-        <div class="olc-body"><b>Chế tạo thuyền tự động (ROV)</b><p>Lực nổi &amp; thân thuyền, động cơ đẩy, chống thấm, điều khiển từ xa, hoàn thiện dự thi.</p><span class="meta">5 buổi × 2 giờ</span></div>
-      </a>
-      <a class="olc" href="training/login.html?next=kinh-thong-minh.html" target="_blank" rel="noopener">
+        <div class="olc-body"><b>Chế tạo thuyền tự động (ROV)</b><p>Lực nổi, động cơ đẩy, chống thấm, điều khiển từ xa, hoàn thiện dự thi.</p><span class="meta">THCS–THPT · 5 buổi</span>
+          <div class="olc-act"><a class="olc-btn" href="training/login.html?next=thuyen-tu-dong.html" target="_blank" rel="noopener">Vào học</a><a class="olc-btn reg" href="#dang-ky" data-khoa="Chế tạo thuyền tự động (ROV)">Đăng ký</a></div></div>
+      </article>
+      <article class="olc">
         <div class="olc-top" style="background:linear-gradient(135deg,#7c3aed,#db2777)">🕶️<span class="tag">🏆 AIJAM 2026</span></div>
-        <div class="olc-body"><b>Kính thông minh AI hỗ trợ người khiếm thính</b><p>Nhận diện âm thanh, xác định hướng, chuyển lời nói thành chữ và cảnh báo khẩn cấp.</p><span class="meta">5 buổi × 2 giờ</span></div>
-      </a>
-      <a class="olc" href="training/login.html?next=cpp-co-ban.html" target="_blank" rel="noopener">
+        <div class="olc-body"><b>Kính thông minh AI hỗ trợ người khiếm thính</b><p>Nhận diện âm thanh, xác định hướng, chuyển lời nói thành chữ.</p><span class="meta">THCS–THPT · 5 buổi</span>
+          <div class="olc-act"><a class="olc-btn" href="training/login.html?next=kinh-thong-minh.html" target="_blank" rel="noopener">Vào học</a><a class="olc-btn reg" href="#dang-ky" data-khoa="Kính thông minh AI hỗ trợ người khiếm thính">Đăng ký</a></div></div>
+      </article>
+      <div class="olc-group">Lập trình &amp; hệ nhúng</div>
+      <article class="olc">
         <div class="olc-top" style="background:linear-gradient(135deg,#0f766e,#0891b2,#2563eb)">💻<span class="new">MỚI</span><span class="tag">C++17 · Nhúng</span></div>
-        <div class="olc-body"><b>Lập trình C++ cơ bản → nâng cao</b><p>Con trỏ, hướng đối tượng, template, đa luồng, STL — ví dụ gắn với vi điều khiển.</p><span class="meta">17 buổi × 2 giờ</span></div>
-      </a>
-      <a class="olc" href="training/login.html?next=freertos.html" target="_blank" rel="noopener">
+        <div class="olc-body"><b>Lập trình C++ cơ bản → nâng cao</b><p>Con trỏ, hướng đối tượng, template, đa luồng — ví dụ gắn với vi điều khiển.</p><span class="meta">Lớp 8+ · 17 buổi</span>
+          <div class="olc-act"><a class="olc-btn" href="training/login.html?next=cpp-co-ban.html" target="_blank" rel="noopener">Vào học</a><a class="olc-btn reg" href="#dang-ky" data-khoa="Lập trình C++ cơ bản → nâng cao">Đăng ký</a></div></div>
+      </article>
+      <article class="olc">
         <div class="olc-top" style="background:linear-gradient(135deg,#7c2d12,#c2410c,#d97706)">⏱<span class="new">MỚI</span><span class="tag">ESP32 · STM32</span></div>
-        <div class="olc-body"><b>FreeRTOS cho lập trình nhúng</b><p>Task, queue, semaphore, mutex, timer — 23 ví dụ chạy thật, dự án trạm thời tiết đa nhiệm.</p><span class="meta">12 buổi</span></div>
-      </a>
-      <a class="olc" href="training/login.html?next=pcb-altium.html" target="_blank" rel="noopener">
-        <div class="olc-top" style="background:linear-gradient(135deg,#14532d,#15803d,#0d9488)">🖥<span class="new">MỚI</span><span class="tag">Altium · IPC</span></div>
-        <div class="olc-body"><b>Thiết kế mạch PCB với Altium</b><p>Nguyên lý, layout, thư viện chuẩn IPC, mạch 4 lớp, chống nhiễu, dòng lớn, đo lường.</p><span class="meta">15 buổi</span></div>
-      </a>
-      <a class="olc" href="training/login.html?next=design-pattern.html" target="_blank" rel="noopener">
+        <div class="olc-body"><b>FreeRTOS cho lập trình nhúng</b><p>Task, queue, semaphore, mutex, timer trên ESP32/STM32 — 23 ví dụ chạy thật.</p><span class="meta">Sau khóa C++ · 12 buổi</span>
+          <div class="olc-act"><a class="olc-btn" href="training/login.html?next=freertos.html" target="_blank" rel="noopener">Vào học</a><a class="olc-btn reg" href="#dang-ky" data-khoa="FreeRTOS cho lập trình nhúng">Đăng ký</a></div></div>
+      </article>
+      <article class="olc">
         <div class="olc-top" style="background:linear-gradient(135deg,#0e7490,#2563eb 55%,#7c3aed)">🧩<span class="new">MỚI</span><span class="tag">C++ · Python · Java</span></div>
-        <div class="olc-body"><b>Design Pattern — 24 mẫu thiết kế</b><p>Creational, Structural, Behavioral: lý thuyết, sơ đồ UML, code C++ hướng lập trình nhúng.</p><span class="meta">12 buổi × 2 giờ</span></div>
-      </a>
+        <div class="olc-body"><b>Design Pattern — 24 mẫu thiết kế</b><p>Tổ chức firmware lớn: lý thuyết, sơ đồ UML, code C++, Python, Java.</p><span class="meta">Nâng cao · 12 buổi</span>
+          <div class="olc-act"><a class="olc-btn" href="training/login.html?next=design-pattern.html" target="_blank" rel="noopener">Vào học</a><a class="olc-btn reg" href="#dang-ky" data-khoa="Design Pattern — 24 mẫu thiết kế">Đăng ký</a></div></div>
+      </article>
+      <div class="olc-group">Phần cứng</div>
+      <article class="olc">
+        <div class="olc-top" style="background:linear-gradient(135deg,#14532d,#15803d,#0d9488)">🖥<span class="new">MỚI</span><span class="tag">Altium · IPC</span></div>
+        <div class="olc-body"><b>Thiết kế mạch PCB với Altium</b><p>Nguyên lý, layout, thư viện chuẩn IPC, mạch 4 lớp, chống nhiễu, đo lường.</p><span class="meta">THPT – sinh viên · 15 buổi</span>
+          <div class="olc-act"><a class="olc-btn" href="training/login.html?next=pcb-altium.html" target="_blank" rel="noopener">Vào học</a><a class="olc-btn reg" href="#dang-ky" data-khoa="Thiết kế mạch PCB với Altium">Đăng ký</a></div></div>
+      </article>
     </div>
+    <p class="olc-note">Không cần tài khoản: <a href="bai-giang/">bài giảng mở</a> (Machine Learning cơ bản, Quy trình phần mềm).</p>
 
     <div class="course">
       <div class="course-l">
-        <div class="label">Đội thi THPT · 12 buổi · 120 phút/buổi</div>
+        <div class="label">Đội thi THPT · 12 buổi · 120 phút/buổi · học trực tiếp</div>
         <h3>Huấn luyện dự án<br>STEM — AIoT</h3>
-        <p>Lộ trình dành cho nhóm học sinh chuẩn bị dự thi: phân tích thể lệ, chọn bài toán, xây nguyên mẫu ESP32 — Web — Python — AI, kiểm thử và hoàn thiện hồ sơ.</p>
+        <p>Dành cho nhóm học sinh chuẩn bị dự thi Khoa học Kỹ thuật, IoT Challenge: phân tích thể lệ, chọn bài toán, xây nguyên mẫu ESP32 — Web — Python — AI, kiểm thử có số liệu và hoàn thiện hồ sơ. Mỗi buổi có một kết quả kiểm chứng được để làm minh chứng dự thi.</p>
         <div class="facts">
-          <div><span>Thời lượng</span><span>12 buổi, mỗi buổi 120 phút</span></div>
-          <div><span>Đối tượng</span><span>đội thi THPT</span></div>
           <div><span>Nền tảng</span><span>ESP32, Web, Python và YOLO</span></div>
           <div><span>Đầu ra</span><span>nguyên mẫu, số liệu và hồ sơ dự thi</span></div>
         </div>
-        <div class="cpics">
-          <div class="fig"><div class="frame"><img src="assets/img/lop-hoc-03-t.jpg" data-full="assets/img/lop-hoc-03.jpg" data-cap="Lớp nhỏ, mỗi em một bộ kit riêng" alt="Lớp học" loading="lazy"></div></div>
-          <div class="fig"><div class="frame"><img src="assets/img/ghi-chep-t.jpg" data-full="assets/img/ghi-chep.jpg" data-cap="Tính toán và ghi chép trước khi lắp mạch" alt="Ghi chép" loading="lazy"></div></div>
-        </div>
-        <div class="btns"><a href="https://zalo.me/0359581461" target="_blank" rel="noopener" class="btn btn-a">Nhắn Zalo</a><a href="tel:+84359581461" class="btn btn-b">Gọi 0359 581 461</a></div>
+        <div class="btns"><a href="#dang-ky" class="btn btn-a reg" data-khoa="Huấn luyện dự án STEM — AIoT (đội thi THPT)">Đăng ký nhóm →</a><a href="https://zalo.me/0359581461" target="_blank" rel="noopener" class="btn btn-b">Hỏi qua Zalo</a></div>
       </div>
       <div class="course-r">
         <div class="code">CHƯƠNG TRÌNH · 12 BUỔI</div>
@@ -672,48 +675,43 @@ footer{background:#10283e;color:#dce5ea}
         </ol>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="roadmap-head"><h3>Lộ trình huấn luyện chi tiết</h3><p>Mỗi buổi có một kết quả kiểm chứng được để nhóm theo dõi tiến độ và dùng làm minh chứng cho hồ sơ dự thi.</p></div>
-    <div class="roadmap">
-      <article class="road-step" data-step="01"><span class="phase">TÌM HIỂU</span><h4>Phân tích cuộc thi</h4><p>Đọc thể lệ, tiêu chí chấm, thời hạn; phân vai và lập bảng công việc.</p></article>
-      <article class="road-step" data-step="02"><span class="phase">TÌM HIỂU</span><h4>Chọn vấn đề</h4><p>Khảo sát người dùng, nhu cầu thực tế, giải pháp hiện có và điểm khác biệt.</p></article>
-      <article class="road-step" data-step="03"><span class="phase">TÌM HIỂU</span><h4>Thiết kế hệ thống</h4><p>Sơ đồ khối, danh mục linh kiện, chỉ số mục tiêu, rủi ro và kế hoạch thử nghiệm.</p></article>
-      <article class="road-step" data-step="04"><span class="phase">NGUYÊN MẪU</span><h4>Lắp phần cứng</h4><p>ESP32, cảm biến, màn hình, nguồn và cơ cấu chấp hành hoạt động ổn định.</p></article>
-      <article class="road-step" data-step="05"><span class="phase">NGUYÊN MẪU</span><h4>Viết firmware</h4><p>Chia chương trình thành module, hiệu chỉnh cảm biến, ghi log và xử lý lỗi.</p></article>
-      <article class="road-step" data-step="06"><span class="phase">NGUYÊN MẪU</span><h4>Kết nối Web</h4><p>Xây API và dashboard; truyền dữ liệu hai chiều giữa ESP32 và máy chủ.</p></article>
-      <article class="road-step" data-step="07"><span class="phase">AI &amp; TÍCH HỢP</span><h4>Thu thập dữ liệu</h4><p>Xác định bài toán AI, thu mẫu, gán nhãn và chạy mô hình cơ sở.</p></article>
-      <article class="road-step" data-step="08"><span class="phase">AI &amp; TÍCH HỢP</span><h4>Huấn luyện mô hình</h4><p>Đọc precision, recall, mAP; phân tích lỗi và cải thiện bộ dữ liệu.</p></article>
-      <article class="road-step" data-step="09"><span class="phase">AI &amp; TÍCH HỢP</span><h4>Ghép hệ thống</h4><p>AI nhận biết sự kiện, gửi quyết định đến Web và điều khiển thiết bị.</p></article>
-      <article class="road-step" data-step="10"><span class="phase">HOÀN THIỆN</span><h4>Kiểm thử có số liệu</h4><p>Đo độ chính xác, độ trễ, độ ổn định, nguồn điện và các điều kiện biên.</p></article>
-      <article class="road-step" data-step="11"><span class="phase">HOÀN THIỆN</span><h4>Hoàn thiện hồ sơ</h4><p>Đồng bộ báo cáo, poster, slide, video, mã nguồn và bộ dữ liệu.</p></article>
-      <article class="road-step" data-step="12"><span class="phase">HOÀN THIỆN</span><h4>Thi thử và phản biện</h4><p>Luyện demo, câu hỏi khó, bằng chứng kỹ thuật và kịch bản xử lý sự cố.</p></article>
+<!-- ĐĂNG KÝ -->
+<section id="dang-ky" class="rule-top">
+  <div class="wrap">
+    <div class="shead">
+      <div class="bar">
+        <span class="no">05</span>
+        <h2>Đăng ký khóa học</h2>
+        <span class="note">Điền thông tin rồi gửi qua Zalo hoặc Email. Thầy sẽ liên hệ lại trong vòng 24 giờ để xếp lớp và cấp tài khoản học trực tuyến.</span>
+      </div>
+      <div class="dim"></div>
     </div>
-
-    <h3 class="sub" style="margin-top:52px">Học cùng tôi nếu bạn muốn</h3>
-    <div class="wants">
-      <div>
-        <span class="no2">01</span>
-        <h4>Con thích công nghệ nhưng chưa biết bắt đầu từ đâu</h4>
-        <p>Khóa nhập môn không đòi hỏi kiến thức trước. Con chỉ cần tò mò và chịu ngồi làm.</p>
+    <form class="regf" id="regForm" novalidate>
+      <label>Họ tên học viên *<input name="ten" required autocomplete="name" placeholder="Nguyễn Văn An"></label>
+      <label>Lớp / trường<input name="lop" placeholder="Lớp 8 — THCS ..."></label>
+      <label>Số điện thoại / Zalo phụ huynh *<input name="sdt" required type="tel" inputmode="tel" autocomplete="tel" placeholder="09xx xxx xxx"></label>
+      <label>Khóa học muốn đăng ký *<select name="khoa" required><option value="">— Chọn khóa học —</option><option>Micro:bit — Điện tử & lập trình kéo thả</option><option>Chế tạo thuyền tự động (ROV)</option><option>Kính thông minh AI hỗ trợ người khiếm thính</option><option>Lập trình C++ cơ bản → nâng cao</option><option>FreeRTOS cho lập trình nhúng</option><option>Design Pattern — 24 mẫu thiết kế</option><option>Thiết kế mạch PCB với Altium</option><option>Huấn luyện dự án STEM — AIoT (đội thi THPT)</option><option>Kèm riêng đề tài Khoa học Kỹ thuật</option><option>Đội tuyển Robotics (VRC, Robocon)</option><option>Chưa chắc — cần thầy tư vấn</option></select></label>
+      <label>Hình thức học<select name="hinhthuc"><option>Trực tiếp tại Hà Nội</option><option>Trực tuyến</option><option>Linh hoạt / chưa chắc</option></select></label>
+      <label>Thời gian có thể học<input name="thoigian" placeholder="Tối thứ 3, 5 hoặc cuối tuần"></label>
+      <label class="full">Ghi chú (đã biết gì, mục tiêu, cuộc thi dự định…)<textarea name="ghichu" rows="3"></textarea></label>
+      <div class="full regf-act">
+        <button type="button" class="btn btn-a" data-send="zalo">Gửi qua Zalo</button>
+        <button type="button" class="btn btn-b" data-send="email">Gửi qua Email</button>
+        <span class="regf-msg" id="regMsg" role="status"></span>
       </div>
-      <div>
-        <span class="no2">02</span>
-        <h4>Cần một đề tài nghiêm túc cho hồ sơ</h4>
-        <p>Tôi kèm riêng từ lúc chọn ý tưởng đến khi con bảo vệ trước hội đồng cuộc thi Khoa học Kỹ thuật.</p>
-      </div>
-      <div>
-        <span class="no2">03</span>
-        <h4>Muốn con thi đấu robot</h4>
-        <p>Huấn luyện đội tuyển VRC, Robocon, IoT Challenge — cả kỹ thuật lẫn cách làm việc nhóm dưới áp lực.</p>
-      </div>
-    </div>
+      <textarea class="full regf-copy" id="regCopy" rows="7" readonly hidden></textarea>
+    </form>
+    <p class="regf-note">Thông tin chỉ được gửi tới thầy qua Zalo/Email của bạn, trang web không lưu lại. Học viên đã học và cần tài khoản: chọn đúng khóa, ghi “xin tài khoản” ở phần ghi chú.</p>
   </div>
 </section>
 
 <!-- DỰ ÁN HỌC SINH -->
 <section id="student-projects" class="rule-top">
   <div class="wrap">
-    <div class="shead"><div class="bar"><span class="no">05</span><h2>Dự án học sinh</h2><span class="note">Một số đề tài tiêu biểu được phát triển theo từng mục tiêu và trình độ của học sinh.</span></div><div class="dim"></div></div>
+    <div class="shead"><div class="bar"><span class="no">06</span><h2>Dự án học sinh</h2><span class="note">Một số đề tài tiêu biểu được phát triển theo từng mục tiêu và trình độ của học sinh.</span></div><div class="dim"></div></div>
     <div class="student-grid">
       <article class="student-card"><div class="frame"><img src="assets/img/project-rov.webp" alt="Minh họa thuyền ROV giám sát chất lượng nước" loading="lazy"></div><div class="student-body"><div class="meta">AIJAM 2026 · ESP32 · AI</div><h3>Thuyền ROV giám sát chất lượng nước</h3><p>Đo pH, TDS, nhiệt độ và hỗ trợ phát hiện người gặp nạn bằng radar, PIR và camera.</p><span class="outcome">Nguyên mẫu chạy trên hồ · dữ liệu đo · video kiểm thử</span></div></article>
       <article class="student-card"><div class="frame"><img src="assets/img/project-smart-glasses.webp" alt="Minh họa kính thông minh hỗ trợ người khiếm thính" loading="lazy"></div><div class="student-body"><div class="meta">AI ÂM THANH · ESP32</div><h3>Kính thông minh hỗ trợ người khiếm thính</h3><p>AI nhận biết âm thanh quan trọng, xác định hướng và gửi cảnh báo bằng chữ hoặc rung tới kính.</p><span class="outcome">Mô hình đeo được · chỉ số nhận diện · thử nghiệm thực tế</span></div></article>
@@ -721,43 +719,6 @@ footer{background:#10283e;color:#dce5ea}
       <article class="student-card"><div class="frame"><img src="assets/img/poster-du-an.jpg" alt="Nhóm học sinh giới thiệu dự án" loading="lazy"></div><div class="student-body"><div class="meta">IoT · WEB · ỨNG DỤNG</div><h3>Bãi đỗ xe thông minh</h3><p>Cảm biến nhận biết vị trí trống, ứng dụng đăng ký chỗ đỗ và dashboard quản lý hệ thống.</p><span class="outcome">Hệ thống IoT hoàn chỉnh · hồ sơ thuyết trình</span></div></article>
     </div>
     <div class="proof-grid" aria-label="Một số dấu mốc đào tạo"><div class="proof"><b>2020–nay</b><span>Liên tục giảng dạy STEM và công nghệ</span></div><div class="proof"><b>Hàng trăm</b><span>Học viên đã tiếp cận lập trình và điện tử</span></div><div class="proof"><b>100+ triệu</b><span>Tài trợ doanh nghiệp huy động cho hai mùa Robocon</span></div><div class="proof"><b>2019–2024</b><span>Hướng dẫn hoạt động tại Robocon và SPARC Lab</span></div></div>
-    <div class="media-strip"><div><h3 style="font-family:var(--serif);font-weight:400;font-size:1.35rem">Xem bài giảng và quá trình làm dự án</h3><p>Video giúp học sinh xem lại từng thao tác, còn Facebook lưu lại hành trình lớp học, sản phẩm và các hoạt động cộng đồng.</p></div><div class="btns"><a class="btn" href="https://www.youtube.com/tuy%E1%BB%81nl%C3%AAch%C3%AD" target="_blank" rel="noopener">Kênh YouTube ↗</a><a class="btn" href="https://www.facebook.com/hocj2me/" target="_blank" rel="noopener">Facebook ↗</a></div></div>
-  </div>
-</section>
-
-<!-- CẢM NHẬN -->
-<section id="feedback" class="rule-top">
-  <div class="wrap">
-    <div class="shead">
-      <div class="bar">
-        <span class="no">06</span>
-        <h2>Cảm nhận của học sinh và phụ huynh</h2>
-        <span class="note">Bốn ô dưới đây đang để trống, chờ thầy điền lời thật.</span>
-      </div>
-      <div class="dim"></div>
-    </div>
-    <div class="quotes">
-      <div class="qcard empty">
-        <div class="mark">“</div>
-        <blockquote>[Dán vào đây lời của một phụ huynh — ví dụ về việc con thay đổi thế nào sau khóa học.]</blockquote>
-        <div class="who"><b>[Tên phụ huynh]</b><span>Phụ huynh học sinh lớp [—]</span></div>
-      </div>
-      <div class="qcard empty">
-        <div class="mark">“</div>
-        <blockquote>[Dán vào đây lời của một học sinh — điều em thích nhất ở buổi học.]</blockquote>
-        <div class="who"><b>[Tên học sinh]</b><span>Học sinh khóa Micro:bit</span></div>
-      </div>
-      <div class="qcard empty">
-        <div class="mark">“</div>
-        <blockquote>[Lời của một em trong đội tuyển robot — về quá trình ôn luyện và thi đấu.]</blockquote>
-        <div class="who"><b>[Tên học sinh]</b><span>Thành viên đội tuyển [—]</span></div>
-      </div>
-      <div class="qcard empty">
-        <div class="mark">“</div>
-        <blockquote>[Nhận xét của đồng nghiệp hoặc đại diện nhà trường đã hợp tác.]</blockquote>
-        <div class="who"><b>[Tên và chức vụ]</b><span>[Tên đơn vị]</span></div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -765,7 +726,7 @@ footer{background:#10283e;color:#dce5ea}
 <section id="exp" class="rule-top">
   <div class="wrap">
     <div class="shead">
-      <div class="bar"><span class="no">06</span><h2>Kinh nghiệm và thành tích</h2></div>
+      <div class="bar"><span class="no">07</span><h2>Kinh nghiệm và thành tích</h2></div>
       <div class="dim"></div>
     </div>
     <div class="exp">
@@ -787,13 +748,16 @@ footer{background:#10283e;color:#dce5ea}
           <li><div><b>Top 20 Vietnam Robotics Challenge</b><span class="s">THPT Chuyên Bắc Ninh — cố vấn kỹ thuật</span></div><span class="yy">2023</span></li>
           <li><div><b>Top 20 IoT Challenge</b><span class="s">Nhận diện khuôn mặt trên ESP32 — đội trưởng</span></div><span class="yy">2023</span></li>
           <li><div><b>Tài trợ 49,9 triệu đồng cho dự án OZO</b><span class="s">Máy lọc nước năng lượng mặt trời; tổ chức hoạt động cho 200 học sinh Hà Nội và 70 người dân Ninh Bình</span></div><span class="yy">2023</span></li>
+          <div class="hidden" id="moreAw">
           <li><div><b>Giải Thiết kế công nghiệp</b><span class="s">Dự án thiết bị đo chất lượng không khí, chương trình có sự hỗ trợ của Đại sứ quán Hoa Kỳ</span></div><span class="yy">2022</span></li>
           <li><div><b>Giấy khen của Tổng Giám đốc VNPT</b><span class="s">Dự án hộp nhắc uống thuốc hỗ trợ bệnh viện trong giai đoạn Covid-19</span></div><span class="yy">2021</span></li>
           <li><div><b>Giải Nhì cuộc thi sáng tạo Bách khoa Hà Nội</b><span class="s">Xe thu gom rác thông minh — phụ trách phần cứng</span></div><span class="yy">2020</span></li>
           <li><div><b>Giải Nhì Vietnam Robotics Challenge</b><span class="s">THPT Chuyên Bắc Ninh — cố vấn kỹ thuật</span></div><span class="yy">2020</span></li>
           <li><div><b>Top 20 Canon Chie-Tech</b><span class="s">Action Team — phụ trách phần cứng và phần mềm nhúng</span></div><span class="yy">2020</span></li>
           <li><div><b>Giải Nhất Tin học tỉnh Hà Nam</b><span class="s">Kỳ thi chọn học sinh giỏi lớp 12; học sinh không chuyên đầu tiên của tỉnh đạt giải Nhất sau 15 năm</span></div><span class="yy">2018</span></li>
+          </div>
         </ul>
+        <button class="morebtn" id="morebtnAw">Xem thêm 6 thành tích</button>
       </div>
     </div>
   </div>
@@ -804,7 +768,7 @@ footer{background:#10283e;color:#dce5ea}
   <div class="wrap">
     <div class="shead">
       <div class="bar">
-        <span class="no">07</span>
+        <span class="no">08</span>
         <h2>Dự án kỹ thuật của tôi</h2>
         <span class="note">Nhiều dự án trong số này được tôi rút gọn thành chuyên đề hoặc đề tài cho học sinh.</span>
       </div>
@@ -934,10 +898,6 @@ footer{background:#10283e;color:#dce5ea}
       <figure><img src="assets/img/hoc-sinh-thuyet-trinh-du-an.webp" alt="Học sinh thuyết trình mô hình Future Hospital" loading="lazy"><figcaption>Học sinh giới thiệu mô hình trước ban đánh giá.</figcaption></figure>
       <figure><img src="assets/img/dai-ha-noi-khoa-hoc-nhi.webp" alt="Học sinh xuất hiện trong chương trình của Đài Hà Nội" loading="lazy"><figcaption>Dự án học sinh trong chương trình “Sân chơi sáng tạo chắp cánh tài năng khoa học nhí” của Đài Hà Nội.</figcaption></figure>
     </div>
-    <div class="social-embed">
-      <a class="social-panel" href="https://www.facebook.com/hocj2me/" target="_blank" rel="noopener" style="text-decoration:none"><img src="assets/img/giang-day-01.jpg" alt="Hoạt động giảng dạy của Lê Chí Tuyền" loading="lazy"><div><h3>Hoạt động giảng dạy trên Facebook</h3><p>Hình ảnh lớp học, quá trình hướng dẫn dự án và các sản phẩm học sinh.</p><span class="lnk">Mở Facebook ↗</span></div></a>
-      <a class="social-panel" href="https://www.facebook.com/ozo.water" target="_blank" rel="noopener" style="text-decoration:none"><img src="assets/img/poster-du-an.jpg" alt="Dự án OZO về nước sạch cộng đồng" loading="lazy"><div><h3>Dự án OZO · Nước sạch cộng đồng</h3><p>Hành trình phát triển máy lọc nước năng lượng mặt trời và hoạt động cộng đồng.</p><span class="lnk">Mở trang OZO ↗</span></div></a>
-    </div>
   </div>
 </section>
 
@@ -962,13 +922,13 @@ footer{background:#10283e;color:#dce5ea}
 <section id="contact">
   <div class="wrap">
     <div class="shead">
-      <div class="bar"><span class="no">08</span><h2>Liên hệ</h2></div>
+      <div class="bar"><span class="no">09</span><h2>Liên hệ</h2></div>
       <div class="dim"></div>
     </div>
     <div class="contact">
       <div>
         <p style="font-size:1.08rem;color:var(--ink)">Phụ huynh cần tư vấn lộ trình học, hoặc nhà trường và trung tâm muốn hợp tác mở lớp STEM, vui lòng nhắn Zalo hoặc gọi trực tiếp cho tôi.</p>
-        <p style="margin-top:16px">Số điện thoại và Zalo: <b>0359 581 461</b>. Email được giữ lại cho hồ sơ và trao đổi tài liệu.</p>
+        <p style="margin-top:16px">Số điện thoại và Zalo: <b>0359 581 461</b>. Muốn đăng ký học, dùng <a href="#dang-ky">form đăng ký</a> để thầy có đủ thông tin xếp lớp.</p>
       </div>
       <div class="clist">
         <a href="https://zalo.me/0359581461" target="_blank" rel="noopener"><span class="k">ZALO</span><span class="v">0359 581 461</span></a>
@@ -981,18 +941,6 @@ footer{background:#10283e;color:#dce5ea}
     </div>
   </div>
 </section>
-
-<!-- DẢI KÊU GỌI -->
-<div class="ctaband">
-  <div class="wrap">
-    <h3>Trao đổi về lớp học và dự án</h3>
-    <p>Liên hệ để xác định nội dung, trình độ và hình thức học phù hợp với từng học sinh hoặc đội thi.</p>
-    <div class="btns">
-      <a href="https://zalo.me/0359581461" target="_blank" rel="noopener" class="btn btn-a">Nhắn Zalo tư vấn</a>
-      <a href="tel:+84359581461" class="btn btn-b">Gọi 0359 581 461</a>
-    </div>
-  </div>
-</div>
 
 <footer>
   <div class="wrap fin">
@@ -1074,6 +1022,56 @@ mb.onclick=function(){
     if(e.key==='Escape')close();
     else if(e.key==='ArrowLeft')show(cur-1);
     else if(e.key==='ArrowRight')show(cur+1);
+  });
+})();
+/* Thành tích: xem thêm */
+var ma=document.getElementById('morebtnAw'),aw=document.getElementById('moreAw');
+if(ma){var maTxt=ma.textContent;ma.onclick=function(){var open=aw.classList.toggle('hidden')===false;ma.textContent=open?'Thu gọn':maTxt;};}
+
+/* Đăng ký khóa học: chọn sẵn khóa, gửi qua Zalo hoặc Email (không cần máy chủ) */
+(function(){
+  var f=document.getElementById('regForm'); if(!f)return;
+  var msg=document.getElementById('regMsg'),copy=document.getElementById('regCopy');
+  var ZALO='https://zalo.me/0359581461', EMAIL='lctuyenvn@gmail.com';
+  document.querySelectorAll('.reg[data-khoa]').forEach(function(a){
+    a.addEventListener('click',function(){
+      var sel=f.elements.khoa;
+      for(var i=0;i<sel.options.length;i++){ if(sel.options[i].text===a.dataset.khoa){ sel.selectedIndex=i; break; } }
+      sel.classList.remove('bad');
+      setTimeout(function(){ f.elements.ten.focus({preventScroll:true}); },400);
+    });
+  });
+  function noiDung(){
+    var e=f.elements, ok=true;
+    ['ten','sdt','khoa'].forEach(function(k){
+      var bad=!e[k].value.trim() || (k==='sdt' && e[k].value.replace(/\D/g,'').length<9);
+      e[k].classList.toggle('bad',bad); if(bad) ok=false;
+    });
+    if(!ok){ msg.className='regf-msg err'; msg.textContent='Vui lòng điền họ tên, số điện thoại hợp lệ và chọn khóa học.'; return null; }
+    return 'ĐĂNG KÝ KHÓA HỌC\n'+
+      'Học viên: '+e.ten.value.trim()+'\n'+
+      'Lớp/trường: '+(e.lop.value.trim()||'—')+'\n'+
+      'SĐT/Zalo phụ huynh: '+e.sdt.value.trim()+'\n'+
+      'Khóa học: '+e.khoa.value+'\n'+
+      'Hình thức: '+e.hinhthuc.value+'\n'+
+      'Thời gian có thể học: '+(e.thoigian.value.trim()||'—')+'\n'+
+      'Ghi chú: '+(e.ghichu.value.trim()||'—');
+  }
+  f.addEventListener('input',function(ev){ ev.target.classList.remove('bad'); });
+  f.querySelectorAll('[data-send]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var t=noiDung(); if(!t)return;
+      if(btn.dataset.send==='email'){
+        location.href='mailto:'+EMAIL+'?subject='+encodeURIComponent('Đăng ký khóa học: '+f.elements.khoa.value)+'&body='+encodeURIComponent(t);
+        msg.className='regf-msg ok'; msg.textContent='Đã mở ứng dụng email với nội dung soạn sẵn — bấm Gửi để hoàn tất.';
+        return;
+      }
+      var w=window.open(ZALO,'_blank');
+      function xong(){ msg.className='regf-msg ok'; msg.textContent='Đã chép nội dung đăng ký. Trong cửa sổ Zalo vừa mở, dán (Ctrl+V / giữ ô chat → Dán) rồi bấm Gửi.'; }
+      function thuCong(){ copy.hidden=false; copy.value=t; copy.select(); msg.className='regf-msg'; msg.textContent='Hãy chép nội dung bên dưới và dán vào khung chat Zalo của thầy (0359 581 461).'; }
+      if(navigator.clipboard&&window.isSecureContext){ navigator.clipboard.writeText(t).then(xong,thuCong); } else { thuCong(); }
+      if(!w){ location.href=ZALO; }
+    });
   });
 })();
 </script>
