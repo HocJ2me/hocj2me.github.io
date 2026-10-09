@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Danh sách khóa học Thầy Lê Chí Tuyền — Thiết kế mạch PCB với Altium Designer</title>
+<!-- File này được SINH TỰ ĐỘNG từ thư mục _src/ — sửa nội dung ở đó rồi build lại. -->
+<style>
+  :root{
+    --blue-dark:#155e75; --accent:#2563eb; --bg:#f4f7fb; --ink:#1e293b; --sub:#64748b; --line:#e2e8f0; --soft:#f1f5f9;
+    --ok:#16a34a; --bad:#dc2626; --code-bg:#0f172a; --code-ink:#e2e8f0;
+    --mono:Consolas,"SFMono-Regular","Liberation Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.62;}
+  a{color:var(--accent);}
+  code{font-family:var(--mono);font-size:.88em;background:var(--soft);padding:1px 5px;border-radius:5px;}
+  kbd{font-family:var(--mono);font-size:.82em;border:1px solid #cbd5e1;border-bottom-width:2px;border-radius:5px;padding:0 5px;background:#fff;}
+  header{background:linear-gradient(135deg,#14532d,#15803d,#0d9488);color:#fff;padding:10px 20px 12px;position:sticky;top:0;z-index:60;box-shadow:0 2px 10px rgba(0,0,0,.15);}
+  .htop{display:flex;justify-content:space-between;align-items:center;gap:10px;}
+  .htop a{color:#fff;font-size:.78rem;opacity:.9;text-decoration:none;font-weight:700;}
+  .whoami{font-size:.78rem;opacity:.85;margin-right:10px;}
+  .logout-btn{background:rgba(0,0,0,.25);color:#fff;border:1px solid rgba(255,255,255,.5);padding:4px 11px;border-radius:20px;font-size:.74rem;font-weight:700;cursor:pointer;}
+  header h1{font-size:1.08rem;margin:4px 0 0;} header .sub{font-size:.78rem;opacity:.92;}
+  .menubtn{display:none;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.5);color:#fff;border-radius:16px;padding:4px 12px;font-weight:700;font-size:.78rem;cursor:pointer;margin-top:6px;}
+  .layout{display:grid;grid-template-columns:270px minmax(0,1fr);max-width:1320px;margin:0 auto;}
+  aside{position:sticky;top:86px;align-self:start;height:calc(100vh - 86px);overflow:auto;padding:16px 10px 30px 16px;border-right:1px solid var(--line);}
+  .prog{background:#fff;border-radius:12px;padding:10px 12px;box-shadow:0 1px 4px rgba(0,0,0,.06);margin-bottom:12px;font-size:.8rem;}
+  .prog .bar{height:7px;background:var(--line);border-radius:6px;overflow:hidden;margin-top:6px;}
+  .prog .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#14532d,#15803d,#0d9488);transition:width .3s;}
+  .sgroup{margin:16px 6px 6px;font-size:.74rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;}
+  .sgroup small{display:block;text-transform:none;letter-spacing:0;font-weight:500;color:var(--sub);}
+  .sitem{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:9px;text-decoration:none;color:var(--ink);font-size:.86rem;}
+  .sitem:hover{background:#e8eef6;}
+  .sitem.active{background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.08);font-weight:700;color:var(--blue-dark);}
+  .sn{flex:none;width:24px;height:24px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-size:.72rem;font-weight:700;color:var(--sub);}
+  .sitem.done .sn{background:var(--ok);color:#fff;}
+  .tick{margin-left:auto;color:var(--ok);font-weight:800;display:none;} .sitem.done .tick{display:inline;}
+  main{padding:20px 28px 70px;min-width:0;}
+  .lesson{max-width:960px;margin:0 auto;animation:fade .25s ease;}
+  .lesson,.lesson li,.lesson td,.lesson p{overflow-wrap:anywhere;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+  .hero{border-radius:18px;padding:22px 24px;color:#fff;margin-bottom:16px;background:linear-gradient(135deg,color-mix(in srgb,var(--g) 80%,#000),var(--g));}
+  #overview .hero{background:linear-gradient(135deg,#14532d,#15803d,#0d9488);}
+  .hero h2{margin:8px 0 6px;font-size:1.65rem;line-height:1.25;}
+  .hero .intent{margin:0;background:rgba(255,255,255,.15);border-radius:12px;padding:10px 14px;font-size:.97rem;}
+  .crumbs{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:.8rem;}
+  .gchip{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 10px;border-radius:12px;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.5);}
+  .ovstats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0;}
+  .ovstats div{background:rgba(255,255,255,.15);border-radius:12px;padding:8px 12px;}
+  .ovstats b{display:block;font-size:1.5rem;} .ovstats span{font-size:.78rem;opacity:.9;}
+  .startbtn{display:inline-block;background:#fff;color:var(--blue-dark);font-weight:800;text-decoration:none;padding:9px 18px;border-radius:22px;}
+  .goals{background:#fff;border:1px solid var(--line);border-left:5px solid var(--ok);border-radius:12px;padding:10px 16px;margin-bottom:8px;}
+  .goals ul{margin:4px 0 0;padding-left:20px;}
+  .lead{font-size:1.02rem;}
+  h3{display:flex;align-items:center;gap:10px;font-size:1.18rem;color:var(--blue-dark);margin:30px 0 10px;scroll-margin-top:100px;}
+  h3 .n{flex:none;min-width:30px;height:30px;padding:0 6px;border-radius:9px;background:var(--blue-dark);color:#fff;display:grid;place-items:center;font-size:.85rem;}
+  h4.sub{margin:16px 0 6px;font-size:.98rem;}
+  h5{margin:0 0 6px;font-size:.92rem;}
+  .prose p{margin:8px 0;} .prose ul,.prose ol{margin:6px 0;padding-left:22px;} .prose li{margin:4px 0;}
+  .callout{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px 14px;margin:10px 0;font-size:.94rem;}
+  .callout.warn{background:#fff7ed;border-color:#fed7aa;} .callout.ok{background:#f0fdf4;border-color:#bbf7d0;}
+  .tbl{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;font-size:.9rem;margin:8px 0;box-shadow:0 1px 3px rgba(0,0,0,.05);}
+  .tbl th,.tbl td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;}
+  .tbl th{background:var(--soft);font-size:.82rem;}
+  .tbl a{text-decoration:none;font-weight:600;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;} .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-width:0;}
+  .card p{margin:4px 0 0;font-size:.9rem;color:var(--sub);}
+  .fig{margin:10px 0;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;overflow-x:auto;}
+  .fig svg{display:block;width:100%;height:auto;margin:0 auto;}
+  .fig figcaption{font-size:.8rem;color:var(--sub);margin-top:8px;text-align:center;}
+  /* hình minh hoạ SVG */
+  .illus text{font-family:'Segoe UI',Arial,sans-serif;fill:#0f172a;}
+  .illus .t{font-size:14px;font-weight:700;} .illus .s{font-size:12.5px;} .illus .xs{font-size:11px;} .illus .mute{fill:#64748b;}
+  .illus .mono{font-family:var(--mono);font-size:12px;}
+  .illus .ln{stroke:#475569;stroke-width:1.6;fill:none;} .illus .thin{stroke-width:1;} .illus .dash{stroke-dasharray:5 4;}
+  .illus .ah{fill:#475569;}
+  .illus .bx{fill:#fff;stroke:#64748b;stroke-width:1.3;} .illus .bx-a{fill:#e0f2fe;stroke:#0369a1;stroke-width:1.4;}
+  .illus .bx-b{fill:#fef3c7;stroke:#d97706;stroke-width:1.4;} .illus .bx-c{fill:#ede9fe;stroke:#7c3aed;stroke-width:1.4;}
+  .illus .bx-d{fill:#dcfce7;stroke:#16a34a;stroke-width:1.4;} .illus .bx-e{fill:#fee2e2;stroke:#dc2626;stroke-width:1.4;}
+  .illus .bx-g{fill:#f1f5f9;stroke:#94a3b8;stroke-width:1.2;}
+  .illus .fa{fill:#0369a1;} .illus .fb{fill:#d97706;} .illus .fc{fill:#7c3aed;} .illus .fd{fill:#16a34a;} .illus .fe{fill:#dc2626;} .illus .fg{fill:#94a3b8;}
+  .illus .cu{fill:#d97706;} .illus .cu2{fill:#2563eb;} .illus .fr4{fill:#a3b18a;} .illus .mask{fill:#166534;} .illus .silk{fill:#fff;}
+  /* code */
+  .codebox{background:var(--code-bg);border-radius:12px;overflow:hidden;margin-top:8px;}
+  .codebar{display:flex;align-items:center;gap:8px;padding:7px 12px;background:#1e293b;color:#cbd5e1;font-size:.78rem;}
+  .codebar .fname{font-family:var(--mono);color:#fff;} .codebar .lines{margin-right:auto;opacity:.7;}
+  .cbtn{background:#334155;color:#e2e8f0;border:none;border-radius:6px;padding:4px 10px;font-size:.74rem;cursor:pointer;} .cbtn:hover{background:#475569;}
+  pre.code{margin:0;padding:14px 16px;overflow:auto;max-height:640px;color:var(--code-ink);font-family:var(--mono);font-size:.84rem;line-height:1.55;tab-size:4;}
+  pre.code code{background:none;padding:0;font-size:inherit;}
+  .t-kw{color:#c084fc;} .t-ty{color:#67e8f9;} .t-fn{color:#fde68a;} .t-str{color:#86efac;} .t-num{color:#fdba74;}
+  .t-com{color:#7c8ba1;font-style:italic;} .t-pre{color:#f9a8d4;} .t-ann{color:#f9a8d4;}
+  .runcmd{font-size:.82rem;margin:8px 0;color:var(--sub);} .runcmd code{background:#e2e8f0;}
+  .outbox{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;margin-top:8px;}
+  .outbar{background:#ecfdf5;color:#166534;font-size:.78rem;font-weight:700;padding:6px 12px;border-bottom:1px solid #bbf7d0;}
+  .inbox .outbar{background:#eff6ff;color:#1e40af;border-color:#bfdbfe;}
+  pre.out{margin:0;padding:12px 14px;font-family:var(--mono);font-size:.82rem;line-height:1.5;overflow:auto;max-height:440px;white-space:pre;}
+  details.sol{margin-top:8px;} details.sol summary{cursor:pointer;font-weight:700;color:var(--blue-dark);padding:6px 0;}
+  ul.notes li{margin:5px 0;}
+  .emb{display:flex;gap:12px;background:#f0fdfa;border:1px solid #99f6e4;border-radius:12px;padding:12px 16px;}
+  .emb ul{margin:0;padding-left:20px;} .emb li{margin:5px 0;} .embicon{font-size:1.6rem;}
+  .mist{background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:10px 16px;} .mist ul{margin:0;padding-left:20px;} .mist li{margin:5px 0;}
+  ul.summary li{margin:4px 0;}
+  ol.ex{padding-left:22px;} ol.ex li{margin:7px 0;} ol.ex label{cursor:pointer;} ol.ex input:checked + span{color:var(--sub);text-decoration:line-through;}
+  .refs{margin-top:18px;font-size:.86rem;background:#fff;border:1px dashed #cbd5e1;border-radius:10px;padding:10px 14px;}
+  .donebar{margin-top:18px;text-align:center;}
+  .donebtn{background:#fff;border:2px solid var(--ok);color:var(--ok);font-weight:800;padding:9px 18px;border-radius:22px;cursor:pointer;font-size:.9rem;}
+  .donebtn.on{background:var(--ok);color:#fff;}
+  .pnav{display:flex;justify-content:space-between;gap:10px;margin-top:22px;}
+  .pn{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 16px;text-decoration:none;font-weight:700;color:var(--blue-dark);}
+  .pn:hover{border-color:#0e7490;}
+  .roadmap{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+  .road{display:flex;gap:10px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:.88rem;align-items:flex-start;min-width:0;}
+  .road a{text-decoration:none;font-weight:600;} .road small{color:var(--sub);}
+  .rb{flex:none;background:var(--blue-dark);color:#fff;font-weight:700;font-size:.74rem;border-radius:8px;padding:3px 8px;}
+  footer{text-align:center;color:var(--sub);font-size:.78rem;padding:20px;}
+  @media(max-width:900px){
+    .layout{grid-template-columns:minmax(0,1fr);}
+    aside{display:none;position:fixed;top:0;left:0;bottom:0;height:auto;width:280px;background:var(--bg);z-index:80;box-shadow:4px 0 20px rgba(0,0,0,.2);padding-top:20px;}
+    aside.open{display:block;}
+    .menubtn{display:inline-block;}
+    main{padding:16px 16px 60px;}
+    .grid2,.grid3,.roadmap{grid-template-columns:1fr;}
+    .ovstats{grid-template-columns:repeat(2,1fr);}
+    .hero h2{font-size:1.35rem;}
+    .tbl{display:block;overflow-x:auto;}
+    header h1{font-size:.95rem;} header .sub{font-size:.72rem;}
+  }
+  .scrim{display:none;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:70;} .scrim.on{display:block;}
+</style>
+<script src="auth.js"></script>
+<script>requireAuth();</script>
+</head>
+<body>
+<header>
+  <div class="htop">
+    <a href="courses.html">← Danh sách khóa học</a>
+    <div><span class="whoami" id="whoamiLabel"></span><button class="logout-btn" onclick="logout()">Đăng xuất</button></div>
+  </div>
+  <h1>🎓 Danh sách khóa học Thầy Lê Chí Tuyền</h1>
+  <div class="sub">Khóa học: 🖥 Thiết kế mạch PCB với Altium Designer · Basic – Thư viện – 4 lớp &amp; highspeed · 15 buổi · Phím ← → để chuyển bài</div>
+  <button class="menubtn" id="menuBtn">☰ Danh sách bài</button>
+</header>
+
+<div class="layout">
+  <aside id="side">
+    <div class="prog"><b>Tiến độ:</b> <span id="progTxt">0/15</span> bài<div class="bar"><i id="progBar"></i></div></div>
+    <a class="sitem" href="#overview" data-id="overview"><span class="sn">★</span>Tổng quan &amp; lộ trình</a>
+<div class="sgroup" style="color:#0891b2">Khóa Basic<small>Logo, nguyên lý, layout, dự án mẫu</small></div>
+<a class="sitem" href="#tong-quan" data-id="tong-quan"><span class="sn">1</span>Tổng quan PCB &amp; Altium<span class="tick">✓</span></a>
+<a class="sitem" href="#lop-pcb" data-id="lop-pcb"><span class="sn">2</span>Thành phần &amp; layer<span class="tick">✓</span></a>
+<a class="sitem" href="#nguyen-ly" data-id="nguyen-ly"><span class="sn">3</span>Mạch nguyên lý<span class="tick">✓</span></a>
+<a class="sitem" href="#layout-2-lop" data-id="layout-2-lop"><span class="sn">4</span>Layout 2 lớp<span class="tick">✓</span></a>
+<a class="sitem" href="#logo" data-id="logo"><span class="sn">5</span>Thiết kế logo<span class="tick">✓</span></a>
+<a class="sitem" href="#xuat-file-du-an" data-id="xuat-file-du-an"><span class="sn">6</span>Xuất file &amp; dự án mẫu<span class="tick">✓</span></a>
+<div class="sgroup" style="color:#d97706">Khóa thiết kế thư viện<small>Thư viện, chân xuyên, chân dán, R/C</small></div>
+<a class="sitem" href="#su-dung-thu-vien" data-id="su-dung-thu-vien"><span class="sn">7</span>Sử dụng thư viện<span class="tick">✓</span></a>
+<a class="sitem" href="#thu-vien-chan-xuyen" data-id="thu-vien-chan-xuyen"><span class="sn">8</span>Footprint chân xuyên<span class="tick">✓</span></a>
+<a class="sitem" href="#thu-vien-chan-dan" data-id="thu-vien-chan-dan"><span class="sn">9</span>Footprint IC chân dán<span class="tick">✓</span></a>
+<a class="sitem" href="#thu-vien-dien-tro" data-id="thu-vien-dien-tro"><span class="sn">10</span>Tính footprint R, C<span class="tick">✓</span></a>
+<div class="sgroup" style="color:#7c3aed">Khóa 4 lớp &amp; highspeed<small>Stack-up, chống nhiễu, dòng lớn, điều khiển, đo lường</small></div>
+<a class="sitem" href="#4-lop" data-id="4-lop"><span class="sn">11</span>Mạch 4 lớp &amp; stack-up<span class="tick">✓</span></a>
+<a class="sitem" href="#chong-nhieu" data-id="chong-nhieu"><span class="sn">12</span>Chống nhiễu (EMC)<span class="tick">✓</span></a>
+<a class="sitem" href="#that-co-chai" data-id="that-co-chai"><span class="sn">13</span>Dòng lớn &amp; thắt cổ chai<span class="tick">✓</span></a>
+<a class="sitem" href="#mach-dieu-khien" data-id="mach-dieu-khien"><span class="sn">14</span>Mạch điều khiển<span class="tick">✓</span></a>
+<a class="sitem" href="#do-dong-ap" data-id="do-dong-ap"><span class="sn">15</span>Mạch đo dòng &amp; đo áp<span class="tick">✓</span></a>
+  </aside>
+  <main id="main">
+    
+<section class="lesson" id="overview" data-title="Tổng quan" hidden>
+  <div class="hero" style="--g:#14532d">
+    <div class="crumbs"><span class="gchip">Bài mở đầu</span><span>15 bài · 3 khóa con</span></div>
+    <h2>🖥 Thiết kế mạch PCB với Altium Designer</h2>
+    <p class="intent">Từ mạch nguyên lý, layout 2 lớp, thư viện linh kiện chuẩn IPC tới mạch 4 lớp, chống nhiễu, dòng lớn, mạch điều khiển và đo lường.</p>
+    <div class="ovstats"><div><b>15</b><span>bài học</span></div><div><b>3</b><span>khóa con</span></div><div><b>9</b><span>công cụ tính</span></div><div><b id="ovDone">0</b><span>bài đã học</span></div></div>
+    <a class="startbtn" href="#tong-quan">Bắt đầu bài 1 →</a>
+  </div>
+  
+<h3><span class="n">?</span>Khóa học này dành cho ai?</h3>
+<div class="prose"><p>Học sinh, sinh viên đã làm dự án Arduino/ESP32 trên testboard và muốn biến nó thành <b>mạch in hoàn chỉnh</b>: gọn, chắc chắn, đem đi thi và trình diễn được — tiến tới thiết kế mạch 4 lớp, mạch điều khiển công suất và mạch đo lường như kỹ sư phần cứng.</p></div>
+<div class="grid3">
+<div class="card"><h5>📖 3 khóa con</h5><p>Basic → Thiết kế thư viện → Mạch 4 lớp &amp; highspeed, đúng như giáo trình.</p></div>
+<div class="card"><h5>🖼️ Hình minh hoạ kỹ thuật</h5><p>Mặt cắt lớp mạch, via, pad, land pattern, đường hồi dòng, thắt cổ chai, Kelvin, cặp vi sai…</p></div>
+<div class="card"><h5>🧮 Tính toán chạy thật</h5><p>6 script Python theo chuẩn IPC + 3 máy tính tương tác ngay trên trang.</p></div>
+</div>
+<h3><span class="n">📁</span>Tài liệu gốc (Google Drive)</h3>
+<table class="tbl"><tr><th>Khóa</th><th>Tài liệu</th></tr>
+<tr><td>Khóa basic</td><td><a href="https://drive.google.com/drive/folders/1ntGAWmn761SY2FYf27y7f49tet2iK_A_?usp=sharing" target="_blank" rel="noopener">Thư mục tài liệu khóa basic</a></td></tr>
+<tr><td>Khóa Altium 4 lớp highspeed</td><td><a href="https://drive.google.com/drive/folders/1YHw5ivbMP5qDJHukmPXfuaBxHfVxFykK?usp=sharing" target="_blank" rel="noopener">Thư mục tài liệu 4 lớp &amp; highspeed</a></td></tr>
+<tr><td>Khóa Altium thiết kế thư viện</td><td><a href="https://drive.google.com/drive/folders/1tUKCsGB7iSNjgao69q5aMWyYvZfuF8ex?usp=sharing" target="_blank" rel="noopener">Thư mục tài liệu thư viện</a></td></tr>
+<tr><td>Thắt cổ chai &amp; đường ống nước</td><td><a href="https://drive.google.com/drive/folders/1na2DnZkS68-9p8z7wnt1de6qebnjNdi2?usp=sharing" target="_blank" rel="noopener">Thư mục tài liệu bổ sung</a></td></tr></table>
+<h3><span class="n">⚙</span>Chuẩn bị</h3>
+<div class="prose"><ul><li><b>Altium Designer 18</b> trở lên (bản dùng thử 15 ngày, hoặc giấy phép giáo dục miễn phí cho học sinh/sinh viên). Có thể học song song bằng <b>KiCad</b> (miễn phí) — khái niệm giống hệt.</li>
+<li>Python 3 để chạy các script tính toán (không bắt buộc — đã có sẵn kết quả và máy tính tương tác).</li>
+<li>Datasheet của linh kiện dùng trong dự án; thước kẹp để đo linh kiện thật.</li></ul></div>
+<h3><span class="n">≡</span>Đối chiếu với giáo trình</h3>
+<table class="tbl"><tr><th>Khóa</th><th>Bài trong giáo trình</th><th>Học ở bài</th></tr><tr><td>Khóa basic</td><td>Thiết kế logo</td><td><a href="#logo">Bài 5: Thiết kế logo và chữ trên mạch</a></td></tr><tr><td></td><td>Thiết kế mạch nguyên lý</td><td><a href="#nguyen-ly">Bài 3: Thiết kế mạch nguyên lý (Schematic)</a></td></tr><tr><td></td><td>Thiết kế mạch layout</td><td><a href="#layout-2-lop">Bài 4: Thiết kế layout mạch 2 lớp</a></td></tr><tr><td></td><td>Thực hành dự án PCB mẫu</td><td><a href="#xuat-file-du-an">Bài 6: Xuất file sản xuất và thực hành dự án PCB mẫu</a></td></tr><tr><td>Khóa Altium 4 lớp highspeed</td><td>Thiết kế 4 lớp và highspeed</td><td><a href="#4-lop">Bài 11: Thiết kế mạch 4 lớp, stack-up và trở kháng (Altium 18)</a></td></tr><tr><td></td><td>Sử dụng Altium 18</td><td><a href="#tong-quan">Bài 1: Tổng quan PCB và Altium Designer</a></td></tr><tr><td></td><td>Thiết kế chống nhiễu</td><td><a href="#chong-nhieu">Bài 12: Thiết kế chống nhiễu và tín hiệu tốc độ cao</a></td></tr><tr><td></td><td>Mạch điều khiển</td><td><a href="#mach-dieu-khien">Bài 14: Thiết kế mạch điều khiển (vi điều khiển + công suất)</a></td></tr><tr><td></td><td>Mạch đo dòng và đo áp</td><td><a href="#do-dong-ap">Bài 15: Thiết kế mạch đo dòng và đo áp</a></td></tr><tr><td>Khóa Altium thiết kế thư viện</td><td>Sử dụng thư viện</td><td><a href="#su-dung-thu-vien">Bài 7: Sử dụng và quản lý thư viện linh kiện</a></td></tr><tr><td></td><td>Thiết kế thư viện chân xuyên</td><td><a href="#thu-vien-chan-xuyen">Bài 8: Thiết kế thư viện linh kiện chân xuyên (THT)</a></td></tr><tr><td></td><td>Các thành phần và layer trên mạch PCB</td><td><a href="#lop-pcb">Bài 2: Các thành phần và các lớp (layer) trên mạch PCB</a></td></tr><tr><td></td><td>Sửa lỗi thắt cổ chai và layout đường ống nước</td><td><a href="#that-co-chai">Bài 13: Sửa lỗi thắt cổ chai và layout “đường ống nước” cho dòng lớn</a></td></tr><tr><td></td><td>Thiết kế IC chân dán</td><td><a href="#thu-vien-chan-dan">Bài 9: Thiết kế thư viện IC chân dán (SMD)</a></td></tr><tr><td></td><td>Tính toán thiết kế thư viện điện trở</td><td><a href="#thu-vien-dien-tro">Bài 10: Tính toán thiết kế thư viện điện trở, tụ điện dán</a></td></tr></table>
+<h3><span class="n">⌚</span>Lộ trình gợi ý — 15 buổi</h3>
+<div class="roadmap"><div class="road"><div class="rb">Buổi 1</div><div><a href="#tong-quan">Tổng quan PCB và Altium Designer</a><br><small>2 giờ</small></div></div><div class="road"><div class="rb">Buổi 2</div><div><a href="#lop-pcb">Các thành phần và các lớp (layer) trên mạch PCB</a><br><small>1,5 giờ</small></div></div><div class="road"><div class="rb">Buổi 3</div><div><a href="#nguyen-ly">Thiết kế mạch nguyên lý (Schematic)</a><br><small>3 giờ</small></div></div><div class="road"><div class="rb">Buổi 4</div><div><a href="#layout-2-lop">Thiết kế layout mạch 2 lớp</a><br><small>4 giờ</small></div></div><div class="road"><div class="rb">Buổi 5</div><div><a href="#logo">Thiết kế logo và chữ trên mạch</a><br><small>1 giờ</small></div></div><div class="road"><div class="rb">Buổi 6</div><div><a href="#xuat-file-du-an">Xuất file sản xuất và thực hành dự án PCB mẫu</a><br><small>3 giờ</small></div></div><div class="road"><div class="rb">Buổi 7</div><div><a href="#su-dung-thu-vien">Sử dụng và quản lý thư viện linh kiện</a><br><small>1,5 giờ</small></div></div><div class="road"><div class="rb">Buổi 8</div><div><a href="#thu-vien-chan-xuyen">Thiết kế thư viện linh kiện chân xuyên (THT)</a><br><small>2 giờ</small></div></div><div class="road"><div class="rb">Buổi 9</div><div><a href="#thu-vien-chan-dan">Thiết kế thư viện IC chân dán (SMD)</a><br><small>2 giờ</small></div></div><div class="road"><div class="rb">Buổi 10</div><div><a href="#thu-vien-dien-tro">Tính toán thiết kế thư viện điện trở, tụ điện dán</a><br><small>1,5 giờ</small></div></div><div class="road"><div class="rb">Buổi 11</div><div><a href="#4-lop">Thiết kế mạch 4 lớp, stack-up và trở kháng (Altium 18)</a><br><small>3 giờ</small></div></div><div class="road"><div class="rb">Buổi 12</div><div><a href="#chong-nhieu">Thiết kế chống nhiễu và tín hiệu tốc độ cao</a><br><small>3 giờ</small></div></div><div class="road"><div class="rb">Buổi 13</div><div><a href="#that-co-chai">Sửa lỗi thắt cổ chai và layout “đường ống nước” cho dòng lớn</a><br><small>2 giờ</small></div></div><div class="road"><div class="rb">Buổi 14</div><div><a href="#mach-dieu-khien">Thiết kế mạch điều khiển (vi điều khiển + công suất)</a><br><small>3 giờ</small></div></div><div class="road"><div class="rb">Buổi 15</div><div><a href="#do-dong-ap">Thiết kế mạch đo dòng và đo áp</a><br><small>2 giờ</small></div></div></div>
+
+  <nav class="pnav"><span></span><a class="pn next" href="#tong-quan">Tổng quan PCB và Altium Designer →</a></nav>
+</section>
+
+<section class="lesson" id="tong-quan" data-title="Tổng quan PCB và Altium Designer" hidden>
+  <div class="hero" style="--g:#0891b2">
+    <div class="crumbs"><span class="gchip">Khóa Basic</span><span>Bài 1/15</span><span>⏱ 2 giờ</span></div>
+    <h2><span class="hicon">🧭</span> Tổng quan PCB và Altium Designer</h2>
+    <p class="intent">Hiểu mạch in là gì, quy trình thiết kế từ ý tưởng tới mạch thật, và làm quen giao diện Altium Designer 18.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>Biết PCB gồm những gì, 1 lớp / 2 lớp / 4 lớp khác nhau thế nào</li><li>Nắm quy trình 8 bước thiết kế PCB</li><li>Biết cấu trúc project và các loại file của Altium</li><li>Làm quen giao diện, phím tắt quan trọng</li></ul></div>
+  
+  <h3 id="tong-quan-s1"><span class="n">1</span>PCB là gì?</h3>
+<div class="prose">
+<p><b>PCB</b> (Printed Circuit Board – mạch in) là tấm vật liệu cách điện (thường là sợi thuỷ tinh epoxy <b>FR-4</b>) có các đường <b>đồng</b> nối các linh kiện thay cho dây điện. So với hàn dây trên testboard: gọn, bền, ít nhiễu, sản xuất hàng loạt được.</p>
+<table class="tbl"><tr><th>Loại</th><th>Dùng khi</th><th>Giá gia công (tham khảo)</th></tr>
+<tr><td>1 lớp</td><td>mạch rất đơn giản, tự làm thủ công (là ủi, ăn mòn)</td><td>rẻ nhất</td></tr>
+<tr><td><b>2 lớp</b></td><td>đa số dự án học sinh, Arduino shield, mạch nguồn</td><td>~2 USD / 5 tấm 10×10 cm</td></tr>
+<tr><td>4 lớp</td><td>vi điều khiển tốc độ cao, WiFi/BLE, USB, nhiều nguồn</td><td>~7–10 USD / 5 tấm</td></tr>
+<tr><td>6+ lớp</td><td>BGA, DDR, máy tính nhúng</td><td>cao</td></tr></table></div>
+<figure class="fig"><svg class="illus" viewBox="0 0 640 224" style="max-width:640px" role="img" aria-label="Mặt cắt mạch 2 lớp 1.6 mm" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs><rect x="40" y="14" width="360" height="16" fill="#f8fafc" stroke="#475569" stroke-width="0.6"/><text class="xs" x="414" y="26.0" text-anchor="start">Silkscreen (chữ, ký hiệu)</text><rect x="40" y="30" width="360" height="16" fill="#16a34a" stroke="#475569" stroke-width="0.6"/><text class="xs" x="414" y="42.0" text-anchor="start">Solder mask (sơn phủ xanh)</text><rect x="40" y="46" width="360" height="16" fill="#d97706" stroke="#475569" stroke-width="0.6"/><text class="xs" x="414" y="58.0" text-anchor="start">Đồng TOP 35 µm</text><rect x="40" y="62" width="360" height="70" fill="#d9c99a" stroke="#475569" stroke-width="0.6"/><text class="xs" x="414" y="101.0" text-anchor="start">Lõi FR-4 ~1.5 mm</text><rect x="40" y="132" width="360" height="16" fill="#d97706" stroke="#475569" stroke-width="0.6"/><text class="xs" x="414" y="144.0" text-anchor="start">Đồng BOTTOM 35 µm</text><rect x="40" y="148" width="360" height="16" fill="#16a34a" stroke="#475569" stroke-width="0.6"/><text class="xs" x="414" y="160.0" text-anchor="start">Solder mask</text><rect x="40" y="164" width="360" height="16" fill="#f8fafc" stroke="#475569" stroke-width="0.6"/><text class="xs" x="414" y="176.0" text-anchor="start">Silkscreen</text><rect x="200" y="14" width="18" height="166" fill="#fff" stroke="#475569"/><rect x="196" y="14" width="4" height="166" fill="#d97706"/><rect x="218" y="14" width="4" height="166" fill="#d97706"/><text class="xs mute" x="209" y="196" text-anchor="middle">via xuyên lỗ</text><text class="xs mute" x="40" y="214" text-anchor="start">(các lớp mỏng được vẽ phóng to để dễ nhìn, không đúng tỉ lệ)</text></svg></figure><h3 id="tong-quan-s2"><span class="n">2</span>Quy trình thiết kế</h3>
+<div class="prose">
+<p>Mọi phần mềm (Altium, KiCad, EasyEDA, OrCAD) đều theo quy trình này. Altium Designer là phần mềm chuyên nghiệp phổ biến trong doanh nghiệp Việt Nam; <b>KiCad</b> (miễn phí) và <b>EasyEDA</b> (trực tuyến) có cùng khái niệm — học một cái là dùng được cái kia.</p></div>
+<figure class="fig"><svg class="illus" viewBox="0 0 730 210" style="max-width:730px" role="img" aria-label="Quy trình thiết kế PCB" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs><rect class="bx-g" x="10" y="14" width="150" height="56" rx="8"/><text class="s" x="85" y="39" text-anchor="middle">Ý tưởng &amp; sơ đồ khối</text><line class="ln" x1="160" y1="42" x2="188" y2="42" marker-end="url(#ah2)"/><rect class="bx-c" x="190" y="14" width="150" height="56" rx="8"/><text class="s" x="265" y="31" text-anchor="middle">Thư viện</text><text class="s" x="265" y="47" text-anchor="middle">symbol + footprint</text><line class="ln" x1="340" y1="42" x2="368" y2="42" marker-end="url(#ah2)"/><rect class="bx-a" x="370" y="14" width="150" height="56" rx="8"/><text class="s" x="445" y="31" text-anchor="middle">Mạch nguyên lý</text><text class="s" x="445" y="47" text-anchor="middle">(.SchDoc)</text><line class="ln" x1="520" y1="42" x2="548" y2="42" marker-end="url(#ah2)"/><rect class="bx-a" x="550" y="14" width="150" height="56" rx="8"/><text class="s" x="625" y="31" text-anchor="middle">Kiểm tra ERC</text><text class="s" x="625" y="47" text-anchor="middle">&amp; BOM</text><rect class="bx-b" x="550" y="106" width="150" height="56" rx="8"/><text class="s" x="625" y="123" text-anchor="middle">Layout PCB</text><text class="s" x="625" y="139" text-anchor="middle">(.PcbDoc)</text><line class="ln" x1="550" y1="134" x2="522" y2="134" marker-end="url(#ah2)"/><rect class="bx-b" x="370" y="106" width="150" height="56" rx="8"/><text class="s" x="445" y="131" text-anchor="middle">Kiểm tra DRC</text><line class="ln" x1="370" y1="134" x2="342" y2="134" marker-end="url(#ah2)"/><rect class="bx-d" x="190" y="106" width="150" height="56" rx="8"/><text class="s" x="265" y="123" text-anchor="middle">Xuất Gerber,</text><text class="s" x="265" y="139" text-anchor="middle">NC Drill, P&amp;P</text><line class="ln" x1="190" y1="134" x2="162" y2="134" marker-end="url(#ah2)"/><rect class="bx-d" x="10" y="106" width="150" height="56" rx="8"/><text class="s" x="85" y="123" text-anchor="middle">Gia công</text><text class="s" x="85" y="139" text-anchor="middle">&amp; lắp ráp</text><line class="ln" x1="625" y1="70" x2="625" y2="104" marker-end="url(#ah2)"/><text class="xs mute" x="10" y="200" text-anchor="start">Sai ở bước nào → quay lại sửa: lỗi DRC thường phải sửa từ footprint hoặc nguyên lý.</text></svg></figure><h3 id="tong-quan-s3"><span class="n">3</span>Altium Designer: project và giao diện</h3>
+<div class="prose">
+<table class="tbl"><tr><th>File</th><th>Nội dung</th></tr>
+<tr><td><code>.PrjPcb</code></td><td>project – gom tất cả file lại, chứa cấu hình output</td></tr>
+<tr><td><code>.SchDoc</code></td><td>bản vẽ nguyên lý</td></tr><tr><td><code>.PcbDoc</code></td><td>bản vẽ mạch in (layout)</td></tr>
+<tr><td><code>.SchLib</code> / <code>.PcbLib</code></td><td>thư viện ký hiệu nguyên lý / thư viện footprint</td></tr>
+<tr><td><code>.IntLib</code></td><td>thư viện tích hợp (symbol + footprint + 3D đã đóng gói)</td></tr>
+<tr><td><code>.OutJob</code></td><td>cấu hình xuất file sản xuất một lần bấm</td></tr></table>
+<table class="tbl"><tr><th>Phím tắt</th><th>Tác dụng</th></tr>
+<tr><td><kbd>P</kbd> → <kbd>P</kbd></td><td>đặt linh kiện (Place Part)</td></tr><tr><td><kbd>P</kbd> → <kbd>W</kbd> / <kbd>Ctrl</kbd>+<kbd>W</kbd></td><td>vẽ dây (wire) trong Schematic</td></tr>
+<tr><td><kbd>P</kbd> → <kbd>T</kbd> / <kbd>Ctrl</kbd>+<kbd>W</kbd></td><td>đi dây (track) trong PCB</td></tr><tr><td><kbd>Space</kbd>, <kbd>X</kbd>, <kbd>Y</kbd></td><td>xoay, lật linh kiện khi đang kéo</td></tr>
+<tr><td><kbd>Tab</kbd></td><td>sửa thuộc tính khi đang đặt</td></tr><tr><td><kbd>Q</kbd></td><td>đổi đơn vị mm ↔ mil</td></tr>
+<tr><td><kbd>G</kbd></td><td>đổi bước lưới (grid)</td></tr><tr><td><kbd>2</kbd> / <kbd>3</kbd></td><td>xem 2D / 3D</td></tr>
+<tr><td><kbd>L</kbd></td><td>bật/tắt hiển thị các lớp</td></tr><tr><td><kbd>Shift</kbd>+<kbd>S</kbd></td><td>xem một lớp duy nhất</td></tr></table>
+<div class="callout">💡 Đơn vị: <b>1 mil = 0.0254 mm</b> (1/1000 inch). Bước chân linh kiện chuẩn 2.54 mm = 100 mil. Nhiều quy tắc thiết kế vẫn ghi bằng mil.</div></div>
+  <h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="tong-quan-0"> <span>Cài Altium Designer (bản dùng thử/giáo dục) hoặc KiCad, tạo project mới gồm 1 SchDoc và 1 PcbDoc.</span></label></li><li><label><input type="checkbox" data-ex="tong-quan-1"> <span>Mở một project mẫu trong thư mục tài liệu, xem 2D/3D, bật/tắt từng lớp.</span></label></li></ol>
+  <div class="refs">📚 Đọc thêm: <a href="https://drive.google.com/drive/folders/1ntGAWmn761SY2FYf27y7f49tet2iK_A_?usp=sharing" target="_blank" rel="noopener">Tài liệu khóa Basic (Google Drive)</a> · <a href="https://www.altium.com/documentation/altium-designer" target="_blank" rel="noopener">Altium Designer Documentation</a> · <a href="https://www.kicad.org" target="_blank" rel="noopener">KiCad (miễn phí)</a></div>
+  <div class="donebar"><button class="donebtn" data-done="tong-quan">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#overview">← Tổng quan</a><a class="pn next" href="#lop-pcb">Các thành phần và các lớp (layer) trên mạch PCB →</a></nav>
+</section>
+
+<section class="lesson" id="lop-pcb" data-title="Các thành phần và các lớp (layer) trên mạch PCB" hidden>
+  <div class="hero" style="--g:#0891b2">
+    <div class="crumbs"><span class="gchip">Khóa Basic</span><span>Bài 2/15</span><span>⏱ 1,5 giờ</span></div>
+    <h2><span class="hicon">🥪</span> Các thành phần và các lớp (layer) trên mạch PCB</h2>
+    <p class="intent">Hiểu ý nghĩa từng lớp trong Altium để vẽ đúng lớp và đọc hiểu file sản xuất.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>Phân biệt lớp đồng, solder mask, paste, silkscreen, mechanical, keep-out, drill</li><li>Hiểu pad, via, track, polygon</li><li>Biết các loại via</li></ul></div>
+  
+  <h3 id="lop-pcb-s1"><span class="n">1</span>Các lớp trong Altium</h3>
+<div class="prose">
+<table class="tbl"><tr><th>Lớp</th><th>Ý nghĩa</th><th>Ghi chú</th></tr>
+<tr><td><b>Top / Bottom Layer</b></td><td>lớp đồng dẫn điện</td><td>4 lớp thêm Mid-Layer / Internal Plane</td></tr>
+<tr><td><b>Top / Bottom Overlay</b></td><td>silkscreen – chữ, ký hiệu, khung linh kiện in màu trắng</td><td>chữ cao ≥ 0.8–1 mm, nét ≥ 0.15 mm</td></tr>
+<tr><td><b>Top / Bottom Solder</b></td><td>solder mask – vùng KHÔNG phủ sơn (để lộ đồng ra hàn)</td><td>vẽ “âm bản”</td></tr>
+<tr><td><b>Top / Bottom Paste</b></td><td>lớp kem hàn – làm khuôn (stencil) cho linh kiện dán</td><td>chỉ có ở pad SMD</td></tr>
+<tr><td><b>Mechanical 1…</b></td><td>đường viền mạch, kích thước, lỗ bắt vít, ghi chú</td><td>quy ước tuỳ công ty</td></tr>
+<tr><td><b>Keep-Out Layer</b></td><td>vùng cấm đi dây/đổ đồng</td><td>mép mạch, anten</td></tr>
+<tr><td><b>Drill Guide / Drill Drawing</b></td><td>bản vẽ lỗ khoan</td><td>xuất kèm file NC Drill</td></tr>
+<tr><td><b>Multi-Layer</b></td><td>đối tượng có trên mọi lớp đồng (pad chân xuyên, via)</td><td></td></tr></table></div><h3 id="lop-pcb-s2"><span class="n">2</span>Đối tượng trên lớp đồng</h3>
+<div class="prose">
+<ul><li><b>Pad</b>: chỗ hàn chân linh kiện (chân xuyên: Multi-Layer có lỗ; chân dán: chỉ Top hoặc Bottom).</li>
+<li><b>Track</b>: đường đồng nối các pad.</li><li><b>Via</b>: lỗ mạ đồng nối giữa các lớp, không để hàn linh kiện.</li>
+<li><b>Polygon pour</b>: vùng đồng lớn (thường nối GND) — giảm nhiễu, tản nhiệt, giảm lượng đồng phải ăn mòn.</li>
+<li><b>Fiducial</b>: dấu tròn để máy gắp đặt linh kiện tự căn chỉnh.</li></ul></div>
+<figure class="fig"><svg class="illus" viewBox="0 0 590 184" style="max-width:590px" role="img" aria-label="Các loại via" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs><rect x="20" y="22.0" width="520" height="23.5" fill="#e7dcb6" stroke="#cbd5e1"/><rect x="20" y="49.5" width="520" height="23.5" fill="#e7dcb6" stroke="#cbd5e1"/><rect x="20" y="77.0" width="520" height="23.5" fill="#e7dcb6" stroke="#cbd5e1"/><rect x="20" y="104.5" width="520" height="23.5" fill="#e7dcb6" stroke="#cbd5e1"/><rect x="20" y="18.0" width="520" height="4" fill="#d97706"/><text class="xs mute" x="548" y="24.0" text-anchor="start">L1</text><rect x="20" y="45.5" width="520" height="4" fill="#d97706"/><text class="xs mute" x="548" y="51.5" text-anchor="start">L2</text><rect x="20" y="73.0" width="520" height="4" fill="#d97706"/><text class="xs mute" x="548" y="79.0" text-anchor="start">L3</text><rect x="20" y="100.5" width="520" height="4" fill="#d97706"/><text class="xs mute" x="548" y="106.5" text-anchor="start">L4</text><rect x="20" y="128.0" width="520" height="4" fill="#d97706"/><text class="xs mute" x="548" y="134.0" text-anchor="start"></text><rect x="60" y="18.0" width="12" height="112.0" fill="#d97706"/><text class="s" x="66.0" y="152" text-anchor="middle">Through-hole</text><rect x="190" y="18.0" width="12" height="59.0" fill="#d97706"/><text class="s" x="196.0" y="152" text-anchor="middle">Blind (mù)</text><rect x="320" y="45.5" width="12" height="59.0" fill="#d97706"/><text class="s" x="326.0" y="152" text-anchor="middle">Buried (chôn)</text><rect x="450" y="18.0" width="8" height="31.5" fill="#d97706"/><text class="s" x="454.0" y="152" text-anchor="middle">Micro-via</text><text class="xs mute" x="20" y="174" text-anchor="start">Mạch 2–4 lớp giá rẻ chỉ dùng via xuyên lỗ; blind/buried/micro-via cho mạch HDI (điện thoại, BGA).</text></svg></figure>
+  <h3><span class="n">🔧</span>Áp dụng trong lập trình nhúng</h3><div class="emb"><div class="embicon">🔧</div><ul><li>Độ dày đồng 1 oz/ft² ≈ 35 µm là mặc định; mạch công suất đặt 2 oz.</li><li>Màu solder mask (xanh, đen, đỏ…) chỉ là thẩm mỹ, xanh lá rẻ và dễ kiểm tra nhất.</li></ul></div><h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="lop-pcb-0"> <span>Mở một PcbDoc mẫu, dùng <kbd>Shift</kbd>+<kbd>S</kbd> xem riêng từng lớp và ghi lại lớp đó chứa gì.</span></label></li><li><label><input type="checkbox" data-ex="lop-pcb-1"> <span>Giải thích vì sao lớp Solder Mask được vẽ “âm bản”.</span></label></li></ol>
+  
+  <div class="donebar"><button class="donebtn" data-done="lop-pcb">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#tong-quan">← Tổng quan PCB và Altium Designer</a><a class="pn next" href="#nguyen-ly">Thiết kế mạch nguyên lý (Schematic) →</a></nav>
+</section>
+
+<section class="lesson" id="nguyen-ly" data-title="Thiết kế mạch nguyên lý (Schematic)" hidden>
+  <div class="hero" style="--g:#0891b2">
+    <div class="crumbs"><span class="gchip">Khóa Basic</span><span>Bài 3/15</span><span>⏱ 3 giờ</span></div>
+    <h2><span class="hicon">📐</span> Thiết kế mạch nguyên lý (Schematic)</h2>
+    <p class="intent">Vẽ bản nguyên lý rõ ràng, đúng điện, sẵn sàng chuyển sang layout.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>Đặt linh kiện, nối dây, net label, power port</li><li>Chia trang, hierarchical sheet, bus</li><li>Đánh số linh kiện (annotate), kiểm tra ERC, xuất BOM</li></ul></div>
+  
+  <h3 id="nguyen-ly-s1"><span class="n">1</span>Các bước vẽ nguyên lý</h3>
+<div class="prose">
+<ol><li><b>Đặt linh kiện</b> (<kbd>P</kbd><kbd>P</kbd>) từ thư viện; đặt giá trị (10k, 100nF) và footprint cho từng linh kiện.</li>
+<li><b>Nối dây</b> (<kbd>Ctrl</kbd>+<kbd>W</kbd>); chỗ 3 dây gặp nhau phải có <b>chấm nối</b> (junction).</li>
+<li>Dùng <b>Net Label</b> thay cho dây dài: hai điểm có cùng tên net là được nối với nhau.</li>
+<li><b>Power Port</b> cho nguồn và đất (VCC, 3V3, GND) — đặt tên thống nhất.</li>
+<li>Mạch lớn: chia thành nhiều trang theo khối chức năng (nguồn, MCU, cảm biến, giao tiếp), nối bằng <b>Port</b> hoặc <b>Hierarchical Sheet</b>.</li>
+<li><b>Annotate</b> (Tools → Annotation): đánh số R1, R2, C1… tự động.</li>
+<li><b>Compile / ERC</b> (Project → Validate): kiểm tra chân bỏ trống, net chỉ có 1 chân, hai đầu ra nối nhau…</li>
+<li>Xuất <b>BOM</b> (Reports → Bill of Materials) để mua linh kiện.</li></ol></div><h3 id="nguyen-ly-s2"><span class="n">2</span>Quy tắc trình bày</h3>
+<div class="prose">
+<div class="grid2"><div class="card"><h5>✅ Nên</h5><p>Tín hiệu đi từ trái sang phải, nguồn ở trên, GND ở dưới · nhóm linh kiện theo khối, có khung và tiêu đề · ghi chú giá trị, công suất, điện áp tụ · tụ decoupling vẽ ngay cạnh IC mà nó phục vụ · đặt test point cho tín hiệu quan trọng.</p></div>
+<div class="card"><h5>❌ Không nên</h5><p>Dây chéo nhau lung tung · nối dây vào giữa thân chân khác · đặt net label lơ lửng không chạm dây · dùng chung tên net vô tình (ví dụ hai net “OUT”) · để chân IC không dùng mà không đánh dấu No-ERC.</p></div></div>
+<p>Ví dụ khối nguồn chuẩn cho ESP32: jack DC/USB → diode chống ngược → tụ 10 µF → LDO AMS1117-3.3 → tụ 10 µF + 100 nF → 3V3, kèm LED báo nguồn có điện trở 1k.</p></div>
+  <h3><span class="n">⚠</span>Lỗi thường gặp</h3><div class="mist"><ul><li>Quên gán footprint → không chuyển được sang PCB.</li><li>Ký hiệu symbol đúng nhưng thứ tự chân footprint sai (đặc biệt transistor, LDO, MOSFET) — luôn đối chiếu datasheet.</li><li>Bỏ qua cảnh báo ERC.</li></ul></div><h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="nguyen-ly-0"> <span>Vẽ nguyên lý mạch Arduino tối giản: ATmega328P, thạch anh 16 MHz + 2 tụ 22 pF, nút reset, LED chân 13, header ICSP.</span></label></li><li><label><input type="checkbox" data-ex="nguyen-ly-1"> <span>Vẽ khối nguồn 5 V → 3.3 V cho ESP32 kèm LED báo nguồn; chạy ERC và sửa hết lỗi.</span></label></li></ol>
+  <div class="refs">📚 Đọc thêm: <a href="https://drive.google.com/drive/folders/1ntGAWmn761SY2FYf27y7f49tet2iK_A_?usp=sharing" target="_blank" rel="noopener">Tài liệu khóa Basic (Google Drive)</a></div>
+  <div class="donebar"><button class="donebtn" data-done="nguyen-ly">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#lop-pcb">← Các thành phần và các lớp (layer) trên mạch PCB</a><a class="pn next" href="#layout-2-lop">Thiết kế layout mạch 2 lớp →</a></nav>
+</section>
+
+<section class="lesson" id="layout-2-lop" data-title="Thiết kế layout mạch 2 lớp" hidden>
+  <div class="hero" style="--g:#0891b2">
+    <div class="crumbs"><span class="gchip">Khóa Basic</span><span>Bài 4/15</span><span>⏱ 4 giờ</span></div>
+    <h2><span class="hicon">🛠</span> Thiết kế layout mạch 2 lớp</h2>
+    <p class="intent">Chuyển nguyên lý sang mạch in, sắp xếp linh kiện hợp lý, đặt quy tắc, đi dây, đổ đồng và kiểm tra DRC.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>Import nguyên lý vào PCB (Update PCB Document)</li><li>Vẽ khung mạch, đặt linh kiện theo khối</li><li>Đặt Design Rules: clearance, width, via</li><li>Đi dây, đổ đồng GND, chạy DRC</li></ul></div>
+  
+  <h3 id="layout-2-lop-s1"><span class="n">1</span>Từ nguyên lý sang PCB</h3>
+<div class="prose">
+<ol><li><b>Design → Update PCB Document</b>: linh kiện và các đường “chuột” (ratsnest) xuất hiện.</li>
+<li>Vẽ <b>đường viền mạch</b> trên lớp Mechanical 1 rồi <b>Design → Board Shape → Define from selected objects</b>; bo góc 1–2 mm, lỗ bắt vít M3 (lỗ 3.2 mm) cách mép ≥ 3 mm.</li>
+<li><b>Đặt linh kiện</b> (placement) — chiếm 50% chất lượng mạch:
+<ul><li>Đặt trước: connector, nút, LED, màn hình (vị trí do vỏ hộp quyết định).</li>
+<li>Theo khối chức năng giống nguyên lý; tụ decoupling sát chân nguồn IC; thạch anh sát vi điều khiển.</li>
+<li>Phần công suất (nguồn, driver động cơ) tách khỏi phần tín hiệu/analog.</li>
+<li>Xoay linh kiện cho đường chuột ngắn và ít chéo nhau; cùng loại linh kiện cùng hướng.</li></ul></li></ol></div><h3 id="layout-2-lop-s2"><span class="n">2</span>Design Rules – quy tắc thiết kế</h3>
+<div class="prose">
+<table class="tbl"><tr><th>Quy tắc</th><th>Giá trị an toàn cho xưởng giá rẻ (JLCPCB, PCBWay)</th></tr>
+<tr><td>Clearance (khoảng cách đồng–đồng)</td><td>≥ 0.2 mm (8 mil); nguồn 220 V AC: ≥ 2.5–3 mm và có rãnh cách ly</td></tr>
+<tr><td>Width – tín hiệu</td><td>0.25 mm (10 mil)</td></tr>
+<tr><td>Width – nguồn</td><td>tính theo dòng (xem máy tính bên dưới), thường 0.5–1.5 mm</td></tr>
+<tr><td>Via</td><td>lỗ 0.3 mm, đường kính 0.6 mm</td></tr>
+<tr><td>Khoảng cách đồng tới mép mạch</td><td>≥ 0.3–0.5 mm</td></tr></table>
+<p>Đặt trong <b>Design → Rules</b>. Có thể tạo rule riêng cho một net/lớp net: ví dụ <code>InNetClass('Power')</code> rộng 0.8 mm.</p></div>
+<div class="prose"><style>.calc{background:#fff;border:1px solid #cbd5e1;border-radius:12px;padding:12px 16px;margin:10px 0}
+.calc h5{margin:0 0 8px}.calc label{display:inline-flex;flex-direction:column;font-size:.8rem;color:#475569;margin:0 12px 8px 0}
+.calc input,.calc select{font:inherit;font-size:.9rem;padding:5px 8px;border:1px solid #cbd5e1;border-radius:8px;width:120px}.calc select{width:170px}
+.calc .kq{font-weight:700;color:#0f172a;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:8px 12px;margin-top:4px}</style>
+<div class="calc" id="ctrace"><h5>🧮 Máy tính bề rộng đường mạch (IPC-2221)</h5>
+<label>Dòng điện (A)<input type="number" step="0.1" value="2" data-k="i"></label>
+<label>Tăng nhiệt cho phép (°C)<input type="number" value="10" data-k="dt"></label>
+<label>Độ dày đồng<select data-k="oz"><option value="0.5">0.5 oz (18 µm)</option><option value="1" selected>1 oz (35 µm)</option><option value="2">2 oz (70 µm)</option></select></label>
+<label>Lớp<select data-k="k"><option value="0.048">ngoài (top/bottom)</option><option value="0.024">trong</option></select></label>
+<div class="kq"></div></div>
+<script>(function(){var r=document.getElementById('ctrace');function f(){var v={};r.querySelectorAll('[data-k]').forEach(function(e){v[e.dataset.k]=parseFloat(e.value)});
+var A=Math.pow(v.i/(v.k*Math.pow(v.dt,0.44)),1/0.725),w=A/(v.oz*1.378);r.querySelector('.kq').textContent='Bề rộng tối thiểu: '+(w*0.0254).toFixed(2)+' mm  ('+w.toFixed(1)+' mil). Nên chọn rộng hơn 20–50% nếu còn chỗ.';}
+r.addEventListener('input',f);f();})();</script></div><h3 id="layout-2-lop-s3"><span class="n">3</span>Đi dây, đổ đồng và DRC</h3>
+<div class="prose">
+<ul><li>Đi dây nguồn và tín hiệu quan trọng trước; góc gãy 45° (không 90°).</li>
+<li>Mạch 2 lớp: ưu tiên một lớp đi ngang, một lớp đi dọc; hạn chế cắt vụn mặt GND ở lớp Bottom.</li>
+<li><b>Polygon Pour</b> (<kbd>P</kbd><kbd>G</kbd>) nối net GND trên cả hai lớp, rải thêm via nối hai mặt GND (“via stitching”) mỗi 5–10 mm.</li>
+<li><b>Tools → Design Rule Check</b>: sửa hết lỗi (khoảng cách, chưa nối, ngắn mạch, silkscreen đè pad).</li></ul></div>
+<figure class="fig"><svg class="illus" viewBox="0 0 670 264" style="max-width:670px" role="img" aria-label="Đặt tụ decoupling" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs><text class="s" x="10" y="18" text-anchor="start">Tụ lọc nguồn 100 nF: SAI vs ĐÚNG</text><rect class="bx-g" x="110" y="40" width="90" height="90" rx="4"/><text class="t" x="155.0" y="90.0" text-anchor="middle">IC</text><text class="xs" x="122" y="62" text-anchor="start">VCC</text><text class="xs" x="122" y="124" text-anchor="start">GND</text><rect x="40" y="190" width="34" height="16" fill="#334155"/><text class="xs" x="57" y="220" text-anchor="middle">100nF</text><polyline points="110,58 57,58 44,190" fill="none" stroke="#d97706" stroke-width="3"/><polyline points="110,120 90,120 90,210 70,210" fill="none" stroke="#2563eb" stroke-width="3"/><polygon points="57,58 110,58 110,120 90,120 90,206 70,206 44,190" fill="#dc2626" opacity="0.15"/><text class="xs" x="30" y="236" text-anchor="start">diện tích vòng lớn → cảm kháng lớn, nhiễu</text><text class="s" x="30" y="254" text-anchor="start">SAI: tụ xa, vòng dòng lớn</text><rect class="bx-g" x="440" y="40" width="90" height="90" rx="4"/><text class="t" x="485.0" y="90.0" text-anchor="middle">IC</text><text class="xs" x="452" y="62" text-anchor="start">VCC</text><text class="xs" x="452" y="124" text-anchor="start">GND</text><rect x="550" y="52" width="34" height="16" fill="#334155"/><text class="xs" x="567" y="48" text-anchor="middle">100nF</text><line x1="530" y1="58" x2="550" y2="60" stroke="#d97706" stroke-width="3"/><circle cx="594" cy="60" r="5" fill="#2563eb"/><text class="xs" x="604" y="64" text-anchor="start">via → GND</text><text class="xs" x="440" y="236" text-anchor="start">vòng dòng nhỏ nhất</text><text class="s" x="360" y="254" text-anchor="start">ĐÚNG: tụ sát chân, via GND ngay cạnh</text></svg></figure>
+  <h3><span class="n">⚠</span>Lỗi thường gặp</h3><div class="mist"><ul><li>Đi dây trước khi sắp xếp linh kiện xong.</li><li>Đường nguồn mảnh như đường tín hiệu.</li><li>Đổ đồng xong không nối vào net GND (polygon “chết”).</li><li>Bỏ qua lỗi DRC “Un-Routed Net”.</li></ul></div><h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="layout-2-lop-0"> <span>Layout mạch Arduino tối giản ở bài 3 trên khổ 50 × 50 mm, 2 lớp, đổ đồng GND.</span></label></li><li><label><input type="checkbox" data-ex="layout-2-lop-1"> <span>Dùng máy tính ở trên: đường cấp nguồn cho 4 động cơ servo (tổng 3 A) cần rộng bao nhiêu?</span></label></li></ol>
+  <div class="refs">📚 Đọc thêm: <a href="https://drive.google.com/drive/folders/1ntGAWmn761SY2FYf27y7f49tet2iK_A_?usp=sharing" target="_blank" rel="noopener">Tài liệu khóa Basic (Google Drive)</a> · <a href="https://jlcpcb.com/capabilities/pcb-capabilities" target="_blank" rel="noopener">Năng lực gia công JLCPCB</a></div>
+  <div class="donebar"><button class="donebtn" data-done="layout-2-lop">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#nguyen-ly">← Thiết kế mạch nguyên lý (Schematic)</a><a class="pn next" href="#logo">Thiết kế logo và chữ trên mạch →</a></nav>
+</section>
+
+<section class="lesson" id="logo" data-title="Thiết kế logo và chữ trên mạch" hidden>
+  <div class="hero" style="--g:#0891b2">
+    <div class="crumbs"><span class="gchip">Khóa Basic</span><span>Bài 5/15</span><span>⏱ 1 giờ</span></div>
+    <h2><span class="hicon">🎨</span> Thiết kế logo và chữ trên mạch</h2>
+    <p class="intent">Đưa logo trường, đội, tên dự án lên mạch đẹp và in được.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>Chuẩn bị ảnh logo đúng cách</li><li>Đưa logo vào lớp silkscreen hoặc đồng</li><li>Biết giới hạn kích thước của xưởng</li></ul></div>
+  
+  <h3 id="logo-s1"><span class="n">1</span>Cách đưa logo lên mạch</h3>
+<div class="prose">
+<ol><li>Chuẩn bị ảnh <b>đen trắng</b> (1 bit, không xám), độ phân giải đủ cao, dạng BMP/PNG.</li>
+<li>Altium: chạy script <b>PCB Logo Creator</b> (DXP → Run Script → <code>PCBLogoCreator.PRJSCR</code>) hoặc <b>File → Import → DXF/DWG</b> nếu logo là file vector.</li>
+<li>Chọn lớp: <b>Top Overlay</b> (chữ trắng), <b>Top Layer + Top Solder</b> (logo đồng vàng/ENIG lộ ra), hoặc khoét solder mask để logo màu đồng.</li>
+<li>Chỉnh kích thước, đặt ở vùng trống, không đè lên pad.</li></ol>
+<table class="tbl"><tr><th>Thông số silkscreen</th><th>Tối thiểu (xưởng phổ thông)</th></tr>
+<tr><td>Bề rộng nét</td><td>0.15 mm</td></tr><tr><td>Chiều cao chữ</td><td>0.8–1.0 mm</td></tr><tr><td>Khoảng cách tới pad</td><td>0.15 mm (sẽ bị cắt nếu đè pad)</td></tr></table>
+<p>Nên ghi trên mạch: tên dự án, phiên bản (v1.0), ngày, tên đội/trường, chú thích chân connector (GND, 5V, TX, RX), chiều cắm (+/−).</p></div>
+  <h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="logo-0"> <span>Đưa logo trường/đội lên mạch ở bài 4, kích thước 15 × 15 mm trên Top Overlay.</span></label></li><li><label><input type="checkbox" data-ex="logo-1"> <span>Ghi chú đầy đủ tên chân cho mọi connector.</span></label></li></ol>
+  <div class="refs">📚 Đọc thêm: <a href="https://drive.google.com/drive/folders/1ntGAWmn761SY2FYf27y7f49tet2iK_A_?usp=sharing" target="_blank" rel="noopener">Tài liệu khóa Basic (Google Drive)</a></div>
+  <div class="donebar"><button class="donebtn" data-done="logo">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#layout-2-lop">← Thiết kế layout mạch 2 lớp</a><a class="pn next" href="#xuat-file-du-an">Xuất file sản xuất và thực hành dự án PCB mẫu →</a></nav>
+</section>
+
+<section class="lesson" id="xuat-file-du-an" data-title="Xuất file sản xuất và thực hành dự án PCB mẫu" hidden>
+  <div class="hero" style="--g:#0891b2">
+    <div class="crumbs"><span class="gchip">Khóa Basic</span><span>Bài 6/15</span><span>⏱ 3 giờ</span></div>
+    <h2><span class="hicon">📦</span> Xuất file sản xuất và thực hành dự án PCB mẫu</h2>
+    <p class="intent">Xuất đầy đủ file cho xưởng, đặt gia công và hoàn thành trọn vẹn một dự án mẫu.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>Xuất Gerber, NC Drill, Pick & Place, BOM</li><li>Kiểm tra file bằng trình xem Gerber</li><li>Đặt gia công tại xưởng</li><li>Thực hiện dự án mẫu từ đầu tới cuối</li></ul></div>
+  
+  <h3 id="xuat-file-du-an-s1"><span class="n">1</span>Bộ file gửi xưởng</h3>
+<div class="prose">
+<table class="tbl"><tr><th>File</th><th>Altium</th><th>Dùng để</th></tr>
+<tr><td>Gerber (RS-274X)</td><td>File → Fabrication Outputs → Gerber Files</td><td>hình ảnh từng lớp: đồng, mask, silk, viền</td></tr>
+<tr><td>NC Drill (Excellon)</td><td>File → Fabrication Outputs → NC Drill Files</td><td>toạ độ và kích thước lỗ khoan</td></tr>
+<tr><td>Pick &amp; Place (CPL)</td><td>File → Assembly Outputs → Generates pick and place files</td><td>toạ độ, góc xoay linh kiện (nếu nhờ xưởng hàn)</td></tr>
+<tr><td>BOM</td><td>Reports → Bill of Materials</td><td>danh sách linh kiện</td></tr></table>
+<p>Gerber: chọn đơn vị mm, định dạng 4:4; chọn đủ các lớp đang dùng + Mechanical viền mạch. Nén tất cả thành một file .zip, kiểm tra lại bằng trình xem Gerber của xưởng trước khi đặt hàng. Dùng <b>OutJob</b> để lần sau chỉ bấm một nút.</p></div><h3 id="xuat-file-du-an-s2"><span class="n">2</span>Dự án mẫu: mạch đo nhiệt độ – độ ẩm ESP32</h3>
+<div class="prose">
+<ol><li><b>Yêu cầu</b>: ESP32-WROOM, nguồn USB-C 5 V → 3.3 V, cảm biến SHT31 (I2C), màn hình OLED 0.96" (I2C), 2 nút nhấn, LED trạng thái, header mở rộng.</li>
+<li><b>Nguyên lý</b>: 4 khối — nguồn, ESP32 (kèm mạch reset/boot và nạp qua CH340C), cảm biến/màn hình, nút/LED.</li>
+<li><b>Thư viện</b>: tải footprint ESP32 module và USB-C từ nhà sản xuất; tự làm footprint SHT31 (DFN) theo bài 9.</li>
+<li><b>Layout</b>: mạch 2 lớp 60 × 40 mm; anten module nhô ra mép, cấm đồng dưới anten; cảm biến đặt xa LDO và ESP32 (tránh nhiệt) và có khe cắt cách nhiệt.</li>
+<li><b>Kiểm tra</b>: ERC, DRC, xem 3D đối chiếu vỏ hộp, in giấy tỉ lệ 1:1 đặt linh kiện thật lên thử.</li>
+<li><b>Xuất file, đặt hàng, hàn, nạp code đo kiểm</b>.</li></ol></div>
+  <h3><span class="n">⚠</span>Lỗi thường gặp</h3><div class="mist"><ul><li>Quên lớp viền (Mechanical/Keep-Out) trong Gerber → xưởng không biết cắt.</li><li>Quên file khoan.</li><li>Không kiểm tra lại Gerber trước khi đặt hàng.</li></ul></div><h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="xuat-file-du-an-0"> <span>Hoàn thành dự án mẫu tới bước xuất file Gerber, kiểm tra bằng trình xem trực tuyến.</span></label></li><li><label><input type="checkbox" data-ex="xuat-file-du-an-1"> <span>Viết checklist 15 mục kiểm tra trước khi gửi xưởng.</span></label></li></ol>
+  <div class="refs">📚 Đọc thêm: <a href="https://drive.google.com/drive/folders/1ntGAWmn761SY2FYf27y7f49tet2iK_A_?usp=sharing" target="_blank" rel="noopener">Tài liệu dự án PCB mẫu (Google Drive)</a></div>
+  <div class="donebar"><button class="donebtn" data-done="xuat-file-du-an">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#logo">← Thiết kế logo và chữ trên mạch</a><a class="pn next" href="#su-dung-thu-vien">Sử dụng và quản lý thư viện linh kiện →</a></nav>
+</section>
+
+<section class="lesson" id="su-dung-thu-vien" data-title="Sử dụng và quản lý thư viện linh kiện" hidden>
+  <div class="hero" style="--g:#d97706">
+    <div class="crumbs"><span class="gchip">Khóa thiết kế thư viện</span><span>Bài 7/15</span><span>⏱ 1,5 giờ</span></div>
+    <h2><span class="hicon">📚</span> Sử dụng và quản lý thư viện linh kiện</h2>
+    <p class="intent">Tìm, cài và quản lý thư viện linh kiện; biết khi nào dùng thư viện có sẵn, khi nào tự làm.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>Hiểu symbol, footprint, model 3D và thông số (parameter)</li><li>Cài thư viện, tìm linh kiện bằng Manufacturer Part Search</li><li>Tải thư viện từ SnapEDA, Ultra Librarian, LCSC/EasyEDA</li><li>Tổ chức thư viện riêng của nhóm</li></ul></div>
+  
+  <h3 id="su-dung-thu-vien-s1"><span class="n">1</span>Một linh kiện gồm những gì?</h3>
+<div class="prose">
+<table class="tbl"><tr><th>Thành phần</th><th>Nằm ở</th><th>Mô tả</th></tr>
+<tr><td>Symbol</td><td>.SchLib</td><td>ký hiệu trên nguyên lý, các chân có số và tên</td></tr>
+<tr><td>Footprint</td><td>.PcbLib</td><td>hình pad thực tế trên mạch, đúng kích thước datasheet</td></tr>
+<tr><td>3D model</td><td>.step</td><td>để kiểm tra va chạm, xuất cho vỏ hộp</td></tr>
+<tr><td>Parameter</td><td>trong symbol</td><td>giá trị, mã nhà sản xuất, nhà cung cấp, giá</td></tr></table>
+<p>Chân số <b>N</b> của symbol phải nối với pad số <b>N</b> của footprint — sai ở đây là lỗi nguy hiểm nhất, mạch in ra không chạy mà nhìn không thấy.</p></div><h3 id="su-dung-thu-vien-s2"><span class="n">2</span>Nguồn thư viện</h3>
+<div class="prose">
+<ul><li><b>Components panel</b> → Manufacturer Part Search (Altium 18+): tìm theo mã, kéo thả linh kiện đã có đủ symbol, footprint, 3D.</li>
+<li><b>SnapEDA, Ultra Librarian, Component Search Engine</b>: tải miễn phí theo mã linh kiện, chọn định dạng Altium.</li>
+<li><b>LCSC / EasyEDA</b>: thư viện linh kiện có sẵn ở kho JLCPCB (tiện khi nhờ xưởng hàn).</li>
+<li>Thư viện của nhóm: một file .SchLib + .PcbLib (hoặc .IntLib) dùng chung, đặt tên theo quy ước, mỗi linh kiện được kiểm tra một lần.</li></ul>
+<div class="callout warn">⚠️ Thư viện tải về <b>không phải lúc nào cũng đúng</b>: luôn kiểm tra kích thước pad, số chân, vị trí chân 1 với datasheet.</div></div>
+  <h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="su-dung-thu-vien-0"> <span>Tải thư viện của cảm biến BME280 và module ESP32-WROOM-32E, kiểm tra lại với datasheet.</span></label></li><li><label><input type="checkbox" data-ex="su-dung-thu-vien-1"> <span>Tạo thư viện riêng của nhóm, đưa 10 linh kiện hay dùng vào.</span></label></li></ol>
+  <div class="refs">📚 Đọc thêm: <a href="https://drive.google.com/drive/folders/1tUKCsGB7iSNjgao69q5aMWyYvZfuF8ex?usp=sharing" target="_blank" rel="noopener">Tài liệu khóa thư viện (Google Drive)</a> · <a href="https://www.snapeda.com" target="_blank" rel="noopener">SnapEDA</a></div>
+  <div class="donebar"><button class="donebtn" data-done="su-dung-thu-vien">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#xuat-file-du-an">← Xuất file sản xuất và thực hành dự án PCB mẫu</a><a class="pn next" href="#thu-vien-chan-xuyen">Thiết kế thư viện linh kiện chân xuyên (THT) →</a></nav>
+</section>
+
+<section class="lesson" id="thu-vien-chan-xuyen" data-title="Thiết kế thư viện linh kiện chân xuyên (THT)" hidden>
+  <div class="hero" style="--g:#d97706">
+    <div class="crumbs"><span class="gchip">Khóa thiết kế thư viện</span><span>Bài 8/15</span><span>⏱ 2 giờ</span></div>
+    <h2><span class="hicon">📌</span> Thiết kế thư viện linh kiện chân xuyên (THT)</h2>
+    <p class="intent">Tự vẽ symbol và footprint chân xuyên chính xác từ datasheet.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>Đọc bản vẽ kích thước trong datasheet</li><li>Tính lỗ khoan và pad</li><li>Vẽ footprint DIP, header, TO-220 bằng tay và bằng IPC Footprint Wizard</li><li>Vẽ symbol, gán footprint, thêm 3D</li></ul></div>
+  
+  <h3 id="thu-vien-chan-xuyen-s1"><span class="n">1</span>Lỗ khoan và pad</h3>
+<figure class="fig"><svg class="illus" viewBox="0 0 640 226" style="max-width:640px" role="img" aria-label="Pad linh kiện chân xuyên" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs><circle cx="150" cy="110" r="70" class="cu"/><circle cx="150" cy="110" r="40" fill="#fff" stroke="#475569"/><circle cx="150" cy="110" r="26" fill="#94a3b8"/><line class="ln" x1="150" y1="110" x2="176" y2="110" marker-end="url(#ah5)"/><text class="xs" x="150" y="104" text-anchor="middle">chân</text><line class="ln thin" x1="80" y1="200" x2="220" y2="200"/><text class="xs" x="150" y="216" text-anchor="middle">đường kính pad</text><line class="ln thin" x1="110" y1="185" x2="190" y2="185"/><text class="xs" x="150" y="180" text-anchor="middle">lỗ khoan</text><line class="ln thin" x1="190" y1="60" x2="220" y2="60"/><text class="xs" x="232" y="64" text-anchor="start">vành khuyên (annular ring)</text><text class="s" x="300" y="100" text-anchor="start">• Lỗ khoan = chân lớn nhất + 0.2 mm</text><text class="s" x="300" y="120" text-anchor="start">• Pad = lỗ + 2 × vành khuyên (≥ 0.3 mm khi hàn tay)</text><text class="s" x="300" y="140" text-anchor="start">• Chân vuông/chữ nhật: dùng đường chéo</text><text class="s" x="300" y="160" text-anchor="start">• Làm tròn lên kích thước mũi khoan có sẵn</text><text class="s" x="300" y="180" text-anchor="start">• Pad số 1 vẽ hình VUÔNG để nhận biết chiều</text></svg></figure>
+<div class="codebox">
+    <div class="codebar"><span class="fname">02-lo-khoan-pad-cham-xuyen.py</span><span class="lines">40 dòng</span>
+      <button class="cbtn" data-act="copy">Sao chép</button><button class="cbtn" data-act="dl" data-name="02-lo-khoan-pad-cham-xuyen.py">Tải file</button></div>
+    <pre class="code"><code><span class="t-str">&quot;&quot;&quot;Tính lỗ khoan và pad cho linh kiện CHÂN XUYÊN (THT) – theo khuyến nghị IPC-2222 / IPC-7251
+   Lỗ khoan  = đường kính chân lớn nhất + khe hở (0.2 mm mức B; 0.25 mm mức A)
+   Pad       = lỗ khoan + 2 x vành khuyên (annular ring, tối thiểu ~0.15–0.25 mm, nên &gt;= 0.3 mm khi hàn tay)
+   Chân hình chữ nhật: dùng đường chéo sqrt(a² + b²) làm &quot;đường kính chân&quot;
+Chạy: python 02-lo-khoan-pad-cham-xuyen.py&quot;&quot;&quot;</span>
+<span class="t-kw">import</span> math
+
+<span class="t-ty">KHE_HO</span> = <span class="t-num">0.20</span>           <span class="t-com"># mm</span>
+<span class="t-ty">VANH_KHUYEN</span> = <span class="t-num">0.30</span>      <span class="t-com"># mm – thoải mái cho hàn tay / xưởng giá rẻ</span>
+<span class="t-ty">LO_CHUAN</span> = [<span class="t-num">0.6</span>, <span class="t-num">0.7</span>, <span class="t-num">0.8</span>, <span class="t-num">0.9</span>, <span class="t-num">1.0</span>, <span class="t-num">1.1</span>, <span class="t-num">1.2</span>, <span class="t-num">1.3</span>, <span class="t-num">1.5</span>, <span class="t-num">1.6</span>, <span class="t-num">2.0</span>, <span class="t-num">3.2</span>]   <span class="t-com"># mũi khoan xưởng hay có (mm)</span>
+
+
+<span class="t-kw">def</span> <span class="t-fn">tinh</span>(ten, chan_mm=<span class="t-kw">None</span>, chan_cn=<span class="t-kw">None</span>):
+    d = chan_mm <span class="t-kw">if</span> chan_mm <span class="t-kw">else</span> math.<span class="t-fn">hypot</span>(*chan_cn)
+    lo_toi_thieu = d + <span class="t-ty">KHE_HO</span>
+    lo = <span class="t-fn">next</span>(x <span class="t-kw">for</span> x <span class="t-kw">in</span> <span class="t-ty">LO_CHUAN</span> <span class="t-kw">if</span> x &gt;= lo_toi_thieu - 1e-<span class="t-num">9</span>)        <span class="t-com"># làm tròn lên mũi khoan có sẵn</span>
+    pad = lo + <span class="t-num">2</span> * <span class="t-ty">VANH_KHUYEN</span>
+    <span class="t-kw">return</span> ten, d, lo, pad
+
+
+ds = [
+    <span class="t-fn">tinh</span>(<span class="t-str">&quot;Điện trở 1/4W&quot;</span>, chan_mm=<span class="t-num">0.6</span>),
+    <span class="t-fn">tinh</span>(<span class="t-str">&quot;LED 5 mm&quot;</span>, chan_cn=(<span class="t-num">0.5</span>, <span class="t-num">0.5</span>)),
+    <span class="t-fn">tinh</span>(<span class="t-str">&quot;Header 2.54 mm&quot;</span>, chan_cn=(<span class="t-num">0.64</span>, <span class="t-num">0.64</span>)),
+    <span class="t-fn">tinh</span>(<span class="t-str">&quot;IC DIP-8 (NE555)&quot;</span>, chan_cn=(<span class="t-num">0.53</span>, <span class="t-num">0.25</span>)),
+    <span class="t-fn">tinh</span>(<span class="t-str">&quot;Tụ hoá 10x16&quot;</span>, chan_mm=<span class="t-num">0.6</span>),
+    <span class="t-fn">tinh</span>(<span class="t-str">&quot;Diode 1N5408 (3A)&quot;</span>, chan_mm=<span class="t-num">1.3</span>),
+    <span class="t-fn">tinh</span>(<span class="t-str">&quot;Transistor TO-220&quot;</span>, chan_cn=(<span class="t-num">0.9</span>, <span class="t-num">0.5</span>)),
+    <span class="t-fn">tinh</span>(<span class="t-str">&quot;Domino KF301 (5.0)&quot;</span>, chan_cn=(<span class="t-num">1.0</span>, <span class="t-num">0.8</span>)),
+]
+<span class="t-fn">print</span>(<span class="t-str">f&quot;{&#x27;Linh kiện&#x27;:&lt;22}| {&#x27;chân (mm)&#x27;:&gt;9} | {&#x27;lỗ khoan&#x27;:&gt;8} | {&#x27;pad&#x27;:&gt;5}&quot;</span>)
+<span class="t-fn">print</span>(<span class="t-str">&quot;-&quot;</span> * <span class="t-num">54</span>)
+<span class="t-kw">for</span> ten, d, lo, pad <span class="t-kw">in</span> ds:
+    <span class="t-fn">print</span>(<span class="t-str">f&quot;{ten:&lt;22}| {d:&gt;9.2f} | {lo:&gt;8.2f} | {pad:&gt;5.2f}&quot;</span>)
+
+<span class="t-fn">print</span>(<span class="t-str">&quot;\nKiểm tra khoảng hở giữa 2 pad header 2.54 mm:&quot;</span>)
+pad_header = ds[<span class="t-num">2</span>][<span class="t-num">3</span>]
+khe = <span class="t-num">2.54</span> - pad_header
+<span class="t-fn">print</span>(<span class="t-str">f&quot;  pad {pad_header:.2f} mm -&gt; khe giữa 2 pad = {khe:.2f} mm &quot;</span>
+      <span class="t-str">f&quot;({&#x27;đi được 1 đường 0.25 mm + 2 khe 0.2 mm&#x27; if khe &gt;= 0.65 else &#x27;KHÔNG đủ chỗ đi dây giữa 2 chân&#x27;})&quot;</span>)
+</code></pre>
+  </div><div class="runcmd"><span>▶ Chạy thử:</span> <code>python 02-lo-khoan-pad-cham-xuyen.py</code></div><div class="outbox"><div class="outbar">Kết quả khi chạy (đã chạy thật lúc soạn bài)</div><pre class="out">Linh kiện             | chân (mm) | lỗ khoan |   pad
+------------------------------------------------------
+Điện trở 1/4W         |      0.60 |     0.80 |  1.40
+LED 5 mm              |      0.71 |     1.00 |  1.60
+Header 2.54 mm        |      0.91 |     1.20 |  1.80
+IC DIP-8 (NE555)      |      0.59 |     0.80 |  1.40
+Tụ hoá 10x16          |      0.60 |     0.80 |  1.40
+Diode 1N5408 (3A)     |      1.30 |     1.50 |  2.10
+Transistor TO-220     |      1.03 |     1.30 |  1.90
+Domino KF301 (5.0)    |      1.28 |     1.50 |  2.10
+
+Kiểm tra khoảng hở giữa 2 pad header 2.54 mm:
+  pad 1.80 mm -&gt; khe giữa 2 pad = 0.74 mm (đi được 1 đường 0.25 mm + 2 khe 0.2 mm)</pre></div>
+<h4 class="sub">Giải thích</h4><ul class="notes"><li>Header 2.54 mm có chân vuông 0.64 mm → đường chéo 0.91 mm → lỗ 1.2 mm, pad 1.8 mm, vẫn đủ chỗ đi 1 đường giữa 2 chân.</li><li>Diode 3 A chân to 1.3 mm cần lỗ 1.5 mm — dùng nhầm footprint của diode 1 A (lỗ 0.8 mm) sẽ không cắm được linh kiện.</li></ul>
+<div class="prose"><style>.calc{background:#fff;border:1px solid #cbd5e1;border-radius:12px;padding:12px 16px;margin:10px 0}
+.calc h5{margin:0 0 8px}.calc label{display:inline-flex;flex-direction:column;font-size:.8rem;color:#475569;margin:0 12px 8px 0}
+.calc input,.calc select{font:inherit;font-size:.9rem;padding:5px 8px;border:1px solid #cbd5e1;border-radius:8px;width:120px}.calc select{width:170px}
+.calc .kq{font-weight:700;color:#0f172a;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:8px 12px;margin-top:4px}</style>
+<div class="calc" id="chole"><h5>🧮 Máy tính lỗ khoan & pad chân xuyên</h5>
+<label>Chân tròn: đường kính (mm)<input type="number" step="0.01" value="0.6" data-k="d"></label>
+<label>hoặc chân chữ nhật a (mm)<input type="number" step="0.01" value="0" data-k="a"></label>
+<label>b (mm)<input type="number" step="0.01" value="0" data-k="b"></label>
+<label>Vành khuyên (mm)<input type="number" step="0.05" value="0.3" data-k="r"></label>
+<div class="kq"></div></div>
+<script>(function(){var r=document.getElementById('chole'),M=[0.6,0.7,0.8,0.9,1.0,1.1,1.2,1.3,1.5,1.6,2.0,2.5,3.2];function f(){var v={};r.querySelectorAll('[data-k]').forEach(function(e){v[e.dataset.k]=parseFloat(e.value)||0});
+var d=(v.a>0&&v.b>0)?Math.hypot(v.a,v.b):v.d,h=d+0.2,lo=M.find(function(x){return x>=h-1e-9})||h;r.querySelector('.kq').textContent='Kích thước chân tính: '+d.toFixed(2)+' mm → lỗ khoan '+lo.toFixed(2)+' mm, pad '+(lo+2*v.r).toFixed(2)+' mm';}
+r.addEventListener('input',f);f();})();</script></div><h3 id="thu-vien-chan-xuyen-s2"><span class="n">2</span>Các bước vẽ footprint trong PcbLib</h3>
+<div class="prose">
+<ol><li>Tools → New Blank Footprint, đặt tên theo quy ước (ví dụ <code>DIP8_W7.62mm</code>, <code>TO220-3_Vertical</code>).</li>
+<li>Đặt pad (<kbd>P</kbd><kbd>P</kbd>) lớp Multi-Layer, nhập kích thước lỗ và pad đã tính; pad 1 hình vuông/chữ nhật.</li>
+<li>Đặt pad theo toạ độ chính xác (khoảng cách chân 2.54 mm, hàng cách 7.62 mm với DIP-8) — dùng Edit → Set Reference → Center để gốc toạ độ ở tâm linh kiện.</li>
+<li>Vẽ khung trên <b>Top Overlay</b> (nét 0.15–0.2 mm) và dấu chân 1; vẽ <b>courtyard</b> trên lớp Mechanical.</li>
+<li>Gắn mô hình 3D (Place → 3D Body → .step).</li>
+<li>Nhanh hơn: Tools → <b>IPC Compliant Footprint Wizard</b> → chọn loại gói (DIP, SIP…), nhập kích thước datasheet.</li></ol></div>
+  <h3><span class="n">⚠</span>Lỗi thường gặp</h3><div class="mist"><ul><li>Nhìn nhầm kích thước inch/mm trong datasheet.</li><li>Đặt gốc toạ độ lệch → máy gắp đặt sai vị trí.</li><li>Footprint nhìn từ dưới (bottom view) bị lật ngược thứ tự chân.</li></ul></div><h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="thu-vien-chan-xuyen-0"> <span>Vẽ footprint IC DIP-8, relay SRD-05VDC, terminal KF301-2P từ datasheet.</span></label></li><li><label><input type="checkbox" data-ex="thu-vien-chan-xuyen-1"> <span>Tạo symbol cho IC NE555 và gán footprint DIP-8 vừa vẽ.</span></label></li></ol>
+  <div class="refs">📚 Đọc thêm: <a href="https://drive.google.com/drive/folders/1tUKCsGB7iSNjgao69q5aMWyYvZfuF8ex?usp=sharing" target="_blank" rel="noopener">Tài liệu khóa thư viện (Google Drive)</a></div>
+  <div class="donebar"><button class="donebtn" data-done="thu-vien-chan-xuyen">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#su-dung-thu-vien">← Sử dụng và quản lý thư viện linh kiện</a><a class="pn next" href="#thu-vien-chan-dan">Thiết kế thư viện IC chân dán (SMD) →</a></nav>
+</section>
+
+<section class="lesson" id="thu-vien-chan-dan" data-title="Thiết kế thư viện IC chân dán (SMD)" hidden>
+  <div class="hero" style="--g:#d97706">
+    <div class="crumbs"><span class="gchip">Khóa thiết kế thư viện</span><span>Bài 9/15</span><span>⏱ 2 giờ</span></div>
+    <h2><span class="hicon">🔲</span> Thiết kế thư viện IC chân dán (SMD)</h2>
+    <p class="intent">Vẽ footprint SMD chuẩn IPC-7351 cho IC (SOIC, SOT-23, QFN, QFP).</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>Hiểu land pattern: toe, heel, side fillet</li><li>Dùng IPC Compliant Footprint Wizard</li><li>Thêm pad tản nhiệt (exposed pad), lớp paste, courtyard</li></ul></div>
+  
+  <h3 id="thu-vien-chan-dan-s1"><span class="n">1</span>Land pattern IPC-7351</h3>
+<div class="prose">
+<p>Pad SMD phải dài hơn chân linh kiện để tạo <b>mối hàn</b> đẹp: phần nhô ra phía ngoài (toe), phía trong (heel) và hai bên (side). IPC-7351 có 3 mức mật độ: <b>Most</b> (pad to, dễ hàn tay), <b>Nominal</b> (cân bằng – mặc định), <b>Least</b> (mạch dày đặc).</p>
+<table class="tbl"><tr><th>Gói</th><th>Ghi chú khi vẽ</th></tr>
+<tr><td>SOT-23</td><td>3 chân, thứ tự chân khác nhau giữa các hãng — kiểm tra kỹ (đặc biệt MOSFET, LDO)</td></tr>
+<tr><td>SOIC-8</td><td>bước chân 1.27 mm, pad ~1.5 × 0.6 mm</td></tr>
+<tr><td>QFN</td><td>chân nằm dưới thân + pad tản nhiệt giữa (nối GND, có via tản nhiệt); chia paste thành ô nhỏ (~50–60% diện tích)</td></tr>
+<tr><td>QFP / TQFP</td><td>bước 0.5–0.8 mm, cần solder mask giữa các pad</td></tr></table></div>
+<figure class="fig"><svg class="illus" viewBox="0 0 600 232" style="max-width:600px" role="img" aria-label="Land pattern linh kiện dán" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs><text class="s" x="10" y="18" text-anchor="start">Land pattern IPC-7351 cho linh kiện chip (nhìn từ trên xuống)</text><rect x="90" y="50" width="120" height="90" class="cu"/><rect x="390" y="50" width="120" height="90" class="cu"/><rect x="160" y="70" width="280" height="50" fill="#475569" opacity="0.85"/><rect x="160" y="70" width="60" height="50" fill="#cbd5e1"/><rect x="380" y="70" width="60" height="50" fill="#cbd5e1"/><text class="xs" style="fill:#fff" x="300" y="100" text-anchor="middle">thân linh kiện</text><line class="ln thin" x1="90" y1="168" x2="510" y2="168" marker-start="url(#ah6)" marker-end="url(#ah6)"/><text class="xs" x="300.0" y="163" text-anchor="middle">Z – mép ngoài 2 pad</text><line class="ln thin" x1="210" y1="40" x2="390" y2="40" marker-start="url(#ah6)" marker-end="url(#ah6)"/><text class="xs" x="300.0" y="35" text-anchor="middle">G – khe giữa 2 pad</text><line class="ln thin" x1="160" y1="192" x2="440" y2="192" marker-start="url(#ah6)" marker-end="url(#ah6)"/><text class="xs" x="300.0" y="187" text-anchor="middle">L – chiều dài linh kiện</text><text class="s" x="70" y="100" text-anchor="middle">Jt</text><text class="s" x="232" y="136" text-anchor="middle">Jh</text><line class="ln thin" x1="530" y1="50" x2="530" y2="140" marker-start="url(#ah6)" marker-end="url(#ah6)"/><text class="s" x="540" y="100" text-anchor="start">X</text><text class="xs mute" x="10" y="222" text-anchor="start">Jt (toe): mối hàn phía mũi ngoài · Jh (heel): mối hàn phía trong · Js (side): mối hàn hai bên cạnh</text></svg></figure><h3 id="thu-vien-chan-dan-s2"><span class="n">2</span>Quy trình với IPC Compliant Footprint Wizard</h3>
+<div class="prose">
+<ol><li>Tools → IPC Compliant Footprint Wizard → chọn họ (SOIC, SOT23, QFN, PQFP…).</li>
+<li>Nhập kích thước tổng thể và kích thước chân lấy từ <b>bảng kích thước</b> trong datasheet (min/max).</li>
+<li>Chọn mức mật độ, kiểm tra hình xem trước, đặt tên theo chuẩn IPC (ví dụ <code>SOIC127P600X175-8N</code>).</li>
+<li>Kiểm tra pad tản nhiệt, lớp paste, dấu chân 1, tâm toạ độ; gắn 3D.</li></ol></div>
+  <h3><span class="n">⚠</span>Lỗi thường gặp</h3><div class="mist"><ul><li>Quên solder mask giữa các pad bước nhỏ → chân dính thiếc.</li><li>Pad tản nhiệt QFN phủ paste kín → linh kiện “nổi” lên, chân không ăn thiếc.</li><li>Lấy kích thước điển hình (typ) thay vì min/max.</li></ul></div><h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="thu-vien-chan-dan-0"> <span>Vẽ footprint SOIC-8 cho EEPROM 24C02 và SOT-23-5 cho LDO MIC5219.</span></label></li><li><label><input type="checkbox" data-ex="thu-vien-chan-dan-1"> <span>Vẽ footprint QFN-16 3×3 mm có pad tản nhiệt và 4 via tản nhiệt.</span></label></li></ol>
+  <div class="refs">📚 Đọc thêm: <a href="https://drive.google.com/drive/folders/1tUKCsGB7iSNjgao69q5aMWyYvZfuF8ex?usp=sharing" target="_blank" rel="noopener">Tài liệu khóa thư viện (Google Drive)</a></div>
+  <div class="donebar"><button class="donebtn" data-done="thu-vien-chan-dan">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#thu-vien-chan-xuyen">← Thiết kế thư viện linh kiện chân xuyên (THT)</a><a class="pn next" href="#thu-vien-dien-tro">Tính toán thiết kế thư viện điện trở, tụ điện dán →</a></nav>
+</section>
+
+<section class="lesson" id="thu-vien-dien-tro" data-title="Tính toán thiết kế thư viện điện trở, tụ điện dán" hidden>
+  <div class="hero" style="--g:#d97706">
+    <div class="crumbs"><span class="gchip">Khóa thiết kế thư viện</span><span>Bài 10/15</span><span>⏱ 1,5 giờ</span></div>
+    <h2><span class="hicon">📏</span> Tính toán thiết kế thư viện điện trở, tụ điện dán</h2>
+    <p class="intent">Tự tính kích thước pad cho linh kiện chip (0402–1206) bằng công thức IPC-7351 và tạo footprint.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>Hiểu mã kích thước 0402/0603/0805/1206 hệ inch và hệ mét</li><li>Áp dụng công thức Z, G, X</li><li>Chọn kích thước phù hợp hàn tay hay hàn máy</li></ul></div>
+  
+  <h3 id="thu-vien-dien-tro-s1"><span class="n">1</span>Kích thước linh kiện chip</h3>
+<div class="prose">
+<table class="tbl"><tr><th>Mã (inch)</th><th>Mã (mét)</th><th>Công suất điện trở thường gặp</th><th>Gợi ý</th></tr>
+<tr><td>0402</td><td>1005</td><td>1/16 W</td><td>chỉ hàn máy</td></tr>
+<tr><td>0603</td><td>1608</td><td>1/10 W</td><td>hàn tay được với nhíp + kính lúp</td></tr>
+<tr><td>0805</td><td>2012</td><td>1/8 W</td><td><b>dễ hàn tay nhất cho người mới</b></td></tr>
+<tr><td>1206</td><td>3216</td><td>1/4 W</td><td>dòng/áp lớn hơn</td></tr>
+<tr><td>2512</td><td>6332</td><td>1 W</td><td>điện trở shunt đo dòng</td></tr></table></div>
+<figure class="fig"><svg class="illus" viewBox="0 0 758.0 210" style="max-width:758.0px" role="img" aria-label="Kích thước linh kiện chip" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs><rect x="20" y="90.0" width="40.0" height="20.0" fill="#334155"/><rect x="20" y="90.0" width="8.0" height="20.0" fill="#cbd5e1"/><rect x="52.0" y="90.0" width="8.0" height="20.0" fill="#cbd5e1"/><text class="t" x="40.0" y="182" text-anchor="middle">0402</text><text class="xs mute" x="40.0" y="198" text-anchor="middle">1.0 x 0.5 mm</text><rect x="94.0" y="84.0" width="64.0" height="32.0" fill="#334155"/><rect x="94.0" y="84.0" width="12.8" height="32.0" fill="#cbd5e1"/><rect x="145.2" y="84.0" width="12.8" height="32.0" fill="#cbd5e1"/><text class="t" x="126.0" y="182" text-anchor="middle">0603</text><text class="xs mute" x="126.0" y="198" text-anchor="middle">1.6 x 0.8 mm</text><rect x="192.0" y="75.0" width="80.0" height="50.0" fill="#334155"/><rect x="192.0" y="75.0" width="16.0" height="50.0" fill="#cbd5e1"/><rect x="256.0" y="75.0" width="16.0" height="50.0" fill="#cbd5e1"/><text class="t" x="232.0" y="182" text-anchor="middle">0805</text><text class="xs mute" x="232.0" y="198" text-anchor="middle">2.0 x 1.25 mm</text><rect x="306.0" y="68.0" width="128.0" height="64.0" fill="#334155"/><rect x="306.0" y="68.0" width="25.6" height="64.0" fill="#cbd5e1"/><rect x="408.4" y="68.0" width="25.6" height="64.0" fill="#cbd5e1"/><text class="t" x="370.0" y="182" text-anchor="middle">1206</text><text class="xs mute" x="370.0" y="198" text-anchor="middle">3.2 x 1.6 mm</text><rect x="468.0" y="36.0" width="256.0" height="128.0" fill="#334155"/><rect x="468.0" y="36.0" width="51.2" height="128.0" fill="#cbd5e1"/><rect x="672.8" y="36.0" width="51.2" height="128.0" fill="#cbd5e1"/><text class="t" x="596.0" y="182" text-anchor="middle">2512</text><text class="xs mute" x="596.0" y="198" text-anchor="middle">6.4 x 3.2 mm</text><text class="xs mute" x="20" y="20" text-anchor="start">Mã kích thước hệ inch (0603 = 0.06 x 0.03 inch); hệ mét viết là 1608 (1.6 x 0.8 mm). Tỉ lệ thật.</text></svg></figure><h3 id="thu-vien-dien-tro-s2"><span class="n">2</span>Tính land pattern</h3>
+<div class="codebox">
+    <div class="codebar"><span class="fname">03-footprint-chip-smd.py</span><span class="lines">43 dòng</span>
+      <button class="cbtn" data-act="copy">Sao chép</button><button class="cbtn" data-act="dl" data-name="03-footprint-chip-smd.py">Tải file</button></div>
+    <pre class="code"><code><span class="t-str">&quot;&quot;&quot;Tính land pattern (pad) cho điện trở / tụ dán (chip) – theo ý tưởng IPC-7351 (rút gọn, dùng kích thước danh định)
+   S (khe giữa 2 đầu cực) = L − 2·T
+   Z (mép ngoài 2 pad) = L + 2·Jt + Cz        Jt: mối hàn mũi (toe)
+   G (mép trong 2 pad) = S − 2·Jh − Cg        Jh: mối hàn gót (heel)
+   X (rộng pad)        = W + 2·Js + Cx        Js: mối hàn cạnh (side)
+   Mức B (nominal) cho chip &gt;= 0603: Jt = 0.35, Jh = −0.05, Js = 0.00 (mm)
+   Cz, Cg, Cx: tổng dung sai = sqrt(dung_sai_linh_kien² + F² + P²), F = sai số chế tạo 0.05, P = sai số gắp đặt 0.05
+Chạy: python 03-footprint-chip-smd.py&quot;&quot;&quot;</span>
+<span class="t-kw">import</span> math
+
+<span class="t-ty">JT</span>, <span class="t-ty">JH</span>, <span class="t-ty">JS</span> = <span class="t-num">0.35</span>, -<span class="t-num">0.05</span>, <span class="t-num">0.00</span>
+<span class="t-ty">F</span>, <span class="t-ty">P</span> = <span class="t-num">0.05</span>, <span class="t-num">0.05</span>
+
+<span class="t-com"># Kích thước linh kiện theo datasheet điện trở chip (mm): (L, ±L, W, ±W, T đầu cực, ±T)</span>
+<span class="t-ty">LINH_KIEN</span> = {
+    <span class="t-str">&quot;0402 (1005)&quot;</span>: (<span class="t-num">1.00</span>, <span class="t-num">0.05</span>, <span class="t-num">0.50</span>, <span class="t-num">0.05</span>, <span class="t-num">0.25</span>, <span class="t-num">0.10</span>),
+    <span class="t-str">&quot;0603 (1608)&quot;</span>: (<span class="t-num">1.60</span>, <span class="t-num">0.10</span>, <span class="t-num">0.80</span>, <span class="t-num">0.10</span>, <span class="t-num">0.30</span>, <span class="t-num">0.20</span>),
+    <span class="t-str">&quot;0805 (2012)&quot;</span>: (<span class="t-num">2.00</span>, <span class="t-num">0.10</span>, <span class="t-num">1.25</span>, <span class="t-num">0.10</span>, <span class="t-num">0.40</span>, <span class="t-num">0.20</span>),
+    <span class="t-str">&quot;1206 (3216)&quot;</span>: (<span class="t-num">3.20</span>, <span class="t-num">0.10</span>, <span class="t-num">1.60</span>, <span class="t-num">0.10</span>, <span class="t-num">0.50</span>, <span class="t-num">0.25</span>),
+}
+
+
+<span class="t-kw">def</span> <span class="t-fn">land_pattern</span>(<span class="t-ty">L</span>, dL, <span class="t-ty">W</span>, dW, <span class="t-ty">T</span>, dT):
+    <span class="t-ty">S</span> = <span class="t-ty">L</span> - <span class="t-num">2</span> * <span class="t-ty">T</span>
+    <span class="t-ty">Cz</span> = math.<span class="t-fn">sqrt</span>(dL ** <span class="t-num">2</span> + <span class="t-ty">F</span> ** <span class="t-num">2</span> + <span class="t-ty">P</span> ** <span class="t-num">2</span>)
+    <span class="t-ty">Cg</span> = math.<span class="t-fn">sqrt</span>(dL ** <span class="t-num">2</span> + (<span class="t-num">2</span> * dT) ** <span class="t-num">2</span> + <span class="t-ty">F</span> ** <span class="t-num">2</span> + <span class="t-ty">P</span> ** <span class="t-num">2</span>) / <span class="t-num">2</span>
+    <span class="t-ty">Cx</span> = math.<span class="t-fn">sqrt</span>(dW ** <span class="t-num">2</span> + <span class="t-ty">F</span> ** <span class="t-num">2</span> + <span class="t-ty">P</span> ** <span class="t-num">2</span>)
+    <span class="t-ty">Z</span> = <span class="t-ty">L</span> + <span class="t-num">2</span> * <span class="t-ty">JT</span> + <span class="t-ty">Cz</span>
+    <span class="t-ty">G</span> = <span class="t-ty">S</span> - <span class="t-num">2</span> * <span class="t-ty">JH</span> - <span class="t-ty">Cg</span>
+    <span class="t-ty">X</span> = <span class="t-ty">W</span> + <span class="t-num">2</span> * <span class="t-ty">JS</span> + <span class="t-ty">Cx</span>
+    <span class="t-kw">return</span> <span class="t-ty">Z</span>, <span class="t-ty">G</span>, <span class="t-ty">X</span>, (<span class="t-ty">Z</span> - <span class="t-ty">G</span>) / <span class="t-num">2</span>, (<span class="t-ty">Z</span> + <span class="t-ty">G</span>) / <span class="t-num">2</span>
+
+
+<span class="t-fn">print</span>(<span class="t-str">f&quot;{&#x27;Gói&#x27;:&lt;12}| {&#x27;Z&#x27;:&gt;5} | {&#x27;G&#x27;:&gt;5} | {&#x27;pad dài x rộng&#x27;:&gt;15} | {&#x27;tâm–tâm&#x27;:&gt;7}&quot;</span>)
+<span class="t-fn">print</span>(<span class="t-str">&quot;-&quot;</span> * <span class="t-num">56</span>)
+<span class="t-kw">for</span> ten, kt <span class="t-kw">in</span> <span class="t-ty">LINH_KIEN</span>.<span class="t-fn">items</span>():
+    <span class="t-ty">Z</span>, <span class="t-ty">G</span>, <span class="t-ty">X</span>, l, c = <span class="t-fn">land_pattern</span>(*kt)
+    <span class="t-fn">print</span>(<span class="t-str">f&quot;{ten:&lt;12}| {Z:&gt;5.2f} | {G:&gt;5.2f} | {l:&gt;6.2f} x {X:&lt;6.2f} | {c:&gt;7.2f}&quot;</span>)
+
+<span class="t-fn">print</span>(<span class="t-str">&quot;\nGhi chú: làm tròn tới 0.05 mm khi nhập vào Altium; courtyard = Z và X cộng thêm 0.25 mm mỗi phía.&quot;</span>)
+<span class="t-ty">Z</span>, <span class="t-ty">G</span>, <span class="t-ty">X</span>, l, c = <span class="t-fn">land_pattern</span>(*<span class="t-ty">LINH_KIEN</span>[<span class="t-str">&quot;0603 (1608)&quot;</span>])
+<span class="t-fn">print</span>(<span class="t-str">f&quot;Ví dụ 0603 nhập vào Altium: 2 pad {round(l / .05) * .05:.2f} x {round(X / .05) * .05:.2f} mm, &quot;</span>
+      <span class="t-str">f&quot;tâm pad tại x = ±{c / 2:.3f} mm, courtyard {Z + 0.5:.2f} x {X + 0.5:.2f} mm&quot;</span>)
+</code></pre>
+  </div><div class="runcmd"><span>▶ Chạy thử:</span> <code>python 03-footprint-chip-smd.py</code></div><div class="outbox"><div class="outbar">Kết quả khi chạy (đã chạy thật lúc soạn bài)</div><pre class="out">Gói         |     Z |     G |  pad dài x rộng | tâm–tâm
+--------------------------------------------------------
+0402 (1005) |  1.79 |  0.49 |   0.65 x 0.59   |    1.14
+0603 (1608) |  2.42 |  0.89 |   0.77 x 0.92   |    1.66
+0805 (2012) |  2.82 |  1.09 |   0.87 x 1.37   |    1.96
+1206 (3216) |  4.02 |  2.04 |   0.99 x 1.72   |    3.03
+
+Ghi chú: làm tròn tới 0.05 mm khi nhập vào Altium; courtyard = Z và X cộng thêm 0.25 mm mỗi phía.
+Ví dụ 0603 nhập vào Altium: 2 pad 0.75 x 0.90 mm, tâm pad tại x = ±0.828 mm, courtyard 2.92 x 1.42 mm</pre></div>
+<h4 class="sub">Giải thích</h4><ul class="notes"><li>Kết quả 0603: pad 0.75 × 0.90 mm, tâm cách tâm 1.66 mm — gần với footprint chuẩn của các hãng.</li><li>Muốn dễ hàn tay hơn: chọn mức Most (Jt = 0.55) → pad dài thêm 0.2 mm về phía ngoài.</li><li>Courtyard (vùng chiếm chỗ) giúp DRC phát hiện hai linh kiện đặt quá sát nhau.</li></ul>
+  <h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="thu-vien-dien-tro-0"> <span>Tính và vẽ footprint tụ 1210 (3.2 × 2.5 mm).</span></label></li><li><label><input type="checkbox" data-ex="thu-vien-dien-tro-1"> <span>So sánh footprint 0805 tự tính với footprint trong thư viện mặc định của Altium.</span></label></li></ol>
+  <div class="refs">📚 Đọc thêm: <a href="https://drive.google.com/drive/folders/1tUKCsGB7iSNjgao69q5aMWyYvZfuF8ex?usp=sharing" target="_blank" rel="noopener">Tài liệu khóa thư viện (Google Drive)</a></div>
+  <div class="donebar"><button class="donebtn" data-done="thu-vien-dien-tro">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#thu-vien-chan-dan">← Thiết kế thư viện IC chân dán (SMD)</a><a class="pn next" href="#4-lop">Thiết kế mạch 4 lớp, stack-up và trở kháng (Altium 18) →</a></nav>
+</section>
+
+<section class="lesson" id="4-lop" data-title="Thiết kế mạch 4 lớp, stack-up và trở kháng (Altium 18)" hidden>
+  <div class="hero" style="--g:#7c3aed">
+    <div class="crumbs"><span class="gchip">Khóa 4 lớp &amp; highspeed</span><span>Bài 11/15</span><span>⏱ 3 giờ</span></div>
+    <h2><span class="hicon">🧱</span> Thiết kế mạch 4 lớp, stack-up và trở kháng (Altium 18)</h2>
+    <p class="intent">Thiết kế mạch 4 lớp đúng chuẩn: chọn stack-up, mặt GND/nguồn, đường trở kháng có kiểm soát.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>Dùng Layer Stack Manager trong Altium 18</li><li>Hiểu vì sao stack-up SIG–GND–PWR–SIG phổ biến</li><li>Hiểu đường hồi dòng (return path)</li><li>Tính bề rộng đường 50 Ω và cặp vi sai 90 Ω</li></ul></div>
+  
+  <h3 id="4-lop-s1"><span class="n">1</span>Stack-up 4 lớp</h3>
+<div class="prose">
+<p>Layer Stack Manager (<b>Design → Layer Stack Manager</b>): thêm 2 lớp nội (Internal Plane cho mặt nguồn/GND, hoặc Signal Layer). Nhập độ dày prepreg/lõi và hằng số điện môi theo stack-up của xưởng (JLCPCB công bố stack-up JLC04161H-7628).</p>
+<ul><li><b>L2 = GND liền mạch</b>: mọi tín hiệu ở L1 có đường hồi ngay bên dưới, cách 0.21 mm → nhiễu giảm mạnh.</li>
+<li><b>L3 = nguồn</b>: chia vùng 3V3, 5V bằng Split Plane.</li>
+<li>Tín hiệu đi ở L1 và L4; khi đổi lớp tín hiệu nhanh, đặt via GND ngay cạnh via tín hiệu.</li></ul></div>
+<figure class="fig"><svg class="illus" viewBox="0 0 640 258" style="max-width:640px" role="img" aria-label="Mặt cắt mạch 4 lớp 1.6 mm (stack-up chuẩn: SIG – GND – PWR – SIG)" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs><rect x="40" y="14" width="360" height="16" fill="#16a34a" stroke="#475569" stroke-width="0.6"/><text class="xs" x="414" y="26.0" text-anchor="start">Solder mask</text><rect x="40" y="30" width="360" height="16" fill="#d97706" stroke="#475569" stroke-width="0.6"/><text class="xs" x="414" y="42.0" text-anchor="start">L1 TOP – tín hiệu</text><rect x="40" y="46" width="360" height="24" fill="#e7dcb6" stroke="#475569" stroke-width="0.6"/><text class="xs" x="414" y="62.0" text-anchor="start">Prepreg 0.21 mm</text><rect x="40" y="70" width="360" height="16" fill="#2563eb" stroke="#475569" stroke-width="0.6"/><text class="xs" x="414" y="82.0" text-anchor="start">L2 – GND liền mạch</text><rect x="40" y="86" width="360" height="56" fill="#d9c99a" stroke="#475569" stroke-width="0.6"/><text class="xs" x="414" y="118.0" text-anchor="start">Lõi FR-4 1.065 mm</text><rect x="40" y="142" width="360" height="16" fill="#dc2626" stroke="#475569" stroke-width="0.6"/><text class="xs" x="414" y="154.0" text-anchor="start">L3 – nguồn (3V3, 5V)</text><rect x="40" y="158" width="360" height="24" fill="#e7dcb6" stroke="#475569" stroke-width="0.6"/><text class="xs" x="414" y="174.0" text-anchor="start">Prepreg 0.21 mm</text><rect x="40" y="182" width="360" height="16" fill="#d97706" stroke="#475569" stroke-width="0.6"/><text class="xs" x="414" y="194.0" text-anchor="start">L4 BOTTOM – tín hiệu</text><rect x="40" y="198" width="360" height="16" fill="#16a34a" stroke="#475569" stroke-width="0.6"/><text class="xs" x="414" y="210.0" text-anchor="start">Solder mask</text><rect x="200" y="14" width="18" height="200" fill="#fff" stroke="#475569"/><rect x="196" y="14" width="4" height="200" fill="#d97706"/><rect x="218" y="14" width="4" height="200" fill="#d97706"/><text class="xs mute" x="209" y="230" text-anchor="middle">via xuyên lỗ</text><text class="xs mute" x="40" y="248" text-anchor="start">(các lớp mỏng được vẽ phóng to để dễ nhìn, không đúng tỉ lệ)</text></svg></figure><h3 id="4-lop-s2"><span class="n">2</span>Đường hồi dòng</h3>
+<div class="prose"><p>Ở tần số cao, dòng hồi luôn đi theo đường có <b>cảm kháng nhỏ nhất</b> — ngay bên dưới đường tín hiệu. Nếu mặt GND bị cắt bởi khe hở, dòng hồi phải đi vòng, tạo vòng dòng lớn = anten phát nhiễu. <b>Không bao giờ</b> cho tín hiệu nhanh đi qua khe của mặt GND.</p></div>
+<figure class="fig"><svg class="illus" viewBox="0 0 600 280" style="max-width:600px" role="img" aria-label="Đường hồi dòng" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs><text class="s" x="10" y="18" text-anchor="start">Dòng tín hiệu đi trên đường mạch, dòng HỒI chạy ngay bên dưới trên mặt GND</text><rect x="20" y="64" width="560" height="50" fill="#bfdbfe" stroke="#2563eb"/><path class="ln dash" d="M540,89 L60,89" fill="none" marker-end="url(#ah9)"/><line x1="60" y1="52" x2="540" y2="52" stroke="#d97706" stroke-width="5"/><text class="xs" x="20" y="46" text-anchor="start">Mặt GND liền: dòng hồi đi thẳng dưới đường mạch ✓</text><rect x="20" y="184" width="560" height="50" fill="#bfdbfe" stroke="#2563eb"/><rect x="290" y="184" width="20" height="50" fill="#fff"/><path class="ln dash" d="M540,209 L320,209 C315,249 285,249 280,209 L60,209" fill="none" marker-end="url(#ah9)"/><line x1="60" y1="172" x2="540" y2="172" stroke="#d97706" stroke-width="5"/><text class="xs" x="20" y="166" text-anchor="start">Mặt GND bị cắt: dòng hồi phải đi vòng → anten phát nhiễu ✗</text></svg></figure><h3 id="4-lop-s3"><span class="n">3</span>Trở kháng có kiểm soát</h3>
+<figure class="fig"><svg class="illus" viewBox="0 0 620 180" style="max-width:620px" role="img" aria-label="Microstrip" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah10" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs><rect x="40" y="110" width="400" height="14" fill="#2563eb"/><rect x="40" y="60" width="400" height="50" fill="#e7dcb6"/><rect x="200" y="50" width="80" height="10" fill="#d97706"/><text class="xs" x="450" y="121" text-anchor="start">mặt GND (L2)</text><text class="xs" x="450" y="90" text-anchor="start">điện môi εr, dày h</text><text class="xs" x="240" y="44" text-anchor="middle">w (rộng), t (dày)</text><line class="ln thin" x1="30" y1="60" x2="30" y2="110" marker-start="url(#ah10)" marker-end="url(#ah10)"/><text class="s" x="14" y="90" text-anchor="start">h</text><text class="mono" x="40" y="150" text-anchor="start">Z0 = 87/√(εr+1.41) · ln(5.98h / (0.8w + t))</text><text class="xs mute" x="40" y="170" text-anchor="start">Mạch 4 lớp, h = 0.21 mm, εr = 4.4: w ≈ 0.35 mm cho 50 Ω</text></svg></figure>
+<div class="codebox">
+    <div class="codebar"><span class="fname">04-tro-khang-microstrip.py</span><span class="lines">41 dòng</span>
+      <button class="cbtn" data-act="copy">Sao chép</button><button class="cbtn" data-act="dl" data-name="04-tro-khang-microstrip.py">Tải file</button></div>
+    <pre class="code"><code><span class="t-str">&quot;&quot;&quot;Tính trở kháng đặc tính của đường microstrip (đường trên lớp ngoài, có mặt GND ngay lớp dưới)
+   Công thức IPC-2141:  Z0 = 87 / sqrt(εr + 1.41) · ln( 5.98·h / (0.8·w + t) )      (hợp lệ khi 0.1 &lt; w/h &lt; 2)
+   Cặp vi sai (gần đúng): Zdiff ≈ 2·Z0·(1 − 0.48·e^(−0.96·s/h))
+   Stack-up mẫu: mạch 4 lớp 1.6 mm, lớp prepreg 7628 dày h = 0.21 mm, εr ≈ 4.4, đồng ngoài 1 oz (t = 0.035 mm)
+Chạy: python 04-tro-khang-microstrip.py&quot;&quot;&quot;</span>
+<span class="t-kw">import</span> math
+
+<span class="t-ty">H</span>, <span class="t-ty">ER</span>, <span class="t-ty">T</span> = <span class="t-num">0.21</span>, <span class="t-num">4.4</span>, <span class="t-num">0.035</span>
+
+
+<span class="t-kw">def</span> <span class="t-fn">z0</span>(w, h=<span class="t-ty">H</span>, er=<span class="t-ty">ER</span>, t=<span class="t-ty">T</span>):
+    <span class="t-kw">return</span> <span class="t-num">87</span> / math.<span class="t-fn">sqrt</span>(er + <span class="t-num">1.41</span>) * math.<span class="t-fn">log</span>(<span class="t-num">5.98</span> * h / (<span class="t-num">0.8</span> * w + t))
+
+
+<span class="t-kw">def</span> <span class="t-fn">zdiff</span>(w, s, h=<span class="t-ty">H</span>):
+    <span class="t-kw">return</span> <span class="t-num">2</span> * <span class="t-fn">z0</span>(w, h) * (<span class="t-num">1</span> - <span class="t-num">0.48</span> * math.<span class="t-fn">exp</span>(-<span class="t-num">0.96</span> * s / h))
+
+
+<span class="t-kw">def</span> <span class="t-fn">tim_be_rong</span>(muc_tieu, h=<span class="t-ty">H</span>):
+    lo, hi = <span class="t-num">0.02</span>, <span class="t-num">3</span> * h                     <span class="t-com"># Z0 giảm khi w tăng -&gt; chia đôi</span>
+    <span class="t-kw">for</span> _ <span class="t-kw">in</span> <span class="t-fn">range</span>(<span class="t-num">60</span>):
+        mid = (lo + hi) / <span class="t-num">2</span>
+        <span class="t-kw">if</span> <span class="t-fn">z0</span>(mid, h) &gt; muc_tieu: lo = mid
+        <span class="t-kw">else</span>: hi = mid
+    <span class="t-kw">return</span> (lo + hi) / <span class="t-num">2</span>
+
+
+<span class="t-fn">print</span>(<span class="t-str">&quot;Z0 theo bề rộng đường (h = 0.21 mm, εr = 4.4):&quot;</span>)
+<span class="t-kw">for</span> w <span class="t-kw">in</span> [<span class="t-num">0.15</span>, <span class="t-num">0.20</span>, <span class="t-num">0.30</span>, <span class="t-num">0.40</span>, <span class="t-num">0.50</span>]:
+    <span class="t-fn">print</span>(<span class="t-str">f&quot;  w = {w:.2f} mm -&gt; Z0 = {z0(w):5.1f} Ω&quot;</span>)
+
+w50 = <span class="t-fn">tim_be_rong</span>(<span class="t-num">50</span>)
+<span class="t-fn">print</span>(<span class="t-str">f&quot;\nĐường 50 Ω (anten 2.4 GHz, RF): w ≈ {w50:.3f} mm&quot;</span>)
+
+<span class="t-fn">print</span>(<span class="t-str">&quot;\nCặp vi sai USB 2.0 (mục tiêu 90 Ω ± 10%):&quot;</span>)
+<span class="t-kw">for</span> w, s <span class="t-kw">in</span> [(<span class="t-num">0.15</span>, <span class="t-num">0.15</span>), (<span class="t-num">0.20</span>, <span class="t-num">0.15</span>), (<span class="t-num">0.25</span>, <span class="t-num">0.15</span>), (<span class="t-num">0.25</span>, <span class="t-num">0.20</span>)]:
+    z = <span class="t-fn">zdiff</span>(w, s)
+    <span class="t-fn">print</span>(<span class="t-str">f&quot;  w = {w:.2f}, s = {s:.2f} mm -&gt; Zdiff ≈ {z:5.1f} Ω {&#x27;✓&#x27; if 81 &lt;= z &lt;= 99 else &#x27;&#x27;}&quot;</span>)
+
+<span class="t-fn">print</span>(<span class="t-str">&quot;\nNếu là mạch 2 lớp 1.6 mm (h = 1.5 mm), đường 50 Ω phải rộng:&quot;</span>,
+      <span class="t-str">f&quot;{tim_be_rong(50, 1.5):.2f} mm -&gt; quá to, vì vậy RF/high-speed nên dùng mạch 4 lớp.&quot;</span>)
+</code></pre>
+  </div><div class="runcmd"><span>▶ Chạy thử:</span> <code>python 04-tro-khang-microstrip.py</code></div><div class="outbox"><div class="outbar">Kết quả khi chạy (đã chạy thật lúc soạn bài)</div><pre class="out">Z0 theo bề rộng đường (h = 0.21 mm, εr = 4.4):
+  w = 0.15 mm -&gt; Z0 =  75.5 Ω
+  w = 0.20 mm -&gt; Z0 =  67.2 Ω
+  w = 0.30 mm -&gt; Z0 =  54.8 Ω
+  w = 0.40 mm -&gt; Z0 =  45.6 Ω
+  w = 0.50 mm -&gt; Z0 =  38.3 Ω
+
+Đường 50 Ω (anten 2.4 GHz, RF): w ≈ 0.349 mm
+
+Cặp vi sai USB 2.0 (mục tiêu 90 Ω ± 10%):
+  w = 0.15, s = 0.15 mm -&gt; Zdiff ≈ 114.5 Ω 
+  w = 0.20, s = 0.15 mm -&gt; Zdiff ≈ 101.9 Ω 
+  w = 0.25, s = 0.15 mm -&gt; Zdiff ≈  91.7 Ω ✓
+  w = 0.25, s = 0.20 mm -&gt; Zdiff ≈  97.7 Ω ✓
+
+Nếu là mạch 2 lớp 1.6 mm (h = 1.5 mm), đường 50 Ω phải rộng: 2.76 mm -&gt; quá to, vì vậy RF/high-speed nên dùng mạch 4 lớp.</pre></div>
+<h4 class="sub">Giải thích</h4><ul class="notes"><li>Mạch 4 lớp: đường 50 Ω chỉ rộng 0.35 mm — dễ đi tới anten, connector u.FL.</li><li>Mạch 2 lớp dày 1.6 mm: đường 50 Ω phải rộng 2.76 mm — lý do RF và USB tốc độ cao nên dùng 4 lớp.</li><li>Altium 18 tính trở kháng ngay trong Layer Stack Manager (tab Impedance) và đặt rule Width theo trở kháng.</li></ul>
+  <h3><span class="n">⚠</span>Lỗi thường gặp</h3><div class="mist"><ul><li>Đặt hai lớp tín hiệu kề nhau ở giữa mà không có mặt tham chiếu.</li><li>Chia vụn mặt GND ở L2.</li><li>Dùng stack-up mặc định của Altium thay vì stack-up thật của xưởng.</li></ul></div><h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="4-lop-0"> <span>Tạo stack-up 4 lớp theo thông số JLC04161H-7628 trong Altium.</span></label></li><li><label><input type="checkbox" data-ex="4-lop-1"> <span>Tính bề rộng đường 50 Ω cho anten chip 2.4 GHz và cặp USB 90 Ω.</span></label></li></ol>
+  <div class="refs">📚 Đọc thêm: <a href="https://drive.google.com/drive/folders/1YHw5ivbMP5qDJHukmPXfuaBxHfVxFykK?usp=sharing" target="_blank" rel="noopener">Tài liệu khóa Altium 4 lớp &amp; highspeed (Google Drive)</a> · <a href="https://jlcpcb.com/impedance" target="_blank" rel="noopener">JLCPCB stack-up &amp; impedance</a></div>
+  <div class="donebar"><button class="donebtn" data-done="4-lop">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#thu-vien-dien-tro">← Tính toán thiết kế thư viện điện trở, tụ điện dán</a><a class="pn next" href="#chong-nhieu">Thiết kế chống nhiễu và tín hiệu tốc độ cao →</a></nav>
+</section>
+
+<section class="lesson" id="chong-nhieu" data-title="Thiết kế chống nhiễu và tín hiệu tốc độ cao" hidden>
+  <div class="hero" style="--g:#7c3aed">
+    <div class="crumbs"><span class="gchip">Khóa 4 lớp &amp; highspeed</span><span>Bài 12/15</span><span>⏱ 3 giờ</span></div>
+    <h2><span class="hicon">📡</span> Thiết kế chống nhiễu và tín hiệu tốc độ cao</h2>
+    <p class="intent">Áp dụng các quy tắc layout giúp mạch chạy ổn định, ít nhiễu, đạt EMC.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>Đặt tụ decoupling đúng</li><li>Bố trí thạch anh, analog/digital, nguồn xung</li><li>Đi cặp vi sai, cân chiều dài</li><li>Quy tắc 3W, 20H, via stitching</li></ul></div>
+  
+  <h3 id="chong-nhieu-s1"><span class="n">1</span>Nguồn và tụ decoupling</h3>
+<div class="prose">
+<ul><li>Mỗi chân nguồn IC có một tụ 100 nF đặt <b>sát nhất</b> có thể, via GND ngay cạnh tụ; thêm tụ 10 µF cho cả khối.</li>
+<li>Dòng đi: nguồn → tụ → chân IC (đi qua tụ trước rồi mới vào IC).</li>
+<li>Nguồn xung (buck): vòng dòng gồm tụ vào – MOSFET – diode phải nhỏ nhất; cuộn cảm và chân SW tránh xa tín hiệu nhạy.</li></ul></div>
+<figure class="fig"><svg class="illus" viewBox="0 0 670 264" style="max-width:670px" role="img" aria-label="Đặt tụ decoupling" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah11" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs><text class="s" x="10" y="18" text-anchor="start">Tụ lọc nguồn 100 nF: SAI vs ĐÚNG</text><rect class="bx-g" x="110" y="40" width="90" height="90" rx="4"/><text class="t" x="155.0" y="90.0" text-anchor="middle">IC</text><text class="xs" x="122" y="62" text-anchor="start">VCC</text><text class="xs" x="122" y="124" text-anchor="start">GND</text><rect x="40" y="190" width="34" height="16" fill="#334155"/><text class="xs" x="57" y="220" text-anchor="middle">100nF</text><polyline points="110,58 57,58 44,190" fill="none" stroke="#d97706" stroke-width="3"/><polyline points="110,120 90,120 90,210 70,210" fill="none" stroke="#2563eb" stroke-width="3"/><polygon points="57,58 110,58 110,120 90,120 90,206 70,206 44,190" fill="#dc2626" opacity="0.15"/><text class="xs" x="30" y="236" text-anchor="start">diện tích vòng lớn → cảm kháng lớn, nhiễu</text><text class="s" x="30" y="254" text-anchor="start">SAI: tụ xa, vòng dòng lớn</text><rect class="bx-g" x="440" y="40" width="90" height="90" rx="4"/><text class="t" x="485.0" y="90.0" text-anchor="middle">IC</text><text class="xs" x="452" y="62" text-anchor="start">VCC</text><text class="xs" x="452" y="124" text-anchor="start">GND</text><rect x="550" y="52" width="34" height="16" fill="#334155"/><text class="xs" x="567" y="48" text-anchor="middle">100nF</text><line x1="530" y1="58" x2="550" y2="60" stroke="#d97706" stroke-width="3"/><circle cx="594" cy="60" r="5" fill="#2563eb"/><text class="xs" x="604" y="64" text-anchor="start">via → GND</text><text class="xs" x="440" y="236" text-anchor="start">vòng dòng nhỏ nhất</text><text class="s" x="360" y="254" text-anchor="start">ĐÚNG: tụ sát chân, via GND ngay cạnh</text></svg></figure><h3 id="chong-nhieu-s2"><span class="n">2</span>Tín hiệu tốc độ cao</h3>
+<div class="prose">
+<ul><li><b>Thạch anh</b> sát chân vi điều khiển, tụ tải đối xứng, bao quanh bằng GND, không đi dây khác bên dưới.</li>
+<li><b>Analog/Digital</b>: đặt tách vùng, dùng chung một mặt GND liền nhưng không để dòng digital chạy qua vùng analog.</li>
+<li><b>Cặp vi sai</b> (USB, CAN, RS485, Ethernet): Altium → Place → Differential Pair Routing; đặt rule Differential Pairs; cân chiều dài bằng Interactive Length Tuning.</li>
+<li><b>Via stitching</b> dọc mép mạch và quanh vùng RF mỗi λ/20.</li></ul></div>
+<figure class="fig"><svg class="illus" viewBox="0 0 620 210" style="max-width:620px" role="img" aria-label="Cặp vi sai" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah12" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs><text class="s" x="10" y="18" text-anchor="start">Cặp vi sai (USB D+/D−): đi song song, khoảng cách đều, chiều dài bằng nhau</text><polyline points="20,60 300,60 320,80 600,80" fill="none" stroke="#d97706" stroke-width="5"/><polyline points="20,74 296,74 316,94 420,94 430,104 440,94 450,104 460,94 470,104 480,94 600,94" fill="none" stroke="#d97706" stroke-width="5"/><text class="xs" x="450" y="124" text-anchor="middle">đoạn uốn bù chiều dài (tuning)</text><text class="xs" x="20" y="50" text-anchor="start">D+</text><text class="xs" x="20" y="92" text-anchor="start">D−</text><text class="xs" x="20" y="152" text-anchor="start">• Quy tắc 3W: khoảng cách giữa 2 đường tín hiệu khác nhau ≥ 3 lần bề rộng đường → giảm xuyên âm</text><text class="xs" x="20" y="172" text-anchor="start">• Quy tắc 20H: mặt nguồn lùi vào so với mặt GND 20 lần độ dày điện môi → giảm bức xạ ở mép mạch</text><text class="xs" x="20" y="192" text-anchor="start">• Không đi tín hiệu tốc độ cao qua khe hở của mặt GND; hạn chế via; góc gãy 45°, không gãy 90°</text></svg></figure>
+  <h3><span class="n">🔧</span>Áp dụng trong lập trình nhúng</h3><div class="emb"><div class="embicon">🔧</div><ul><li>ESP32: chân EN cần mạch RC (10k + 1 µF) chống reset do nhiễu; chân GPIO0 có điện trở kéo lên.</li><li>Động cơ DC: tụ 100 nF hàn trực tiếp hai cực động cơ, dây động cơ xoắn đôi, driver và MCU dùng GND công suất riêng nối tại một điểm.</li></ul></div><h3><span class="n">⚠</span>Lỗi thường gặp</h3><div class="mist"><ul><li>Tụ decoupling đặt xa, nối bằng đường dài mảnh.</li><li>Đường clock chạy song song sát đường analog.</li><li>Đổ đồng tạo “đảo” đồng không nối GND (anten nhỏ).</li></ul></div><h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="chong-nhieu-0"> <span>Rà soát mạch dự án mẫu theo checklist chống nhiễu, chỉ ra 5 điểm cần sửa.</span></label></li><li><label><input type="checkbox" data-ex="chong-nhieu-1"> <span>Đi cặp USB D+/D− từ connector USB-C tới CH340C với lệch chiều dài < 0.5 mm.</span></label></li></ol>
+  <div class="refs">📚 Đọc thêm: <a href="https://drive.google.com/drive/folders/1YHw5ivbMP5qDJHukmPXfuaBxHfVxFykK?usp=sharing" target="_blank" rel="noopener">Tài liệu khóa Altium 4 lớp &amp; highspeed (Google Drive)</a></div>
+  <div class="donebar"><button class="donebtn" data-done="chong-nhieu">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#4-lop">← Thiết kế mạch 4 lớp, stack-up và trở kháng (Altium 18)</a><a class="pn next" href="#that-co-chai">Sửa lỗi thắt cổ chai và layout “đường ống nước” cho dòng lớn →</a></nav>
+</section>
+
+<section class="lesson" id="that-co-chai" data-title="Sửa lỗi thắt cổ chai và layout “đường ống nước” cho dòng lớn" hidden>
+  <div class="hero" style="--g:#7c3aed">
+    <div class="crumbs"><span class="gchip">Khóa 4 lớp &amp; highspeed</span><span>Bài 13/15</span><span>⏱ 2 giờ</span></div>
+    <h2><span class="hicon">🚰</span> Sửa lỗi thắt cổ chai và layout “đường ống nước” cho dòng lớn</h2>
+    <p class="intent">Tính và vẽ đúng đường dòng lớn: bề rộng, via, polygon, thermal relief — tránh điểm nghẽn gây nóng cháy.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>Tính bề rộng đường theo dòng và mức tăng nhiệt (IPC-2221)</li><li>Phát hiện và sửa điểm thắt cổ chai</li><li>Tính số via cần thiết</li><li>Dùng polygon, đồng dày, thermal relief hợp lý</li></ul></div>
+  
+  <h3 id="that-co-chai-s1"><span class="n">1</span>Dòng điện như nước chảy trong ống</h3>
+<div class="prose"><p>Lưu lượng của cả đường ống do <b>chỗ hẹp nhất</b> quyết định. Một đường nguồn rộng 3 mm nhưng phải lách qua giữa 2 chân IC bằng đoạn 0.25 mm thì khả năng chịu dòng chỉ còn của đoạn 0.25 mm. Các điểm hẹp hay bị bỏ sót: lối vào pad, chỗ đổi lớp (1 via duy nhất), chỗ polygon bị thắt bởi via/lỗ, cổ thermal relief.</p></div>
+<figure class="fig"><svg class="illus" viewBox="0 0 640 188" style="max-width:640px" role="img" aria-label="Lỗi thắt cổ chai" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah13" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs><text class="s" x="10" y="18" text-anchor="start">“Đường ống nước”: dòng điện như nước — chỗ hẹp nhất quyết định lưu lượng</text><path d="M20,50 L250,50 L280,78 L360,78 L390,50 L620,50 L620,130 L390,130 L360,102 L280,102 L250,130 L20,130 Z" class="cu"/><text class="xs" x="320" y="94" text-anchor="middle">thắt cổ chai 0.25 mm</text><line class="ln" x1="60" y1="90" x2="100" y2="90" marker-end="url(#ah13)"/><line class="ln" x1="140" y1="90" x2="180" y2="90" marker-end="url(#ah13)"/><line class="ln" x1="470" y1="90" x2="510" y2="90" marker-end="url(#ah13)"/><line class="ln" x1="560" y1="90" x2="600" y2="90" marker-end="url(#ah13)"/><text class="xs mute" x="20" y="160" text-anchor="start">Đường 3 mm cho 5 A nhưng có đoạn 0.25 mm (đi qua giữa 2 chân IC) → đoạn hẹp nóng đỏ, có thể cháy đứt.</text><text class="xs mute" x="20" y="178" text-anchor="start">Sửa: đi vòng, dùng polygon/đồng lớp khác + cụm via, hoặc đổi vị trí linh kiện cho đường thẳng và rộng.</text></svg></figure><h3 id="that-co-chai-s2"><span class="n">2</span>Tính bề rộng đường</h3>
+<figure class="fig"><svg class="illus" viewBox="0 0 600 270" style="max-width:600px" role="img" aria-label="Bề rộng đường mạch theo dòng điện" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah14" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs><line class="ln" x1="60" y1="240" x2="580" y2="240"/><line class="ln" x1="60" y1="20" x2="60" y2="240"/><text class="xs mute" x="60.0" y="256" text-anchor="middle">0 A</text><text class="xs mute" x="164.0" y="256" text-anchor="middle">2 A</text><text class="xs mute" x="268.0" y="256" text-anchor="middle">4 A</text><text class="xs mute" x="372.0" y="256" text-anchor="middle">6 A</text><text class="xs mute" x="476.0" y="256" text-anchor="middle">8 A</text><text class="xs mute" x="580.0" y="256" text-anchor="middle">10 A</text><text class="xs mute" x="52" y="244.0" text-anchor="end">0</text><line class="ln thin dash" x1="60" y1="240.0" x2="580" y2="240.0"/><text class="xs mute" x="52" y="189.0" text-anchor="end">2</text><line class="ln thin dash" x1="60" y1="185.0" x2="580" y2="185.0"/><text class="xs mute" x="52" y="134.0" text-anchor="end">4</text><line class="ln thin dash" x1="60" y1="130.0" x2="580" y2="130.0"/><text class="xs mute" x="52" y="79.0" text-anchor="end">6</text><line class="ln thin dash" x1="60" y1="75.0" x2="580" y2="75.0"/><text class="xs mute" x="52" y="24.0" text-anchor="end">8</text><line class="ln thin dash" x1="60" y1="20.0" x2="580" y2="20.0"/><polyline points="65.2,239.7 70.4,239.1 75.6,238.4 80.8,237.7 86.0,236.8 91.2,235.9 96.4,234.9 101.6,233.9 106.8,232.9 112.0,231.7 117.2,230.6 122.4,229.4 127.6,228.1 132.8,226.9 138.0,225.5 143.2,224.2 148.4,222.8 153.6,221.4 158.8,220.0 164.0,218.5 169.2,217.0 174.4,215.5 179.6,213.9 184.8,212.4 190.0,210.8 195.2,209.1 200.4,207.5 205.6,205.8 210.8,204.1 216.0,202.4 221.2,200.7 226.4,198.9 231.6,197.1 236.8,195.3 242.0,193.5 247.2,191.7 252.4,189.8 257.6,187.9 262.8,186.0 268.0,184.1 273.2,182.2 278.4,180.2 283.6,178.2 288.8,176.2 294.0,174.2 299.2,172.2 304.4,170.2 309.6,168.1 314.8,166.0 320.0,164.0 325.2,161.8 330.4,159.7 335.6,157.6 340.8,155.4 346.0,153.3 351.2,151.1 356.4,148.9 361.6,146.7 366.8,144.4 372.0,142.2 377.2,140.0 382.4,137.7 387.6,135.4 392.8,133.1 398.0,130.8 403.2,128.5 408.4,126.1 413.6,123.8 418.8,121.4 424.0,119.0 429.2,116.6 434.4,114.2 439.6,111.8 444.8,109.4 450.0,107.0 455.2,104.5 460.4,102.0 465.6,99.6 470.8,97.1 476.0,94.6 481.2,92.1 486.4,89.5 491.6,87.0 496.8,84.5 502.0,81.9 507.2,79.3 512.4,76.7 517.6,74.1 522.8,71.5 528.0,68.9 533.2,66.3 538.4,63.7 543.6,61.0 548.8,58.3 554.0,55.7 559.2,53.0 564.4,50.3 569.6,47.6 574.8,44.9 580.0,42.2" fill="none" stroke="#d97706" stroke-width="2.5"/><polyline points="65.2,239.1 70.4,237.7 75.6,235.9 80.8,233.9 86.0,231.7 91.2,229.4 96.4,226.9 101.6,224.2 106.8,221.4 112.0,218.5 117.2,215.5 122.4,212.4 127.6,209.1 132.8,205.8 138.0,202.4 143.2,198.9 148.4,195.3 153.6,191.7 158.8,187.9 164.0,184.1 169.2,180.2 174.4,176.2 179.6,172.2 184.8,168.1 190.0,164.0 195.2,159.7 200.4,155.4 205.6,151.1 210.8,146.7 216.0,142.2 221.2,137.7 226.4,133.1 231.6,128.5 236.8,123.8 242.0,119.0 247.2,114.2 252.4,109.4 257.6,104.5 262.8,99.6 268.0,94.6 273.2,89.5 278.4,84.5 283.6,79.3 288.8,74.1 294.0,68.9 299.2,63.7 304.4,58.3 309.6,53.0 314.8,47.6 320.0,42.2 325.2,36.7 330.4,31.2 335.6,25.6 340.8,20.0" fill="none" stroke="#2563eb" stroke-width="2.5"/><text class="xs" x="430" y="170" text-anchor="start">lớp ngoài (top/bottom)</text><text class="xs" x="200" y="50" text-anchor="start">lớp trong</text><text class="xs mute" x="14" y="30" text-anchor="start">mm</text></svg><figcaption>Bề rộng tối thiểu theo dòng, đồng 1 oz, tăng nhiệt 10 °C (tính bằng công thức IPC-2221).</figcaption></figure>
+<div class="codebox">
+    <div class="codebar"><span class="fname">01-be-rong-duong-mach.py</span><span class="lines">37 dòng</span>
+      <button class="cbtn" data-act="copy">Sao chép</button><button class="cbtn" data-act="dl" data-name="01-be-rong-duong-mach.py">Tải file</button></div>
+    <pre class="code"><code><span class="t-str">&quot;&quot;&quot;Tính bề rộng đường mạch theo dòng điện – công thức IPC-2221
+   I = k · ΔT^0.44 · A^0.725      (A: tiết diện, đơn vị mil²)
+   k = 0.048 với lớp NGOÀI (top/bottom), 0.024 với lớp TRONG (khó toả nhiệt hơn)
+Chạy: python 01-be-rong-duong-mach.py&quot;&quot;&quot;</span>
+<span class="t-kw">import</span> math
+
+<span class="t-ty">MIL</span> = <span class="t-num">0.0254</span>            <span class="t-com"># 1 mil = 0.0254 mm</span>
+<span class="t-ty">OZ_TO_MIL</span> = <span class="t-num">1.378</span>       <span class="t-com"># 1 oz/ft² đồng ≈ 1.378 mil ≈ 35 µm</span>
+<span class="t-ty">RHO_CU</span> = <span class="t-num">1</span>.72e-<span class="t-num">8</span>        <span class="t-com"># điện trở suất đồng (Ω·m) ở 20°C</span>
+
+
+<span class="t-kw">def</span> <span class="t-fn">be_rong_mm</span>(dong_A, tang_nhiet=<span class="t-num">10</span>, oz=<span class="t-num">1.0</span>, lop_ngoai=<span class="t-kw">True</span>):
+    k = <span class="t-num">0.048</span> <span class="t-kw">if</span> lop_ngoai <span class="t-kw">else</span> <span class="t-num">0.024</span>
+    tiet_dien_mil2 = (dong_A / (k * tang_nhiet ** <span class="t-num">0.44</span>)) ** (<span class="t-num">1</span> / <span class="t-num">0.725</span>)
+    <span class="t-kw">return</span> tiet_dien_mil2 / (oz * <span class="t-ty">OZ_TO_MIL</span>) * <span class="t-ty">MIL</span>
+
+
+<span class="t-kw">def</span> <span class="t-fn">sut_ap</span>(dong_A, rong_mm, dai_mm, oz=<span class="t-num">1.0</span>):
+    day_m = oz * 35e-<span class="t-num">6</span>
+    <span class="t-ty">R</span> = <span class="t-ty">RHO_CU</span> * (dai_mm / <span class="t-num">1000</span>) / ((rong_mm / <span class="t-num">1000</span>) * day_m)
+    <span class="t-kw">return</span> <span class="t-ty">R</span>, dong_A * <span class="t-ty">R</span>, dong_A ** <span class="t-num">2</span> * <span class="t-ty">R</span>
+
+
+<span class="t-fn">print</span>(<span class="t-str">&quot;Bề rộng tối thiểu (mm) cho phép tăng nhiệt ΔT = 10°C&quot;</span>)
+<span class="t-fn">print</span>(<span class="t-str">f&quot;{&#x27;Dòng (A)&#x27;:&gt;9} | {&#x27;ngoài 1oz&#x27;:&gt;10} | {&#x27;ngoài 2oz&#x27;:&gt;10} | {&#x27;trong 1oz&#x27;:&gt;10}&quot;</span>)
+<span class="t-fn">print</span>(<span class="t-str">&quot;-&quot;</span> * <span class="t-num">49</span>)
+<span class="t-kw">for</span> <span class="t-ty">I</span> <span class="t-kw">in</span> [<span class="t-num">0.3</span>, <span class="t-num">0.5</span>, <span class="t-num">1</span>, <span class="t-num">2</span>, <span class="t-num">3</span>, <span class="t-num">5</span>, <span class="t-num">10</span>]:
+    <span class="t-fn">print</span>(<span class="t-str">f&quot;{I:&gt;9} | {be_rong_mm(I):&gt;10.2f} | {be_rong_mm(I, oz=2):&gt;10.2f} | {be_rong_mm(I, lop_ngoai=False):&gt;10.2f}&quot;</span>)
+
+<span class="t-fn">print</span>(<span class="t-str">&quot;\nẢnh hưởng của mức tăng nhiệt cho phép (2 A, lớp ngoài, 1 oz):&quot;</span>)
+<span class="t-kw">for</span> dT <span class="t-kw">in</span> [<span class="t-num">5</span>, <span class="t-num">10</span>, <span class="t-num">20</span>, <span class="t-num">30</span>]:
+    <span class="t-fn">print</span>(<span class="t-str">f&quot;  ΔT = {dT:&gt;2}°C -&gt; {be_rong_mm(2, dT):.2f} mm&quot;</span>)
+
+<span class="t-fn">print</span>(<span class="t-str">&quot;\nSụt áp &amp; công suất toả nhiệt trên đường dài 50 mm, 1 oz:&quot;</span>)
+<span class="t-kw">for</span> <span class="t-ty">I</span>, w <span class="t-kw">in</span> [(<span class="t-num">0.5</span>, <span class="t-num">0.25</span>), (<span class="t-num">2</span>, <span class="t-num">0.8</span>), (<span class="t-num">5</span>, <span class="t-num">2.5</span>)]:
+    <span class="t-ty">R</span>, <span class="t-ty">V</span>, <span class="t-ty">P</span> = <span class="t-fn">sut_ap</span>(<span class="t-ty">I</span>, w, <span class="t-num">50</span>)
+    <span class="t-fn">print</span>(<span class="t-str">f&quot;  {I} A, rộng {w} mm: R = {R * 1000:.1f} mΩ, sụt áp = {V * 1000:.0f} mV, P = {P * 1000:.0f} mW&quot;</span>)
+</code></pre>
+  </div><div class="runcmd"><span>▶ Chạy thử:</span> <code>python 01-be-rong-duong-mach.py</code></div><div class="outbox"><div class="outbar">Kết quả khi chạy (đã chạy thật lúc soạn bài)</div><pre class="out">Bề rộng tối thiểu (mm) cho phép tăng nhiệt ΔT = 10°C
+ Dòng (A) |  ngoài 1oz |  ngoài 2oz |  trong 1oz
+-------------------------------------------------
+      0.3 |       0.06 |       0.03 |       0.15
+      0.5 |       0.12 |       0.06 |       0.30
+        1 |       0.30 |       0.15 |       0.78
+        2 |       0.78 |       0.39 |       2.03
+        3 |       1.37 |       0.68 |       3.56
+        5 |       2.77 |       1.38 |       7.19
+       10 |       7.19 |       3.60 |      18.71
+
+Ảnh hưởng của mức tăng nhiệt cho phép (2 A, lớp ngoài, 1 oz):
+  ΔT =  5°C -&gt; 1.19 mm
+  ΔT = 10°C -&gt; 0.78 mm
+  ΔT = 20°C -&gt; 0.51 mm
+  ΔT = 30°C -&gt; 0.40 mm
+
+Sụt áp &amp; công suất toả nhiệt trên đường dài 50 mm, 1 oz:
+  0.5 A, rộng 0.25 mm: R = 98.3 mΩ, sụt áp = 49 mV, P = 25 mW
+  2 A, rộng 0.8 mm: R = 30.7 mΩ, sụt áp = 61 mV, P = 123 mW
+  5 A, rộng 2.5 mm: R = 9.8 mΩ, sụt áp = 49 mV, P = 246 mW</pre></div>
+<h4 class="sub">Giải thích</h4><ul class="notes"><li>1 A cần 0.30 mm ở lớp ngoài nhưng 0.78 mm ở lớp trong — lớp trong khó toả nhiệt.</li><li>Đồng 2 oz cho phép đường hẹp đi một nửa.</li><li>Ngoài nhiệt, kiểm tra cả sụt áp: 2 A qua đường 0.8 mm dài 50 mm mất 61 mV.</li></ul><h3 id="that-co-chai-s3"><span class="n">3</span>Via và thermal relief</h3>
+<figure class="fig"><svg class="illus" viewBox="0 0 580 214" style="max-width:580px" role="img" aria-label="Thermal relief" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah15" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs><rect x="20" y="20" width="220" height="140" class="cu"/><circle cx="130" cy="90" r="22" class="cu" stroke="#7c2d12"/><circle cx="130" cy="90" r="9" fill="#fff"/><text class="s" x="130" y="182" text-anchor="middle">Nối liền (direct connect)</text><rect x="300" y="20" width="220" height="140" class="cu"/><circle cx="410" cy="90" r="40" fill="#166534"/><rect x="404" y="50" width="12" height="30" class="cu"/><rect x="404" y="100" width="12" height="30" class="cu"/><rect x="370" y="84" width="30" height="12" class="cu"/><rect x="420" y="84" width="30" height="12" class="cu"/><circle cx="410" cy="90" r="22" class="cu" stroke="#7c2d12"/><circle cx="410" cy="90" r="9" fill="#fff"/><text class="s" x="410" y="182" text-anchor="middle">Thermal relief (4 nan)</text><text class="xs mute" x="20" y="204" text-anchor="start">Thermal relief giúp hàn dễ (mặt đồng lớn không hút hết nhiệt mỏ hàn); chân dòng lớn thì nối liền hoặc nan rộng.</text></svg></figure>
+<div class="codebox">
+    <div class="codebar"><span class="fname">05-via-dong-dien.py</span><span class="lines">23 dòng</span>
+      <button class="cbtn" data-act="copy">Sao chép</button><button class="cbtn" data-act="dl" data-name="05-via-dong-dien.py">Tải file</button></div>
+    <pre class="code"><code><span class="t-str">&quot;&quot;&quot;Via chịu được bao nhiêu dòng? – coi thân via mạ đồng như một đường mạch lớp TRONG (IPC-2221, k = 0.024)
+   Tiết diện thành via = π · (d_lỗ + t) · t       t: độ dày lớp mạ (thường 20–25 µm)
+Chạy: python 05-via-dong-dien.py&quot;&quot;&quot;</span>
+<span class="t-kw">import</span> math
+
+<span class="t-ty">MIL</span> = <span class="t-num">0.0254</span>
+
+
+<span class="t-kw">def</span> <span class="t-fn">dong_qua_via</span>(d_lo_mm, t_ma_mm=<span class="t-num">0.025</span>, tang_nhiet=<span class="t-num">10</span>):
+    tiet_dien_mm2 = math.pi * (d_lo_mm + t_ma_mm) * t_ma_mm
+    tiet_dien_mil2 = tiet_dien_mm2 / (<span class="t-ty">MIL</span> * <span class="t-ty">MIL</span>)
+    <span class="t-kw">return</span> <span class="t-num">0.024</span> * tang_nhiet ** <span class="t-num">0.44</span> * tiet_dien_mil2 ** <span class="t-num">0.725</span>
+
+
+<span class="t-fn">print</span>(<span class="t-str">f&quot;{&#x27;Lỗ via (mm)&#x27;:&gt;11} | {&#x27;dòng tối đa (A)&#x27;:&gt;15}&quot;</span>)
+<span class="t-fn">print</span>(<span class="t-str">&quot;-&quot;</span> * <span class="t-num">30</span>)
+<span class="t-kw">for</span> d <span class="t-kw">in</span> [<span class="t-num">0.2</span>, <span class="t-num">0.3</span>, <span class="t-num">0.4</span>, <span class="t-num">0.5</span>, <span class="t-num">0.6</span>]:
+    <span class="t-fn">print</span>(<span class="t-str">f&quot;{d:&gt;11.1f} | {dong_qua_via(d):&gt;15.2f}&quot;</span>)
+
+<span class="t-ty">I</span>, d = <span class="t-num">5</span>, <span class="t-num">0.3</span>
+n = math.<span class="t-fn">ceil</span>(<span class="t-ty">I</span> / <span class="t-fn">dong_qua_via</span>(d) * <span class="t-num">1.25</span>)           <span class="t-com"># +25% dự phòng</span>
+<span class="t-fn">print</span>(<span class="t-str">f&quot;\nĐưa {I} A từ lớp TOP xuống lớp POWER bằng via {d} mm cần ít nhất {n} via (đã cộng 25% dự phòng).&quot;</span>)
+<span class="t-fn">print</span>(<span class="t-str">&quot;Mẹo: đặt các via thành cụm ngay sát pad, thay vì 1 via to ở xa.&quot;</span>)
+</code></pre>
+  </div><div class="runcmd"><span>▶ Chạy thử:</span> <code>python 05-via-dong-dien.py</code></div><div class="outbox"><div class="outbar">Kết quả khi chạy (đã chạy thật lúc soạn bài)</div><pre class="out">Lỗ via (mm) | dòng tối đa (A)
+------------------------------
+        0.2 |            0.73
+        0.3 |            0.95
+        0.4 |            1.16
+        0.5 |            1.35
+        0.6 |            1.53
+
+Đưa 5 A từ lớp TOP xuống lớp POWER bằng via 0.3 mm cần ít nhất 7 via (đã cộng 25% dự phòng).
+Mẹo: đặt các via thành cụm ngay sát pad, thay vì 1 via to ở xa.</pre></div>
+<h4 class="sub">Giải thích</h4><ul class="notes"><li>Một via 0.3 mm chịu khoảng 1 A → 5 A cần cụm 7 via.</li><li>Altium: Design → Rules → Plane → Polygon Connect Style chọn Relief Connect cho chân tín hiệu, Direct Connect cho net dòng lớn.</li></ul>
+  <h3><span class="n">⚠</span>Lỗi thường gặp</h3><div class="mist"><ul><li>Đường nguồn đổi lớp qua 1 via nhỏ.</li><li>Polygon bị via và lỗ cắt thành dải hẹp.</li><li>Thermal relief nan mảnh trên chân cấp nguồn động cơ.</li></ul></div><h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="that-co-chai-0"> <span>Rà soát mạch driver động cơ 5 A: tìm mọi điểm thắt cổ chai và sửa.</span></label></li><li><label><input type="checkbox" data-ex="that-co-chai-1"> <span>Dùng máy tính ở bài 4: đường 10 A ở lớp ngoài 2 oz, tăng nhiệt 20 °C cần rộng bao nhiêu?</span></label></li></ol>
+  <div class="refs">📚 Đọc thêm: <a href="https://drive.google.com/drive/folders/1na2DnZkS68-9p8z7wnt1de6qebnjNdi2?usp=sharing" target="_blank" rel="noopener">Tài liệu sửa lỗi thắt cổ chai &amp; layout đường ống nước (Google Drive)</a></div>
+  <div class="donebar"><button class="donebtn" data-done="that-co-chai">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#chong-nhieu">← Thiết kế chống nhiễu và tín hiệu tốc độ cao</a><a class="pn next" href="#mach-dieu-khien">Thiết kế mạch điều khiển (vi điều khiển + công suất) →</a></nav>
+</section>
+
+<section class="lesson" id="mach-dieu-khien" data-title="Thiết kế mạch điều khiển (vi điều khiển + công suất)" hidden>
+  <div class="hero" style="--g:#7c3aed">
+    <div class="crumbs"><span class="gchip">Khóa 4 lớp &amp; highspeed</span><span>Bài 14/15</span><span>⏱ 3 giờ</span></div>
+    <h2><span class="hicon">🎛</span> Thiết kế mạch điều khiển (vi điều khiển + công suất)</h2>
+    <p class="intent">Bố trí mạch có cả vi điều khiển và phần công suất (driver động cơ, relay) chạy ổn định, an toàn.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>Bố trí module ESP32/STM32: anten, nguồn, nạp code</li><li>Layout mạch cầu H / driver động cơ</li><li>Cách ly công suất – tín hiệu, relay, optocoupler</li></ul></div>
+  
+  <h3 id="mach-dieu-khien-s1"><span class="n">1</span>Khối vi điều khiển</h3>
+<div class="prose">
+<ul><li>Module WiFi: anten nhô ra ngoài mép mạch hoặc vùng dưới anten không có đồng ở <b>mọi lớp</b>.</li>
+<li>Mạch nạp: CH340/CP2102 + 2 transistor tự động EN/GPIO0; header UART dự phòng.</li>
+<li>Chân I/O ra ngoài (connector) có điện trở nối tiếp 100–330 Ω hoặc TVS chống tĩnh điện.</li></ul></div>
+<figure class="fig"><svg class="illus" viewBox="0 0 640 336" style="max-width:640px" role="img" aria-label="Bố trí mạch điều khiển ESP32" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah16" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs><rect x="20" y="20" width="420" height="240" fill="#166534" rx="8"/><rect x="140" y="20" width="180" height="70" fill="#fff" stroke="#dc2626" stroke-dasharray="6 4"/><text class="xs" x="230" y="50" text-anchor="middle">VÙNG CẤM ĐỒNG</text><text class="xs" x="230" y="66" text-anchor="middle">(antenna keep-out)</text><rect class="bx-g" x="150" y="40" width="160" height="120" rx="4"/><text class="s" x="230" y="130" text-anchor="middle">ESP32-WROOM</text><path d="M160,48 h20 v14 h20 v-14 h20 v14 h20 v-14 h20 v14 h20 v-14" fill="none" stroke="#d97706" stroke-width="3"/><rect class="bx-b" x="40" y="190" width="90" height="50" rx="4"/><text class="s" x="85.0" y="211.0" text-anchor="middle">Nguồn</text><text class="xs mute" x="85.0" y="227.0" text-anchor="middle">LDO 3V3</text><rect class="bx-c" x="330" y="180" width="90" height="60" rx="4"/><text class="s" x="375.0" y="206.0" text-anchor="middle">Driver</text><text class="xs mute" x="375.0" y="222.0" text-anchor="middle">động cơ</text><rect class="bx-a" x="190" y="200" width="80" height="40" rx="4"/><text class="xs" x="230.0" y="225.0" text-anchor="middle">USB-UART</text><text class="xs" x="460" y="60" text-anchor="start"></text><text class="xs" x="20" y="284" text-anchor="start">• Anten của module nhô ra MÉP mạch hoặc nằm trên vùng không có đồng ở mọi lớp</text><text class="xs" x="460" y="60" text-anchor="start"></text><text class="xs" x="20" y="302" text-anchor="start">• Phần công suất (driver động cơ) tách xa phần tín hiệu; GND nối tại 1 điểm hoặc qua mặt GND chung liền</text><text class="xs" x="460" y="60" text-anchor="start"></text><text class="xs" x="20" y="320" text-anchor="start">• Tụ 10 µF + 100 nF sát chân 3V3 của module (ESP32 kéo dòng đỉnh ~500 mA khi phát WiFi)</text></svg></figure><h3 id="mach-dieu-khien-s2"><span class="n">2</span>Khối công suất</h3>
+<div class="prose">
+<ul><li>Driver động cơ (L298N, TB6612, DRV8833, cầu H MOSFET): tụ bulk + tụ gốm sát nguồn driver; đường động cơ rộng theo dòng (xem bài 13).</li>
+<li>Diode xả (flyback) song song cuộn relay/động cơ; transistor/MOSFET kích relay có điện trở kéo xuống ở cực G/B.</li>
+<li>Điện áp cao (220 V): khoảng cách cách điện ≥ 3 mm, có khe phay (slot) giữa phần cao áp và hạ áp, dùng optocoupler/relay cách ly.</li></ul></div>
+<figure class="fig"><svg class="illus" viewBox="0 0 520 244" style="max-width:520px" role="img" aria-label="Vòng dòng mạch cầu H" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah17" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs><text class="s" x="10" y="18" text-anchor="start">Vòng dòng chuyển mạch của mạch cầu H: càng nhỏ càng ít nhiễu</text><rect class="bx-b" x="40" y="40" width="80" height="40" rx="4"/><text class="xs" x="80.0" y="65.0" text-anchor="middle">Tụ bulk</text><rect class="bx-e" x="200" y="40" width="80" height="40" rx="4"/><text class="xs" x="240.0" y="65.0" text-anchor="middle">MOSFET cao</text><rect class="bx-e" x="200" y="130" width="80" height="40" rx="4"/><text class="xs" x="240.0" y="155.0" text-anchor="middle">MOSFET thấp</text><rect class="bx-c" x="360" y="85" width="90" height="40" rx="4"/><text class="xs" x="405.0" y="110.0" text-anchor="middle">Động cơ</text><polyline points="120,60 200,60" stroke="#d97706" stroke-width="4" fill="none"/><polyline points="240,80 240,130" stroke="#d97706" stroke-width="4" fill="none"/><polyline points="240,170 240,190 80,190 80,80" stroke="#2563eb" stroke-width="4" fill="none"/><polyline points="280,105 360,105" stroke="#d97706" stroke-width="4" fill="none"/><polygon points="120,60 200,60 240,80 240,190 80,190 80,80" fill="#dc2626" opacity="0.12"/><text class="xs" x="150" y="150" text-anchor="middle">vòng dòng di/dt cao</text><text class="xs mute" x="20" y="218" text-anchor="start">Đặt tụ bulk + tụ gốm sát cặp MOSFET; đường nguồn và GND công suất</text><text class="xs mute" x="20" y="234" text-anchor="start">rộng, ngắn, đi song song (hoặc chồng lên nhau ở 2 lớp).</text></svg></figure>
+  <h3><span class="n">⚠</span>Lỗi thường gặp</h3><div class="mist"><ul><li>GND động cơ dùng chung đường mảnh với GND vi điều khiển → MCU reset khi động cơ khởi động.</li><li>Thiếu diode flyback → đỉnh áp làm chết transistor.</li><li>Đồng dưới anten WiFi.</li></ul></div><h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="mach-dieu-khien-0"> <span>Thiết kế mạch điều khiển robot 2 động cơ DC dùng ESP32 + TB6612, nguồn pin 2S.</span></label></li><li><label><input type="checkbox" data-ex="mach-dieu-khien-1"> <span>Thiết kế mạch 4 relay điều khiển thiết bị 220 V có cách ly an toàn.</span></label></li></ol>
+  <div class="refs">📚 Đọc thêm: <a href="https://drive.google.com/drive/folders/1YHw5ivbMP5qDJHukmPXfuaBxHfVxFykK?usp=sharing" target="_blank" rel="noopener">Tài liệu khóa Altium 4 lớp &amp; highspeed (Google Drive)</a></div>
+  <div class="donebar"><button class="donebtn" data-done="mach-dieu-khien">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#that-co-chai">← Sửa lỗi thắt cổ chai và layout “đường ống nước” cho dòng lớn</a><a class="pn next" href="#do-dong-ap">Thiết kế mạch đo dòng và đo áp →</a></nav>
+</section>
+
+<section class="lesson" id="do-dong-ap" data-title="Thiết kế mạch đo dòng và đo áp" hidden>
+  <div class="hero" style="--g:#7c3aed">
+    <div class="crumbs"><span class="gchip">Khóa 4 lớp &amp; highspeed</span><span>Bài 15/15</span><span>⏱ 2 giờ</span></div>
+    <h2><span class="hicon">📈</span> Thiết kế mạch đo dòng và đo áp</h2>
+    <p class="intent">Thiết kế mạch đo điện áp và dòng điện chính xác cho vi điều khiển: phân áp, shunt, khuếch đại, lọc và layout Kelvin.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>Tính cầu phân áp cho ADC</li><li>Chọn điện trở shunt, bộ khuếch đại dòng (INA180/INA219), cảm biến Hall (ACS712)</li><li>Lọc nhiễu RC trước ADC</li><li>Layout Kelvin và đường analog sạch</li></ul></div>
+  
+  <h3 id="do-dong-ap-s1"><span class="n">1</span>Tính toán</h3>
+<div class="codebox">
+    <div class="codebar"><span class="fname">06-do-dong-do-ap.py</span><span class="lines">35 dòng</span>
+      <button class="cbtn" data-act="copy">Sao chép</button><button class="cbtn" data-act="dl" data-name="06-do-dong-do-ap.py">Tải file</button></div>
+    <pre class="code"><code><span class="t-str">&quot;&quot;&quot;Mạch đo dòng (điện trở shunt) và đo áp (cầu phân áp) cho ADC 12 bit của ESP32 (0–3.3 V)
+Chạy: python 06-do-dong-do-ap.py&quot;&quot;&quot;</span>
+
+<span class="t-ty">ADC_BIT</span>, <span class="t-ty">VREF</span> = <span class="t-num">12</span>, <span class="t-num">3.3</span>
+<span class="t-ty">LSB</span> = <span class="t-ty">VREF</span> / (<span class="t-num">2</span> ** <span class="t-ty">ADC_BIT</span>)
+
+<span class="t-fn">print</span>(<span class="t-str">&quot;== ĐO ÁP: pin 24 V qua cầu phân áp R1 (trên) – R2 (dưới) ==&quot;</span>)
+<span class="t-ty">V_MAX</span> = <span class="t-num">25.2</span>                                   <span class="t-com"># pin 6S đầy 25.2 V</span>
+<span class="t-kw">for</span> <span class="t-ty">R1</span>, <span class="t-ty">R2</span> <span class="t-kw">in</span> [(100e3, 10e3), (100e3, 15e3), (68e3, 10e3)]:
+    he_so = <span class="t-ty">R2</span> / (<span class="t-ty">R1</span> + <span class="t-ty">R2</span>)
+    v_adc = <span class="t-ty">V_MAX</span> * he_so
+    dong_tieu_thu = <span class="t-ty">V_MAX</span> / (<span class="t-ty">R1</span> + <span class="t-ty">R2</span>)
+    ok = <span class="t-str">&quot;VƯỢT 3.3 V – hỏng chân ADC!&quot;</span> <span class="t-kw">if</span> v_adc &gt; <span class="t-ty">VREF</span> <span class="t-kw">else</span> (<span class="t-str">&quot;sát 3.3 V, không còn dự phòng&quot;</span> <span class="t-kw">if</span> v_adc &gt; <span class="t-num">0.9</span> * <span class="t-ty">VREF</span> <span class="t-kw">else</span> <span class="t-str">&quot;OK&quot;</span>)
+    <span class="t-fn">print</span>(<span class="t-str">f&quot;  R1 = {R1 / 1e3:.0f}k, R2 = {R2 / 1e3:.0f}k: Vadc max = {v_adc:.2f} V ({ok}), &quot;</span>
+          <span class="t-str">f&quot;độ phân giải = {LSB / he_so * 1000:.1f} mV/bước, dòng rò = {dong_tieu_thu * 1e6:.0f} µA&quot;</span>)
+
+<span class="t-ty">R_LOC</span>, <span class="t-ty">C_LOC</span> = 10e3, 100e-<span class="t-num">9</span>
+<span class="t-kw">import</span> math
+fc = <span class="t-num">1</span> / (<span class="t-num">2</span> * math.pi * <span class="t-ty">R_LOC</span> * <span class="t-ty">C_LOC</span>)
+<span class="t-fn">print</span>(<span class="t-str">f&quot;  Lọc RC {R_LOC / 1e3:.0f}k + {C_LOC * 1e9:.0f}nF trước chân ADC: tần số cắt {fc:.0f} Hz&quot;</span>)
+
+<span class="t-fn">print</span>(<span class="t-str">&quot;\n== ĐO DÒNG: điện trở shunt + khuếch đại (INA180 gain 50) ==&quot;</span>)
+<span class="t-ty">I_MAX</span>, <span class="t-ty">V_SHUNT_MAX</span> = <span class="t-num">5.0</span>, <span class="t-num">0.05</span>                 <span class="t-com"># muốn sụt áp trên shunt &lt;= 50 mV ở dòng max</span>
+<span class="t-ty">R_SHUNT</span> = <span class="t-ty">V_SHUNT_MAX</span> / <span class="t-ty">I_MAX</span>
+<span class="t-ty">GAIN</span> = <span class="t-num">50</span>
+<span class="t-ty">P</span> = <span class="t-ty">I_MAX</span> ** <span class="t-num">2</span> * <span class="t-ty">R_SHUNT</span>
+v_ra = <span class="t-ty">I_MAX</span> * <span class="t-ty">R_SHUNT</span> * <span class="t-ty">GAIN</span>
+<span class="t-fn">print</span>(<span class="t-str">f&quot;  R_shunt = {R_SHUNT * 1000:.0f} mΩ, công suất ở {I_MAX} A = {P:.2f} W -&gt; chọn shunt 2512 loại 1 W&quot;</span>)
+<span class="t-fn">print</span>(<span class="t-str">f&quot;  Điện áp ra khuếch đại ở {I_MAX} A = {v_ra:.2f} V (&lt;= 3.3 V: OK)&quot;</span>)
+<span class="t-fn">print</span>(<span class="t-str">f&quot;  Độ phân giải dòng = {LSB / (R_SHUNT * GAIN) * 1000:.1f} mA/bước ADC&quot;</span>)
+<span class="t-kw">for</span> <span class="t-ty">I</span> <span class="t-kw">in</span> [<span class="t-num">0.1</span>, <span class="t-num">1.0</span>, <span class="t-num">2.5</span>]:
+    adc = <span class="t-fn">round</span>(<span class="t-ty">I</span> * <span class="t-ty">R_SHUNT</span> * <span class="t-ty">GAIN</span> / <span class="t-ty">LSB</span>)
+    <span class="t-fn">print</span>(<span class="t-str">f&quot;  I = {I:&gt;4} A -&gt; giá trị ADC ≈ {adc}&quot;</span>)
+<span class="t-fn">print</span>(<span class="t-str">&quot;\nLayout: nối 2 dây cảm biến của bộ khuếch đại vào shunt theo kiểu KELVIN (4 dây),&quot;</span>)
+<span class="t-fn">print</span>(<span class="t-str">&quot;đi song song sát nhau tới chân IN+/IN−, không dùng chung đường dòng lớn.&quot;</span>)
+</code></pre>
+  </div><div class="runcmd"><span>▶ Chạy thử:</span> <code>python 06-do-dong-do-ap.py</code></div><div class="outbox"><div class="outbar">Kết quả khi chạy (đã chạy thật lúc soạn bài)</div><pre class="out">== ĐO ÁP: pin 24 V qua cầu phân áp R1 (trên) – R2 (dưới) ==
+  R1 = 100k, R2 = 10k: Vadc max = 2.29 V (OK), độ phân giải = 8.9 mV/bước, dòng rò = 229 µA
+  R1 = 100k, R2 = 15k: Vadc max = 3.29 V (sát 3.3 V, không còn dự phòng), độ phân giải = 6.2 mV/bước, dòng rò = 219 µA
+  R1 = 68k, R2 = 10k: Vadc max = 3.23 V (sát 3.3 V, không còn dự phòng), độ phân giải = 6.3 mV/bước, dòng rò = 323 µA
+  Lọc RC 10k + 100nF trước chân ADC: tần số cắt 159 Hz
+
+== ĐO DÒNG: điện trở shunt + khuếch đại (INA180 gain 50) ==
+  R_shunt = 10 mΩ, công suất ở 5.0 A = 0.25 W -&gt; chọn shunt 2512 loại 1 W
+  Điện áp ra khuếch đại ở 5.0 A = 2.50 V (&lt;= 3.3 V: OK)
+  Độ phân giải dòng = 1.6 mA/bước ADC
+  I =  0.1 A -&gt; giá trị ADC ≈ 62
+  I =  1.0 A -&gt; giá trị ADC ≈ 621
+  I =  2.5 A -&gt; giá trị ADC ≈ 1552
+
+Layout: nối 2 dây cảm biến của bộ khuếch đại vào shunt theo kiểu KELVIN (4 dây),
+đi song song sát nhau tới chân IN+/IN−, không dùng chung đường dòng lớn.</pre></div>
+<h4 class="sub">Giải thích</h4><ul class="notes"><li>Cầu 100k/10k cho pin 6S: áp vào ADC tối đa 2.29 V — an toàn và nằm trong vùng ADC ESP32 tuyến tính tốt (khoảng 0.15–2.5 V).</li><li>Shunt 10 mΩ + INA180 gain 50: 5 A cho 2.5 V, độ phân giải 1.6 mA/bước.</li><li>Mạch đo áp ăn dòng liên tục 229 µA — với thiết bị chạy pin lâu ngày, dùng điện trở lớn hơn hoặc MOSFET ngắt cầu phân áp khi không đo.</li></ul>
+<div class="prose"><style>.calc{background:#fff;border:1px solid #cbd5e1;border-radius:12px;padding:12px 16px;margin:10px 0}
+.calc h5{margin:0 0 8px}.calc label{display:inline-flex;flex-direction:column;font-size:.8rem;color:#475569;margin:0 12px 8px 0}
+.calc input,.calc select{font:inherit;font-size:.9rem;padding:5px 8px;border:1px solid #cbd5e1;border-radius:8px;width:120px}.calc select{width:170px}
+.calc .kq{font-weight:700;color:#0f172a;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:8px 12px;margin-top:4px}</style>
+<div class="calc" id="cdiv"><h5>🧮 Máy tính cầu phân áp cho ADC 3.3 V</h5>
+<label>Điện áp đo tối đa (V)<input type="number" step="0.1" value="25.2" data-k="v"></label>
+<label>R1 – trên (kΩ)<input type="number" value="100" data-k="r1"></label>
+<label>R2 – dưới (kΩ)<input type="number" value="10" data-k="r2"></label>
+<label>ADC (bit)<input type="number" value="12" data-k="n"></label>
+<div class="kq"></div></div>
+<script>(function(){var r=document.getElementById('cdiv');function f(){var v={};r.querySelectorAll('[data-k]').forEach(function(e){v[e.dataset.k]=parseFloat(e.value)||0});
+var k=v.r2/(v.r1+v.r2),o=v.v*k,lsb=3.3/Math.pow(2,v.n)/k*1000,s=o>3.3?'⛔ VƯỢT 3.3 V':(o>2.97?'⚠ sát giới hạn':'✓ an toàn');
+r.querySelector('.kq').textContent='Áp vào ADC tối đa '+o.toFixed(2)+' V ('+s+'), độ phân giải '+lsb.toFixed(1)+' mV/bước, dòng qua cầu '+(v.v/(v.r1+v.r2)*1000).toFixed(0)+' µA';}
+r.addEventListener('input',f);f();})();</script></div><h3 id="do-dong-ap-s2"><span class="n">2</span>Layout mạch đo</h3>
+<div class="prose">
+<ul><li><b>Kelvin 4 dây</b>: dây cảm biến nối riêng vào hai đầu shunt (footprint shunt 4 pad hoặc tách đường ngay tại pad).</li>
+<li>Hai dây cảm biến đi song song, sát nhau như cặp vi sai, tới chân IN+/IN− của bộ khuếch đại.</li>
+<li>Tụ lọc RC đặt sát chân ADC; đường analog tránh xa nguồn xung, thạch anh, đường PWM.</li>
+<li>Low-side (shunt phía GND) dễ làm nhưng làm “nổi” GND của tải; high-side (phía nguồn) cần IC chịu được điện áp chung (common-mode) cao như INA180/INA226.</li></ul></div>
+<figure class="fig"><svg class="illus" viewBox="0 0 600 232" style="max-width:600px" role="img" aria-label="Kết nối Kelvin" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah18" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs><text class="s" x="10" y="18" text-anchor="start">Đo dòng bằng điện trở shunt: kết nối Kelvin (4 dây)</text><rect x="230" y="70" width="140" height="44" fill="#334155"/><rect x="230" y="70" width="22" height="44" fill="#cbd5e1"/><rect x="348" y="70" width="22" height="44" fill="#cbd5e1"/><text class="xs" style="fill:#fff" x="300" y="96" text-anchor="middle">R shunt 10 mΩ</text><rect x="40" y="72" width="194" height="40" class="cu"/><rect x="366" y="72" width="194" height="40" class="cu"/><text class="xs" x="80" y="66" text-anchor="start">dòng lớn vào</text><text class="xs" x="470" y="66" text-anchor="start">dòng lớn ra</text><polyline points="241,114 241,170 280,170" fill="none" stroke="#2563eb" stroke-width="2.5"/><polyline points="359,114 359,170 320,170" fill="none" stroke="#2563eb" stroke-width="2.5"/><rect class="bx-c" x="270" y="160" width="60" height="40" rx="4"/><text class="xs" x="300.0" y="185.0" text-anchor="middle">INA180</text><text class="xs mute" x="10" y="222" text-anchor="start">Hai dây cảm biến (xanh) lấy áp NGAY TẠI hai đầu shunt, đi song song sát nhau tới bộ khuếch đại.</text></svg></figure>
+  <h3><span class="n">✓</span>Tóm tắt</h3><ul class="summary"><li>Khóa basic: nguyên lý → layout 2 lớp → xuất file → dự án mẫu.</li><li>Thư viện: đọc datasheet, tính lỗ/pad THT, land pattern SMD theo IPC-7351.</li><li>Nâng cao: stack-up 4 lớp, đường hồi dòng, trở kháng, chống nhiễu, dòng lớn, mạch điều khiển và đo lường.</li></ul><h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="do-dong-ap-0"> <span>Thiết kế mạch đo điện áp pin 3S và dòng tải tối đa 3 A cho ESP32, kèm lọc RC.</span></label></li><li><label><input type="checkbox" data-ex="do-dong-ap-1"> <span>Vẽ footprint shunt 2512 có 4 pad Kelvin.</span></label></li></ol>
+  <div class="refs">📚 Đọc thêm: <a href="https://drive.google.com/drive/folders/1YHw5ivbMP5qDJHukmPXfuaBxHfVxFykK?usp=sharing" target="_blank" rel="noopener">Tài liệu khóa Altium 4 lớp &amp; highspeed (Google Drive)</a> · <a href="https://www.ti.com/amplifier-circuit/current-sense/overview.html" target="_blank" rel="noopener">TI – Current sense amplifiers</a></div>
+  <div class="donebar"><button class="donebtn" data-done="do-dong-ap">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#mach-dieu-khien">← Thiết kế mạch điều khiển (vi điều khiển + công suất)</a><span></span></nav>
+</section>
+  </main>
+</div>
+<div class="scrim" id="scrim"></div>
+<footer>© Danh sách khóa học Thầy Lê Chí Tuyền · Thiết kế mạch PCB</footer>
+
+<script>
+(function(){
+  var ORDER = ["overview", "tong-quan", "lop-pcb", "nguyen-ly", "layout-2-lop", "logo", "xuat-file-du-an", "su-dung-thu-vien", "thu-vien-chan-xuyen", "thu-vien-chan-dan", "thu-vien-dien-tro", "4-lop", "chong-nhieu", "that-co-chai", "mach-dieu-khien", "do-dong-ap"], TOTAL = 15, P = 'pcb_';
+  function load(k, d){ try{ var v = localStorage.getItem(P + k); return v ? JSON.parse(v) : d; }catch(e){ return d; } }
+  function save(k, v){ try{ localStorage.setItem(P + k, JSON.stringify(v)); }catch(e){} }
+  var u = null; try{ u = sessionStorage.getItem('mb_auth_user'); }catch(e){}
+  document.getElementById('whoamiLabel').textContent = u ? ('👤 ' + u) : '';
+
+  function show(id){
+    if(ORDER.indexOf(id) < 0) id = 'overview';
+    document.querySelectorAll('.lesson').forEach(function(s){ s.hidden = (s.id !== id); });
+    document.querySelectorAll('.sitem').forEach(function(a){ a.classList.toggle('active', a.dataset.id === id); });
+    document.title = document.getElementById(id).dataset.title + ' — Thiết kế mạch PCB | Khóa học Thầy Lê Chí Tuyền';
+    closeMenu();
+  }
+  function route(){
+    var h = decodeURIComponent(location.hash.slice(1));
+    var target = (h && ORDER.indexOf(h) < 0) ? document.getElementById(h) : null;
+    if(target){
+      var les = target.closest('.lesson');
+      show(les ? les.id : 'overview');
+      setTimeout(function(){ target.scrollIntoView(); }, 0);
+    } else {
+      show(h || 'overview');
+      window.scrollTo(0, 0);
+      setTimeout(function(){ window.scrollTo(0, 0); }, 0);
+    }
+  }
+  window.addEventListener('hashchange', route);
+  document.addEventListener('keydown', function(e){
+    if(e.target.matches('input,textarea')) return;
+    var cur = ORDER.indexOf(document.querySelector('.lesson:not([hidden])').id);
+    if(e.key === 'ArrowRight' && cur < ORDER.length - 1) location.hash = ORDER[cur + 1];
+    if(e.key === 'ArrowLeft' && cur > 0) location.hash = ORDER[cur - 1];
+  });
+  var side = document.getElementById('side'), scrim = document.getElementById('scrim');
+  function closeMenu(){ side.classList.remove('open'); scrim.classList.remove('on'); }
+  document.getElementById('menuBtn').onclick = function(){ side.classList.add('open'); scrim.classList.add('on'); };
+  scrim.onclick = closeMenu;
+
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('.cbtn'); if(!b) return;
+    var code = b.closest('.codebox').querySelector('pre.code').textContent;
+    if(b.dataset.act === 'copy'){
+      if(navigator.clipboard) navigator.clipboard.writeText(code).then(function(){ b.textContent = 'Đã chép ✓'; setTimeout(function(){ b.textContent = 'Sao chép'; }, 1500); }, function(){});
+    } else {
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([code], {type:'text/plain;charset=utf-8'}));
+      a.download = b.dataset.name; document.body.appendChild(a); a.click(); a.remove();
+    }
+  });
+
+  var done = load('done', {});
+  function paint(){
+    var n = 0;
+    document.querySelectorAll('.sitem').forEach(function(a){ var on = !!done[a.dataset.id]; a.classList.toggle('done', on); if(on) n++; });
+    document.querySelectorAll('.donebtn').forEach(function(b){
+      var on = !!done[b.dataset.done]; b.classList.toggle('on', on);
+      b.textContent = on ? '✓ Đã học xong — bấm để bỏ đánh dấu' : '☐ Đánh dấu đã học xong bài này';
+    });
+    document.getElementById('progTxt').textContent = n + '/' + TOTAL;
+    document.getElementById('progBar').style.width = (100 * n / TOTAL) + '%';
+    var ov = document.getElementById('ovDone'); if(ov) ov.textContent = n;
+  }
+  document.querySelectorAll('.donebtn').forEach(function(b){
+    b.onclick = function(){ var k = b.dataset.done; if(done[k]) delete done[k]; else done[k] = 1; save('done', done); paint(); };
+  });
+  var ex = load('ex', {});
+  document.querySelectorAll('[data-ex]').forEach(function(c){
+    c.checked = !!ex[c.dataset.ex];
+    c.onchange = function(){ if(c.checked) ex[c.dataset.ex] = 1; else delete ex[c.dataset.ex]; save('ex', ex); };
+  });
+  paint();
+  route();
+  window.addEventListener('load', function(){ var h = location.hash.slice(1); if(!h || ORDER.indexOf(decodeURIComponent(h)) >= 0) window.scrollTo(0, 0); });
+})();
+</script>
+</body>
+</html>
