@@ -72,3 +72,12 @@ Khi cần xác thực thật (mật khẩu mã hoá an toàn, chống dò mật 
 tự đăng ký được ngay), có thể chuyển sang một dịch vụ xác thực miễn phí như
 Firebase Authentication hoặc Supabase Auth — những dịch vụ này có gói miễn
 phí, tích hợp bằng vài dòng JavaScript, không cần tự vận hành máy chủ.
+
+## 6. Khóa Design Pattern (`design-pattern.html`)
+
+File `design-pattern.html` được **sinh tự động** — đừng sửa tay trực tiếp. Mã nguồn nằm ở
+thư mục `_src/design-pattern/` trong repo (không được xuất bản lên web):
+
+- `content_*.py` — lý thuyết, sơ đồ UML của 24 mẫu; `content_lang.py` — giải thích code C++/Python, phần lập trình nhúng
+- `cpp/`, `python/`, `java/` — 72 chương trình ví dụ
+- Build lại: vào `_src/design-pattern/`, chạy `python -X utf8 build.py` (cần g++, Python 3.10+, Java 17+; kết quả chạy được lấy thật và lưu cache)

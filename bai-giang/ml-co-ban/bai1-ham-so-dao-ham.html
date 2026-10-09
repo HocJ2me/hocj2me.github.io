@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Bài 1 – Hàm số, Đạo hàm, Cực trị & Python chi tiết</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #eef1f7;
+        padding: 20px 40px;
+        color: #111;
+        line-height: 1.7;
+    }
+    h1 { color: #1d4ed8; }
+    h2 { color: #1e3a8a; margin-top: 30px; }
+    h3 { color: #334155; margin-top: 20px; }
+    p { font-size: 16px; }
+    ul { font-size: 15px; }
+    .card {
+        background: #ffffff;
+        padding: 22px;
+        border-radius: 14px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+        margin-bottom: 25px;
+    }
+    pre {
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 14px;
+        border-radius: 10px;
+        overflow-x: auto;
+        font-size: 14px;
+        white-space: pre-wrap;
+    }
+    button {
+        padding: 8px 14px;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        margin-top: 6px;
+    }
+    .toggle-btn {
+        background: #2563eb; color: #fff; margin-right: 8px;
+    }
+    .copy-btn {
+        background: #1e40af; color: #fff;
+    }
+    .console {
+        background: #000;
+        color: #0f0;
+        padding: 15px;
+        border-radius: 8px;
+        font-family: monospace;
+        height: 270px;
+        overflow-y: auto;
+        white-space: pre-line;
+        font-size: 14px;
+    }
+    .highlight {
+        background: #fef3c7;
+        border-left: 4px solid #f59e0b;
+        padding: 10px;
+        border-radius: 6px;
+        font-size: 15px;
+        margin-top: 10px;
+    }
+</style>
+
+</head>
+<body>
+
+<h1>🎓 Bài 1: Hàm số – Đạo hàm – Cực trị & Python</h1>
+
+<!-- I. Hàm số -->
+<div class="card">
+<h2>I. HÀM SỐ LÀ GÌ?</h2>
+
+<p>Hàm số là “máy biến đổi” nhận một giá trị đầu vào <b>x</b> và tạo ra một đầu ra <b>y</b> theo quy tắc:</p>
+
+<pre>y = f(x)</pre>
+
+<h3>1. Ví dụ hàm số quen thuộc</h3>
+<ul>
+    <li>f(x) = x²</li>
+    <li>f(x) = 2x + 3</li>
+    <li>f(x) = sin(x)</li>
+    <li>f(x) = 3x³ − 2x + 1</li>
+</ul>
+
+<h3>2. Ý nghĩa của hàm số trong lập trình & AI</h3>
+<p>- Mọi chương trình đều có input → xử lý → output → đây chính là “hàm”.  
+- Trong AI, thuật toán “học” chính là tìm ra một hàm f(x) mô tả đúng dữ liệu.</p>
+
+<div class="highlight">
+<b>Ghi nhớ:</b> Hiểu hàm số là bước nền tảng để hiểu đạo hàm, cực trị, tối ưu – và từ đó là Machine Learning.
+</div>
+</div>
+
+<!-- II. Đạo hàm -->
+<div class="card">
+<h2>II. ĐẠO HÀM LÀ GÌ?</h2>
+
+<h3>1. Ý nghĩa trực giác</h3>
+<p>Đạo hàm đo tốc độ thay đổi của hàm số.  
+Nếu f(x) là độ cao của người đang đi trên đồi:</p>
+
+<ul>
+    <li>f’(x) > 0 → đường dốc lên</li>
+    <li>f’(x) < 0 → đường dốc xuống</li>
+    <li>f’(x) = 0 → điểm bằng phẳng → ứng cử viên cực trị</li>
+</ul>
+
+<h3>2. Định nghĩa bằng giới hạn</h3>
+
+<pre>f'(x) = lim (h → 0)  [ f(x+h) - f(x) ] / h</pre>
+
+<p>Nhưng máy tính không dùng giới hạn – nó dùng <b>sai phân</b> (numerical derivative):</p>
+
+<pre>f'(x) ≈ (f(x+h) - f(x)) / h</pre>
+
+<h3>3. Bảng đạo hàm cơ bản</h3>
+
+<ul>
+    <li>(xⁿ)' = n·xⁿ⁻¹</li>
+    <li>(ax + b)' = a</li>
+    <li>(sin x)' = cos x</li>
+    <li>(cos x)' = -sin x</li>
+    <li>(eˣ)' = eˣ</li>
+</ul>
+
+</div>
+
+<!-- III. Cực trị -->
+<div class="card">
+<h2>III. CỰC TRỊ HÀM SỐ</h2>
+
+<p>Một hàm f(x) có cực trị khi đạo hàm bằng 0:</p>
+<pre>f'(x) = 0</pre>
+
+<h3>1. Phân loại cực trị</h3>
+<ul>
+    <li>f''(x) > 0 → cực tiểu (thung lũng)</li>
+    <li>f''(x) < 0 → cực đại (đỉnh núi)</li>
+</ul>
+
+<h3>2. Ví dụ</h3>
+
+<pre>f(x) = x² - 4x + 5</pre>
+
+<p>Đạo hàm:</p>
+
+<pre>f'(x) = 2x - 4</pre>
+
+Giải:
+<pre>2x - 4 = 0  →  x = 2</pre>
+
+Giá trị cực tiểu:
+<pre>f(2) = 1</pre>
+
+</div>
+
+<!-- IV. CODE PYTHON -->
+<div class="card">
+<h2>IV. CODE PYTHON THỰC HÀNH – CÓ HIỆN TỪNG BƯỚC</h2>
+
+<!-- CODE 1 -->
+<h3>1. Tính đạo hàm bằng số</h3>
+<button class="toggle-btn" onclick="toggleCode('code1')">Hiện/Ẩn code</button>
+<button class="copy-btn" onclick="copyCode('code1')">Copy</button>
+
+<pre id="code1" style="display:none;">
+def derivative(f, x, h=1e-6):
+    """
+    Tính đạo hàm bằng công thức sai phân:
+    f'(x) ≈ (f(x+h) - f(x)) / h
+    """
+    return (f(x+h) - f(x)) / h
+
+def f(x):
+    return x**2
+
+print("Tính đạo hàm f(x) = x^2:")
+for x in [0, 1, 2, 5]:
+    approx = derivative(f, x)
+    exact = 2*x
+    print(f"x={x:2d} | f'(x)≈{approx:.4f} | chính xác={exact}")
+</pre>
+
+<!-- CODE 2 -->
+<h3>2. Tìm cực tiểu bằng Gradient Descent (theo từng bước)</h3>
+<button class="toggle-btn" onclick="toggleCode('code2')">Hiện/Ẩn code</button>
+<button class="copy-btn" onclick="copyCode('code2')">Copy</button>
+
+<pre id="code2" style="display:none;">
+def derivative(f, x, h=1e-6):
+    return (f(x+h) - f(x)) / h
+
+def gradient_descent_min(f, x0, lr=0.2, epochs=20):
+    x = x0
+    print("BẮT ĐẦU GRADIENT DESCENT\n")
+    for i in range(1, epochs+1):
+        grad = derivative(f, x)
+        x_new = x - lr * grad
+        print(f"Bước {i:2d}: f'(x)≈{grad:.4f}  ->  x mới={x_new:.4f}, f(x)={f(x_new):.4f}")
+        x = x_new
+    print("\nKẾT THÚC.")
+    print(f"Cực tiểu x ≈ {x:.4f}, f(x) ≈ {f(x):.4f}")
+    return x
+
+f = lambda x: x**2 - 4*x + 5
+gradient_descent_min(f, x0=0.0)
+</pre>
+
+</div>
+
+<!-- V. DEMO -->
+<div class="card">
+<h2>V. DEMO TRỰC QUAN (CHẠY TỪNG BƯỚC NHƯ PYTHON)</h2>
+
+<button onclick="runDemo()">▶ Chạy mô phỏng</button>
+
+<div id="console" class="console">Nhấn nút để chạy mô phỏng…</div>
+
+</div>
+
+<script>
+function toggleCode(id) {
+    let el = document.getElementById(id);
+    el.style.display = (el.style.display === "none") ? "block" : "none";
+}
+
+function copyCode(id) {
+    let code = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(code);
+    alert("Đã copy code!");
+}
+
+function runDemo() {
+    const logBox = document.getElementById("console");
+    logBox.textContent = "";
+
+    function log(msg) {
+        logBox.textContent += msg + "\n";
+        logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    function derivative_js(f, x, h=1e-6) {
+        return (f(x+h) - f(x)) / h;
+    }
+
+    let f = x => x*x - 4*x + 5;
+    let x = 0;
+    let lr = 0.2;
+
+    log("BẮT ĐẦU MÔ PHỎNG\n");
+    for (let step = 1; step <= 20; step++) {
+        let grad = derivative_js(f, x);
+        let x_new = x - lr * grad;
+        log(`Bước ${step}: f'(x)=${grad.toFixed(4)} -> x=${x_new.toFixed(4)}, f(x)=${f(x_new).toFixed(4)}`);
+        x = x_new;
+    }
+    log("\nCực tiểu x ≈ " + x.toFixed(4));
+}
+</script>
+
+</body>
+</html>

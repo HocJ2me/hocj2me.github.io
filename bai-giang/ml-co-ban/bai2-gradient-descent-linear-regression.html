@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Bài 2 – Dự án dự đoán giá nhà bằng Linear Regression</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #eef1f7;
+        padding: 20px 40px;
+        color: #111827;
+        line-height: 1.7;
+    }
+    h1 { color: #1d4ed8; }
+    h2 { color: #1e3a8a; margin-top: 28px; }
+    h3 { color: #334155; margin-top: 18px; }
+    p, li { font-size: 15.5px; }
+    .card {
+        background: #ffffff;
+        padding: 22px;
+        border-radius: 14px;
+        box-shadow: 0 4px 14px rgba(15,23,42,0.12);
+        margin-bottom: 24px;
+    }
+    pre {
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 14px;
+        border-radius: 10px;
+        overflow-x: auto;
+        font-size: 14px;
+        white-space: pre-wrap;
+    }
+    code { font-family: Consolas, "Fira Code", monospace; }
+    button {
+        padding: 7px 12px;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        margin-top: 6px;
+        font-size: 13px;
+    }
+    .toggle-btn {
+        background: #2563eb; color: #fff; margin-right: 6px;
+    }
+    .copy-btn {
+        background: #1e40af; color: #fff;
+    }
+    .console {
+        background: #020617;
+        color: #a5f3fc;
+        padding: 15px;
+        border-radius: 8px;
+        font-family: monospace;
+        height: 260px;
+        overflow-y: auto;
+        white-space: pre-line;
+        font-size: 14px;
+        border: 1px solid #1f2937;
+    }
+    .highlight {
+        padding: 12px;
+        background: #fff7d6;
+        border-left: 5px solid #f59e0b;
+        border-radius: 8px;
+        margin-top: 10px;
+        font-size: 15px;
+    }
+    table {
+        border-collapse: collapse;
+        margin-top: 8px;
+        font-size: 14px;
+    }
+    th, td {
+        border: 1px solid #cbd5e1;
+        padding: 6px 10px;
+        text-align: center;
+    }
+    th {
+        background: #e0ecff;
+    }
+    .two-col {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    .two-col > div {
+        flex: 1;
+        min-width: 260px;
+    }
+    canvas {
+        background: #f9fafb;
+        border-radius: 8px;
+        border: 1px solid #cbd5e1;
+    }
+    @media (max-width: 768px) {
+        body { padding: 16px; }
+    }
+</style>
+</head>
+
+<body>
+
+<h1>🎓 Bài 2 – Dự án Dự đoán Giá nhà bằng Linear Regression</h1>
+
+<div class="card">
+    <h2>I. Mô tả dự án: Bài toán dự đoán giá nhà</h2>
+    <p>Trong bài 2, chúng ta xây dựng một <b>dự án nhỏ nhưng rất thực tế</b>: dùng kiến thức toán & lập trình để <b>dự đoán giá nhà</b>.</p>
+
+    <h3>1. Kịch bản thực tế</h3>
+    <ul>
+        <li>Bạn là một tư vấn bất động sản.</li>
+        <li>Bạn có dữ liệu các căn nhà đã bán trước đây: diện tích và giá bán.</li>
+        <li>Khi có khách hỏi: “Nhà 50m² thì giá khoảng bao nhiêu?” – bạn muốn có một <b>mô hình AI nhỏ</b> trả lời giúp.</li>
+    </ul>
+
+    <h3>2. Dữ liệu sử dụng trong bài</h3>
+    <p>Để đơn giản, ta dùng dữ liệu giả lập nhỏ:</p>
+    <table>
+        <tr><th>STT</th><th>Diện tích (m²) – x</th><th>Giá bán (triệu) – y</th></tr>
+        <tr><td>1</td><td>40</td><td>900</td></tr>
+        <tr><td>2</td><td>60</td><td>1400</td></tr>
+        <tr><td>3</td><td>80</td><td>1800</td></tr>
+        <tr><td>4</td><td>100</td><td>2300</td></tr>
+    </table>
+
+    <div class="highlight">
+        <b>Mục tiêu của mô hình:</b><br>
+        Học từ 4 điểm dữ liệu trên, tìm ra một đường thẳng <code>y = w·x + b</code> sao cho:
+        <br>– Gần với các điểm đã biết nhất có thể.<br>
+        – Dùng được để dự đoán cho các diện tích khác (50m², 70m²,...).
+    </div>
+</div>
+
+<div class="card">
+    <h2>II. Mô hình Linear Regression cho giá nhà</h2>
+
+    <h3>1. Dạng hàm mô hình</h3>
+    <p>Ta giả sử mối quan hệ giữa diện tích nhà và giá nhà là gần tuyến tính, nên dùng mô hình:</p>
+    <pre>ŷ = w·x + b</pre>
+    <ul>
+        <li>ŷ: giá nhà mô hình dự đoán (triệu)</li>
+        <li>x: diện tích (m²)</li>
+        <li>w: “giá tăng thêm” khi diện tích tăng 1m² (độ dốc)</li>
+        <li>b: giá cơ bản (khi x=0 – chỉ là tham số để mô hình linh hoạt hơn)</li>
+    </ul>
+
+    <h3>2. Hàm mất mát (Loss function)</h3>
+    <p>Mô hình không thể chính xác 100% với mọi điểm, nên ta đo “độ sai” bằng MSE:</p>
+    <pre>L(w, b) = (1/n) · Σ (ŷᵢ − yᵢ)²  =  (1/n) · Σ (w·xᵢ + b − yᵢ)²</pre>
+    <p>Trong đó:</p>
+    <ul>
+        <li>n: số dữ liệu (ở đây n = 4)</li>
+        <li>(xᵢ, yᵢ): dữ liệu thật</li>
+        <li>ŷᵢ: giá mô hình dự đoán cho xᵢ</li>
+    </ul>
+
+    <div class="highlight">
+        <b>Mục tiêu chính:</b> Tìm bộ (w, b) sao cho giá trị L(w, b) nhỏ nhất.<br>
+        → Đây chính là bài toán <b>tối ưu hàm nhiều biến</b> (biến là w và b).
+    </div>
+</div>
+
+<div class="card">
+    <h2>III. Gradient Descent cho 2 tham số (w, b)</h2>
+
+    <h3>1. Nhắc lại ý tưởng từ bài 1</h3>
+    <p>Ở bài 1, với hàm 1 biến f(x), ta cập nhật:</p>
+    <pre>x_new = x_old − η·f'(x_old)</pre>
+    <p>Trong đó η (eta) là <b>learning rate</b> – bước đi mỗi lần cập nhật.</p>
+
+    <h3>2. Bây giờ với 2 biến (w, b)</h3>
+    <p>Hàm mất mát L phụ thuộc vào 2 biến:</p>
+    <pre>L = L(w, b)</pre>
+    <p>Gradient (đạo hàm riêng):</p>
+    <pre>∂L/∂w = (2/n) · Σ (w·xᵢ + b − yᵢ)·xᵢ
+∂L/∂b = (2/n) · Σ (w·xᵢ + b − yᵢ)</pre>
+
+    <p>Cập nhật theo Gradient Descent:</p>
+    <pre>w_new = w_old − η·(∂L/∂w)
+b_new = b_old − η·(∂L/∂b)</pre>
+
+    <div class="highlight">
+        <b>Ý nghĩa:</b><br>
+        – Nếu ∂L/∂w > 0, tức tăng w làm Loss tăng → ta phải giảm w.<br>
+        – Nếu ∂L/∂b < 0, tức tăng b làm Loss giảm → ta nên tăng b (vì trừ số âm thành cộng).
+    </div>
+</div>
+
+<div class="card">
+    <h2>IV. Code Python – Tự viết Linear Regression từ đầu</h2>
+    <p>Phần này học sinh có thể copy code để chạy trên VS Code, IDLE hoặc Google Colab.</p>
+
+    <h3>1. Khởi tạo dữ liệu & hàm Loss</h3>
+    <button class="toggle-btn" onclick="toggleCode('code1')">Hiện/Ẩn code</button>
+    <button class="copy-btn" onclick="copyCode('code1')">Copy</button>
+    <pre id="code1" style="display:none;">
+# Dữ liệu giá nhà: diện tích (m2) và giá (triệu)
+X = [40, 60, 80, 100]
+Y = [900, 1400, 1800, 2300]
+
+n = len(X)
+
+def predict(x, w, b):
+    return w*x + b
+
+def compute_loss(w, b):
+    total = 0.0
+    for i in range(n):
+        y_pred = predict(X[i], w, b)
+        total += (y_pred - Y[i])**2
+    return total / n
+    </pre>
+
+    <h3>2. Thuật toán Gradient Descent học w và b (có in từng bước)</h3>
+    <button class="toggle-btn" onclick="toggleCode('code2')">Hiện/Ẩn code</button>
+    <button class="copy-btn" onclick="copyCode('code2')">Copy</button>
+    <pre id="code2" style="display:none;">
+X = [40, 60, 80, 100]
+Y = [900, 1400, 1800, 2300]
+n = len(X)
+
+def predict(x, w, b):
+    return w*x + b
+
+def compute_loss(w, b):
+    total = 0.0
+    for i in range(n):
+        y_pred = predict(X[i], w, b)
+        total += (y_pred - Y[i])**2
+    return total / n
+
+# Khởi tạo
+w = 0.0
+b = 0.0
+learning_rate = 0.00001
+epochs = 20000
+
+print("BẮT ĐẦU QUÁ TRÌNH HỌC...\n")
+for epoch in range(epochs+1):
+    dw = 0.0
+    db = 0.0
+
+    for i in range(n):
+        y_pred = predict(X[i], w, b)
+        error = y_pred - Y[i]
+        dw += error * X[i]
+        db += error
+
+    dw = (2/n) * dw
+    db = (2/n) * db
+
+    w -= learning_rate * dw
+    b -= learning_rate * db
+
+    # In theo từng giai đoạn
+    if epoch % 2000 == 0:
+        loss = compute_loss(w, b)
+        print(f"Epoch {epoch:5d} | w={w:8.4f} | b={b:8.4f} | loss={loss:10.2f}")
+
+print("\nKẾT THÚC HỌC")
+print("w cuối cùng =", w)
+print("b cuối cùng =", b)
+print("Loss cuối cùng =", compute_loss(w, b))
+    </pre>
+
+    <h3>3. Dùng mô hình để dự đoán giá nhà</h3>
+    <button class="toggle-btn" onclick="toggleCode('code3')">Hiện/Ẩn code</button>
+    <button class="copy-btn" onclick="copyCode('code3')">Copy</button>
+    <pre id="code3" style="display:none;">
+def predict(x, w, b):
+    return w*x + b
+
+# Giả sử sau khi train xong, ta có:
+# (Bạn copy w, b in ra từ đoạn code phía trên)
+w = 20.0
+b = 100.0
+
+areas = [50, 70, 120]
+for a in areas:
+    price = predict(a, w, b)
+    print(f"Diện tích {a:3d} m2 -> Giá dự đoán ≈ {price:8.2f} triệu")
+    </pre>
+
+    <div class="highlight">
+        <b>Gợi ý dạy học:</b><br>
+        – Cho học sinh thay đổi <code>learning_rate</code> (0.000001, 0.0001, ...) để xem mô hình học nhanh/chậm ra sao.<br>
+        – Cho học sinh in thử 10 dòng đầu và 10 dòng cuối để xem w, b tiến dần về giá trị ổn định.
+    </div>
+</div>
+
+<div class="card">
+    <h2>V. Demo trực quan trên web (JS mô phỏng Python + vẽ biểu đồ)</h2>
+
+    <div class="two-col">
+        <div>
+            <p><b>1. Mô phỏng quá trình học:</b></p>
+            <p>Bấm nút bên dưới để xem JS thực hiện Gradient Descent giống hệt code Python, in ra w, b, loss theo từng giai đoạn.</p>
+            <button onclick="runDemo()">▶ Chạy mô phỏng học</button>
+            <div id="console" class="console">Nhấn nút để chạy mô phỏng…</div>
+        </div>
+        <div>
+            <p><b>2. Biểu đồ trực quan:</b></p>
+            <p>Biểu đồ bên dưới hiển thị:</p>
+            <ul>
+                <li>Các điểm dữ liệu thật (x, y).</li>
+                <li>Đường thẳng mô hình học được sau khi train.</li>
+            </ul>
+            <canvas id="plot" width="450" height="260"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleCode(id) {
+    const el = document.getElementById(id);
+    el.style.display = (el.style.display === "none") ? "block" : "none";
+}
+function copyCode(id) {
+    const text = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(text);
+    alert("Đã copy code!");
+}
+
+// Mô phỏng Gradient Descent + update console & chart
+function runDemo() {
+    const logBox = document.getElementById("console");
+    logBox.textContent = "";
+
+    function log(msg) {
+        logBox.textContent += msg + "\n";
+        logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    // Dữ liệu
+    const X = [40, 60, 80, 100];
+    const Y = [900, 1400, 1800, 2300];
+    const n = X.length;
+
+    // Khởi tạo
+    let w = 0.0;
+    let b = 0.0;
+    const lr = 0.00001;
+    const epochs = 20000;
+
+    function compute_loss(w, b) {
+        let total = 0.0;
+        for (let i = 0; i < n; i++) {
+            const y_pred = w*X[i] + b;
+            total += (y_pred - Y[i])**2;
+        }
+        return total / n;
+    }
+
+    log("BẮT ĐẦU MÔ PHỎNG HỌC LINEAR REGRESSION\n");
+
+    for (let epoch = 0; epoch <= epochs; epoch++) {
+        let dw = 0.0;
+        let db = 0.0;
+        for (let i = 0; i < n; i++) {
+            const y_pred = w*X[i] + b;
+            const error = y_pred - Y[i];
+            dw += error * X[i];
+            db += error;
+        }
+        dw = (2/n) * dw;
+        db = (2/n) * db;
+
+        w -= lr * dw;
+        b -= lr * db;
+
+        if (epoch % 2000 === 0) {
+            const loss = compute_loss(w, b);
+            log(`Epoch ${epoch.toString().padStart(5)} | w=${w.toFixed(4)} | b=${b.toFixed(4)} | loss=${loss.toFixed(2)}`);
+        }
+    }
+
+    log("\nKẾT THÚC MÔ PHỎNG.");
+    log(`w ≈ ${w.toFixed(4)},  b ≈ ${b.toFixed(4)}`);
+    log("Bạn có thể copy w, b này để dùng trong code Python dự đoán.");
+
+    // Sau khi học xong, vẽ biểu đồ
+    drawChart(X, Y, w, b);
+}
+
+// Vẽ biểu đồ: điểm dữ liệu + đường hồi quy
+function drawChart(X, Y, w, b) {
+    const canvas = document.getElementById("plot");
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const width = canvas.width;
+    const height = canvas.height;
+
+    // Tìm min-max để scale
+    const minX = Math.min(...X);
+    const maxX = Math.max(...X);
+    const minY = Math.min(...Y);
+    const maxY = Math.max(...Y);
+
+    function toCanvasX(x) {
+        return 40 + (x - minX) / (maxX - minX) * (width - 80);
+    }
+    function toCanvasY(y) {
+        // đảo chiều Y (trên canvas, y tăng xuống dưới)
+        return height - 30 - (y - minY) / (maxY - minY) * (height - 60);
+    }
+
+    // Vẽ trục đơn giản
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 1;
+    // trục X
+    ctx.beginPath();
+    ctx.moveTo(40, height-30);
+    ctx.lineTo(width-20, height-30);
+    ctx.stroke();
+    // trục Y
+    ctx.beginPath();
+    ctx.moveTo(40, height-20);
+    ctx.lineTo(40, 20);
+    ctx.stroke();
+
+    // Vẽ điểm dữ liệu
+    ctx.fillStyle = "#dc2626";
+    for (let i = 0; i < X.length; i++) {
+        const cx = toCanvasX(X[i]);
+        const cy = toCanvasY(Y[i]);
+        ctx.beginPath();
+        ctx.arc(cx, cy, 4, 0, Math.PI*2);
+        ctx.fill();
+    }
+
+    // Vẽ đường hồi quy
+    const x1 = minX, x2 = maxX;
+    const y1 = w*x1 + b;
+    const y2 = w*x2 + b;
+
+    ctx.strokeStyle = "#2563eb";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(toCanvasX(x1), toCanvasY(y1));
+    ctx.lineTo(toCanvasX(x2), toCanvasY(y2));
+    ctx.stroke();
+
+    // Nhãn nhỏ
+    ctx.fillStyle = "#0f172a";
+    ctx.font = "12px Arial";
+    ctx.fillText("Diện tích (m²)", width/2 - 30, height-8);
+    ctx.save();
+    ctx.translate(12, height/2 + 30);
+    ctx.rotate(-Math.PI/2);
+    ctx.fillText("Giá (triệu)", 0, 0);
+    ctx.restore();
+}
+</script>
+
+</body>
+</html>

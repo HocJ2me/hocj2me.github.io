@@ -1,0 +1,564 @@
+	<!DOCTYPE html>
+	<html lang="vi">
+	<head>
+	  <meta charset="UTF-8">
+	  <title>Dạy học Linear Regression - Lý thuyết & Thực hành Python</title>
+	  <style>
+		body {
+		  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+		  background: #f4f6fb;
+		  color: #222;
+		  margin: 0;
+		  padding: 0;
+		  line-height: 1.6;
+		}
+		header {
+		  background: linear-gradient(120deg, #2563eb, #1d4ed8);
+		  color: #fff;
+		  padding: 20px 40px;
+		  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+		  position: sticky;
+		  top: 0;
+		  z-index: 10;
+		}
+		header h1 {
+		  margin: 0 0 8px 0;
+		  font-size: 26px;
+		}
+		header p {
+		  margin: 0;
+		  opacity: 0.9;
+		}
+		nav {
+		  margin-top: 10px;
+		}
+		nav a {
+		  color: #e0ecff;
+		  text-decoration: none;
+		  margin-right: 12px;
+		  font-size: 14px;
+		  padding: 6px 10px;
+		  border-radius: 999px;
+		  border: 1px solid rgba(255,255,255,0.2);
+		}
+		nav a:hover {
+		  background: rgba(255,255,255,0.1);
+		}
+
+		main {
+		  padding: 24px 40px 40px 40px;
+		  max-width: 1100px;
+		  margin: 0 auto;
+		}
+
+		h2 {
+		  margin-top: 0;
+		  color: #1d4ed8;
+		}
+		h3 {
+		  color: #1f2933;
+		  margin-top: 14px;
+		}
+
+		.card {
+		  background: #fff;
+		  border-radius: 14px;
+		  padding: 20px 22px;
+		  margin-bottom: 20px;
+		  box-shadow: 0 4px 14px rgba(15,23,42,0.08);
+		}
+		.tag {
+		  display: inline-block;
+		  font-size: 11px;
+		  text-transform: uppercase;
+		  letter-spacing: 0.08em;
+		  color: #6b7280;
+		  margin-bottom: 6px;
+		}
+
+		ul {
+		  padding-left: 20px;
+		}
+
+		pre {
+		  background: #0f172a;
+		  color: #e5e7eb;
+		  padding: 14px;
+		  border-radius: 10px;
+		  overflow-x: auto;
+		  font-size: 14px;
+		  line-height: 1.5;
+		  position: relative;
+		  margin-top: 10px;
+		}
+		code {
+		  font-family: "Fira Code", Consolas, monospace;
+		}
+
+		.code-toolbar {
+		  display: flex;
+		  gap: 8px;
+		  justify-content: flex-end;
+		  margin-bottom: 4px;
+		}
+		.btn {
+		  font-size: 12px;
+		  padding: 6px 10px;
+		  border-radius: 999px;
+		  border: 1px solid #d1d5db;
+		  background: #ffffff;
+		  cursor: pointer;
+		  color: #111827;
+		  display: inline-flex;
+		  align-items: center;
+		  gap: 4px;
+		}
+		.btn.small {
+		  font-size: 11px;
+		  padding: 4px 8px;
+		}
+		.btn.primary {
+		  background: #2563eb;
+		  color: #fff;
+		  border-color: #1d4ed8;
+		}
+		.btn:hover {
+		  background: #e5e7eb;
+		}
+		.btn.primary:hover {
+		  background: #1d4ed8;
+		}
+
+		.badge {
+		  display: inline-block;
+		  padding: 2px 8px;
+		  border-radius: 999px;
+		  font-size: 11px;
+		  background: #eff6ff;
+		  color: #1d4ed8;
+		  margin-left: 4px;
+		}
+
+		table {
+		  border-collapse: collapse;
+		  width: 100%;
+		  margin-top: 8px;
+		  font-size: 14px;
+		}
+		th, td {
+		  border: 1px solid #e5e7eb;
+		  padding: 6px 8px;
+		  text-align: center;
+		}
+		th {
+		  background: #eff6ff;
+		}
+
+		.highlight {
+		  background: #ecfdf5;
+		  border-left: 3px solid #22c55e;
+		  padding: 10px 12px;
+		  border-radius: 10px;
+		  font-size: 14px;
+		  margin-top: 8px;
+		}
+
+		.console {
+		  background: #020617;
+		  color: #a5b4fc;
+		  font-family: "Fira Code", monospace;
+		  font-size: 13px;
+		  padding: 12px;
+		  border-radius: 10px;
+		  min-height: 80px;
+		  white-space: pre-wrap;
+		  overflow-y: auto;
+		  max-height: 260px;
+		  border: 1px solid #1f2937;
+		  margin-top: 10px;
+		}
+
+		.step-list {
+		  font-size: 14px;
+		  margin-top: 8px;
+		}
+		.step-list li {
+		  margin-bottom: 4px;
+		}
+
+		@media (max-width: 768px) {
+		  header, main {
+			padding-left: 16px;
+			padding-right: 16px;
+		  }
+		}
+	  </style>
+	</head>
+	<body>
+
+	<header>
+	  <h1>Dạy học Linear Regression cho học sinh</h1>
+	  <p>Gồm: Lý thuyết chi tiết · Code Python · Mô phỏng cách code chạy</p>
+	  <nav>
+		<a href="#theory">Phần 1: Lý thuyết</a>
+		<a href="#code">Phần 2: Code Python</a>
+		<a href="#sim">Phần 3: Mô phỏng chạy code</a>
+	  </nav>
+	</header>
+
+	<main>
+	  <!-- PHẦN 1: LÝ THUYẾT -->
+	  <section id="theory" class="card">
+		<div class="tag">PHẦN 1</div>
+		<h2>📘 Lý thuyết chi tiết về Linear Regression</h2>
+
+		<h3>1. Mục tiêu của bài toán</h3>
+		<p>
+		  Linear Regression (hồi quy tuyến tính) được dùng để <b>dự đoán một giá trị số</b>.
+		  Ví dụ điển hình: <b>dự đoán giá nhà</b> dựa trên diện tích.
+		</p>
+		<p>Giả sử ta có dữ liệu:</p>
+		<table>
+		  <tr><th>Diện tích (m²)</th><th>Giá (triệu)</th></tr>
+		  <tr><td>40</td><td>900</td></tr>
+		  <tr><td>60</td><td>1400</td></tr>
+		  <tr><td>80</td><td>1800</td></tr>
+		  <tr><td>100</td><td>2300</td></tr>
+		</table>
+		<p class="highlight">
+		  Câu hỏi: <b>Nếu có một căn nhà 50 m² thì giá sẽ khoảng bao nhiêu?</b><br>
+		  → Đó chính là nhiệm vụ của Linear Regression.
+		</p>
+
+		<h3>2. Mô hình: đường thẳng y = w·x + b</h3>
+		<p>Ta giả sử mối quan hệ giữa diện tích (x) và giá (y) gần như là đường thẳng:</p>
+		<p style="font-size:18px;font-weight:bold;">
+		  y = w × x + b
+		</p>
+		<ul>
+		  <li><b>x</b>: diện tích nhà (m²)</li>
+		  <li><b>y</b>: giá nhà (triệu)</li>
+		  <li><b>w</b>: độ dốc (tăng thêm 1 m² thì giá tăng ~ bao nhiêu triệu)</li>
+		  <li><b>b</b>: giá “cơ bản” khi x = 0 (giao điểm với trục y)</li>
+		</ul>
+
+		<h3>3. Hàm mất mát (Loss) – MSE</h3>
+		<p>
+		  Không thể có đường thẳng đi qua chính xác tất cả các điểm dữ liệu,
+		  nên ta cần một cách đo xem đường thẳng hiện tại “tệ” hay “tốt”.<br>
+		  Thường dùng <b>MSE (Mean Squared Error)</b>:
+		</p>
+		<p style="font-size:14px;">
+		  MSE = (1/n) · Σ (y_dự_đoán − y_thật)<sup>2</sup>
+		</p>
+		<ul>
+		  <li>n: số mẫu dữ liệu (ở đây n = 4)</li>
+		  <li><code>y_dự_đoán = w·x + b</code></li>
+		  <li><code>y_thật</code>: giá trị trong bảng dữ liệu</li>
+		</ul>
+		<p class="highlight">
+		  <b>Mục tiêu:</b> Tìm bộ (w, b) làm cho MSE nhỏ nhất.
+		</p>
+
+		<h3>4. Đạo hàm và Gradient</h3>
+		<p>
+		  Ý tưởng: Nếu ta coi MSE là một “ngọn núi” hoặc “thung lũng” theo hai biến w và b,
+		  thì ta muốn đi đến <b>điểm thấp nhất</b> (MSE nhỏ nhất).
+		</p>
+		<p>
+		  Gradient (∂L/∂w, ∂L/∂b) cho ta biết:
+		</p>
+		<ul>
+		  <li><b>Hướng</b> mà MSE tăng nhanh nhất.</li>
+		  <li>Nếu ta đi <b>ngược hướng gradient</b> thì MSE sẽ giảm.</li>
+		</ul>
+		<p>Đạo hàm của Loss theo w, b (không cần bắt buộc học sinh nhớ, chỉ hiểu ý):</p>
+		<ul>
+		  <li>∂L/∂w = (2/n) · Σ (w·x<sub>i</sub> + b − y<sub>i</sub>)·x<sub>i</sub></li>
+		  <li>∂L/∂b = (2/n) · Σ (w·x<sub>i</sub> + b − y<sub>i</sub>)</li>
+		</ul>
+
+		<h3>5. Gradient Descent – thuật toán học w, b</h3>
+		<p>
+		  Gradient Descent là cách ta <b>từng bước cập nhật</b> w, b để giảm MSE:
+		</p>
+		<ol class="step-list">
+		  <li>Khởi tạo w, b (thường = 0 hoặc ngẫu nhiên nhỏ).</li>
+		  <li>Ở mỗi vòng lặp (epoch):</li>
+		  <ul>
+			<li>Tính gradient: ∂L/∂w, ∂L/∂b.</li>
+			<li>Cập nhật:
+			  <br>w ← w − learning_rate · ∂L/∂w
+			  <br>b ← b − learning_rate · ∂L/∂b
+			</li>
+		  </ul>
+		  <li>Lặp lại nhiều lần cho đến khi MSE gần như không giảm nữa.</li>
+		</ol>
+
+		<h3>6. Ý nghĩa learning_rate và epochs</h3>
+		<ul>
+		  <li><b>learning_rate</b>: Bước đi mỗi lần cập nhật (đi nhanh hay chậm).</li>
+		  <li><b>epochs</b>: Số lần lặp (số “bước chân” ta đi xuống thung lũng).</li>
+		</ul>
+		<p class="highlight">
+		  Trong phần code phía dưới, ta sẽ cho học sinh <b>nhìn thấy w, b</b> thay đổi theo thời gian và
+		  xem mã Python hoạt động như thế nào.
+		</p>
+	  </section>
+
+	  <!-- PHẦN 2: CODE PYTHON -->
+	  <section id="code" class="card">
+		<div class="tag">PHẦN 2</div>
+		<h2>💻 Code Python cho học sinh (có thể copy và chạy)</h2>
+		<p>
+		  Dưới đây là các khối code Python <b>từ dễ đến khó</b>.
+		  Học sinh có thể copy và chạy trên <b>VS Code hoặc Google Colab</b>.
+		</p>
+
+		<!-- CODE 1: Tạo dữ liệu -->
+		<h3>2.1. Tạo dữ liệu mẫu</h3>
+		<p>Đoạn code này chỉ tạo dữ liệu và in ra cho học sinh làm quen:</p>
+		<div class="code-toolbar">
+		  <button class="btn small" data-toggle="#code1">Hiện/Ẩn code</button>
+		  <button class="btn small" data-copy="#code1">Copy code</button>
+		</div>
+		<pre id="code1"><code class="language-python">
+	# Dữ liệu mẫu: diện tích (m2) và giá (triệu)
+	X = [40, 60, 80, 100]
+	y = [900, 1400, 1800, 2300]
+
+	print("Diện tích:", X)
+	print("Giá nhà:", y)
+		</code></pre>
+
+		<!-- CODE 2: Linear Regression từ đầu -->
+		<h3>2.2. Linear Regression từ đầu bằng Gradient Descent</h3>
+		<p>
+		  Đây là phần chính: ta tự viết thuật toán để máy tính tự <b>học w, b</b> sao cho phù hợp dữ liệu.
+		</p>
+		<div class="code-toolbar">
+		  <button class="btn small" data-toggle="#code2">Hiện/Ẩn code</button>
+		  <button class="btn small" data-copy="#code2">Copy code</button>
+		</div>
+		<pre id="code2"><code class="language-python">
+	# Linear Regression từ đầu bằng Gradient Descent
+
+	# 1. Dữ liệu
+	X = [40, 60, 80, 100]
+	y = [900, 1400, 1800, 2300]
+
+	# 2. Khởi tạo tham số mô hình
+	w = 0.0
+	b = 0.0
+
+	# 3. Siêu tham số
+	learning_rate = 0.00001
+	epochs = 50000
+
+	n = len(X)
+
+	# 4. Vòng lặp học
+	for epoch in range(epochs):
+		dw = 0.0
+		db = 0.0
+
+		# tính gradient
+		for i in range(n):
+			y_pred = w * X[i] + b
+			error = y_pred - y[i]
+
+			dw += error * X[i]
+			db += error
+
+		dw = (2 / n) * dw
+		db = (2 / n) * db
+
+		# cập nhật w, b
+		w -= learning_rate * dw
+		b -= learning_rate * db
+
+		# in ra vài epoch để theo dõi
+		if epoch % 5000 == 0:
+			print(f"Epoch {epoch}: w={w:.4f}, b={b:.4f}")
+
+	print("Kết quả cuối cùng:")
+	print("w =", w)
+	print("b =", b)
+		</code></pre>
+
+		<!-- CODE 3: Dự đoán -->
+		<h3>2.3. Hàm dự đoán giá nhà</h3>
+		<p>
+		  Sau khi đã học được w, b, ta viết thêm hàm <code>predict()</code> để dự đoán giá nhà theo diện tích.
+		</p>
+		<div class="code-toolbar">
+		  <button class="btn small" data-toggle="#code3">Hiện/Ẩn code</button>
+		  <button class="btn small" data-copy="#code3">Copy code</button>
+		</div>
+		<pre id="code3"><code class="language-python">
+	# Hàm dự đoán giá nhà theo diện tích, dùng w, b đã học được
+
+	def predict(area, w, b):
+		return w * area + b
+
+	# Ví dụ: nếu đã học xong w, b ở trên,
+	# ta có thể gọi:
+	test_area = 50
+	pred_price = predict(test_area, w, b)
+	print(f"Dự đoán giá nhà {test_area}m2 ≈ {pred_price:.2f} triệu")
+		</code></pre>
+
+		<p class="highlight">
+		  Gợi ý khi dạy: cho học sinh <b>tự thay đổi</b> learning_rate, epochs
+		  trong code 2.2 để xem:
+		  <br>– Học chậm/quá nhanh thì chuyện gì xảy ra?<br>
+		  – Kết quả w, b có ổn định không?
+		</p>
+	  </section>
+
+	  <!-- PHẦN 3: MÔ PHỎNG CHẠY CODE -->
+	  <section id="sim" class="card">
+		<div class="tag">PHẦN 3</div>
+		<h2>🧪 Mô phỏng xem code chạy như thế nào</h2>
+		<p>
+		  Phần này dùng JavaScript nhưng logic giống 100% với code Python ở trên,
+		  giúp học sinh thấy <b>w, b thay đổi theo thời gian</b> và cách Gradient Descent hoạt động.
+		</p>
+
+		<button class="btn primary" id="btn-run-sim">Chạy mô phỏng huấn luyện (rút gọn)</button>
+		<span class="badge">Demo trực quan</span>
+
+		<div id="sim-console" class="console">
+		  <!-- log mô phỏng sẽ xuất hiện ở đây -->
+		</div>
+
+		<button class="btn small" id="btn-steps">Hiện/Ẩn mô tả từng bước</button>
+		<ul id="step-detail" class="step-list" style="display:none;">
+		  <li>Bước 1: Khởi tạo w = 0, b = 0.</li>
+		  <li>Bước 2: Với mỗi epoch, tính dự đoán y_pred = w·x + b cho từng điểm dữ liệu.</li>
+		  <li>Bước 3: Tính sai số error = y_pred − y_thật.</li>
+		  <li>Bước 4: Cộng dồn để có dw, db (gradient của Loss theo w, b).</li>
+		  <li>Bước 5: Cập nhật w, b theo công thức Gradient Descent.</li>
+		  <li>Bước 6: Lặp lại nhiều epoch, ta thấy dần dần w, b ổn định.</li>
+		</ul>
+	  </section>
+	</main>
+
+	<script>
+	  // --- Helper: copy code ---
+	  document.querySelectorAll("[data-copy]").forEach(btn => {
+		btn.addEventListener("click", () => {
+		  const target = btn.getAttribute("data-copy");
+		  const pre = document.querySelector(target);
+		  if (!pre) return;
+		  const text = pre.innerText;
+		  if (navigator.clipboard && navigator.clipboard.writeText) {
+			navigator.clipboard.writeText(text).then(() => {
+			  const original = btn.textContent;
+			  btn.textContent = "Đã copy ✓";
+			  setTimeout(() => { btn.textContent = original; }, 1200);
+			});
+		  } else {
+			// fallback
+			const textarea = document.createElement("textarea");
+			textarea.value = text;
+			document.body.appendChild(textarea);
+			textarea.select();
+			document.execCommand("copy");
+			document.body.removeChild(textarea);
+			const original = btn.textContent;
+			btn.textContent = "Đã copy ✓";
+			setTimeout(() => { btn.textContent = original; }, 1200);
+		  }
+		});
+	  });
+
+	  // --- Helper: toggle code block ---
+	  document.querySelectorAll("[data-toggle]").forEach(btn => {
+		btn.addEventListener("click", () => {
+		  const target = btn.getAttribute("data-toggle");
+		  const el = document.querySelector(target);
+		  if (!el) return;
+		  if (el.style.display === "none") {
+			el.style.display = "block";
+			btn.textContent = "Ẩn code";
+		  } else {
+			el.style.display = "none";
+			btn.textContent = "Hiện code";
+		  }
+		});
+	  });
+
+	  // --- Mô phỏng huấn luyện Linear Regression bằng JS (logic giống Python) ---
+	  document.getElementById("btn-run-sim").addEventListener("click", () => {
+		const logEl = document.getElementById("sim-console");
+		logEl.textContent = "";
+
+		// Dữ liệu mẫu
+		const X = [40, 60, 80, 100];
+		const Y = [900, 1400, 1800, 2300];
+
+		let w = 0.0;
+		let b = 0.0;
+		const lr = 0.00001;
+		const epochs = 20000; // rút gọn cho demo
+		const n = X.length;
+
+		function log(line) {
+		  logEl.textContent += line + "\n";
+		  logEl.scrollTop = logEl.scrollHeight;
+		}
+
+		log("Bắt đầu mô phỏng Gradient Descent...");
+		log("Khởi tạo: w = " + w.toFixed(4) + ", b = " + b.toFixed(4) + "\n");
+
+		const snapshotEpochs = [0, 2000, 4000, 8000, 12000, 16000, 19999];
+
+		for (let epoch = 0; epoch < epochs; epoch++) {
+		  let dw = 0.0;
+		  let db = 0.0;
+
+		  for (let i = 0; i < n; i++) {
+			const y_pred = w * X[i] + b;
+			const error = y_pred - Y[i];
+			dw += error * X[i];
+			db += error;
+		  }
+
+		  dw = (2 / n) * dw;
+		  db = (2 / n) * db;
+
+		  w -= lr * dw;
+		  b -= lr * db;
+
+		  if (snapshotEpochs.includes(epoch)) {
+			log("Epoch " + epoch +
+			  " → w = " + w.toFixed(4) +
+			  ", b = " + b.toFixed(4));
+		  }
+		}
+
+		log("\nKết thúc mô phỏng.");
+		log("w cuối ≈ " + w.toFixed(4) + ", b cuối ≈ " + b.toFixed(4));
+		const testArea = 50;
+		const pred = w * testArea + b;
+		log("Dự đoán giá nhà " + testArea + "m² ≈ " + pred.toFixed(2) + " triệu.");
+	  });
+
+	  // --- Hiện / ẩn mô tả từng bước ---
+	  document.getElementById("btn-steps").addEventListener("click", () => {
+		const ul = document.getElementById("step-detail");
+		if (ul.style.display === "none" || ul.style.display === "") {
+		  ul.style.display = "block";
+		} else {
+		  ul.style.display = "none";
+		}
+	  });
+
+	  // Ẩn sẵn code 2 & 3 nếu muốn gọn
+	  document.querySelector("#code2").style.display = "none";
+	  document.querySelector("#code3").style.display = "none";
+	</script>
+
+	</body>
+	</html>
