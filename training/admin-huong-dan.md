@@ -81,3 +81,10 @@ thư mục `_src/design-pattern/` trong repo (không được xuất bản lên 
 - `content_*.py` — lý thuyết, sơ đồ UML của 24 mẫu; `content_lang.py` — giải thích code C++/Python, phần lập trình nhúng
 - `cpp/`, `python/`, `java/` — 72 chương trình ví dụ
 - Build lại: vào `_src/design-pattern/`, chạy `python -X utf8 build.py` (cần g++, Python 3.10+, Java 17+; kết quả chạy được lấy thật và lưu cache)
+
+## 7. Các khóa sinh tự động khác (`cpp-co-ban.html`, `freertos.html`, `pcb-altium.html`)
+
+Dùng chung bộ khung `_src/common/` (template giao diện, chạy code thật, tô màu cú pháp, vẽ hình SVG).
+Mỗi khóa có thư mục riêng trong `_src/` gồm `course.py` (cấu hình + trang tổng quan),
+`lessons*.py` (lý thuyết từng bài), `figs.py` (hình minh hoạ) và `code/` (chương trình ví dụ).
+Build lại một khóa: vào thư mục của khóa, chạy `python -X utf8 course.py`.

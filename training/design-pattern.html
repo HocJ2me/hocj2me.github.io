@@ -9859,6 +9859,7 @@ Tổng diện tích: 39.57
   });
   paint();
   route();
+  window.addEventListener('load', function(){ var h = location.hash.slice(1); if(!h || ORDER.indexOf(decodeURIComponent(h)) >= 0) window.scrollTo(0, 0); });
 })();
 </script>
 </body>

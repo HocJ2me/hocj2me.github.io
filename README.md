@@ -11,13 +11,17 @@ assets/
   du-an/                Ảnh các dự án, cuộc thi
 training/               Cổng khóa học (cần đăng nhập)
   courses.html          Danh sách khóa học — /training/ tự chuyển tới đây
-  microbit.html, thuyen-tu-dong.html, kinh-thong-minh.html, design-pattern.html
+  microbit.html, thuyen-tu-dong.html, kinh-thong-minh.html
+  design-pattern.html, cpp-co-ban.html   (sinh tự động từ _src/)
   login.html, register.html, auth.js, users.json, hash-tool.html
   admin-huong-dan.md    Hướng dẫn cấp tài khoản, thêm khóa học
 bai-giang/              Bài giảng mở, không cần đăng nhập (có trang mục lục)
   ml-co-ban/            Machine Learning cơ bản
   quy-trinh-phan-mem/   Bài tập Quy trình phần mềm
-_src/design-pattern/    Mã nguồn sinh ra training/design-pattern.html (không xuất bản)
+_src/                   Mã nguồn sinh các trang khóa học (không xuất bản)
+  common/               Bộ khung dùng chung: template, chạy code, tô màu cú pháp, vẽ SVG
+  cpp-co-ban/           Khóa C++  → python -X utf8 course.py
+  design-pattern/       Khóa Design Pattern → python -X utf8 build.py
 _luu-tru/               Ảnh/file cũ không còn dùng (không xuất bản)
 QuyTrinhPhanMem/, ML_cơ bản/   Chỉ còn trang chuyển hướng để link cũ vẫn chạy
 ```
