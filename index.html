@@ -379,7 +379,7 @@ footer{background:#10283e;color:#dce5ea}
 .olc-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin:6px 0 18px}
 .olc-head h3{font-family:var(--serif);font-size:1.5rem;font-weight:400}
 .olc-head p{color:var(--ink-2);font-size:.93rem;max-width:62ch}
-.olc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:44px}
+.olc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:26px}
 .olc{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line-2);border-radius:18px;overflow:hidden;text-decoration:none;color:var(--ink);box-shadow:0 10px 30px rgba(23,50,77,.055);transition:transform .15s,box-shadow .15s}
 .olc:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(23,50,77,.12)}
 .olc-top{height:132px;background:#17324d;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:2.3rem;position:relative;color:#fff}
@@ -392,8 +392,9 @@ footer{background:#10283e;color:#dce5ea}
 @media(max-width:980px){.olc-grid{grid-template-columns:repeat(2,1fr)}.olc-head{display:block}.olc-head p{margin-top:6px}}
 @media(max-width:520px){.olc-grid{grid-template-columns:1fr}}
 /* khóa học: nhóm + 2 nút */
-.olc-group{grid-column:1/-1;font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--orange);margin:8px 0 -4px;padding-top:6px;border-top:1px dashed var(--line-2)}
-.olc-group:first-child{border-top:0;padding-top:0;margin-top:0}
+.olc-group{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--orange);margin:8px 0 -4px;padding-top:6px;border-top:1px dashed var(--line-2)}
+.lpath+.olc-group{border-top:0;padding-top:0;margin-top:0}
+.olc-group{margin-bottom:14px}
 .olc:hover{transform:none}
 .olc-act{display:flex;gap:8px;margin-top:12px}
 .olc-btn{flex:1;text-align:center;font-size:.82rem;font-weight:700;padding:8px 6px;border-radius:999px;border:1.5px solid var(--blue);color:var(--blue);text-decoration:none;transition:background .15s,color .15s}
@@ -404,7 +405,7 @@ footer{background:#10283e;color:#dce5ea}
 .lp .lv{display:block;font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--orange)}
 .lp b{display:block;font-size:.92rem;margin:2px 0 4px}.lp a{color:var(--blue);font-weight:600}
 @media(max-width:980px){.lpath{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:520px){.lpath{grid-template-columns:1fr}}
+@media(max-width:520px){.lpath{gap:8px}.lp{padding:10px 12px;font-size:.8rem}.lp:last-child{grid-column:1/-1}}
 .credit{font-size:.7rem;opacity:.65;margin-top:10px;line-height:1.6}.credit a{color:inherit}
 .olc-note{margin:-28px 0 40px;font-size:.88rem;color:var(--ink-2)}
 .nav-cta{background:var(--blue);color:#fff!important;padding:6px 14px!important;border-radius:999px}
@@ -414,6 +415,7 @@ footer{background:#10283e;color:#dce5ea}
 .regf label{display:flex;flex-direction:column;gap:6px;font-size:.84rem;font-weight:600;color:var(--ink-2)}
 .regf input,.regf select,.regf textarea{font:inherit;font-size:.95rem;font-weight:400;color:var(--ink);padding:10px 12px;border:1px solid var(--line-2);border-radius:10px;background:#fff}
 .regf input:focus,.regf select:focus,.regf textarea:focus{outline:2px solid var(--blue-2);border-color:transparent}
+.regf>*,.regf label{min-width:0}.regf input,.regf select,.regf textarea{width:100%;min-width:0;max-width:100%}
 .regf .full{grid-column:1/-1}
 .regf .bad{border-color:#dc2626;background:#fef2f2}
 .regf-act{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
@@ -460,7 +462,7 @@ footer{background:#10283e;color:#dce5ea}
       </div>
     </div>
     <figure class="fig tick">
-       <div class="frame portrait-frame" style="aspect-ratio:4/5"><img src="assets/img/thuyet-trinh.jpg" alt="Giáo viên Lê Chí Tuyền đang hướng dẫn học sinh"></div>
+       <div class="frame portrait-frame" style="aspect-ratio:4/5"><img fetchpriority="high" src="assets/img/thuyet-trinh.webp" alt="Giáo viên Lê Chí Tuyền đang hướng dẫn học sinh"></div>
        <figcaption class="fcap"><span class="ft">LÊ CHÍ TUYỀN</span> Trong một buổi hướng dẫn dự án STEM</figcaption>
     </figure>
   </div>
@@ -501,7 +503,7 @@ footer{background:#10283e;color:#dce5ea}
       </div>
       <div class="aside-col">
         <figure class="fig tick">
-          <div class="frame"><img src="assets/img/giang-day-01-t.jpg" data-full="assets/img/giang-day-01.jpg" data-cap="Giờ học tại phòng thực hành" alt="Giờ học tại phòng thực hành" loading="lazy"></div>
+          <div class="frame"><img src="assets/img/giang-day-01-t.webp" data-full="assets/img/giang-day-01.webp" data-cap="Giờ học tại phòng thực hành" alt="Giờ học tại phòng thực hành" loading="lazy"></div>
           <figcaption class="fcap"><span class="ft">HÌNH 02</span> Giờ học tại phòng thực hành</figcaption>
         </figure>
         <dl class="cv">
@@ -534,12 +536,12 @@ footer{background:#10283e;color:#dce5ea}
     </div>
 
     <div class="gal" id="mosaic">
-      <figure class="fig"><div class="frame"><img src="assets/img/lop-hoc-04-t.jpg" data-full="assets/img/lop-hoc-04.jpg" data-cap="Giờ thực hành lập trình" alt="Giờ thực hành lập trình" loading="lazy"></div><figcaption class="fcap"><span class="ft">01</span> Giờ thực hành lập trình</figcaption></figure>
-      <figure class="fig"><div class="frame"><img src="assets/img/lap-trinh-thu-nghiem-t.jpg" data-full="assets/img/lap-trinh-thu-nghiem.jpg" data-cap="Lập trình và chạy thử trên máy" alt="Lập trình và chạy thử" loading="lazy"></div><figcaption class="fcap"><span class="ft">02</span> Lập trình và chạy thử trên máy</figcaption></figure>
-      <figure class="fig"><div class="frame"><img src="assets/img/lop-hoc-03-t.jpg" data-full="assets/img/lop-hoc-03.jpg" data-cap="Lớp nhỏ, mỗi em một bộ kit riêng" alt="Lớp nhỏ" loading="lazy"></div><figcaption class="fcap"><span class="ft">03</span> Lớp nhỏ, mỗi em một bộ kit riêng</figcaption></figure>
-      <figure class="fig"><div class="frame"><img src="assets/img/ghi-chep-t.jpg" data-full="assets/img/ghi-chep.jpg" data-cap="Tính toán và ghi chép trước khi lắp mạch" alt="Ghi chép" loading="lazy"></div><figcaption class="fcap"><span class="ft">04</span> Tính toán trước khi lắp mạch</figcaption></figure>
-      <figure class="fig"><div class="frame"><img src="assets/img/thuyet-trinh-t.jpg" data-full="assets/img/thuyet-trinh.jpg" data-cap="Thuyết trình giới thiệu dự án" alt="Thuyết trình" loading="lazy"></div><figcaption class="fcap"><span class="ft">05</span> Thuyết trình giới thiệu dự án</figcaption></figure>
-      <figure class="fig"><div class="frame"><img src="assets/img/trao-giai-01-t.jpg" data-full="assets/img/trao-giai-01.jpg" data-cap="Nhận giấy khen cùng sản phẩm dự thi" alt="Nhận giấy khen" loading="lazy"></div><figcaption class="fcap"><span class="ft">06</span> Nhận giấy khen cùng sản phẩm dự thi</figcaption></figure>
+      <figure class="fig"><div class="frame"><img src="assets/img/lop-hoc-04-t.webp" data-full="assets/img/lop-hoc-04.webp" data-cap="Giờ thực hành lập trình" alt="Giờ thực hành lập trình" loading="lazy"></div><figcaption class="fcap"><span class="ft">01</span> Giờ thực hành lập trình</figcaption></figure>
+      <figure class="fig"><div class="frame"><img src="assets/img/lap-trinh-thu-nghiem-t.webp" data-full="assets/img/lap-trinh-thu-nghiem.webp" data-cap="Lập trình và chạy thử trên máy" alt="Lập trình và chạy thử" loading="lazy"></div><figcaption class="fcap"><span class="ft">02</span> Lập trình và chạy thử trên máy</figcaption></figure>
+      <figure class="fig"><div class="frame"><img src="assets/img/lop-hoc-03-t.webp" data-full="assets/img/lop-hoc-03.webp" data-cap="Lớp nhỏ, mỗi em một bộ kit riêng" alt="Lớp nhỏ" loading="lazy"></div><figcaption class="fcap"><span class="ft">03</span> Lớp nhỏ, mỗi em một bộ kit riêng</figcaption></figure>
+      <figure class="fig"><div class="frame"><img src="assets/img/ghi-chep-t.webp" data-full="assets/img/ghi-chep.webp" data-cap="Tính toán và ghi chép trước khi lắp mạch" alt="Ghi chép" loading="lazy"></div><figcaption class="fcap"><span class="ft">04</span> Tính toán trước khi lắp mạch</figcaption></figure>
+      <figure class="fig"><div class="frame"><img src="assets/img/thuyet-trinh-t.webp" data-full="assets/img/thuyet-trinh.webp" data-cap="Thuyết trình giới thiệu dự án" alt="Thuyết trình" loading="lazy"></div><figcaption class="fcap"><span class="ft">05</span> Thuyết trình giới thiệu dự án</figcaption></figure>
+      <figure class="fig"><div class="frame"><img src="assets/img/trao-giai-01-t.webp" data-full="assets/img/trao-giai-01.webp" data-cap="Nhận giấy khen cùng sản phẩm dự thi" alt="Nhận giấy khen" loading="lazy"></div><figcaption class="fcap"><span class="ft">06</span> Nhận giấy khen cùng sản phẩm dự thi</figcaption></figure>
     </div>
   </div>
 </section>
@@ -563,57 +565,61 @@ footer{background:#10283e;color:#dce5ea}
       <div class="lp"><span class="lv">THPT – SV</span><b>Kỹ sư nhúng</b><a href="#c-freertos">FreeRTOS</a> · <a href="#c-pcb-altium">PCB</a> · <a href="#c-design-pattern">Design Pattern</a></div>
       <div class="lp"><span class="lv">Đội thi</span><b>Robotics &amp; KHKT</b><a href="#dang-ky" class="reg" data-khoa="Đội tuyển Robotics (VRC, Robocon)">Robotics</a> · <a href="#dang-ky" class="reg" data-khoa="Kèm riêng đề tài Khoa học Kỹ thuật">Kèm đề tài</a></div>
     </div>
+    <div class="olc-group">Dự án STEM · AIJAM 2026</div>
     <div class="olc-grid">
-      <div class="olc-group">Dự án STEM · AIJAM 2026</div>
       <article class="olc" id="c-microbit">
-        <div class="olc-top"><img src="assets/khoa-hoc/microbit.jpg" alt="Bo mạch BBC micro:bit" loading="lazy"><span class="tag">🏆 AIJAM 2026</span></div>
+        <div class="olc-top"><img src="assets/khoa-hoc/microbit.webp" alt="Bo mạch BBC micro:bit" loading="lazy"><span class="tag">🏆 AIJAM 2026</span></div>
         <div class="olc-body"><b>Micro:bit — Điện tử &amp; lập trình kéo thả</b><p>Đèn giao thông, còi báo động, trạm đo nhiệt độ, nhà thông minh mini.</p><span class="meta">Lớp 6 · 5 buổi</span>
           <div class="olc-act"><a class="olc-btn" href="training/login.html?next=microbit.html" target="_blank" rel="noopener">Vào học</a><a class="olc-btn reg" href="#dang-ky" data-khoa="Micro:bit — Điện tử & lập trình kéo thả">Đăng ký</a></div></div>
       </article>
       <article class="olc" id="c-thuyen-tu-dong">
-        <div class="olc-top"><img src="assets/khoa-hoc/thuyen-tu-dong.jpg" alt="Thuyền mặt nước không người lái" loading="lazy"><span class="tag">🏆 AIJAM 2026</span></div>
+        <div class="olc-top"><img src="assets/khoa-hoc/thuyen-tu-dong.webp" alt="Thuyền mặt nước không người lái" loading="lazy"><span class="tag">🏆 AIJAM 2026</span></div>
         <div class="olc-body"><b>Chế tạo thuyền tự động (ROV)</b><p>Lực nổi, động cơ đẩy, chống thấm, điều khiển từ xa, hoàn thiện dự thi.</p><span class="meta">THCS–THPT · 5 buổi</span>
           <div class="olc-act"><a class="olc-btn" href="training/login.html?next=thuyen-tu-dong.html" target="_blank" rel="noopener">Vào học</a><a class="olc-btn reg" href="#dang-ky" data-khoa="Chế tạo thuyền tự động (ROV)">Đăng ký</a></div></div>
       </article>
       <article class="olc" id="c-kinh-thong-minh">
-        <div class="olc-top"><img src="assets/khoa-hoc/kinh-thong-minh.jpg" alt="Kính thông minh" loading="lazy"><span class="tag">🏆 AIJAM 2026</span></div>
+        <div class="olc-top"><img src="assets/khoa-hoc/kinh-thong-minh.webp" alt="Kính thông minh" loading="lazy"><span class="tag">🏆 AIJAM 2026</span></div>
         <div class="olc-body"><b>Kính thông minh AI hỗ trợ người khiếm thính</b><p>Nhận diện âm thanh, xác định hướng, chuyển lời nói thành chữ.</p><span class="meta">THCS–THPT · 5 buổi</span>
           <div class="olc-act"><a class="olc-btn" href="training/login.html?next=kinh-thong-minh.html" target="_blank" rel="noopener">Vào học</a><a class="olc-btn reg" href="#dang-ky" data-khoa="Kính thông minh AI hỗ trợ người khiếm thính">Đăng ký</a></div></div>
       </article>
-      <div class="olc-group">Lập trình &amp; AI</div>
+    </div>
+    <div class="olc-group">Lập trình &amp; AI</div>
+    <div class="olc-grid">
       <article class="olc" id="c-python-co-ban">
-        <div class="olc-top"><img src="assets/khoa-hoc/python-co-ban.jpg" alt="Màn hình lập trình Python" loading="lazy"><span class="new">MỚI</span><span class="tag">Python 3</span></div>
+        <div class="olc-top"><img src="assets/khoa-hoc/python-co-ban.webp" alt="Màn hình lập trình Python" loading="lazy"><span class="new">MỚI</span><span class="tag">Python 3</span></div>
         <div class="olc-body"><b>Python cơ bản</b><p>Lập trình bằng chữ từ con số 0: biến, vòng lặp, list, dict, hàm, file — dự án sổ điểm.</p><span class="meta">Lớp 6+ · 12 buổi</span>
           <div class="olc-act"><a class="olc-btn" href="training/login.html?next=python-co-ban.html" target="_blank" rel="noopener">Vào học</a><a class="olc-btn reg" href="#dang-ky" data-khoa="Python cơ bản">Đăng ký</a></div></div>
       </article>
       <article class="olc" id="c-ai-co-ban">
-        <div class="olc-top"><img src="assets/khoa-hoc/ai-co-ban.jpg" alt="Xe tự lái dùng trí tuệ nhân tạo" loading="lazy"><span class="new">MỚI</span><span class="tag">numpy · scikit-learn</span></div>
+        <div class="olc-top"><img src="assets/khoa-hoc/ai-co-ban.webp" alt="Xe tự lái dùng trí tuệ nhân tạo" loading="lazy"><span class="new">MỚI</span><span class="tag">numpy · scikit-learn</span></div>
         <div class="olc-body"><b>AI cơ bản</b><p>Hồi quy, phân loại, mạng nơ-ron tự viết, nhận dạng chữ số, AI chạy trên ESP32.</p><span class="meta">Sau khóa Python · 10 buổi</span>
           <div class="olc-act"><a class="olc-btn" href="training/login.html?next=ai-co-ban.html" target="_blank" rel="noopener">Vào học</a><a class="olc-btn reg" href="#dang-ky" data-khoa="AI cơ bản">Đăng ký</a></div></div>
       </article>
       <article class="olc" id="c-cpp-co-ban">
-        <div class="olc-top"><img src="assets/khoa-hoc/cpp-co-ban.jpg" alt="Mã nguồn trên màn hình" loading="lazy"><span class="new">MỚI</span><span class="tag">C++17 · Nhúng</span></div>
+        <div class="olc-top"><img src="assets/khoa-hoc/cpp-co-ban.webp" alt="Mã nguồn trên màn hình" loading="lazy"><span class="new">MỚI</span><span class="tag">C++17 · Nhúng</span></div>
         <div class="olc-body"><b>Lập trình C++ cơ bản → nâng cao</b><p>Con trỏ, hướng đối tượng, template, đa luồng — ví dụ gắn với vi điều khiển.</p><span class="meta">Lớp 8+ · 17 buổi</span>
           <div class="olc-act"><a class="olc-btn" href="training/login.html?next=cpp-co-ban.html" target="_blank" rel="noopener">Vào học</a><a class="olc-btn reg" href="#dang-ky" data-khoa="Lập trình C++ cơ bản → nâng cao">Đăng ký</a></div></div>
       </article>
       <article class="olc" id="c-design-pattern">
-        <div class="olc-top"><img src="assets/khoa-hoc/design-pattern.jpg" alt="Lập trình viên viết code trên laptop" loading="lazy"><span class="new">MỚI</span><span class="tag">C++ · Python · Java</span></div>
+        <div class="olc-top"><img src="assets/khoa-hoc/design-pattern.webp" alt="Lập trình viên viết code trên laptop" loading="lazy"><span class="new">MỚI</span><span class="tag">C++ · Python · Java</span></div>
         <div class="olc-body"><b>Design Pattern — 24 mẫu thiết kế</b><p>Tổ chức firmware lớn: lý thuyết, sơ đồ UML, code C++, Python, Java.</p><span class="meta">Nâng cao · 12 buổi</span>
           <div class="olc-act"><a class="olc-btn" href="training/login.html?next=design-pattern.html" target="_blank" rel="noopener">Vào học</a><a class="olc-btn reg" href="#dang-ky" data-khoa="Design Pattern — 24 mẫu thiết kế">Đăng ký</a></div></div>
       </article>
-      <div class="olc-group">Hệ nhúng &amp; phần cứng</div>
+    </div>
+    <div class="olc-group">Hệ nhúng &amp; phần cứng</div>
+    <div class="olc-grid">
       <article class="olc" id="c-arduino-esp32">
-        <div class="olc-top"><img src="assets/khoa-hoc/arduino-esp32.jpg" alt="Arduino Uno điều khiển đèn LED" loading="lazy"><span class="new">MỚI</span><span class="tag">Arduino · ESP32</span></div>
+        <div class="olc-top"><img src="assets/khoa-hoc/arduino-esp32.webp" alt="Arduino Uno điều khiển đèn LED" loading="lazy"><span class="new">MỚI</span><span class="tag">Arduino · ESP32</span></div>
         <div class="olc-body"><b>Arduino &amp; ESP32 từ cơ bản tới IoT</b><p>LED, cảm biến, servo, ngắt, LCD, WiFi web server, MQTT — dự án nhà thông minh.</p><span class="meta">Lớp 7+ · 12 buổi</span>
           <div class="olc-act"><a class="olc-btn" href="training/login.html?next=arduino-esp32.html" target="_blank" rel="noopener">Vào học</a><a class="olc-btn reg" href="#dang-ky" data-khoa="Arduino & ESP32 từ cơ bản tới IoT">Đăng ký</a></div></div>
       </article>
       <article class="olc" id="c-freertos">
-        <div class="olc-top"><img src="assets/khoa-hoc/freertos.jpg" alt="Vi điều khiển ESP32 trên bo mạch" loading="lazy"><span class="new">MỚI</span><span class="tag">ESP32 · STM32</span></div>
+        <div class="olc-top"><img src="assets/khoa-hoc/freertos.webp" alt="Vi điều khiển ESP32 trên bo mạch" loading="lazy"><span class="new">MỚI</span><span class="tag">ESP32 · STM32</span></div>
         <div class="olc-body"><b>FreeRTOS cho lập trình nhúng</b><p>Task, queue, semaphore, mutex, timer trên ESP32/STM32 — 23 ví dụ chạy thật.</p><span class="meta">Sau khóa C++ · 12 buổi</span>
           <div class="olc-act"><a class="olc-btn" href="training/login.html?next=freertos.html" target="_blank" rel="noopener">Vào học</a><a class="olc-btn reg" href="#dang-ky" data-khoa="FreeRTOS cho lập trình nhúng">Đăng ký</a></div></div>
       </article>
       <article class="olc" id="c-pcb-altium">
-        <div class="olc-top"><img src="assets/khoa-hoc/pcb-altium.jpg" alt="Bo mạch in đã hàn linh kiện" loading="lazy"><span class="new">MỚI</span><span class="tag">Altium · IPC</span></div>
+        <div class="olc-top"><img src="assets/khoa-hoc/pcb-altium.webp" alt="Bo mạch in đã hàn linh kiện" loading="lazy"><span class="new">MỚI</span><span class="tag">Altium · IPC</span></div>
         <div class="olc-body"><b>Thiết kế mạch PCB với Altium</b><p>Nguyên lý, layout, thư viện chuẩn IPC, mạch 4 lớp, chống nhiễu, đo lường.</p><span class="meta">THPT – sinh viên · 15 buổi</span>
           <div class="olc-act"><a class="olc-btn" href="training/login.html?next=pcb-altium.html" target="_blank" rel="noopener">Vào học</a><a class="olc-btn reg" href="#dang-ky" data-khoa="Thiết kế mạch PCB với Altium">Đăng ký</a></div></div>
       </article>
@@ -681,11 +687,11 @@ footer{background:#10283e;color:#dce5ea}
     <div class="student-grid">
       <article class="student-card"><div class="frame"><img src="assets/img/project-rov.webp" alt="Minh họa thuyền ROV giám sát chất lượng nước" loading="lazy"></div><div class="student-body"><div class="meta">AIJAM 2026 · ESP32 · AI</div><h3>Thuyền ROV giám sát chất lượng nước</h3><p>Đo pH, TDS, nhiệt độ và hỗ trợ phát hiện người gặp nạn bằng radar, PIR và camera.</p><span class="outcome">Nguyên mẫu chạy trên hồ · dữ liệu đo · video kiểm thử</span></div></article>
       <article class="student-card"><div class="frame"><img src="assets/img/project-smart-glasses.webp" alt="Minh họa kính thông minh hỗ trợ người khiếm thính" loading="lazy"></div><div class="student-body"><div class="meta">AI ÂM THANH · ESP32</div><h3>Kính thông minh hỗ trợ người khiếm thính</h3><p>AI nhận biết âm thanh quan trọng, xác định hướng và gửi cảnh báo bằng chữ hoặc rung tới kính.</p><span class="outcome">Mô hình đeo được · chỉ số nhận diện · thử nghiệm thực tế</span></div></article>
-      <article class="student-card"><div class="frame"><img src="assets/img/lop-robotics.jpg" alt="Học sinh lắp ráp robot" loading="lazy"></div><div class="student-body"><div class="meta">ROBOTICS · ĐỘI TUYỂN</div><h3>Robot thi đấu</h3><p>Thiết kế cơ khí, mạch điều khiển, lập trình và chiến thuật sân đấu theo vai trò của từng thành viên.</p><span class="outcome">Giải Nhì Vietnam Robotics Challenge 2020 · Top 20 năm 2023</span></div></article>
-      <article class="student-card"><div class="frame"><img src="assets/img/poster-du-an.jpg" alt="Nhóm học sinh giới thiệu dự án" loading="lazy"></div><div class="student-body"><div class="meta">IoT · WEB · ỨNG DỤNG</div><h3>Bãi đỗ xe thông minh</h3><p>Cảm biến nhận biết vị trí trống, ứng dụng đăng ký chỗ đỗ và dashboard quản lý hệ thống.</p><span class="outcome">Hệ thống IoT hoàn chỉnh · hồ sơ thuyết trình</span></div></article>
+      <article class="student-card"><div class="frame"><img src="assets/img/lop-robotics.webp" alt="Học sinh lắp ráp robot" loading="lazy"></div><div class="student-body"><div class="meta">ROBOTICS · ĐỘI TUYỂN</div><h3>Robot thi đấu</h3><p>Thiết kế cơ khí, mạch điều khiển, lập trình và chiến thuật sân đấu theo vai trò của từng thành viên.</p><span class="outcome">Giải Nhì Vietnam Robotics Challenge 2020 · Top 20 năm 2023</span></div></article>
+      <article class="student-card"><div class="frame"><img src="assets/img/poster-du-an.webp" alt="Nhóm học sinh giới thiệu dự án" loading="lazy"></div><div class="student-body"><div class="meta">IoT · WEB · ỨNG DỤNG</div><h3>Bãi đỗ xe thông minh</h3><p>Cảm biến nhận biết vị trí trống, ứng dụng đăng ký chỗ đỗ và dashboard quản lý hệ thống.</p><span class="outcome">Hệ thống IoT hoàn chỉnh · hồ sơ thuyết trình</span></div></article>
     </div>
     <div class="event-gallery">
-      <figure><img src="assets/img/khoa-hoc-tai-nang-2025.webp" alt="Thầy và học sinh tại cuộc thi Em yêu khoa học tài năng công nghệ nhí năm 2025" loading="lazy"><figcaption>Thầy trò tại cuộc thi “Em yêu khoa học — Tài năng công nghệ nhí” thành phố Hà Nội, 2025.</figcaption></figure>
+      <figure><img src="assets/img/khoa-hoc-tai-nang-2025-n.webp" alt="Thầy và học sinh tại cuộc thi Em yêu khoa học tài năng công nghệ nhí năm 2025" loading="lazy"><figcaption>Thầy trò tại cuộc thi “Em yêu khoa học — Tài năng công nghệ nhí” thành phố Hà Nội, 2025.</figcaption></figure>
       <figure><img src="assets/img/hoc-sinh-thuyet-trinh-du-an.webp" alt="Học sinh thuyết trình mô hình Future Hospital" loading="lazy"><figcaption>Học sinh giới thiệu mô hình trước ban đánh giá.</figcaption></figure>
       <figure><img src="assets/img/dai-ha-noi-khoa-hoc-nhi.webp" alt="Học sinh xuất hiện trong chương trình của Đài Hà Nội" loading="lazy"><figcaption>Dự án học sinh trong chương trình “Sân chơi sáng tạo chắp cánh tài năng khoa học nhí” của Đài Hà Nội.</figcaption></figure>
     </div>
@@ -749,7 +755,7 @@ footer{background:#10283e;color:#dce5ea}
     <div class="feat">
       <a class="item f-main" href="https://youtu.be/7OC8f86hMGE" target="_blank" rel="noopener">
         <div class="fig tick"><div class="frame">
-            <img src="assets/du-an/iot24_spc.jpg" alt="Hệ thống bãi đỗ xe thông minh">
+            <img loading="lazy" src="assets/du-an/iot24_spc.webp" alt="Hệ thống bãi đỗ xe thông minh">
           <span class="play">▶ VIDEO</span>
         </div></div>
         <div class="meta">IoT Challenge 2024 · Top 18 toàn quốc</div>
@@ -761,14 +767,14 @@ footer{background:#10283e;color:#dce5ea}
       <div class="f-side">
         <a class="item" href="https://github.com/BKG-Robocon-team/Unmanned-Surface-Vehicle" target="_blank" rel="noopener">
           <div class="fig tick"><div class="frame">
-            <img src="assets/du-an/usv24.jpg" alt="Tàu mặt nước không người lái"></div></div>
+            <img loading="lazy" src="assets/du-an/usv24.webp" alt="Tàu mặt nước không người lái"></div></div>
           <div class="meta">Đồ án tốt nghiệp · 2024</div>
           <h3>Tàu mặt nước không người lái quan sát rạn san hô</h3>
           <p class="desc">Camera chìm, truyền hình ảnh thời gian thực; mã nguồn mở trên GitHub.</p>
         </a>
         <a class="item" href="https://www.facebook.com/BKGalaxy123" target="_blank" rel="noopener">
           <div class="fig tick"><div class="frame">
-            <img src="assets/du-an/rbc24.jpg" alt="Đội tuyển BK Galaxy"></div></div>
+            <img loading="lazy" src="assets/du-an/rbc24.webp" alt="Đội tuyển BK Galaxy"></div></div>
           <div class="meta">ABU Robocon · 2023 và 2024</div>
           <h3>BK Galaxy — hai mùa Robocon với vai trò đội trưởng</h3>
           <p class="desc">Đào tạo kỹ thuật cho hơn 40 thành viên mới mỗi mùa.</p>
@@ -779,28 +785,28 @@ footer{background:#10283e;color:#dce5ea}
     <div class="pidx">
       <a class="prow">
         <span class="id">DA-01</span>
-            <div class="thumb"><img src="assets/du-an/AI_BOX.jpg" alt=""></div>
+            <div class="thumb"><img loading="lazy" src="assets/du-an/AI_BOX-s.webp" alt=""></div>
         <div class="t">Hộp xử lý trung tâm AI cho nhà thông minh</div>
         <div class="d">Thương mại hóa từ 9/2025.</div>
         <div class="y">Trưởng nhóm kỹ thuật · 2025</div>
       </a>
       <a class="prow">
         <span class="id">DA-02</span>
-            <div class="thumb"><img src="assets/du-an/ecomes.jpg" alt=""></div>
+            <div class="thumb"><img loading="lazy" src="assets/du-an/ecomes-s.webp" alt=""></div>
         <div class="t">Hệ thống giám sát nhà máy qua mạng LoRa</div>
         <div class="d">Mạng cảm biến không dây khoảng cách xa.</div>
         <div class="y">Trưởng nhóm kỹ thuật · 2025</div>
       </a>
       <a class="prow" href="https://github.com/Air-SENSE" target="_blank" rel="noopener">
         <span class="id">DA-03</span>
-            <div class="thumb"><img src="assets/du-an/airsense2023.jpg" alt=""></div>
+            <div class="thumb"><img loading="lazy" src="assets/du-an/airsense2023-s.webp" alt=""></div>
         <div class="t">AirSENSE — trạm quan trắc chất lượng không khí</div>
         <div class="d">Trạm đo đặt tại trường học, dữ liệu dùng cho bài tập.</div>
         <div class="y">SPARC Lab · 2021–2023</div>
       </a>
       <a class="prow">
         <span class="id">DA-04</span>
-            <div class="thumb"><img src="assets/du-an/iot23.jpg" alt=""></div>
+            <div class="thumb"><img loading="lazy" src="assets/du-an/iot23-s.webp" alt=""></div>
         <div class="t">Nhận diện khuôn mặt trên vi điều khiển ESP32</div>
         <div class="d">Top 20 IoT Challenge 2023.</div>
         <div class="y">Đội trưởng · 2023</div>
@@ -808,42 +814,42 @@ footer{background:#10283e;color:#dce5ea}
       <div class="hidden" id="more">
         <a class="prow" href="https://youtu.be/YZQOlVouxQs" target="_blank" rel="noopener">
           <span class="id">DA-05</span>
-            <div class="thumb"><img src="assets/du-an/vrc20.jpg" alt=""></div>
+            <div class="thumb"><img loading="lazy" src="assets/du-an/vrc20-s.webp" alt=""></div>
           <div class="t">Đội tuyển Robotics THPT Chuyên Bắc Ninh</div>
           <div class="d">Giải Nhì VRC 2020, Top 20 năm 2023.</div>
           <div class="y">Cố vấn kỹ thuật · 2020–2023</div>
         </a>
         <a class="prow" href="https://www.facebook.com/ozo.water" target="_blank" rel="noopener">
           <span class="id">DA-06</span>
-            <div class="thumb"><img src="assets/du-an/ozo2023.jpg" alt=""></div>
+            <div class="thumb"><img loading="lazy" src="assets/du-an/ozo2023-s.webp" alt=""></div>
           <div class="t">OZO — máy lọc nước cho cộng đồng</div>
           <div class="d">Khởi nghiệp xanh, máy lọc nước năng lượng mặt trời.</div>
           <div class="y">Sáng lập · 2023</div>
         </a>
         <a class="prow" href="https://www.youtube.com/playlist?list=PLQPfdTFl29zd5Lq_Dsf3AWSLaJvUD696S" target="_blank" rel="noopener">
           <span class="id">DA-07</span>
-            <div class="thumb"><img src="assets/du-an/bkstar21.png" alt=""></div>
+            <div class="thumb"><img loading="lazy" src="assets/du-an/bkstar21-s.webp" alt=""></div>
           <div class="t">Hộp chuông rung trả lời nhanh</div>
           <div class="d">Dùng cho cuộc thi rung chuông vàng ở trường.</div>
           <div class="y">BK Star · 2020</div>
         </a>
         <a class="prow" href="https://github.com/HocJ2me/IXR-HUST" target="_blank" rel="noopener">
           <span class="id">DA-08</span>
-            <div class="thumb"><img src="assets/du-an/ixr20.jpg" alt=""></div>
+            <div class="thumb"><img loading="lazy" src="assets/du-an/ixr20-s.webp" alt=""></div>
           <div class="t">Xe thu gom rác thông minh</div>
           <div class="d">Giải Nhì cuộc thi sáng tạo Bách khoa Hà Nội.</div>
           <div class="y">HUST · 2020–2021</div>
         </a>
         <a class="prow" href="https://youtu.be/7uNeqP7pm3w" target="_blank" rel="noopener">
           <span class="id">DA-09</span>
-            <div class="thumb"><img src="assets/du-an/chitech20.jpg" alt=""></div>
+            <div class="thumb"><img loading="lazy" src="assets/du-an/chitech20-s.webp" alt=""></div>
           <div class="t">Action Team — cuộc thi Canon Chie-Tech</div>
           <div class="d">Top 20 toàn quốc; phần cứng và phần mềm nhúng.</div>
           <div class="y">Canon · 2020</div>
         </a>
         <a class="prow" href="https://youtu.be/q9NyUUeILGI" target="_blank" rel="noopener">
           <span class="id">DA-10</span>
-            <div class="thumb"><img src="assets/du-an/systech20.jpg" alt=""></div>
+            <div class="thumb"><img loading="lazy" src="assets/du-an/systech20-s.webp" alt=""></div>
           <div class="t">Vòng tay giám sát sức khỏe trực tuyến</div>
           <div class="d">Đo và gửi dữ liệu sức khỏe liên tục về máy chủ.</div>
           <div class="y">Systech · 2021</div>
