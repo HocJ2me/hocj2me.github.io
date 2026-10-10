@@ -52,6 +52,8 @@
   .course-thumb.ai{background:linear-gradient(135deg,#4c1d95,#7c3aed,#ec4899);}
   .course-thumb.ard{background:linear-gradient(135deg,#155e75,#0d9488,#65a30d);}
   .course-thumb.pattern{background:linear-gradient(135deg,#0e7490,#2563eb 55%,#7c3aed);}
+  .course-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .course-thumb .badge,.course-thumb .contest-badge,.course-thumb .fire{z-index:1;}
   .contest-badge.lang{background:rgba(15,23,42,.75);}
   .badge{
     position:absolute;top:10px;left:10px;background:rgba(255,255,255,.92);color:var(--blue-dark);
@@ -109,8 +111,8 @@
   <div class="course-grid" id="courseGrid">
     <a href="microbit.html" class="course-card" data-name="micro:bit điện tử lập trình kéo thả lớp 6 aijam 2026">
       <div class="course-thumb microbit">
+        <img src="../assets/khoa-hoc/microbit.jpg" alt="Bo mạch BBC micro:bit" loading="lazy">
         <span class="fire">🔥</span>
-        🔧
         <span class="contest-badge">🏆 AIJAM 2026</span>
       </div>
       <div class="course-body">
@@ -124,8 +126,8 @@
 
     <a href="thuyen-tu-dong.html" class="course-card" data-name="chế tạo thuyền tự động rov aijam 2026">
       <div class="course-thumb boat">
+        <img src="../assets/khoa-hoc/thuyen-tu-dong.jpg" alt="Thuyền mặt nước không người lái" loading="lazy">
         <span class="fire">🔥</span>
-        🚤
         <span class="contest-badge">🏆 AIJAM 2026</span>
       </div>
       <div class="course-body">
@@ -139,8 +141,8 @@
 
     <a href="kinh-thong-minh.html" class="course-card" data-name="chế tạo kính thông minh ai người khiếm thính aijam 2026">
       <div class="course-thumb glasses">
+        <img src="../assets/khoa-hoc/kinh-thong-minh.jpg" alt="Kính thông minh" loading="lazy">
         <span class="fire">🔥</span>
-        🕶️
         <span class="contest-badge">🏆 AIJAM 2026</span>
       </div>
       <div class="course-body">
@@ -154,8 +156,8 @@
 
     <a href="python-co-ban.html" class="course-card" data-name="python cơ bản lập trình cho người mới bắt đầu lớp 6 biến vòng lặp hàm list dict file">
       <div class="course-thumb py">
+        <img src="../assets/khoa-hoc/python-co-ban.jpg" alt="Màn hình lập trình Python" loading="lazy">
         <span class="fire">🆕</span>
-        🐍
         <span class="contest-badge lang">Python 3 · Lớp 6+</span>
       </div>
       <div class="course-body">
@@ -169,8 +171,8 @@
 
     <a href="ai-co-ban.html" class="course-card" data-name="ai trí tuệ nhân tạo học máy machine learning mạng nơ-ron numpy scikit-learn tinyml nhận dạng">
       <div class="course-thumb ai">
+        <img src="../assets/khoa-hoc/ai-co-ban.jpg" alt="Xe tự lái dùng trí tuệ nhân tạo" loading="lazy">
         <span class="fire">🆕</span>
-        🤖
         <span class="contest-badge lang">Python · numpy · sklearn</span>
       </div>
       <div class="course-body">
@@ -184,8 +186,8 @@
 
     <a href="cpp-co-ban.html" class="course-card" data-name="lập trình c++ cơ bản nâng cao nhúng con trỏ hướng đối tượng oop stl đa luồng arduino esp32">
       <div class="course-thumb cpp">
+        <img src="../assets/khoa-hoc/cpp-co-ban.jpg" alt="Mã nguồn trên màn hình" loading="lazy">
         <span class="fire">🆕</span>
-        💻
         <span class="contest-badge lang">C++17 · Nhúng</span>
       </div>
       <div class="course-body">
@@ -199,8 +201,8 @@
 
     <a href="arduino-esp32.html" class="course-card" data-name="arduino esp32 lập trình nhúng led nút nhấn cảm biến servo pwm lcd wifi web server mqtt iot nhà thông minh">
       <div class="course-thumb ard">
+        <img src="../assets/khoa-hoc/arduino-esp32.jpg" alt="Arduino Uno điều khiển đèn LED" loading="lazy">
         <span class="fire">🆕</span>
-        🔌
         <span class="contest-badge lang">Arduino · ESP32 · IoT</span>
       </div>
       <div class="course-body">
@@ -214,8 +216,8 @@
 
     <a href="freertos.html" class="course-card" data-name="freertos rtos hệ điều hành thời gian thực task queue semaphore mutex timer esp32 stm32 nhúng">
       <div class="course-thumb rtos">
+        <img src="../assets/khoa-hoc/freertos.jpg" alt="Vi điều khiển ESP32 trên bo mạch" loading="lazy">
         <span class="fire">🆕</span>
-        ⏱
         <span class="contest-badge lang">ESP32 · STM32</span>
       </div>
       <div class="course-body">
@@ -229,8 +231,8 @@
 
     <a href="pcb-altium.html" class="course-card" data-name="thiết kế mạch in pcb altium designer layout nguyên lý footprint thư viện 4 lớp chống nhiễu kicad">
       <div class="course-thumb pcb">
+        <img src="../assets/khoa-hoc/pcb-altium.jpg" alt="Bo mạch in đã hàn linh kiện" loading="lazy">
         <span class="fire">🆕</span>
-        🖥
         <span class="contest-badge lang">Altium · IPC</span>
       </div>
       <div class="course-body">
@@ -244,8 +246,8 @@
 
     <a href="design-pattern.html" class="course-card" data-name="design pattern mẫu thiết kế c++ python java lập trình nhúng creational structural behavioral singleton factory observer">
       <div class="course-thumb pattern">
+        <img src="../assets/khoa-hoc/design-pattern.jpg" alt="Lập trình viên viết code trên laptop" loading="lazy">
         <span class="fire">🆕</span>
-        🧩
         <span class="contest-badge lang">C++ · Python · Java</span>
       </div>
       <div class="course-body">
@@ -270,7 +272,7 @@
   </div>
 </main>
 
-<footer>© Danh sách khóa học Thầy Lê Chí Tuyền</footer>
+<footer>© Danh sách khóa học Thầy Lê Chí Tuyền<div style="max-width:900px;margin:8px auto 0;font-size:.7rem;line-height:1.6">Ảnh khóa học từ Wikimedia Commons — Micro:bit: <a href="https://commons.wikimedia.org/wiki/File:BBC_micro_bit_v2.jpg" target="_blank" rel="noopener">SimonWaldherr</a>, CC BY 4.0 · Thuyền ROV: <a href="https://commons.wikimedia.org/wiki/File:Oceansled_Explorer_Uncrewed_Surface_Vehicle_operated_by_Gitxaa%C5%82a_Environmental_Services_aft_view.jpg" target="_blank" rel="noopener">WindBorneListener</a>, CC0 · Kính thông minh: <a href="https://commons.wikimedia.org/wiki/File:Vuzix_Blade.jpg" target="_blank" rel="noopener">Axrxax</a>, CC BY-SA 4.0 · Python: <a href="https://commons.wikimedia.org/wiki/File:Screen-python-code-matplotlib-physics-simulation.jpg" target="_blank" rel="noopener">MikeRun</a>, CC BY-SA 4.0 · AI: <a href="https://commons.wikimedia.org/wiki/File:Waymo_self-driving_car_front_view.gk.jpg" target="_blank" rel="noopener">Grendelkhan</a>, CC BY-SA 4.0 · C++: <a href="https://commons.wikimedia.org/wiki/File:Code_on_computer_monitor_(Unsplash).jpg" target="_blank" rel="noopener">Markus Spiske markusspiske</a>, CC0 · Design Pattern: <a href="https://commons.wikimedia.org/wiki/File:Laptop_coding_programs_(Unsplash).jpg" target="_blank" rel="noopener">Tirza van Dijk tirzavandijk</a>, CC0 · Arduino &amp; ESP32: <a href="https://commons.wikimedia.org/wiki/File:Arduino_semaforo_no-breadboard.jpg" target="_blank" rel="noopener">Mattruffoni</a>, CC BY-SA 4.0 · FreeRTOS: <a href="https://commons.wikimedia.org/wiki/File:ESP32_on_Lolin32_Lite_clone_board_cropped.jpg" target="_blank" rel="noopener">Ubahnverleih</a>, CC0 · PCB: <a href="https://commons.wikimedia.org/wiki/File:PCB_design.jpg" target="_blank" rel="noopener">tronicszone</a>, CC BY-SA 4.0.</div></footer>
 
 <script>
   function filterCourses(){
