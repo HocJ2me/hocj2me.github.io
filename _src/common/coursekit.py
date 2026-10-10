@@ -60,6 +60,17 @@ def run_cpp(path, stdin=None, sources=(), flags=(), include=(), runner=None, tim
     return runner.run(parts, go)
 
 
+def run_py(path, stdin=None, runner=None, timeout=120):
+    """Chạy 1 script Python (chế độ cô lập), trả về output stdout+stderr."""
+    def go():
+        r = subprocess.run([sys.executable, "-u", "-E", "-P", "-X", "utf8", os.path.join(HERE, "pyrun.py"), path, "1" if stdin else "0"],
+                           input=(stdin or "").encode("utf-8"),
+                           stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=tempfile.mkdtemp(), timeout=timeout)
+        print("  chạy", os.path.basename(path))
+        return r.stdout.decode("utf-8", "replace").replace("\r\n", "\n").rstrip()
+    return runner.run([open(path, "rb").read(), stdin or ""], go)
+
+
 # ------------------------------------------------------------------ render
 def li(items):
     return "".join(f"<li>{x}</li>" for x in items)

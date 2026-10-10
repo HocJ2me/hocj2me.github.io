@@ -40,6 +40,10 @@ thật. Vì vậy:
 
 ## 3. Quy trình cấp tài khoản mới cho học sinh
 
+> Đăng ký **khóa học** (họ tên, SĐT, khóa muốn học) đi qua form `#dang-ky` trên trang chủ
+> `index.html` → gửi cho thầy qua Zalo hoặc Email, không lưu ở đâu cả. Sau khi xếp lớp, cấp tài
+> khoản theo các bước dưới. `register.html` vẫn dùng được cho học sinh đã học, muốn xin tài khoản.
+
 1. Học sinh vào `register.html`, điền tên/lớp/tên đăng nhập mong muốn, bấm
    gửi → mở ra một **GitHub Issue** đã điền sẵn nội dung trong repo của bạn.
 2. Bạn mở Issue đó, đọc thông tin (tên, lớp, username mong muốn).
@@ -82,9 +86,17 @@ thư mục `_src/design-pattern/` trong repo (không được xuất bản lên 
 - `cpp/`, `python/`, `java/` — 72 chương trình ví dụ
 - Build lại: vào `_src/design-pattern/`, chạy `python -X utf8 build.py` (cần g++, Python 3.10+, Java 17+; kết quả chạy được lấy thật và lưu cache)
 
-## 7. Các khóa sinh tự động khác (`cpp-co-ban.html`, `freertos.html`, `pcb-altium.html`)
+## 7. Các khóa sinh tự động khác (`python-co-ban.html`, `ai-co-ban.html`, `cpp-co-ban.html`, `arduino-esp32.html`, `freertos.html`, `pcb-altium.html`)
 
 Dùng chung bộ khung `_src/common/` (template giao diện, chạy code thật, tô màu cú pháp, vẽ hình SVG).
 Mỗi khóa có thư mục riêng trong `_src/` gồm `course.py` (cấu hình + trang tổng quan),
 `lessons*.py` (lý thuyết từng bài), `figs.py` (hình minh hoạ) và `code/` (chương trình ví dụ).
 Build lại một khóa: vào thư mục của khóa, chạy `python -X utf8 course.py`.
+
+Ghi chú từng khóa:
+- `python-co-ban`, `ai-co-ban`: chạy code bằng Python của máy (khóa AI cần `pip install numpy scikit-learn`).
+  Hình trong khóa AI được vẽ từ dữ liệu thật lúc build (`figs.py`).
+- `arduino-esp32`: mỗi sketch `code/*.ino` đi kèm kịch bản `*.sim.cpp` (bấm nút, giá trị cảm biến, lệnh Serial…);
+  bộ mô phỏng Arduino/ESP32 nằm trong `sim/` và được biên dịch bằng g++ để lấy kết quả chạy thật.
+- `freertos`: biên dịch với FreeRTOS-Kernel bản Windows simulator trong `kernel/`.
+- Kết quả chạy được lưu cache ở `out/run-cache.json`; sửa code thì lần build sau tự chạy lại.

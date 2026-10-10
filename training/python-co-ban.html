@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Danh sách khóa học Thầy Lê Chí Tuyền — Python cơ bản</title>
+<!-- File này được SINH TỰ ĐỘNG từ thư mục _src/ — sửa nội dung ở đó rồi build lại. -->
+<style>
+  :root{
+    --blue-dark:#155e75; --accent:#2563eb; --bg:#f4f7fb; --ink:#1e293b; --sub:#64748b; --line:#e2e8f0; --soft:#f1f5f9;
+    --ok:#16a34a; --bad:#dc2626; --code-bg:#0f172a; --code-ink:#e2e8f0;
+    --mono:Consolas,"SFMono-Regular","Liberation Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.62;}
+  a{color:var(--accent);}
+  code{font-family:var(--mono);font-size:.88em;background:var(--soft);padding:1px 5px;border-radius:5px;}
+  kbd{font-family:var(--mono);font-size:.82em;border:1px solid #cbd5e1;border-bottom-width:2px;border-radius:5px;padding:0 5px;background:#fff;}
+  header{background:linear-gradient(135deg,#1e3a8a,#2563eb,#eab308);color:#fff;padding:10px 20px 12px;position:sticky;top:0;z-index:60;box-shadow:0 2px 10px rgba(0,0,0,.15);}
+  .htop{display:flex;justify-content:space-between;align-items:center;gap:10px;}
+  .htop a{color:#fff;font-size:.78rem;opacity:.9;text-decoration:none;font-weight:700;}
+  .whoami{font-size:.78rem;opacity:.85;margin-right:10px;}
+  .logout-btn{background:rgba(0,0,0,.25);color:#fff;border:1px solid rgba(255,255,255,.5);padding:4px 11px;border-radius:20px;font-size:.74rem;font-weight:700;cursor:pointer;}
+  header h1{font-size:1.08rem;margin:4px 0 0;} header .sub{font-size:.78rem;opacity:.92;}
+  .menubtn{display:none;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.5);color:#fff;border-radius:16px;padding:4px 12px;font-weight:700;font-size:.78rem;cursor:pointer;margin-top:6px;}
+  .layout{display:grid;grid-template-columns:270px minmax(0,1fr);max-width:1320px;margin:0 auto;}
+  aside{position:sticky;top:86px;align-self:start;height:calc(100vh - 86px);overflow:auto;padding:16px 10px 30px 16px;border-right:1px solid var(--line);}
+  .prog{background:#fff;border-radius:12px;padding:10px 12px;box-shadow:0 1px 4px rgba(0,0,0,.06);margin-bottom:12px;font-size:.8rem;}
+  .prog .bar{height:7px;background:var(--line);border-radius:6px;overflow:hidden;margin-top:6px;}
+  .prog .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#1e3a8a,#2563eb,#eab308);transition:width .3s;}
+  .sgroup{margin:16px 6px 6px;font-size:.74rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;}
+  .sgroup small{display:block;text-transform:none;letter-spacing:0;font-weight:500;color:var(--sub);}
+  .sitem{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:9px;text-decoration:none;color:var(--ink);font-size:.86rem;}
+  .sitem:hover{background:#e8eef6;}
+  .sitem.active{background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.08);font-weight:700;color:var(--blue-dark);}
+  .sn{flex:none;width:24px;height:24px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-size:.72rem;font-weight:700;color:var(--sub);}
+  .sitem.done .sn{background:var(--ok);color:#fff;}
+  .tick{margin-left:auto;color:var(--ok);font-weight:800;display:none;} .sitem.done .tick{display:inline;}
+  main{padding:20px 28px 70px;min-width:0;}
+  .lesson{max-width:960px;margin:0 auto;animation:fade .25s ease;}
+  .lesson,.lesson li,.lesson td,.lesson p{overflow-wrap:anywhere;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+  .hero{border-radius:18px;padding:22px 24px;color:#fff;margin-bottom:16px;background:linear-gradient(135deg,color-mix(in srgb,var(--g) 80%,#000),var(--g));}
+  #overview .hero{background:linear-gradient(135deg,#1e3a8a,#2563eb,#eab308);}
+  .hero h2{margin:8px 0 6px;font-size:1.65rem;line-height:1.25;}
+  .hero .intent{margin:0;background:rgba(255,255,255,.15);border-radius:12px;padding:10px 14px;font-size:.97rem;}
+  .crumbs{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:.8rem;}
+  .gchip{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 10px;border-radius:12px;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.5);}
+  .ovstats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0;}
+  .ovstats div{background:rgba(255,255,255,.15);border-radius:12px;padding:8px 12px;}
+  .ovstats b{display:block;font-size:1.5rem;} .ovstats span{font-size:.78rem;opacity:.9;}
+  .startbtn{display:inline-block;background:#fff;color:var(--blue-dark);font-weight:800;text-decoration:none;padding:9px 18px;border-radius:22px;}
+  .goals{background:#fff;border:1px solid var(--line);border-left:5px solid var(--ok);border-radius:12px;padding:10px 16px;margin-bottom:8px;}
+  .goals ul{margin:4px 0 0;padding-left:20px;}
+  .lead{font-size:1.02rem;}
+  h3{display:flex;align-items:center;gap:10px;font-size:1.18rem;color:var(--blue-dark);margin:30px 0 10px;scroll-margin-top:100px;}
+  h3 .n{flex:none;min-width:30px;height:30px;padding:0 6px;border-radius:9px;background:var(--blue-dark);color:#fff;display:grid;place-items:center;font-size:.85rem;}
+  h4.sub{margin:16px 0 6px;font-size:.98rem;}
+  h5{margin:0 0 6px;font-size:.92rem;}
+  .prose p{margin:8px 0;} .prose ul,.prose ol{margin:6px 0;padding-left:22px;} .prose li{margin:4px 0;}
+  .callout{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px 14px;margin:10px 0;font-size:.94rem;}
+  .callout.warn{background:#fff7ed;border-color:#fed7aa;} .callout.ok{background:#f0fdf4;border-color:#bbf7d0;}
+  .tbl{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;font-size:.9rem;margin:8px 0;box-shadow:0 1px 3px rgba(0,0,0,.05);}
+  .tbl th,.tbl td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;}
+  .tbl th{background:var(--soft);font-size:.82rem;}
+  .tbl a{text-decoration:none;font-weight:600;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;} .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-width:0;}
+  .card p{margin:4px 0 0;font-size:.9rem;color:var(--sub);}
+  .fig{margin:10px 0;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;overflow-x:auto;}
+  .fig svg{display:block;width:100%;height:auto;margin:0 auto;}
+  .fig figcaption{font-size:.8rem;color:var(--sub);margin-top:8px;text-align:center;}
+  /* hình minh hoạ SVG */
+  .illus text{font-family:'Segoe UI',Arial,sans-serif;fill:#0f172a;}
+  .illus .t{font-size:14px;font-weight:700;} .illus .s{font-size:12.5px;} .illus .xs{font-size:11px;} .illus .mute{fill:#64748b;}
+  .illus .mono{font-family:var(--mono);font-size:12px;}
+  .illus .ln{stroke:#475569;stroke-width:1.6;fill:none;} .illus .thin{stroke-width:1;} .illus .dash{stroke-dasharray:5 4;}
+  .illus .ah{fill:#475569;}
+  .illus .bx{fill:#fff;stroke:#64748b;stroke-width:1.3;} .illus .bx-a{fill:#e0f2fe;stroke:#0369a1;stroke-width:1.4;}
+  .illus .bx-b{fill:#fef3c7;stroke:#d97706;stroke-width:1.4;} .illus .bx-c{fill:#ede9fe;stroke:#7c3aed;stroke-width:1.4;}
+  .illus .bx-d{fill:#dcfce7;stroke:#16a34a;stroke-width:1.4;} .illus .bx-e{fill:#fee2e2;stroke:#dc2626;stroke-width:1.4;}
+  .illus .bx-g{fill:#f1f5f9;stroke:#94a3b8;stroke-width:1.2;}
+  .illus .fa{fill:#0369a1;} .illus .fb{fill:#d97706;} .illus .fc{fill:#7c3aed;} .illus .fd{fill:#16a34a;} .illus .fe{fill:#dc2626;} .illus .fg{fill:#94a3b8;}
+  .illus .cu{fill:#d97706;} .illus .cu2{fill:#2563eb;} .illus .fr4{fill:#a3b18a;} .illus .mask{fill:#166534;} .illus .silk{fill:#fff;}
+  /* code */
+  .codebox{background:var(--code-bg);border-radius:12px;overflow:hidden;margin-top:8px;}
+  .codebar{display:flex;align-items:center;gap:8px;padding:7px 12px;background:#1e293b;color:#cbd5e1;font-size:.78rem;}
+  .codebar .fname{font-family:var(--mono);color:#fff;} .codebar .lines{margin-right:auto;opacity:.7;}
+  .cbtn{background:#334155;color:#e2e8f0;border:none;border-radius:6px;padding:4px 10px;font-size:.74rem;cursor:pointer;} .cbtn:hover{background:#475569;}
+  pre.code{margin:0;padding:14px 16px;overflow:auto;max-height:640px;color:var(--code-ink);font-family:var(--mono);font-size:.84rem;line-height:1.55;tab-size:4;}
+  pre.code code{background:none;padding:0;font-size:inherit;}
+  .t-kw{color:#c084fc;} .t-ty{color:#67e8f9;} .t-fn{color:#fde68a;} .t-str{color:#86efac;} .t-num{color:#fdba74;}
+  .t-com{color:#7c8ba1;font-style:italic;} .t-pre{color:#f9a8d4;} .t-ann{color:#f9a8d4;}
+  .runcmd{font-size:.82rem;margin:8px 0;color:var(--sub);} .runcmd code{background:#e2e8f0;}
+  .outbox{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;margin-top:8px;}
+  .outbar{background:#ecfdf5;color:#166534;font-size:.78rem;font-weight:700;padding:6px 12px;border-bottom:1px solid #bbf7d0;}
+  .inbox .outbar{background:#eff6ff;color:#1e40af;border-color:#bfdbfe;}
+  pre.out{margin:0;padding:12px 14px;font-family:var(--mono);font-size:.82rem;line-height:1.5;overflow:auto;max-height:440px;white-space:pre;}
+  details.sol{margin-top:8px;} details.sol summary{cursor:pointer;font-weight:700;color:var(--blue-dark);padding:6px 0;}
+  ul.notes li{margin:5px 0;}
+  .emb{display:flex;gap:12px;background:#f0fdfa;border:1px solid #99f6e4;border-radius:12px;padding:12px 16px;}
+  .emb ul{margin:0;padding-left:20px;} .emb li{margin:5px 0;} .embicon{font-size:1.6rem;}
+  .mist{background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:10px 16px;} .mist ul{margin:0;padding-left:20px;} .mist li{margin:5px 0;}
+  ul.summary li{margin:4px 0;}
+  ol.ex{padding-left:22px;} ol.ex li{margin:7px 0;} ol.ex label{cursor:pointer;} ol.ex input:checked + span{color:var(--sub);text-decoration:line-through;}
+  .refs{margin-top:18px;font-size:.86rem;background:#fff;border:1px dashed #cbd5e1;border-radius:10px;padding:10px 14px;}
+  .donebar{margin-top:18px;text-align:center;}
+  .donebtn{background:#fff;border:2px solid var(--ok);color:var(--ok);font-weight:800;padding:9px 18px;border-radius:22px;cursor:pointer;font-size:.9rem;}
+  .donebtn.on{background:var(--ok);color:#fff;}
+  .pnav{display:flex;justify-content:space-between;gap:10px;margin-top:22px;}
+  .pn{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 16px;text-decoration:none;font-weight:700;color:var(--blue-dark);}
+  .pn:hover{border-color:#0e7490;}
+  .roadmap{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+  .road{display:flex;gap:10px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:.88rem;align-items:flex-start;min-width:0;}
+  .road a{text-decoration:none;font-weight:600;} .road small{color:var(--sub);}
+  .rb{flex:none;background:var(--blue-dark);color:#fff;font-weight:700;font-size:.74rem;border-radius:8px;padding:3px 8px;}
+  footer{text-align:center;color:var(--sub);font-size:.78rem;padding:20px;}
+  @media(max-width:900px){
+    .layout{grid-template-columns:minmax(0,1fr);}
+    aside{display:none;position:fixed;top:0;left:0;bottom:0;height:auto;width:280px;background:var(--bg);z-index:80;box-shadow:4px 0 20px rgba(0,0,0,.2);padding-top:20px;}
+    aside.open{display:block;}
+    .menubtn{display:inline-block;}
+    main{padding:16px 16px 60px;}
+    .grid2,.grid3,.roadmap{grid-template-columns:1fr;}
+    .ovstats{grid-template-columns:repeat(2,1fr);}
+    .hero h2{font-size:1.35rem;}
+    .tbl{display:block;overflow-x:auto;}
+    header h1{font-size:.95rem;} header .sub{font-size:.72rem;}
+  }
+  .scrim{display:none;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:70;} .scrim.on{display:block;}
+</style>
+<script src="auth.js"></script>
+<script>requireAuth();</script>
+</head>
+<body>
+<header>
+  <div class="htop">
+    <a href="courses.html">← Danh sách khóa học</a>
+    <div><span class="whoami" id="whoamiLabel"></span><button class="logout-btn" onclick="logout()">Đăng xuất</button></div>
+  </div>
+  <h1>🎓 Danh sách khóa học Thầy Lê Chí Tuyền</h1>
+  <div class="sub">Khóa học: 🐍 Python cơ bản cho học sinh · 12 buổi · Phím ← → để chuyển bài</div>
+  <button class="menubtn" id="menuBtn">☰ Danh sách bài</button>
+</header>
+
+<div class="layout">
+  <aside id="side">
+    <div class="prog"><b>Tiến độ:</b> <span id="progTxt">0/12</span> bài<div class="bar"><i id="progBar"></i></div></div>
+    <a class="sitem" href="#overview" data-id="overview"><span class="sn">★</span>Tổng quan &amp; lộ trình</a>
+<div class="sgroup" style="color:#0891b2">Nền tảng<small>Biến, nhập xuất, điều kiện, vòng lặp</small></div>
+<a class="sitem" href="#gioi-thieu" data-id="gioi-thieu"><span class="sn">1</span>Làm quen Python<span class="tick">✓</span></a>
+<a class="sitem" href="#bien-kieu" data-id="bien-kieu"><span class="sn">2</span>Biến &amp; kiểu dữ liệu<span class="tick">✓</span></a>
+<a class="sitem" href="#nhap-xuat" data-id="nhap-xuat"><span class="sn">3</span>Nhập &amp; xuất<span class="tick">✓</span></a>
+<a class="sitem" href="#dieu-kien" data-id="dieu-kien"><span class="sn">4</span>Rẽ nhánh<span class="tick">✓</span></a>
+<a class="sitem" href="#vong-lap" data-id="vong-lap"><span class="sn">5</span>Vòng lặp<span class="tick">✓</span></a>
+<div class="sgroup" style="color:#d97706">Dữ liệu &amp; hàm<small>Chuỗi, list, dict, hàm, file</small></div>
+<a class="sitem" href="#chuoi" data-id="chuoi"><span class="sn">6</span>Chuỗi<span class="tick">✓</span></a>
+<a class="sitem" href="#list-tuple" data-id="list-tuple"><span class="sn">7</span>List &amp; tuple<span class="tick">✓</span></a>
+<a class="sitem" href="#dict-set" data-id="dict-set"><span class="sn">8</span>Dict &amp; set<span class="tick">✓</span></a>
+<a class="sitem" href="#ham" data-id="ham"><span class="sn">9</span>Hàm<span class="tick">✓</span></a>
+<a class="sitem" href="#module-file" data-id="module-file"><span class="sn">10</span>Module &amp; file<span class="tick">✓</span></a>
+<div class="sgroup" style="color:#7c3aed">Hoàn thiện<small>Xử lý lỗi, lớp, dự án</small></div>
+<a class="sitem" href="#loi-oop" data-id="loi-oop"><span class="sn">11</span>Lỗi &amp; lớp<span class="tick">✓</span></a>
+<a class="sitem" href="#du-an" data-id="du-an"><span class="sn">12</span>Dự án sổ điểm<span class="tick">✓</span></a>
+  </aside>
+  <main id="main">
+    
+<section class="lesson" id="overview" data-title="Tổng quan" hidden>
+  <div class="hero" style="--g:#1e3a8a">
+    <div class="crumbs"><span class="gchip">Bài mở đầu</span><span>12 bài · lớp 6+</span></div>
+    <h2>🐍 Python cơ bản</h2>
+    <p class="intent">Học lập trình bằng Python từ con số 0: biến, điều kiện, vòng lặp, chuỗi, list, dict, hàm, file, xử lý lỗi, lớp — và một dự án hoàn chỉnh.</p>
+    <div class="ovstats"><div><b>12</b><span>bài học</span></div><div><b>14</b><span>chương trình mẫu</span></div><div><b>1</b><span>dự án</span></div><div><b id="ovDone">0</b><span>bài đã học</span></div></div>
+    <a class="startbtn" href="#gioi-thieu">Bắt đầu bài 1 →</a>
+  </div>
+  
+<h3><span class="n">?</span>Khóa học dành cho ai?</h3>
+<div class="prose"><p>Học sinh từ <b>lớp 6</b> trở lên chưa từng lập trình (hoặc mới học kéo thả Scratch, Micro:bit) muốn bước sang lập trình bằng chữ. Python là cửa ngõ tới <b>AI</b>, khoa học dữ liệu và cả lập trình vi điều khiển (MicroPython).</p></div>
+<div class="grid3"><div class="card"><h5>📖 12 bài ngắn gọn</h5><p>Mỗi bài một chủ đề, có mục tiêu, giải thích, lỗi hay gặp, bài tập.</p></div>
+<div class="card"><h5>▶ Code chạy thật</h5><p>14 chương trình kèm dữ liệu nhập mẫu và kết quả chạy thật.</p></div>
+<div class="card"><h5>🏁 Dự án cuối khóa</h5><p>Chương trình sổ điểm có menu, kiểm tra dữ liệu, lưu file.</p></div></div>
+<h3><span class="n">⌚</span>Lộ trình gợi ý — 12 buổi</h3><div class="roadmap"><div class="road"><div class="rb">Buổi 1</div><div><a href="#gioi-thieu">Làm quen với Python</a><br><small>1,5 giờ</small></div></div><div class="road"><div class="rb">Buổi 2</div><div><a href="#bien-kieu">Biến, kiểu dữ liệu và toán tử</a><br><small>1,5 giờ</small></div></div><div class="road"><div class="rb">Buổi 3</div><div><a href="#nhap-xuat">Nhập dữ liệu và in kết quả đẹp</a><br><small>1 giờ</small></div></div><div class="road"><div class="rb">Buổi 4</div><div><a href="#dieu-kien">Câu lệnh điều kiện</a><br><small>1,5 giờ</small></div></div><div class="road"><div class="rb">Buổi 5</div><div><a href="#vong-lap">Vòng lặp for và while</a><br><small>2 giờ</small></div></div><div class="road"><div class="rb">Buổi 6</div><div><a href="#chuoi">Xử lý chuỗi (string)</a><br><small>1,5 giờ</small></div></div><div class="road"><div class="rb">Buổi 7</div><div><a href="#list-tuple">Danh sách (list) và tuple</a><br><small>2 giờ</small></div></div><div class="road"><div class="rb">Buổi 8</div><div><a href="#dict-set">Từ điển (dict) và tập hợp (set)</a><br><small>1,5 giờ</small></div></div><div class="road"><div class="rb">Buổi 9</div><div><a href="#ham">Hàm (function)</a><br><small>2 giờ</small></div></div><div class="road"><div class="rb">Buổi 10</div><div><a href="#module-file">Module và đọc/ghi file</a><br><small>1,5 giờ</small></div></div><div class="road"><div class="rb">Buổi 11</div><div><a href="#loi-oop">Xử lý lỗi và lập trình hướng đối tượng</a><br><small>2 giờ</small></div></div><div class="road"><div class="rb">Buổi 12</div><div><a href="#du-an">Dự án: chương trình sổ điểm có menu</a><br><small>2–3 giờ</small></div></div></div>
+<h3><span class="n">→</span>Học tiếp</h3>
+<div class="grid3"><div class="card"><h5><a href="ai-co-ban.html">🤖 AI cơ bản</a></h5><p>Hồi quy, phân loại, mạng nơ-ron với numpy và scikit-learn.</p></div>
+<div class="card"><h5><a href="arduino-esp32.html">🔌 Arduino &amp; ESP32</a></h5><p>Điều khiển LED, cảm biến, động cơ, WiFi.</p></div>
+<div class="card"><h5><a href="cpp-co-ban.html">💻 C++ cơ bản → nâng cao</a></h5><p>Ngôn ngữ chính của lập trình nhúng.</p></div></div>
+
+  <nav class="pnav"><span></span><a class="pn next" href="#gioi-thieu">Làm quen với Python →</a></nav>
+</section>
+
+<section class="lesson" id="gioi-thieu" data-title="Làm quen với Python" hidden>
+  <div class="hero" style="--g:#0891b2">
+    <div class="crumbs"><span class="gchip">Nền tảng</span><span>Bài 1/12</span><span>⏱ 1,5 giờ</span></div>
+    <h2><span class="hicon">🐍</span> Làm quen với Python</h2>
+    <p class="intent">Biết Python là gì, cài đặt và chạy chương trình đầu tiên; dùng Python như một máy tính bỏ túi.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>Cài Python và trình soạn thảo (Thonny / VS Code)</li><li>Viết, lưu và chạy file .py</li><li>Dùng print(), chú thích và các phép tính cơ bản</li></ul></div>
+  
+  <h3 id="gioi-thieu-s1"><span class="n">1</span>Python là gì, dùng để làm gì?</h3>
+<div class="prose">
+<p><b>Python</b> là ngôn ngữ lập trình do Guido van Rossum tạo ra năm 1991. Cú pháp gần với tiếng Anh, ít ký hiệu rườm rà nên rất hợp cho người mới — nhưng cũng là ngôn ngữ số 1 cho <b>AI, khoa học dữ liệu</b> và tự động hoá. Python là ngôn ngữ <b>thông dịch</b>: chạy từng dòng, không cần biên dịch trước.</p></div>
+<figure class="fig"><svg class="illus" viewBox="0 0 660 150" style="max-width:660px" role="img" aria-label="Python dùng ở đâu" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs><rect class="bx-a" x="10" y="10" width="200" height="58" rx="8"/><text class="t" x="110.0" y="35.0" text-anchor="middle">🌐 Web</text><text class="xs mute" x="110.0" y="51.0" text-anchor="middle">Django, Flask</text><rect class="bx-b" x="225" y="10" width="200" height="58" rx="8"/><text class="t" x="325.0" y="35.0" text-anchor="middle">🤖 AI &amp; dữ liệu</text><text class="xs mute" x="325.0" y="51.0" text-anchor="middle">numpy, pandas, scikit-learn</text><rect class="bx-c" x="440" y="10" width="200" height="58" rx="8"/><text class="t" x="540.0" y="35.0" text-anchor="middle">🔌 Vi điều khiển</text><text class="xs mute" x="540.0" y="51.0" text-anchor="middle">MicroPython trên ESP32, Micro:bit</text><rect class="bx-d" x="10" y="80" width="200" height="58" rx="8"/><text class="t" x="110.0" y="105.0" text-anchor="middle">🎮 Trò chơi</text><text class="xs mute" x="110.0" y="121.0" text-anchor="middle">pygame</text><rect class="bx-e" x="225" y="80" width="200" height="58" rx="8"/><text class="t" x="325.0" y="105.0" text-anchor="middle">🔬 Khoa học</text><text class="xs mute" x="325.0" y="121.0" text-anchor="middle">matplotlib vẽ đồ thị</text><rect class="bx-g" x="440" y="80" width="200" height="58" rx="8"/><text class="t" x="540.0" y="105.0" text-anchor="middle">⚙️ Tự động hoá</text><text class="xs mute" x="540.0" y="121.0" text-anchor="middle">xử lý file, Excel, gửi email</text></svg></figure><h3 id="gioi-thieu-s2"><span class="n">2</span>Cài đặt</h3>
+<div class="prose">
+<table class="tbl"><tr><th>Cách</th><th>Phù hợp</th></tr>
+<tr><td><b>Thonny</b> (thonny.org) – cài một lần có sẵn Python</td><td>học sinh mới bắt đầu, có chế độ chạy từng bước; nạp được MicroPython cho ESP32</td></tr>
+<tr><td><b>python.org</b> + <b>VS Code</b> (extension Python)</td><td>học lâu dài, làm dự án. Khi cài nhớ tick <i>Add python.exe to PATH</i></td></tr>
+<tr><td>Chạy trên web: <a href="https://www.online-python.com" target="_blank" rel="noopener">online-python.com</a>, Google Colab</td><td>không cài gì, dùng máy trường</td></tr></table>
+<p>Hai cách chạy: gõ từng lệnh trong <b>chế độ tương tác</b> (dấu nhắc <code>&gt;&gt;&gt;</code>) hoặc lưu thành file <code>bai1.py</code> rồi chạy <code>python bai1.py</code>.</p></div><h3 id="gioi-thieu-s3"><span class="n">3</span>Chương trình đầu tiên</h3>
+<div class="codebox">
+    <div class="codebar"><span class="fname">01-xin-chao.py</span><span class="lines">19 dòng</span>
+      <button class="cbtn" data-act="copy">Sao chép</button><button class="cbtn" data-act="dl" data-name="01-xin-chao.py">Tải file</button></div>
+    <pre class="code"><code><span class="t-com"># Chương trình Python đầu tiên</span>
+<span class="t-com"># Dòng bắt đầu bằng dấu # là chú thích: Python bỏ qua, chỉ để người đọc hiểu.</span>
+
+<span class="t-fn">print</span>(<span class="t-str">&quot;Xin chào, Python!&quot;</span>)
+<span class="t-fn">print</span>(<span class="t-str">&quot;Mình đang học lập trình&quot;</span>, <span class="t-str">&quot;cùng thầy Tuyền&quot;</span>)      <span class="t-com"># print in nhiều giá trị, cách nhau bởi dấu cách</span>
+<span class="t-fn">print</span>()                                                  <span class="t-com"># in một dòng trống</span>
+
+<span class="t-com"># Python là một chiếc máy tính bỏ túi rất mạnh</span>
+<span class="t-fn">print</span>(<span class="t-str">&quot;2 + 3 =&quot;</span>, <span class="t-num">2</span> + <span class="t-num">3</span>)
+<span class="t-fn">print</span>(<span class="t-str">&quot;7 / 2 =&quot;</span>, <span class="t-num">7</span> / <span class="t-num">2</span>)        <span class="t-com"># chia ra số thực</span>
+<span class="t-fn">print</span>(<span class="t-str">&quot;7 // 2 =&quot;</span>, <span class="t-num">7</span> // <span class="t-num">2</span>)      <span class="t-com"># chia lấy phần nguyên</span>
+<span class="t-fn">print</span>(<span class="t-str">&quot;7 % 2 =&quot;</span>, <span class="t-num">7</span> % <span class="t-num">2</span>)        <span class="t-com"># chia lấy dư</span>
+<span class="t-fn">print</span>(<span class="t-str">&quot;2 ** 10 =&quot;</span>, <span class="t-num">2</span> ** <span class="t-num">10</span>)    <span class="t-com"># lũy thừa</span>
+<span class="t-fn">print</span>(<span class="t-str">&quot;2 ** 100 =&quot;</span>, <span class="t-num">2</span> ** <span class="t-num">100</span>)  <span class="t-com"># số nguyên Python lớn bao nhiêu cũng được!</span>
+
+<span class="t-com"># In nhiều dòng và ký tự đặc biệt</span>
+<span class="t-fn">print</span>(<span class="t-str">&quot;Dòng 1\nDòng 2\tcó tab&quot;</span>)
+<span class="t-fn">print</span>(<span class="t-str">&quot;=&quot;</span> * <span class="t-num">30</span>)                <span class="t-com"># nhân chuỗi với số</span>
+<span class="t-fn">print</span>(<span class="t-str">&quot;Python được đặt tên theo nhóm hài Monty Python, không phải con trăn 🐍&quot;</span>)
+</code></pre>
+  </div><div class="runcmd"><span>▶ Chạy thử:</span> <code>python 01-xin-chao.py</code></div><div class="outbox"><div class="outbar">Kết quả khi chạy (đã chạy thật lúc soạn bài)</div><pre class="out">Xin chào, Python!
+Mình đang học lập trình cùng thầy Tuyền
+
+2 + 3 = 5
+7 / 2 = 3.5
+7 // 2 = 3
+7 % 2 = 1
+2 ** 10 = 1024
+2 ** 100 = 1267650600228229401496703205376
+Dòng 1
+Dòng 2	có tab
+==============================
+Python được đặt tên theo nhóm hài Monty Python, không phải con trăn 🐍</pre></div>
+<h4 class="sub">Giải thích</h4><ul class="notes"><li><code>print(...)</code> in ra màn hình; nhiều giá trị cách nhau bởi dấu phẩy sẽ được in cách một dấu cách.</li><li><code>/</code> luôn ra số thực, <code>//</code> chia lấy phần nguyên, <code>%</code> lấy dư, <code>**</code> lũy thừa.</li><li>Số nguyên trong Python không giới hạn độ lớn — <code>2 ** 100</code> vẫn chính xác.</li><li><code>\n</code> xuống dòng, <code>\t</code> tab; <code>"=" * 30</code> lặp chuỗi 30 lần.</li></ul>
+  <h3><span class="n">⚠</span>Lỗi thường gặp</h3><div class="mist"><ul><li>Gõ <code>Print</code> (chữ P hoa) — Python phân biệt chữ hoa, chữ thường.</li><li>Quên dấu ngoặc kép quanh chữ: <code>print(Xin chao)</code> → lỗi NameError.</li><li>Thụt lề đầu dòng lung tung — Python dùng thụt lề để hiểu cấu trúc.</li></ul></div><h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="gioi-thieu-0"> <span>In ra thông tin giới thiệu bản thân trên 4 dòng, có một dòng kẻ bằng 40 dấu “-”.</span></label></li><li><label><input type="checkbox" data-ex="gioi-thieu-1"> <span>Tính và in: số giây trong một năm; 2 mũ 64; phần dư của 2026 chia 7.</span></label></li></ol>
+  
+  <div class="donebar"><button class="donebtn" data-done="gioi-thieu">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#overview">← Tổng quan</a><a class="pn next" href="#bien-kieu">Biến, kiểu dữ liệu và toán tử →</a></nav>
+</section>
+
+<section class="lesson" id="bien-kieu" data-title="Biến, kiểu dữ liệu và toán tử" hidden>
+  <div class="hero" style="--g:#0891b2">
+    <div class="crumbs"><span class="gchip">Nền tảng</span><span>Bài 2/12</span><span>⏱ 1,5 giờ</span></div>
+    <h2><span class="hicon">📦</span> Biến, kiểu dữ liệu và toán tử</h2>
+    <p class="intent">Lưu dữ liệu vào biến, phân biệt các kiểu cơ bản và chuyển đổi giữa chúng.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>Đặt tên biến đúng quy tắc</li><li>Hiểu int, float, str, bool và hàm type()</li><li>Ép kiểu với int(), float(), str()</li><li>Dùng toán tử số học, so sánh, logic</li></ul></div>
+  
+  <h3 id="bien-kieu-s1"><span class="n">1</span>Biến</h3>
+<div class="prose">
+<p>Biến là tên dùng để giữ một giá trị: <code>tuoi = 12</code>. Python <b>tự biết kiểu</b> dựa vào giá trị, không cần khai báo trước.</p>
+<p>Quy tắc đặt tên: chữ cái, chữ số, dấu gạch dưới; không bắt đầu bằng số; không dùng từ khoá (<code>if</code>, <code>for</code>…); phân biệt hoa thường. Quy ước: chữ thường nối bằng gạch dưới — <code>diem_trung_binh</code>.</p></div>
+<figure class="fig"><svg class="illus" viewBox="0 0 690 170" style="max-width:690px" role="img" aria-label="Biến như chiếc hộp" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs><text class="s" x="10" y="20" text-anchor="start">Biến giống một chiếc hộp có NHÃN (tên biến) chứa một GIÁ TRỊ có KIỂU</text><rect class="bx-a" x="20" y="50" width="140" height="60" rx="10"/><text class="t" x="90.0" y="85.0" text-anchor="middle">&quot;An&quot;</text><rect class="bx" x="40" y="36" width="100" height="22" rx="11"/><text class="xs" x="90.0" y="52.0" text-anchor="middle">ten</text><text class="xs mute" x="90" y="130" text-anchor="middle">kiểu str</text><rect class="bx-b" x="185" y="50" width="140" height="60" rx="10"/><text class="t" x="255.0" y="85.0" text-anchor="middle">12</text><rect class="bx" x="205" y="36" width="100" height="22" rx="11"/><text class="xs" x="255.0" y="52.0" text-anchor="middle">tuoi</text><text class="xs mute" x="255" y="130" text-anchor="middle">kiểu int</text><rect class="bx-c" x="350" y="50" width="140" height="60" rx="10"/><text class="t" x="420.0" y="85.0" text-anchor="middle">1.52</text><rect class="bx" x="370" y="36" width="100" height="22" rx="11"/><text class="xs" x="420.0" y="52.0" text-anchor="middle">chieu_cao</text><text class="xs mute" x="420" y="130" text-anchor="middle">kiểu float</text><rect class="bx-d" x="515" y="50" width="140" height="60" rx="10"/><text class="t" x="585.0" y="85.0" text-anchor="middle">True</text><rect class="bx" x="535" y="36" width="100" height="22" rx="11"/><text class="xs" x="585.0" y="52.0" text-anchor="middle">la_hoc_sinh</text><text class="xs mute" x="585" y="130" text-anchor="middle">kiểu bool</text><text class="xs mute" x="20" y="160" text-anchor="start">Gán lại: tuoi = tuoi + 1  → hộp “tuoi” giờ chứa 13 (giá trị cũ bị thay).</text></svg></figure><h3 id="bien-kieu-s2"><span class="n">2</span>Kiểu dữ liệu, ép kiểu, toán tử</h3>
+<div class="prose">
+<table class="tbl"><tr><th>Kiểu</th><th>Ví dụ</th><th>Ghi chú</th></tr>
+<tr><td><code>int</code></td><td><code>12</code>, <code>-5</code></td><td>số nguyên</td></tr><tr><td><code>float</code></td><td><code>1.52</code>, <code>3e8</code></td><td>số thực (có sai số nhỏ)</td></tr>
+<tr><td><code>str</code></td><td><code>"An"</code>, <code>'7A'</code></td><td>chuỗi ký tự</td></tr><tr><td><code>bool</code></td><td><code>True</code>, <code>False</code></td><td>đúng / sai</td></tr></table></div>
+<div class="codebox">
+    <div class="codebar"><span class="fname">02-bien-kieu-du-lieu.py</span><span class="lines">41 dòng</span>
+      <button class="cbtn" data-act="copy">Sao chép</button><button class="cbtn" data-act="dl" data-name="02-bien-kieu-du-lieu.py">Tải file</button></div>
+    <pre class="code"><code><span class="t-com"># Biến, kiểu dữ liệu, ép kiểu và toán tử</span>
+
+<span class="t-com"># ----- Biến: tên gắn với một giá trị -----</span>
+ten = <span class="t-str">&quot;An&quot;</span>                 <span class="t-com"># str  – chuỗi</span>
+tuoi = <span class="t-num">12</span>                  <span class="t-com"># int  – số nguyên</span>
+chieu_cao = <span class="t-num">1.52</span>           <span class="t-com"># float – số thực</span>
+la_hoc_sinh = <span class="t-kw">True</span>         <span class="t-com"># bool – đúng/sai</span>
+
+<span class="t-fn">print</span>(ten, tuoi, chieu_cao, la_hoc_sinh)
+<span class="t-fn">print</span>(<span class="t-fn">type</span>(ten), <span class="t-fn">type</span>(tuoi), <span class="t-fn">type</span>(chieu_cao), <span class="t-fn">type</span>(la_hoc_sinh))
+
+<span class="t-com"># Biến có thể đổi giá trị (và cả kiểu)</span>
+diem = <span class="t-num">7</span>
+diem = diem + <span class="t-num">1.5</span>          <span class="t-com"># giờ là float</span>
+<span class="t-fn">print</span>(<span class="t-str">&quot;Điểm sau khi cộng:&quot;</span>, diem)
+
+<span class="t-com"># Gán nhiều biến cùng lúc, hoán đổi hai biến</span>
+a, b = <span class="t-num">3</span>, <span class="t-num">5</span>
+a, b = b, a
+<span class="t-fn">print</span>(<span class="t-str">&quot;Sau khi đổi: a =&quot;</span>, a, <span class="t-str">&quot;, b =&quot;</span>, b)
+
+<span class="t-com"># ----- Ép kiểu -----</span>
+so_chuoi = <span class="t-str">&quot;25&quot;</span>
+<span class="t-fn">print</span>(<span class="t-str">&quot;Chuỗi + chuỗi:&quot;</span>, so_chuoi + so_chuoi)            <span class="t-com"># nối chuỗi: 2525</span>
+<span class="t-fn">print</span>(<span class="t-str">&quot;Số + số:&quot;</span>, <span class="t-fn">int</span>(so_chuoi) + <span class="t-fn">int</span>(so_chuoi))        <span class="t-com"># 50</span>
+<span class="t-fn">print</span>(<span class="t-str">&quot;float(&#x27;3.5&#x27;) =&quot;</span>, <span class="t-fn">float</span>(<span class="t-str">&quot;3.5&quot;</span>), <span class="t-str">&quot;| str(10) + &#x27;%&#x27; =&quot;</span>, <span class="t-fn">str</span>(<span class="t-num">10</span>) + <span class="t-str">&quot;%&quot;</span>)
+<span class="t-fn">print</span>(<span class="t-str">&quot;int(9.99) =&quot;</span>, <span class="t-fn">int</span>(<span class="t-num">9.99</span>), <span class="t-str">&quot;(cắt phần lẻ) | round(9.99) =&quot;</span>, <span class="t-fn">round</span>(<span class="t-num">9.99</span>))
+<span class="t-fn">print</span>(<span class="t-str">&quot;bool(0) =&quot;</span>, <span class="t-fn">bool</span>(<span class="t-num">0</span>), <span class="t-str">&quot;| bool(&#x27;&#x27;) =&quot;</span>, <span class="t-fn">bool</span>(<span class="t-str">&quot;&quot;</span>), <span class="t-str">&quot;| bool(&#x27;abc&#x27;) =&quot;</span>, <span class="t-fn">bool</span>(<span class="t-str">&quot;abc&quot;</span>))
+
+<span class="t-com"># ----- Toán tử -----</span>
+x = <span class="t-num">17</span>
+<span class="t-fn">print</span>(<span class="t-str">&quot;x // 5 =&quot;</span>, x // <span class="t-num">5</span>, <span class="t-str">&quot;| x % 5 =&quot;</span>, x % <span class="t-num">5</span>, <span class="t-str">&quot;| x ** 2 =&quot;</span>, x ** <span class="t-num">2</span>)
+x += <span class="t-num">3</span>                     <span class="t-com"># x = x + 3</span>
+x *= <span class="t-num">2</span>                     <span class="t-com"># x = x * 2</span>
+<span class="t-fn">print</span>(<span class="t-str">&quot;x sau += 3 rồi *= 2:&quot;</span>, x)
+<span class="t-fn">print</span>(<span class="t-str">&quot;So sánh: 3 &lt; 5 &lt; 7 là&quot;</span>, <span class="t-num">3</span> &lt; <span class="t-num">5</span> &lt; <span class="t-num">7</span>, <span class="t-str">&quot;| &#x27;a&#x27; == &#x27;A&#x27; là&quot;</span>, <span class="t-str">&quot;a&quot;</span> == <span class="t-str">&quot;A&quot;</span>)
+<span class="t-fn">print</span>(<span class="t-str">&quot;Logic: True and False =&quot;</span>, <span class="t-kw">True</span> <span class="t-kw">and</span> <span class="t-kw">False</span>, <span class="t-str">&quot;| not True =&quot;</span>, <span class="t-kw">not</span> <span class="t-kw">True</span>)
+
+<span class="t-com"># ----- Số thực có sai số -----</span>
+<span class="t-fn">print</span>(<span class="t-str">&quot;0.1 + 0.2 =&quot;</span>, <span class="t-num">0.1</span> + <span class="t-num">0.2</span>)
+<span class="t-fn">print</span>(<span class="t-str">&quot;Làm tròn 2 chữ số:&quot;</span>, <span class="t-fn">round</span>(<span class="t-num">0.1</span> + <span class="t-num">0.2</span>, <span class="t-num">2</span>))
+</code></pre>
+  </div><div class="runcmd"><span>▶ Chạy thử:</span> <code>python 02-bien-kieu-du-lieu.py</code></div><div class="outbox"><div class="outbar">Kết quả khi chạy (đã chạy thật lúc soạn bài)</div><pre class="out">An 12 1.52 True
+&lt;class &#x27;str&#x27;&gt; &lt;class &#x27;int&#x27;&gt; &lt;class &#x27;float&#x27;&gt; &lt;class &#x27;bool&#x27;&gt;
+Điểm sau khi cộng: 8.5
+Sau khi đổi: a = 5 , b = 3
+Chuỗi + chuỗi: 2525
+Số + số: 50
+float(&#x27;3.5&#x27;) = 3.5 | str(10) + &#x27;%&#x27; = 10%
+int(9.99) = 9 (cắt phần lẻ) | round(9.99) = 10
+bool(0) = False | bool(&#x27;&#x27;) = False | bool(&#x27;abc&#x27;) = True
+x // 5 = 3 | x % 5 = 2 | x ** 2 = 289
+x sau += 3 rồi *= 2: 40
+So sánh: 3 &lt; 5 &lt; 7 là True | &#x27;a&#x27; == &#x27;A&#x27; là False
+Logic: True and False = False | not True = False
+0.1 + 0.2 = 0.30000000000000004
+Làm tròn 2 chữ số: 0.3</pre></div>
+<h4 class="sub">Giải thích</h4><ul class="notes"><li><code>"25" + "25"</code> là nối chuỗi; muốn cộng số phải <code>int()</code> trước.</li><li><code>int(9.99)</code> cắt bỏ phần lẻ, <code>round()</code> mới làm tròn.</li><li><code>a, b = b, a</code> — cách hoán đổi hai biến đặc trưng của Python.</li><li>Số thực lưu dạng nhị phân nên <code>0.1 + 0.2</code> hơi lệch; dùng <code>round()</code> khi in.</li></ul>
+  <h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="bien-kieu-0"> <span>Đổi nhiệt độ 37°C sang độ F (F = C × 9/5 + 32).</span></label></li><li><label><input type="checkbox" data-ex="bien-kieu-1"> <span>Cho số giây 3725, in ra dạng giờ:phút:giây bằng <code>//</code> và <code>%</code>.</span></label></li></ol>
+  
+  <div class="donebar"><button class="donebtn" data-done="bien-kieu">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#gioi-thieu">← Làm quen với Python</a><a class="pn next" href="#nhap-xuat">Nhập dữ liệu và in kết quả đẹp →</a></nav>
+</section>
+
+<section class="lesson" id="nhap-xuat" data-title="Nhập dữ liệu và in kết quả đẹp" hidden>
+  <div class="hero" style="--g:#0891b2">
+    <div class="crumbs"><span class="gchip">Nền tảng</span><span>Bài 3/12</span><span>⏱ 1 giờ</span></div>
+    <h2><span class="hicon">⌨️</span> Nhập dữ liệu và in kết quả đẹp</h2>
+    <p class="intent">Nhận dữ liệu từ bàn phím bằng input() và trình bày kết quả gọn gàng bằng f-string.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>Dùng input() và ép kiểu kết quả</li><li>Dùng f-string, định dạng số chữ số thập phân, căn lề</li><li>Nhập nhiều giá trị trên một dòng</li></ul></div>
+  
+  <h3 id="nhap-xuat-s1"><span class="n">1</span>input() và f-string</h3>
+<div class="codebox">
+    <div class="codebar"><span class="fname">03-nhap-xuat.py</span><span class="lines">18 dòng</span>
+      <button class="cbtn" data-act="copy">Sao chép</button><button class="cbtn" data-act="dl" data-name="03-nhap-xuat.py">Tải file</button></div>
+    <pre class="code"><code><span class="t-com"># Nhập dữ liệu với input() và in đẹp với f-string – ví dụ: tính chỉ số BMI</span>
+
+ten = <span class="t-fn">input</span>(<span class="t-str">&quot;Tên của bạn: &quot;</span>)
+can_nang = <span class="t-fn">float</span>(<span class="t-fn">input</span>(<span class="t-str">&quot;Cân nặng (kg): &quot;</span>))       <span class="t-com"># input() luôn trả về CHUỖI -&gt; phải ép sang số</span>
+chieu_cao = <span class="t-fn">float</span>(<span class="t-fn">input</span>(<span class="t-str">&quot;Chiều cao (m): &quot;</span>))
+
+bmi = can_nang / chieu_cao ** <span class="t-num">2</span>
+
+<span class="t-fn">print</span>()
+<span class="t-fn">print</span>(<span class="t-str">f&quot;Xin chào {ten}!&quot;</span>)
+<span class="t-fn">print</span>(<span class="t-str">f&quot;Chỉ số BMI của bạn là {bmi:.1f}&quot;</span>)         <span class="t-com"># :.1f -&gt; 1 chữ số sau dấu phẩy</span>
+<span class="t-fn">print</span>(<span class="t-str">f&quot;{&#x27;Cân nặng&#x27;:&lt;10}|{can_nang:&gt;8.1f} kg&quot;</span>)    <span class="t-com"># &lt; căn trái, &gt; căn phải, số là độ rộng</span>
+<span class="t-fn">print</span>(<span class="t-str">f&quot;{&#x27;Chiều cao&#x27;:&lt;10}|{chieu_cao:&gt;8.2f} m&quot;</span>)
+<span class="t-fn">print</span>(<span class="t-str">f&quot;Tỉ lệ so với BMI 22: {bmi / 22:.0%}&quot;</span>)       <span class="t-com"># :% -&gt; phần trăm</span>
+
+<span class="t-com"># Nhiều giá trị trên một dòng</span>
+a, b = <span class="t-fn">map</span>(int, <span class="t-fn">input</span>(<span class="t-str">&quot;Nhập 2 số nguyên cách nhau dấu cách: &quot;</span>).<span class="t-fn">split</span>())
+<span class="t-fn">print</span>(<span class="t-str">f&quot;{a} + {b} = {a + b}, {a} x {b} = {a * b}&quot;</span>)
+</code></pre>
+  </div><div class="runcmd"><span>▶ Chạy thử:</span> <code>python 03-nhap-xuat.py</code></div><div class="outbox inbox"><div class="outbar">Dữ liệu nhập từ bàn phím</div><pre class="out">Minh
+45
+1.55
+12 7</pre></div><div class="outbox"><div class="outbar">Kết quả khi chạy (đã chạy thật lúc soạn bài)</div><pre class="out">Tên của bạn: Minh
+Cân nặng (kg): 45
+Chiều cao (m): 1.55
+
+Xin chào Minh!
+Chỉ số BMI của bạn là 18.7
+Cân nặng  |    45.0 kg
+Chiều cao |    1.55 m
+Tỉ lệ so với BMI 22: 85%
+Nhập 2 số nguyên cách nhau dấu cách: 12 7
+12 + 7 = 19, 12 x 7 = 84</pre></div>
+<h4 class="sub">Giải thích</h4><ul class="notes"><li><code>input()</code> luôn trả về <b>chuỗi</b> → muốn tính toán phải <code>int()</code>/<code>float()</code>.</li><li>f-string: <code>f"{bien:.1f}"</code> 1 chữ số thập phân, <code>{x:&gt;8}</code> căn phải rộng 8, <code>{x:.0%}</code> phần trăm.</li><li><code>map(int, input().split())</code> tách dòng theo dấu cách rồi đổi từng phần sang số.</li></ul>
+  <h3><span class="n">⚠</span>Lỗi thường gặp</h3><div class="mist"><ul><li>Cộng trực tiếp hai giá trị input() → bị nối chuỗi.</li><li>Nhập số thập phân bằng dấu phẩy (1,55) → lỗi; Python dùng dấu chấm.</li></ul></div><h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="nhap-xuat-0"> <span>Nhập bán kính, in chu vi và diện tích hình tròn với 2 chữ số thập phân.</span></label></li><li><label><input type="checkbox" data-ex="nhap-xuat-1"> <span>Nhập giá một món hàng và số lượng, in hoá đơn có căn lề.</span></label></li></ol>
+  
+  <div class="donebar"><button class="donebtn" data-done="nhap-xuat">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#bien-kieu">← Biến, kiểu dữ liệu và toán tử</a><a class="pn next" href="#dieu-kien">Câu lệnh điều kiện →</a></nav>
+</section>
+
+<section class="lesson" id="dieu-kien" data-title="Câu lệnh điều kiện" hidden>
+  <div class="hero" style="--g:#0891b2">
+    <div class="crumbs"><span class="gchip">Nền tảng</span><span>Bài 4/12</span><span>⏱ 1,5 giờ</span></div>
+    <h2><span class="hicon">🔀</span> Câu lệnh điều kiện</h2>
+    <p class="intent">Cho chương trình ra quyết định với if / elif / else và match-case.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>Viết if – elif – else và hiểu thụt lề</li><li>Kết hợp điều kiện bằng and, or, not</li><li>Dùng biểu thức điều kiện một dòng và match-case</li></ul></div>
+  
+  <h3 id="dieu-kien-s1"><span class="n">1</span>if / elif / else</h3>
+<div class="prose">
+<p>Khối lệnh thuộc <code>if</code> được nhận biết bằng <b>dấu hai chấm</b> và <b>thụt lề 4 dấu cách</b>. Các nhánh <code>elif</code> được xét lần lượt; gặp nhánh đúng đầu tiên thì bỏ qua các nhánh còn lại.</p></div>
+<div class="codebox">
+    <div class="codebar"><span class="fname">04-dieu-kien.py</span><span class="lines">40 dòng</span>
+      <button class="cbtn" data-act="copy">Sao chép</button><button class="cbtn" data-act="dl" data-name="04-dieu-kien.py">Tải file</button></div>
+    <pre class="code"><code><span class="t-com"># Câu lệnh điều kiện: if / elif / else, toán tử logic, match-case</span>
+
+diem = <span class="t-fn">float</span>(<span class="t-fn">input</span>(<span class="t-str">&quot;Nhập điểm trung bình: &quot;</span>))
+<span class="t-kw">if</span> diem &gt;= <span class="t-num">8</span>:
+    xep_loai = <span class="t-str">&quot;Giỏi&quot;</span>
+<span class="t-kw">elif</span> diem &gt;= <span class="t-num">6.5</span>:
+    xep_loai = <span class="t-str">&quot;Khá&quot;</span>
+<span class="t-kw">elif</span> diem &gt;= <span class="t-num">5</span>:
+    xep_loai = <span class="t-str">&quot;Trung bình&quot;</span>
+<span class="t-kw">else</span>:
+    xep_loai = <span class="t-str">&quot;Yếu&quot;</span>
+<span class="t-fn">print</span>(<span class="t-str">f&quot;Điểm {diem} -&gt; xếp loại {xep_loai}&quot;</span>)
+
+<span class="t-com"># Kết hợp điều kiện: năm nhuận chia hết cho 4 nhưng không chia hết cho 100, hoặc chia hết cho 400</span>
+nam = <span class="t-fn">int</span>(<span class="t-fn">input</span>(<span class="t-str">&quot;Nhập một năm: &quot;</span>))
+nhuan = (nam % <span class="t-num">4</span> == <span class="t-num">0</span> <span class="t-kw">and</span> nam % <span class="t-num">100</span> != <span class="t-num">0</span>) <span class="t-kw">or</span> nam % <span class="t-num">400</span> == <span class="t-num">0</span>
+<span class="t-fn">print</span>(<span class="t-str">f&quot;Năm {nam} {&#x27;là&#x27; if nhuan else &#x27;không là&#x27;} năm nhuận&quot;</span>)    <span class="t-com"># biểu thức điều kiện một dòng</span>
+
+<span class="t-com"># Điều kiện lồng nhau</span>
+nhiet_do = <span class="t-num">33</span>
+co_nguoi = <span class="t-kw">True</span>
+<span class="t-kw">if</span> co_nguoi:
+    <span class="t-kw">if</span> nhiet_do &gt; <span class="t-num">30</span>:
+        <span class="t-fn">print</span>(<span class="t-str">&quot;Có người và trời nóng -&gt; bật quạt&quot;</span>)
+    <span class="t-kw">else</span>:
+        <span class="t-fn">print</span>(<span class="t-str">&quot;Có người, trời mát -&gt; tắt quạt&quot;</span>)
+<span class="t-kw">else</span>:
+    <span class="t-fn">print</span>(<span class="t-str">&quot;Không có người -&gt; tắt hết&quot;</span>)
+
+<span class="t-com"># match-case (Python 3.10+): chọn theo giá trị</span>
+lenh = <span class="t-fn">input</span>(<span class="t-str">&quot;Lệnh điều khiển robot (tien/lui/trai/phai): &quot;</span>).<span class="t-fn">strip</span>().<span class="t-fn">lower</span>()
+<span class="t-kw">match</span> lenh:
+    <span class="t-kw">case</span> <span class="t-str">&quot;tien&quot;</span>:
+        <span class="t-fn">print</span>(<span class="t-str">&quot;Robot đi thẳng&quot;</span>)
+    <span class="t-kw">case</span> <span class="t-str">&quot;lui&quot;</span>:
+        <span class="t-fn">print</span>(<span class="t-str">&quot;Robot đi lùi&quot;</span>)
+    <span class="t-kw">case</span> <span class="t-str">&quot;trai&quot;</span> | <span class="t-str">&quot;phai&quot;</span>:
+        <span class="t-fn">print</span>(<span class="t-str">f&quot;Robot rẽ {lenh}&quot;</span>)
+    <span class="t-kw">case</span> _:
+        <span class="t-fn">print</span>(<span class="t-str">&quot;Không hiểu lệnh&quot;</span>)
+</code></pre>
+  </div><div class="runcmd"><span>▶ Chạy thử:</span> <code>python 04-dieu-kien.py</code></div><div class="outbox inbox"><div class="outbar">Dữ liệu nhập từ bàn phím</div><pre class="out">7.2
+2024
+Trai</pre></div><div class="outbox"><div class="outbar">Kết quả khi chạy (đã chạy thật lúc soạn bài)</div><pre class="out">Nhập điểm trung bình: 7.2
+Điểm 7.2 -&gt; xếp loại Khá
+Nhập một năm: 2024
+Năm 2024 là năm nhuận
+Có người và trời nóng -&gt; bật quạt
+Lệnh điều khiển robot (tien/lui/trai/phai): Trai
+Robot rẽ trai</pre></div>
+<h4 class="sub">Giải thích</h4><ul class="notes"><li>Thứ tự elif quan trọng: kiểm tra điểm từ cao xuống thấp.</li><li>Năm nhuận là bài tập kinh điển về kết hợp <code>and</code>/<code>or</code>.</li><li><code>.strip().lower()</code> chuẩn hoá chữ người dùng gõ (bỏ khoảng trắng, chữ thường) trước khi so sánh.</li></ul>
+  <h3><span class="n">⚠</span>Lỗi thường gặp</h3><div class="mist"><ul><li>Dùng <code>=</code> thay vì <code>==</code> trong điều kiện.</li><li>Quên dấu <code>:</code> cuối dòng if.</li><li>Thụt lề không đều (trộn tab và dấu cách).</li></ul></div><h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="dieu-kien-0"> <span>Nhập 3 cạnh, kiểm tra có phải tam giác không và là tam giác gì (đều, cân, vuông, thường).</span></label></li><li><label><input type="checkbox" data-ex="dieu-kien-1"> <span>Tính tiền điện bậc thang theo số kWh nhập vào.</span></label></li></ol>
+  
+  <div class="donebar"><button class="donebtn" data-done="dieu-kien">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#nhap-xuat">← Nhập dữ liệu và in kết quả đẹp</a><a class="pn next" href="#vong-lap">Vòng lặp for và while →</a></nav>
+</section>
+
+<section class="lesson" id="vong-lap" data-title="Vòng lặp for và while" hidden>
+  <div class="hero" style="--g:#0891b2">
+    <div class="crumbs"><span class="gchip">Nền tảng</span><span>Bài 5/12</span><span>⏱ 2 giờ</span></div>
+    <h2><span class="hicon">🔁</span> Vòng lặp for và while</h2>
+    <p class="intent">Lặp lại công việc với for/while, điều khiển vòng lặp bằng break/continue và viết trò chơi đoán số.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>Dùng for với range()</li><li>Dùng while khi chưa biết trước số lần lặp</li><li>Dùng break, continue, vòng lặp lồng nhau</li></ul></div>
+  
+  <h3 id="vong-lap-s1"><span class="n">1</span>for, while và trò chơi đoán số</h3>
+<figure class="fig"><svg class="illus" viewBox="0 0 600 238" style="max-width:600px" role="img" aria-label="Lưu đồ vòng lặp" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs><rect class="bx-g" x="160" y="6" width="200" height="34" rx="8"/><text class="s" x="260.0" y="28.0" text-anchor="middle">tong = 0;  so = 1</text><line class="ln" x1="260" y1="40" x2="260" y2="60" marker-end="url(#ah3)"/><polygon class="bx-b" points="260,60 350,88 260,116 170,88"/><text class="s" x="260" y="92" text-anchor="middle">so &lt;= 100 ?</text><line class="ln" x1="260" y1="116" x2="260" y2="140" marker-end="url(#ah3)"/><text class="xs mute" x="280" y="132" text-anchor="middle">đúng</text><rect class="bx-a" x="180" y="140" width="160" height="34" rx="8"/><text class="s" x="260.0" y="162.0" text-anchor="middle">tong += so</text><line class="ln" x1="260" y1="174" x2="260" y2="194" marker-end="url(#ah3)"/><rect class="bx-a" x="180" y="194" width="160" height="34" rx="8"/><text class="s" x="260.0" y="216.0" text-anchor="middle">so += 1</text><path class="ln" d="M180,211 L120,211 L120,88 L168,88" fill="none" marker-end="url(#ah3)"/><text class="xs mute" x="70" y="160" text-anchor="start">quay lại</text><line class="ln" x1="350" y1="88" x2="430" y2="88" marker-end="url(#ah3)"/><text class="xs mute" x="390.0" y="82.0" text-anchor="middle">sai</text><rect class="bx-d" x="432" y="72" width="150" height="32" rx="8"/><text class="s" x="507.0" y="93.0" text-anchor="middle">in tong = 5050</text></svg></figure>
+<div class="codebox">
+    <div class="codebar"><span class="fname">05-vong-lap.py</span><span class="lines">44 dòng</span>
+      <button class="cbtn" data-act="copy">Sao chép</button><button class="cbtn" data-act="dl" data-name="05-vong-lap.py">Tải file</button></div>
+    <pre class="code"><code><span class="t-com"># Vòng lặp for, while, break, continue – và trò chơi đoán số</span>
+<span class="t-kw">import</span> random
+
+<span class="t-com"># ----- for với range(bắt_đầu, dừng_trước, bước) -----</span>
+<span class="t-fn">print</span>(<span class="t-str">&quot;Đếm:&quot;</span>, end=<span class="t-str">&quot; &quot;</span>)
+<span class="t-kw">for</span> i <span class="t-kw">in</span> <span class="t-fn">range</span>(<span class="t-num">1</span>, <span class="t-num">6</span>):
+    <span class="t-fn">print</span>(i, end=<span class="t-str">&quot; &quot;</span>)
+<span class="t-fn">print</span>()
+<span class="t-fn">print</span>(<span class="t-str">&quot;Số chẵn tới 10:&quot;</span>, <span class="t-fn">list</span>(<span class="t-fn">range</span>(<span class="t-num">0</span>, <span class="t-num">11</span>, <span class="t-num">2</span>)))
+<span class="t-fn">print</span>(<span class="t-str">&quot;Đếm ngược:&quot;</span>, <span class="t-fn">list</span>(<span class="t-fn">range</span>(<span class="t-num">5</span>, <span class="t-num">0</span>, -<span class="t-num">1</span>)))
+
+<span class="t-com"># ----- Tính tổng bằng vòng lặp -----</span>
+tong = <span class="t-num">0</span>
+<span class="t-kw">for</span> so <span class="t-kw">in</span> <span class="t-fn">range</span>(<span class="t-num">1</span>, <span class="t-num">101</span>):
+    tong += so
+<span class="t-fn">print</span>(<span class="t-str">&quot;1 + 2 + ... + 100 =&quot;</span>, tong)
+
+<span class="t-com"># ----- Vòng lặp lồng nhau: bảng cửu chương 2..4 -----</span>
+<span class="t-kw">for</span> i <span class="t-kw">in</span> <span class="t-fn">range</span>(<span class="t-num">1</span>, <span class="t-num">4</span>):
+    <span class="t-fn">print</span>(<span class="t-str">&quot;  &quot;</span>.<span class="t-fn">join</span>(<span class="t-str">f&quot;{b}x{i}={b * i:&lt;2}&quot;</span> <span class="t-kw">for</span> b <span class="t-kw">in</span> <span class="t-fn">range</span>(<span class="t-num">2</span>, <span class="t-num">5</span>)))
+
+<span class="t-com"># ----- break và continue -----</span>
+<span class="t-kw">for</span> so <span class="t-kw">in</span> <span class="t-fn">range</span>(<span class="t-num">1</span>, <span class="t-num">20</span>):
+    <span class="t-kw">if</span> so % <span class="t-num">3</span> == <span class="t-num">0</span>:
+        <span class="t-kw">continue</span>             <span class="t-com"># bỏ qua số chia hết cho 3</span>
+    <span class="t-kw">if</span> so &gt; <span class="t-num">10</span>:
+        <span class="t-kw">break</span>                <span class="t-com"># dừng hẳn khi vượt 10</span>
+    <span class="t-fn">print</span>(so, end=<span class="t-str">&quot; &quot;</span>)
+<span class="t-fn">print</span>()
+
+<span class="t-com"># ----- while + trò chơi đoán số -----</span>
+random.<span class="t-fn">seed</span>(<span class="t-num">7</span>)               <span class="t-com"># cố định để ví dụ luôn ra cùng số bí mật</span>
+bi_mat = random.<span class="t-fn">randint</span>(<span class="t-num">1</span>, <span class="t-num">100</span>)
+so_lan = <span class="t-num">0</span>
+<span class="t-kw">while</span> <span class="t-kw">True</span>:
+    doan = <span class="t-fn">int</span>(<span class="t-fn">input</span>(<span class="t-str">&quot;Đoán số (1-100): &quot;</span>))
+    so_lan += <span class="t-num">1</span>
+    <span class="t-kw">if</span> doan &lt; bi_mat:
+        <span class="t-fn">print</span>(<span class="t-str">&quot;  -&gt; lớn hơn nữa&quot;</span>)
+    <span class="t-kw">elif</span> doan &gt; bi_mat:
+        <span class="t-fn">print</span>(<span class="t-str">&quot;  -&gt; nhỏ hơn&quot;</span>)
+    <span class="t-kw">else</span>:
+        <span class="t-fn">print</span>(<span class="t-str">f&quot;  -&gt; ĐÚNG RỒI! Số bí mật là {bi_mat}, bạn đoán {so_lan} lần&quot;</span>)
+        <span class="t-kw">break</span>
+</code></pre>
+  </div><div class="runcmd"><span>▶ Chạy thử:</span> <code>python 05-vong-lap.py</code></div><div class="outbox inbox"><div class="outbar">Dữ liệu nhập từ bàn phím</div><pre class="out">50
+25
+37
+43
+41
+42</pre></div><div class="outbox"><div class="outbar">Kết quả khi chạy (đã chạy thật lúc soạn bài)</div><pre class="out">Đếm: 1 2 3 4 5 
+Số chẵn tới 10: [0, 2, 4, 6, 8, 10]
+Đếm ngược: [5, 4, 3, 2, 1]
+1 + 2 + ... + 100 = 5050
+2x1=2   3x1=3   4x1=4 
+2x2=4   3x2=6   4x2=8 
+2x3=6   3x3=9   4x3=12
+1 2 4 5 7 8 10 
+Đoán số (1-100): 50
+  -&gt; nhỏ hơn
+Đoán số (1-100): 25
+  -&gt; lớn hơn nữa
+Đoán số (1-100): 37
+  -&gt; lớn hơn nữa
+Đoán số (1-100): 43
+  -&gt; nhỏ hơn
+Đoán số (1-100): 41
+  -&gt; lớn hơn nữa
+Đoán số (1-100): 42
+  -&gt; ĐÚNG RỒI! Số bí mật là 42, bạn đoán 6 lần</pre></div>
+<h4 class="sub">Giải thích</h4><ul class="notes"><li><code>range(a, b, buoc)</code> chạy từ a tới <b>trước</b> b.</li><li><code>print(..., end=" ")</code> in không xuống dòng.</li><li>Trò chơi dùng <code>random.seed(7)</code> để số bí mật cố định — bỏ dòng này để mỗi lần chơi một số khác.</li><li>Chiến lược đoán tốt nhất là chia đôi khoảng (50 → 25 → 37…): tối đa 7 lần cho 100 số — đây là ý tưởng của <b>tìm kiếm nhị phân</b>.</li></ul>
+  <h3><span class="n">⚠</span>Lỗi thường gặp</h3><div class="mist"><ul><li>while quên cập nhật biến điều kiện → lặp vô hạn (bấm Ctrl+C để dừng).</li><li>Nhầm range(1, 10) có cả số 10.</li></ul></div><h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="vong-lap-0"> <span>In các số nguyên tố nhỏ hơn 100.</span></label></li><li><label><input type="checkbox" data-ex="vong-lap-1"> <span>Vẽ tam giác sao * có n dòng bằng vòng lặp lồng nhau.</span></label></li><li><label><input type="checkbox" data-ex="vong-lap-2"> <span>Sửa trò chơi: giới hạn 7 lần đoán và cho chơi lại.</span></label></li></ol>
+  
+  <div class="donebar"><button class="donebtn" data-done="vong-lap">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#dieu-kien">← Câu lệnh điều kiện</a><a class="pn next" href="#chuoi">Xử lý chuỗi (string) →</a></nav>
+</section>
+
+<section class="lesson" id="chuoi" data-title="Xử lý chuỗi (string)" hidden>
+  <div class="hero" style="--g:#d97706">
+    <div class="crumbs"><span class="gchip">Dữ liệu &amp; hàm</span><span>Bài 6/12</span><span>⏱ 1,5 giờ</span></div>
+    <h2><span class="hicon">🔤</span> Xử lý chuỗi (string)</h2>
+    <p class="intent">Cắt, tìm, thay thế, tách và ghép chuỗi — xử lý văn bản và dữ liệu cảm biến.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>Dùng chỉ số và cắt lát</li><li>Dùng các phương thức upper, find, replace, split, join, strip</li><li>Duyệt từng ký tự</li></ul></div>
+  
+  <h3 id="chuoi-s1"><span class="n">1</span>Thao tác với chuỗi</h3>
+<figure class="fig"><svg class="illus" viewBox="0 0 560 160" style="max-width:560px" role="img" aria-label="Chỉ số của list" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs><text class="mono" x="10" y="20" text-anchor="start">diem = [8, 6.5, 9, 7, 5.5]</text><rect class="bx-a" x="40" y="40" width="90" height="46" rx="6"/><text class="t" x="85.0" y="68.0" text-anchor="middle">8</text><text class="mono" x="85" y="104" text-anchor="middle">diem[0]</text><text class="xs mute" x="85" y="124" text-anchor="middle">diem[-5]</text><rect class="bx-a" x="140" y="40" width="90" height="46" rx="6"/><text class="t" x="185.0" y="68.0" text-anchor="middle">6.5</text><text class="mono" x="185" y="104" text-anchor="middle">diem[1]</text><text class="xs mute" x="185" y="124" text-anchor="middle">diem[-4]</text><rect class="bx-a" x="240" y="40" width="90" height="46" rx="6"/><text class="t" x="285.0" y="68.0" text-anchor="middle">9</text><text class="mono" x="285" y="104" text-anchor="middle">diem[2]</text><text class="xs mute" x="285" y="124" text-anchor="middle">diem[-3]</text><rect class="bx-a" x="340" y="40" width="90" height="46" rx="6"/><text class="t" x="385.0" y="68.0" text-anchor="middle">7</text><text class="mono" x="385" y="104" text-anchor="middle">diem[3]</text><text class="xs mute" x="385" y="124" text-anchor="middle">diem[-2]</text><rect class="bx-a" x="440" y="40" width="90" height="46" rx="6"/><text class="t" x="485.0" y="68.0" text-anchor="middle">5.5</text><text class="mono" x="485" y="104" text-anchor="middle">diem[4]</text><text class="xs mute" x="485" y="124" text-anchor="middle">diem[-1]</text><text class="xs mute" x="40" y="150" text-anchor="start">Chỉ số bắt đầu từ 0; chỉ số âm đếm từ cuối. Cắt lát diem[1:4] lấy phần tử 1, 2, 3 (không lấy 4).</text></svg><figcaption>Chỉ số dương và âm dùng giống nhau cho chuỗi và list.</figcaption></figure>
+<div class="codebox">
+    <div class="codebar"><span class="fname">06-chuoi.py</span><span class="lines">43 dòng</span>
+      <button class="cbtn" data-act="copy">Sao chép</button><button class="cbtn" data-act="dl" data-name="06-chuoi.py">Tải file</button></div>
+    <pre class="code"><code><span class="t-com"># Chuỗi (string): chỉ số, cắt lát, phương thức xử lý</span>
+
+s = <span class="t-str">&quot;Lập trình Python&quot;</span>
+<span class="t-fn">print</span>(<span class="t-str">&quot;Độ dài:&quot;</span>, <span class="t-fn">len</span>(s))
+<span class="t-fn">print</span>(<span class="t-str">&quot;Ký tự đầu:&quot;</span>, s[<span class="t-num">0</span>], <span class="t-str">&quot;| ký tự cuối:&quot;</span>, s[-<span class="t-num">1</span>])
+<span class="t-fn">print</span>(<span class="t-str">&quot;Cắt lát s[0:8]:&quot;</span>, s[<span class="t-num">0</span>:<span class="t-num">8</span>], <span class="t-str">&quot;| s[-6:]:&quot;</span>, s[-<span class="t-num">6</span>:], <span class="t-str">&quot;| đảo ngược:&quot;</span>, s[::-<span class="t-num">1</span>])
+
+<span class="t-com"># Phương thức thường dùng</span>
+<span class="t-fn">print</span>(s.<span class="t-fn">upper</span>(), <span class="t-str">&quot;|&quot;</span>, s.<span class="t-fn">lower</span>(), <span class="t-str">&quot;|&quot;</span>, s.<span class="t-fn">title</span>())
+<span class="t-fn">print</span>(<span class="t-str">&quot;Tìm &#x27;Python&#x27; ở vị trí:&quot;</span>, s.<span class="t-fn">find</span>(<span class="t-str">&quot;Python&quot;</span>), <span class="t-str">&quot;| đếm &#x27;n&#x27;:&quot;</span>, s.<span class="t-fn">count</span>(<span class="t-str">&quot;n&quot;</span>))
+<span class="t-fn">print</span>(<span class="t-str">&quot;Thay thế:&quot;</span>, s.<span class="t-fn">replace</span>(<span class="t-str">&quot;Python&quot;</span>, <span class="t-str">&quot;C++&quot;</span>))
+<span class="t-fn">print</span>(<span class="t-str">&quot;Bắt đầu bằng &#x27;Lập&#x27;?&quot;</span>, s.<span class="t-fn">startswith</span>(<span class="t-str">&quot;Lập&quot;</span>), <span class="t-str">&quot;| chứa &#x27;trình&#x27;?&quot;</span>, <span class="t-str">&quot;trình&quot;</span> <span class="t-kw">in</span> s)
+
+<span class="t-com"># Tách và ghép</span>
+cau = <span class="t-str">&quot;  hôm nay   trời   đẹp  &quot;</span>
+tu = cau.<span class="t-fn">split</span>()                          <span class="t-com"># tách theo khoảng trắng, bỏ khoảng trắng thừa</span>
+<span class="t-fn">print</span>(<span class="t-str">&quot;Các từ:&quot;</span>, tu, <span class="t-str">&quot;-&gt; số từ:&quot;</span>, <span class="t-fn">len</span>(tu))
+<span class="t-fn">print</span>(<span class="t-str">&quot;Ghép lại:&quot;</span>, <span class="t-str">&quot;-&quot;</span>.<span class="t-fn">join</span>(tu))
+<span class="t-fn">print</span>(<span class="t-str">&quot;Bỏ khoảng trắng 2 đầu:&quot;</span>, <span class="t-fn">repr</span>(cau.<span class="t-fn">strip</span>()))
+
+<span class="t-com"># Duyệt từng ký tự: đếm nguyên âm</span>
+nguyen_am = <span class="t-num">0</span>
+<span class="t-kw">for</span> ch <span class="t-kw">in</span> <span class="t-str">&quot;Embedded Programming&quot;</span>:
+    <span class="t-kw">if</span> ch.<span class="t-fn">lower</span>() <span class="t-kw">in</span> <span class="t-str">&quot;aeiou&quot;</span>:
+        nguyen_am += <span class="t-num">1</span>
+<span class="t-fn">print</span>(<span class="t-str">&quot;Số nguyên âm trong &#x27;Embedded Programming&#x27;:&quot;</span>, nguyen_am)
+
+<span class="t-com"># Chuỗi không thể sửa trực tiếp (immutable)</span>
+ma = <span class="t-str">&quot;abc&quot;</span>
+<span class="t-com"># ma[0] = &quot;x&quot;   -&gt; lỗi TypeError</span>
+ma = <span class="t-str">&quot;x&quot;</span> + ma[<span class="t-num">1</span>:]
+<span class="t-fn">print</span>(<span class="t-str">&quot;Tạo chuỗi mới:&quot;</span>, ma)
+
+<span class="t-com"># Kiểm tra chuỗi đối xứng</span>
+<span class="t-kw">for</span> tu_kiem_tra <span class="t-kw">in</span> [<span class="t-str">&quot;level&quot;</span>, <span class="t-str">&quot;python&quot;</span>, <span class="t-str">&quot;Radar&quot;</span>]:
+    t = tu_kiem_tra.<span class="t-fn">lower</span>()
+    <span class="t-fn">print</span>(<span class="t-str">f&quot;&#x27;{tu_kiem_tra}&#x27; đối xứng? {t == t[::-1]}&quot;</span>)
+
+<span class="t-com"># Phân tích lệnh dạng &quot;TEN:GIA_TRI&quot; (giống dữ liệu gửi từ cảm biến)</span>
+du_lieu = <span class="t-str">&quot;T:28.5;H:61;L:320&quot;</span>
+<span class="t-kw">for</span> cap <span class="t-kw">in</span> du_lieu.<span class="t-fn">split</span>(<span class="t-str">&quot;;&quot;</span>):
+    ten, gia_tri = cap.<span class="t-fn">split</span>(<span class="t-str">&quot;:&quot;</span>)
+    <span class="t-fn">print</span>(<span class="t-str">f&quot;  {ten} = {float(gia_tri)}&quot;</span>)
+</code></pre>
+  </div><div class="runcmd"><span>▶ Chạy thử:</span> <code>python 06-chuoi.py</code></div><div class="outbox"><div class="outbar">Kết quả khi chạy (đã chạy thật lúc soạn bài)</div><pre class="out">Độ dài: 16
+Ký tự đầu: L | ký tự cuối: n
+Cắt lát s[0:8]: Lập trìn | s[-6:]: Python | đảo ngược: nohtyP hnìrt pậL
+LẬP TRÌNH PYTHON | lập trình python | Lập Trình Python
+Tìm &#x27;Python&#x27; ở vị trí: 10 | đếm &#x27;n&#x27;: 2
+Thay thế: Lập trình C++
+Bắt đầu bằng &#x27;Lập&#x27;? True | chứa &#x27;trình&#x27;? True
+Các từ: [&#x27;hôm&#x27;, &#x27;nay&#x27;, &#x27;trời&#x27;, &#x27;đẹp&#x27;] -&gt; số từ: 4
+Ghép lại: hôm-nay-trời-đẹp
+Bỏ khoảng trắng 2 đầu: &#x27;hôm nay   trời   đẹp&#x27;
+Số nguyên âm trong &#x27;Embedded Programming&#x27;: 6
+Tạo chuỗi mới: xbc
+&#x27;level&#x27; đối xứng? True
+&#x27;python&#x27; đối xứng? False
+&#x27;Radar&#x27; đối xứng? True
+  T = 28.5
+  H = 61.0
+  L = 320.0</pre></div>
+<h4 class="sub">Giải thích</h4><ul class="notes"><li><code>s[::-1]</code> đảo ngược chuỗi.</li><li>Chuỗi là bất biến: mọi phương thức trả về chuỗi <b>mới</b>.</li><li>Phân tích chuỗi <code>"T:28.5;H:61"</code> là kỹ năng dùng hằng ngày khi đọc dữ liệu từ Arduino/ESP32 qua Serial.</li></ul>
+  <h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="chuoi-0"> <span>Đếm số chữ hoa, chữ thường, chữ số trong một câu.</span></label></li><li><label><input type="checkbox" data-ex="chuoi-1"> <span>Chuẩn hoá họ tên: “  nGuyEn   vAn  an ” → “Nguyen Van An”.</span></label></li></ol>
+  
+  <div class="donebar"><button class="donebtn" data-done="chuoi">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#vong-lap">← Vòng lặp for và while</a><a class="pn next" href="#list-tuple">Danh sách (list) và tuple →</a></nav>
+</section>
+
+<section class="lesson" id="list-tuple" data-title="Danh sách (list) và tuple" hidden>
+  <div class="hero" style="--g:#d97706">
+    <div class="crumbs"><span class="gchip">Dữ liệu &amp; hàm</span><span>Bài 7/12</span><span>⏱ 2 giờ</span></div>
+    <h2><span class="hicon">📋</span> Danh sách (list) và tuple</h2>
+    <p class="intent">Lưu nhiều giá trị trong một biến, thêm/xoá/sắp xếp, dùng list comprehension.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>Tạo, truy cập, sửa list</li><li>append, insert, remove, pop, sort, sorted</li><li>len, sum, min, max, enumerate</li><li>List comprehension; tuple</li></ul></div>
+  
+  <h3 id="list-tuple-s1"><span class="n">1</span>Làm việc với list</h3>
+<div class="codebox">
+    <div class="codebar"><span class="fname">07-list-tuple.py</span><span class="lines">47 dòng</span>
+      <button class="cbtn" data-act="copy">Sao chép</button><button class="cbtn" data-act="dl" data-name="07-list-tuple.py">Tải file</button></div>
+    <pre class="code"><code><span class="t-com"># List (danh sách) và tuple</span>
+
+diem = [<span class="t-num">8</span>, <span class="t-num">6.5</span>, <span class="t-num">9</span>, <span class="t-num">7</span>, <span class="t-num">5.5</span>]
+<span class="t-fn">print</span>(<span class="t-str">&quot;Danh sách điểm:&quot;</span>, diem)
+<span class="t-fn">print</span>(<span class="t-str">&quot;Phần tử đầu:&quot;</span>, diem[<span class="t-num">0</span>], <span class="t-str">&quot;| cuối:&quot;</span>, diem[-<span class="t-num">1</span>], <span class="t-str">&quot;| 3 phần tử đầu:&quot;</span>, diem[:<span class="t-num">3</span>])
+<span class="t-fn">print</span>(<span class="t-str">&quot;Số phần tử:&quot;</span>, <span class="t-fn">len</span>(diem), <span class="t-str">&quot;| tổng:&quot;</span>, <span class="t-fn">sum</span>(diem), <span class="t-str">&quot;| lớn nhất:&quot;</span>, <span class="t-fn">max</span>(diem), <span class="t-str">&quot;| nhỏ nhất:&quot;</span>, <span class="t-fn">min</span>(diem))
+<span class="t-fn">print</span>(<span class="t-str">&quot;Trung bình:&quot;</span>, <span class="t-fn">round</span>(<span class="t-fn">sum</span>(diem) / <span class="t-fn">len</span>(diem), <span class="t-num">2</span>))
+
+<span class="t-com"># Thêm / xoá / sửa</span>
+diem.<span class="t-fn">append</span>(<span class="t-num">10</span>)            <span class="t-com"># thêm vào cuối</span>
+diem.<span class="t-fn">insert</span>(<span class="t-num">0</span>, <span class="t-num">4</span>)          <span class="t-com"># chèn vào vị trí 0</span>
+diem[<span class="t-num">2</span>] = <span class="t-num">7.5</span>              <span class="t-com"># sửa</span>
+diem.<span class="t-fn">remove</span>(<span class="t-num">5.5</span>)           <span class="t-com"># xoá theo giá trị</span>
+cuoi = diem.<span class="t-fn">pop</span>()          <span class="t-com"># lấy ra phần tử cuối</span>
+<span class="t-fn">print</span>(<span class="t-str">&quot;Sau khi sửa:&quot;</span>, diem, <span class="t-str">&quot;| vừa lấy ra:&quot;</span>, cuoi)
+
+<span class="t-com"># Sắp xếp</span>
+<span class="t-fn">print</span>(<span class="t-str">&quot;sorted (tạo list mới):&quot;</span>, <span class="t-fn">sorted</span>(diem))
+diem.<span class="t-fn">sort</span>(reverse=<span class="t-kw">True</span>)    <span class="t-com"># sắp xếp tại chỗ, giảm dần</span>
+<span class="t-fn">print</span>(<span class="t-str">&quot;sort giảm dần:&quot;</span>, diem)
+
+<span class="t-com"># Duyệt kèm chỉ số</span>
+<span class="t-kw">for</span> i, d <span class="t-kw">in</span> <span class="t-fn">enumerate</span>(diem, start=<span class="t-num">1</span>):
+    <span class="t-fn">print</span>(<span class="t-str">f&quot;  Bài {i}: {d}&quot;</span>)
+
+<span class="t-com"># List comprehension: tạo list nhanh</span>
+binh_phuong = [x * x <span class="t-kw">for</span> x <span class="t-kw">in</span> <span class="t-fn">range</span>(<span class="t-num">1</span>, <span class="t-num">8</span>)]
+diem_dat = [d <span class="t-kw">for</span> d <span class="t-kw">in</span> diem <span class="t-kw">if</span> d &gt;= <span class="t-num">5</span>]
+<span class="t-fn">print</span>(<span class="t-str">&quot;Bình phương:&quot;</span>, binh_phuong)
+<span class="t-fn">print</span>(<span class="t-str">&quot;Điểm đạt:&quot;</span>, diem_dat)
+
+<span class="t-com"># List lồng nhau (ma trận)</span>
+ma_tran = [[<span class="t-num">1</span>, <span class="t-num">2</span>, <span class="t-num">3</span>], [<span class="t-num">4</span>, <span class="t-num">5</span>, <span class="t-num">6</span>]]
+<span class="t-fn">print</span>(<span class="t-str">&quot;Phần tử hàng 2 cột 3:&quot;</span>, ma_tran[<span class="t-num">1</span>][<span class="t-num">2</span>])
+
+<span class="t-com"># Cẩn thận: gán list là dùng CHUNG, muốn sao chép dùng .copy()</span>
+a = [<span class="t-num">1</span>, <span class="t-num">2</span>, <span class="t-num">3</span>]
+b = a
+c = a.<span class="t-fn">copy</span>()
+a.<span class="t-fn">append</span>(<span class="t-num">4</span>)
+<span class="t-fn">print</span>(<span class="t-str">&quot;a =&quot;</span>, a, <span class="t-str">&quot;| b (dùng chung) =&quot;</span>, b, <span class="t-str">&quot;| c (bản sao) =&quot;</span>, c)
+
+<span class="t-com"># Tuple: giống list nhưng KHÔNG sửa được – dùng cho dữ liệu cố định</span>
+toa_do = (<span class="t-num">21.0285</span>, <span class="t-num">105.8542</span>)
+vi_do, kinh_do = toa_do        <span class="t-com"># tách tuple</span>
+<span class="t-fn">print</span>(<span class="t-str">f&quot;Hà Nội: vĩ độ {vi_do}, kinh độ {kinh_do}&quot;</span>)
+<span class="t-com"># toa_do[0] = 0   -&gt; lỗi</span>
+</code></pre>
+  </div><div class="runcmd"><span>▶ Chạy thử:</span> <code>python 07-list-tuple.py</code></div><div class="outbox"><div class="outbar">Kết quả khi chạy (đã chạy thật lúc soạn bài)</div><pre class="out">Danh sách điểm: [8, 6.5, 9, 7, 5.5]
+Phần tử đầu: 8 | cuối: 5.5 | 3 phần tử đầu: [8, 6.5, 9]
+Số phần tử: 5 | tổng: 36.0 | lớn nhất: 9 | nhỏ nhất: 5.5
+Trung bình: 7.2
+Sau khi sửa: [4, 8, 7.5, 9, 7] | vừa lấy ra: 10
+sorted (tạo list mới): [4, 7, 7.5, 8, 9]
+sort giảm dần: [9, 8, 7.5, 7, 4]
+  Bài 1: 9
+  Bài 2: 8
+  Bài 3: 7.5
+  Bài 4: 7
+  Bài 5: 4
+Bình phương: [1, 4, 9, 16, 25, 36, 49]
+Điểm đạt: [9, 8, 7.5, 7]
+Phần tử hàng 2 cột 3: 6
+a = [1, 2, 3, 4] | b (dùng chung) = [1, 2, 3, 4] | c (bản sao) = [1, 2, 3]
+Hà Nội: vĩ độ 21.0285, kinh độ 105.8542</pre></div>
+<h4 class="sub">Giải thích</h4><ul class="notes"><li><code>sort()</code> sửa ngay list; <code>sorted()</code> tạo list mới.</li><li><code>[x*x for x in range(1, 8)]</code> — list comprehension, gọn hơn vòng for + append.</li><li><code>b = a</code> không sao chép: a và b là <b>cùng một</b> list. Dùng <code>a.copy()</code>.</li><li>Tuple dùng cho dữ liệu không đổi như toạ độ, ngày tháng.</li></ul>
+  <h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="list-tuple-0"> <span>Nhập điểm 10 bạn, in điểm cao nhất, thấp nhất, trung bình và số bạn trên trung bình.</span></label></li><li><label><input type="checkbox" data-ex="list-tuple-1"> <span>Xoá các phần tử trùng trong list nhưng giữ nguyên thứ tự.</span></label></li></ol>
+  
+  <div class="donebar"><button class="donebtn" data-done="list-tuple">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#chuoi">← Xử lý chuỗi (string)</a><a class="pn next" href="#dict-set">Từ điển (dict) và tập hợp (set) →</a></nav>
+</section>
+
+<section class="lesson" id="dict-set" data-title="Từ điển (dict) và tập hợp (set)" hidden>
+  <div class="hero" style="--g:#d97706">
+    <div class="crumbs"><span class="gchip">Dữ liệu &amp; hàm</span><span>Bài 8/12</span><span>⏱ 1,5 giờ</span></div>
+    <h2><span class="hicon">📖</span> Từ điển (dict) và tập hợp (set)</h2>
+    <p class="intent">Tổ chức dữ liệu theo khoá – giá trị, đếm tần suất, dùng phép toán tập hợp.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>Tạo, đọc, sửa dict; duyệt items()</li><li>Đếm tần suất bằng dict</li><li>List các dict như một bảng dữ liệu</li><li>Set và phép giao, hợp, hiệu</li></ul></div>
+  
+  <h3 id="dict-set-s1"><span class="n">1</span>Dict và set</h3>
+<figure class="fig"><svg class="illus" viewBox="0 0 640 182" style="max-width:640px" role="img" aria-label="Dictionary" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs><text class="s" x="10" y="20" text-anchor="start">Dictionary: tra GIÁ TRỊ bằng KHOÁ, giống tra nghĩa bằng từ trong từ điển</text><rect class="bx-b" x="30" y="40" width="120" height="34" rx="6"/><text class="mono" x="90.0" y="62.0" text-anchor="middle">&quot;ten&quot;</text><line class="ln" x1="150" y1="57" x2="228" y2="57" marker-end="url(#ah5)"/><rect class="bx-a" x="230" y="40" width="120" height="34" rx="6"/><text class="mono" x="290.0" y="62.0" text-anchor="middle">&quot;An&quot;</text><rect class="bx-b" x="30" y="86" width="120" height="34" rx="6"/><text class="mono" x="90.0" y="108.0" text-anchor="middle">&quot;lop&quot;</text><line class="ln" x1="150" y1="103" x2="228" y2="103" marker-end="url(#ah5)"/><rect class="bx-a" x="230" y="86" width="120" height="34" rx="6"/><text class="mono" x="290.0" y="108.0" text-anchor="middle">&quot;7A&quot;</text><rect class="bx-b" x="30" y="132" width="120" height="34" rx="6"/><text class="mono" x="90.0" y="154.0" text-anchor="middle">&quot;diem&quot;</text><line class="ln" x1="150" y1="149" x2="228" y2="149" marker-end="url(#ah5)"/><rect class="bx-a" x="230" y="132" width="120" height="34" rx="6"/><text class="mono" x="290.0" y="154.0" text-anchor="middle">9</text><text class="mono" x="380" y="70" text-anchor="start">hoc_sinh[&quot;diem&quot;]  →  9</text><text class="mono" x="380" y="96" text-anchor="start">hoc_sinh.get(&quot;email&quot;, &quot;?&quot;) → &quot;?&quot;</text></svg></figure>
+<div class="codebox">
+    <div class="codebar"><span class="fname">08-dict-set.py</span><span class="lines">44 dòng</span>
+      <button class="cbtn" data-act="copy">Sao chép</button><button class="cbtn" data-act="dl" data-name="08-dict-set.py">Tải file</button></div>
+    <pre class="code"><code><span class="t-com"># Dictionary (từ điển) và set (tập hợp)</span>
+
+<span class="t-com"># ----- dict: cặp khoá -&gt; giá trị -----</span>
+hoc_sinh = {<span class="t-str">&quot;ten&quot;</span>: <span class="t-str">&quot;An&quot;</span>, <span class="t-str">&quot;lop&quot;</span>: <span class="t-str">&quot;7A&quot;</span>, <span class="t-str">&quot;diem&quot;</span>: <span class="t-num">8.5</span>}
+<span class="t-fn">print</span>(hoc_sinh[<span class="t-str">&quot;ten&quot;</span>], <span class="t-str">&quot;học lớp&quot;</span>, hoc_sinh[<span class="t-str">&quot;lop&quot;</span>])
+hoc_sinh[<span class="t-str">&quot;diem&quot;</span>] = <span class="t-num">9</span>                 <span class="t-com"># sửa</span>
+hoc_sinh[<span class="t-str">&quot;so_thich&quot;</span>] = <span class="t-str">&quot;robot&quot;</span>       <span class="t-com"># thêm khoá mới</span>
+<span class="t-fn">print</span>(hoc_sinh)
+<span class="t-fn">print</span>(<span class="t-str">&quot;Có khoá &#x27;email&#x27;?&quot;</span>, <span class="t-str">&quot;email&quot;</span> <span class="t-kw">in</span> hoc_sinh, <span class="t-str">&quot;| get với giá trị mặc định:&quot;</span>, hoc_sinh.<span class="t-fn">get</span>(<span class="t-str">&quot;email&quot;</span>, <span class="t-str">&quot;chưa có&quot;</span>))
+
+<span class="t-kw">for</span> khoa, gia_tri <span class="t-kw">in</span> hoc_sinh.<span class="t-fn">items</span>():
+    <span class="t-fn">print</span>(<span class="t-str">f&quot;  {khoa:&lt;9}: {gia_tri}&quot;</span>)
+
+<span class="t-com"># Đếm tần suất từ – ứng dụng kinh điển của dict</span>
+van_ban = <span class="t-str">&quot;học học nữa học mãi robot robot code&quot;</span>
+dem = {}
+<span class="t-kw">for</span> tu <span class="t-kw">in</span> van_ban.<span class="t-fn">split</span>():
+    dem[tu] = dem.<span class="t-fn">get</span>(tu, <span class="t-num">0</span>) + <span class="t-num">1</span>
+<span class="t-fn">print</span>(<span class="t-str">&quot;Tần suất:&quot;</span>, dem)
+pho_bien = <span class="t-fn">max</span>(dem, key=dem.get)
+<span class="t-fn">print</span>(<span class="t-str">&quot;Từ xuất hiện nhiều nhất:&quot;</span>, pho_bien, <span class="t-str">&quot;-&quot;</span>, dem[pho_bien], <span class="t-str">&quot;lần&quot;</span>)
+
+<span class="t-com"># Danh sách các dict: bảng dữ liệu</span>
+lop = [
+    {<span class="t-str">&quot;ten&quot;</span>: <span class="t-str">&quot;An&quot;</span>, <span class="t-str">&quot;diem&quot;</span>: <span class="t-num">8.5</span>},
+    {<span class="t-str">&quot;ten&quot;</span>: <span class="t-str">&quot;Bình&quot;</span>, <span class="t-str">&quot;diem&quot;</span>: <span class="t-num">6.0</span>},
+    {<span class="t-str">&quot;ten&quot;</span>: <span class="t-str">&quot;Chi&quot;</span>, <span class="t-str">&quot;diem&quot;</span>: <span class="t-num">9.2</span>},
+]
+lop.<span class="t-fn">sort</span>(key=<span class="t-kw">lambda</span> h: h[<span class="t-str">&quot;diem&quot;</span>], reverse=<span class="t-kw">True</span>)
+<span class="t-fn">print</span>(<span class="t-str">&quot;Xếp hạng:&quot;</span>, [h[<span class="t-str">&quot;ten&quot;</span>] <span class="t-kw">for</span> h <span class="t-kw">in</span> lop])
+
+<span class="t-com"># Dict comprehension</span>
+binh_phuong = {x: x * x <span class="t-kw">for</span> x <span class="t-kw">in</span> <span class="t-fn">range</span>(<span class="t-num">1</span>, <span class="t-num">6</span>)}
+<span class="t-fn">print</span>(<span class="t-str">&quot;Bảng bình phương:&quot;</span>, binh_phuong)
+
+<span class="t-com"># ----- set: không trùng lặp, không thứ tự -----</span>
+mau = {<span class="t-str">&quot;đỏ&quot;</span>, <span class="t-str">&quot;xanh&quot;</span>, <span class="t-str">&quot;đỏ&quot;</span>, <span class="t-str">&quot;vàng&quot;</span>}
+<span class="t-fn">print</span>(<span class="t-str">&quot;Set tự bỏ trùng:&quot;</span>, <span class="t-fn">sorted</span>(mau))
+clb_robot = {<span class="t-str">&quot;An&quot;</span>, <span class="t-str">&quot;Bình&quot;</span>, <span class="t-str">&quot;Chi&quot;</span>, <span class="t-str">&quot;Dũng&quot;</span>}
+clb_tin = {<span class="t-str">&quot;Chi&quot;</span>, <span class="t-str">&quot;Dũng&quot;</span>, <span class="t-str">&quot;Giang&quot;</span>}
+<span class="t-fn">print</span>(<span class="t-str">&quot;Tham gia cả hai CLB:&quot;</span>, <span class="t-fn">sorted</span>(clb_robot &amp; clb_tin))
+<span class="t-fn">print</span>(<span class="t-str">&quot;Tham gia ít nhất 1:&quot;</span>, <span class="t-fn">sorted</span>(clb_robot | clb_tin))
+<span class="t-fn">print</span>(<span class="t-str">&quot;Chỉ CLB robot:&quot;</span>, <span class="t-fn">sorted</span>(clb_robot - clb_tin))
+<span class="t-fn">print</span>(<span class="t-str">&quot;Lọc trùng trong list:&quot;</span>, <span class="t-fn">sorted</span>(<span class="t-fn">set</span>([<span class="t-num">3</span>, <span class="t-num">1</span>, <span class="t-num">3</span>, <span class="t-num">2</span>, <span class="t-num">1</span>])))
+</code></pre>
+  </div><div class="runcmd"><span>▶ Chạy thử:</span> <code>python 08-dict-set.py</code></div><div class="outbox"><div class="outbar">Kết quả khi chạy (đã chạy thật lúc soạn bài)</div><pre class="out">An học lớp 7A
+{&#x27;ten&#x27;: &#x27;An&#x27;, &#x27;lop&#x27;: &#x27;7A&#x27;, &#x27;diem&#x27;: 9, &#x27;so_thich&#x27;: &#x27;robot&#x27;}
+Có khoá &#x27;email&#x27;? False | get với giá trị mặc định: chưa có
+  ten      : An
+  lop      : 7A
+  diem     : 9
+  so_thich : robot
+Tần suất: {&#x27;học&#x27;: 3, &#x27;nữa&#x27;: 1, &#x27;mãi&#x27;: 1, &#x27;robot&#x27;: 2, &#x27;code&#x27;: 1}
+Từ xuất hiện nhiều nhất: học - 3 lần
+Xếp hạng: [&#x27;Chi&#x27;, &#x27;An&#x27;, &#x27;Bình&#x27;]
+Bảng bình phương: {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
+Set tự bỏ trùng: [&#x27;vàng&#x27;, &#x27;xanh&#x27;, &#x27;đỏ&#x27;]
+Tham gia cả hai CLB: [&#x27;Chi&#x27;, &#x27;Dũng&#x27;]
+Tham gia ít nhất 1: [&#x27;An&#x27;, &#x27;Bình&#x27;, &#x27;Chi&#x27;, &#x27;Dũng&#x27;, &#x27;Giang&#x27;]
+Chỉ CLB robot: [&#x27;An&#x27;, &#x27;Bình&#x27;]
+Lọc trùng trong list: [1, 2, 3]</pre></div>
+<h4 class="sub">Giải thích</h4><ul class="notes"><li><code>d.get(k, mac_dinh)</code> không lỗi khi khoá chưa có — rất hợp để đếm.</li><li><code>max(dem, key=dem.get)</code> tìm khoá có giá trị lớn nhất.</li><li><code>key=lambda h: h["diem"]</code> sắp xếp danh sách học sinh theo điểm.</li><li>Set tự bỏ phần tử trùng; <code>&amp;</code> giao, <code>|</code> hợp, <code>-</code> hiệu.</li></ul>
+  <h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="dict-set-0"> <span>Từ điển Anh – Việt mini: nhập từ, in nghĩa hoặc “chưa có”.</span></label></li><li><label><input type="checkbox" data-ex="dict-set-1"> <span>Đếm số lần mỗi chữ cái xuất hiện trong tên của cả lớp.</span></label></li></ol>
+  
+  <div class="donebar"><button class="donebtn" data-done="dict-set">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#list-tuple">← Danh sách (list) và tuple</a><a class="pn next" href="#ham">Hàm (function) →</a></nav>
+</section>
+
+<section class="lesson" id="ham" data-title="Hàm (function)" hidden>
+  <div class="hero" style="--g:#d97706">
+    <div class="crumbs"><span class="gchip">Dữ liệu &amp; hàm</span><span>Bài 9/12</span><span>⏱ 2 giờ</span></div>
+    <h2><span class="hicon">🧩</span> Hàm (function)</h2>
+    <p class="intent">Chia chương trình thành các hàm nhỏ, dễ đọc, dùng lại được.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>def, tham số, return</li><li>Tham số mặc định, gọi theo tên, *args</li><li>Phạm vi biến, global</li><li>lambda và đệ quy</li></ul></div>
+  
+  <h3 id="ham-s1"><span class="n">1</span>Định nghĩa và gọi hàm</h3>
+<figure class="fig"><svg class="illus" viewBox="0 0 600 160" style="max-width:600px" role="img" aria-label="Hàm như cỗ máy" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs><rect class="bx-c" x="220" y="40" width="200" height="80" rx="14"/><text class="t" x="320.0" y="76.0" text-anchor="middle">dien_tich_hcn</text><text class="xs mute" x="320.0" y="92.0" text-anchor="middle">return dai * rong</text><text class="mono" x="60" y="66" text-anchor="start">dai = 5</text><text class="mono" x="60" y="94" text-anchor="start">rong = 3</text><line class="ln" x1="140" y1="80" x2="218" y2="80" marker-end="url(#ah6)"/><text class="xs mute" x="179.0" y="74.0" text-anchor="middle">đầu vào (tham số)</text><line class="ln" x1="420" y1="80" x2="498" y2="80" marker-end="url(#ah6)"/><text class="xs mute" x="459.0" y="74.0" text-anchor="middle">đầu ra (return)</text><text class="t" x="510" y="85" text-anchor="start">15</text><text class="xs mute" x="20" y="150" text-anchor="start">Hàm như một cỗ máy: đưa nguyên liệu vào, nhận sản phẩm ra. Viết một lần, gọi lại nhiều lần.</text></svg></figure>
+<div class="codebox">
+    <div class="codebar"><span class="fname">09-ham.py</span><span class="lines">69 dòng</span>
+      <button class="cbtn" data-act="copy">Sao chép</button><button class="cbtn" data-act="dl" data-name="09-ham.py">Tải file</button></div>
+    <pre class="code"><code><span class="t-com"># Hàm: định nghĩa, tham số, giá trị trả về, phạm vi biến, lambda, đệ quy</span>
+
+
+<span class="t-kw">def</span> <span class="t-fn">chao</span>(ten):
+    <span class="t-str">&quot;&quot;&quot;Hàm in lời chào (dòng này là docstring – mô tả hàm).&quot;&quot;&quot;</span>
+    <span class="t-fn">print</span>(<span class="t-str">f&quot;Xin chào {ten}!&quot;</span>)
+
+
+<span class="t-kw">def</span> <span class="t-fn">dien_tich_hcn</span>(dai, rong):
+    <span class="t-kw">return</span> dai * rong                       <span class="t-com"># return trả kết quả về nơi gọi</span>
+
+
+<span class="t-kw">def</span> <span class="t-fn">xep_loai</span>(diem, nguong_gioi=<span class="t-num">8</span>):         <span class="t-com"># tham số có giá trị mặc định</span>
+    <span class="t-kw">return</span> <span class="t-str">&quot;Giỏi&quot;</span> <span class="t-kw">if</span> diem &gt;= nguong_gioi <span class="t-kw">else</span> <span class="t-str">&quot;Chưa giỏi&quot;</span>
+
+
+<span class="t-kw">def</span> <span class="t-fn">thong_ke</span>(ds):
+    <span class="t-kw">return</span> <span class="t-fn">min</span>(ds), <span class="t-fn">max</span>(ds), <span class="t-fn">sum</span>(ds) / <span class="t-fn">len</span>(ds)   <span class="t-com"># trả về nhiều giá trị (thực chất là tuple)</span>
+
+
+<span class="t-kw">def</span> <span class="t-fn">tong_tat_ca</span>(*cac_so):                  <span class="t-com"># nhận bao nhiêu số cũng được</span>
+    <span class="t-kw">return</span> <span class="t-fn">sum</span>(cac_so)
+
+
+<span class="t-fn">chao</span>(<span class="t-str">&quot;Minh&quot;</span>)
+<span class="t-fn">print</span>(<span class="t-str">&quot;Diện tích 5 x 3 =&quot;</span>, <span class="t-fn">dien_tich_hcn</span>(<span class="t-num">5</span>, <span class="t-num">3</span>))
+<span class="t-fn">print</span>(<span class="t-str">&quot;Gọi theo tên tham số:&quot;</span>, <span class="t-fn">dien_tich_hcn</span>(rong=<span class="t-num">2</span>, dai=<span class="t-num">10</span>))
+<span class="t-fn">print</span>(<span class="t-fn">xep_loai</span>(<span class="t-num">8.5</span>), <span class="t-str">&quot;|&quot;</span>, <span class="t-fn">xep_loai</span>(<span class="t-num">8.5</span>, nguong_gioi=<span class="t-num">9</span>))
+nho, lon, tb = <span class="t-fn">thong_ke</span>([<span class="t-num">7</span>, <span class="t-num">9</span>, <span class="t-num">5</span>, <span class="t-num">8</span>])
+<span class="t-fn">print</span>(<span class="t-str">f&quot;min={nho}, max={lon}, tb={tb}&quot;</span>)
+<span class="t-fn">print</span>(<span class="t-str">&quot;tong_tat_ca(1, 2, 3, 4) =&quot;</span>, <span class="t-fn">tong_tat_ca</span>(<span class="t-num">1</span>, <span class="t-num">2</span>, <span class="t-num">3</span>, <span class="t-num">4</span>))
+
+<span class="t-com"># ----- Phạm vi biến -----</span>
+dem = <span class="t-num">0</span>                                     <span class="t-com"># biến toàn cục</span>
+
+
+<span class="t-kw">def</span> <span class="t-fn">tang</span>():
+    <span class="t-kw">global</span> dem                              <span class="t-com"># muốn sửa biến toàn cục phải khai báo global</span>
+    dem += <span class="t-num">1</span>
+
+
+<span class="t-fn">tang</span>(); <span class="t-fn">tang</span>()
+<span class="t-fn">print</span>(<span class="t-str">&quot;dem =&quot;</span>, dem)
+
+<span class="t-com"># ----- Hàm là giá trị: truyền hàm vào hàm khác, lambda -----</span>
+<span class="t-kw">def</span> <span class="t-fn">ap_dung</span>(f, x):
+    <span class="t-kw">return</span> <span class="t-fn">f</span>(x)
+
+
+<span class="t-fn">print</span>(<span class="t-str">&quot;ap_dung(abs, -5) =&quot;</span>, <span class="t-fn">ap_dung</span>(abs, -<span class="t-num">5</span>))
+<span class="t-fn">print</span>(<span class="t-str">&quot;ap_dung(lambda x: x ** 3, 2) =&quot;</span>, <span class="t-fn">ap_dung</span>(<span class="t-kw">lambda</span> x: x ** <span class="t-num">3</span>, <span class="t-num">2</span>))
+ten = [<span class="t-str">&quot;chi&quot;</span>, <span class="t-str">&quot;An&quot;</span>, <span class="t-str">&quot;bình&quot;</span>]
+<span class="t-fn">print</span>(<span class="t-str">&quot;Sắp xếp không phân biệt hoa thường:&quot;</span>, <span class="t-fn">sorted</span>(ten, key=<span class="t-kw">lambda</span> t: t.<span class="t-fn">lower</span>()))
+
+
+<span class="t-com"># ----- Đệ quy -----</span>
+<span class="t-kw">def</span> <span class="t-fn">giai_thua</span>(n):
+    <span class="t-kw">return</span> <span class="t-num">1</span> <span class="t-kw">if</span> n &lt;= <span class="t-num">1</span> <span class="t-kw">else</span> n * <span class="t-fn">giai_thua</span>(n - <span class="t-num">1</span>)
+
+
+<span class="t-kw">def</span> <span class="t-fn">fibonacci</span>(n):
+    a, b = <span class="t-num">0</span>, <span class="t-num">1</span>
+    <span class="t-kw">for</span> _ <span class="t-kw">in</span> <span class="t-fn">range</span>(n):
+        a, b = b, a + b
+    <span class="t-kw">return</span> a
+
+
+<span class="t-fn">print</span>(<span class="t-str">&quot;5! =&quot;</span>, <span class="t-fn">giai_thua</span>(<span class="t-num">5</span>), <span class="t-str">&quot;| 10 số Fibonacci:&quot;</span>, [<span class="t-fn">fibonacci</span>(i) <span class="t-kw">for</span> i <span class="t-kw">in</span> <span class="t-fn">range</span>(<span class="t-num">10</span>)])
+<span class="t-fn">print</span>(<span class="t-str">&quot;Docstring của chao:&quot;</span>, chao.__doc__)
+</code></pre>
+  </div><div class="runcmd"><span>▶ Chạy thử:</span> <code>python 09-ham.py</code></div><div class="outbox"><div class="outbar">Kết quả khi chạy (đã chạy thật lúc soạn bài)</div><pre class="out">Xin chào Minh!
+Diện tích 5 x 3 = 15
+Gọi theo tên tham số: 20
+Giỏi | Chưa giỏi
+min=5, max=9, tb=7.25
+tong_tat_ca(1, 2, 3, 4) = 10
+dem = 2
+ap_dung(abs, -5) = 5
+ap_dung(lambda x: x ** 3, 2) = 8
+Sắp xếp không phân biệt hoa thường: [&#x27;An&#x27;, &#x27;bình&#x27;, &#x27;chi&#x27;]
+5! = 120 | 10 số Fibonacci: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+Docstring của chao: Hàm in lời chào (dòng này là docstring – mô tả hàm).</pre></div>
+<h4 class="sub">Giải thích</h4><ul class="notes"><li>Hàm không có <code>return</code> sẽ trả về <code>None</code>.</li><li><code>return a, b, c</code> trả về một tuple, nhận bằng <code>x, y, z = ham()</code>.</li><li>Biến tạo trong hàm là biến cục bộ; tránh dùng <code>global</code> khi không cần — truyền tham số và trả kết quả thì rõ ràng hơn.</li><li>Docstring (chuỗi ngay dưới def) mô tả hàm; xem bằng <code>help(ten_ham)</code>.</li></ul>
+  <h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="ham-0"> <span>Viết hàm <code>la_nguyen_to(n)</code> và dùng nó in các số nguyên tố tới 200.</span></label></li><li><label><input type="checkbox" data-ex="ham-1"> <span>Viết hàm <code>doi_tien(so_tien)</code> trả về số tờ 500k, 200k, 100k, 50k cần dùng.</span></label></li></ol>
+  
+  <div class="donebar"><button class="donebtn" data-done="ham">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#dict-set">← Từ điển (dict) và tập hợp (set)</a><a class="pn next" href="#module-file">Module và đọc/ghi file →</a></nav>
+</section>
+
+<section class="lesson" id="module-file" data-title="Module và đọc/ghi file" hidden>
+  <div class="hero" style="--g:#d97706">
+    <div class="crumbs"><span class="gchip">Dữ liệu &amp; hàm</span><span>Bài 10/12</span><span>⏱ 1,5 giờ</span></div>
+    <h2><span class="hicon">💾</span> Module và đọc/ghi file</h2>
+    <p class="intent">Dùng thư viện có sẵn và lưu dữ liệu ra file để không mất khi tắt chương trình.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>import module: math, random, datetime, statistics, csv, json</li><li>Đọc/ghi file văn bản với with open()</li><li>Làm việc với file CSV</li><li>Cài thư viện ngoài bằng pip</li></ul></div>
+  
+  <h3 id="module-file-s1"><span class="n">1</span>Module có sẵn và file</h3>
+<div class="prose">
+<p><code>import ten_module</code> rồi dùng <code>ten_module.ham()</code>; hoặc <code>from module import ham</code>. Tự tạo module: lưu các hàm vào <code>tien_ich.py</code>, ở file khác viết <code>import tien_ich</code>. Thư viện ngoài cài bằng lệnh <code>pip install ten_thu_vien</code> (ví dụ <code>pip install numpy</code>).</p>
+<table class="tbl"><tr><th>Chế độ open()</th><th>Ý nghĩa</th></tr><tr><td><code>"r"</code></td><td>đọc (mặc định)</td></tr><tr><td><code>"w"</code></td><td>ghi mới (xoá nội dung cũ)</td></tr><tr><td><code>"a"</code></td><td>ghi thêm vào cuối</td></tr></table></div>
+<div class="codebox">
+    <div class="codebar"><span class="fname">10-module-file.py</span><span class="lines">42 dòng</span>
+      <button class="cbtn" data-act="copy">Sao chép</button><button class="cbtn" data-act="dl" data-name="10-module-file.py">Tải file</button></div>
+    <pre class="code"><code><span class="t-com"># Module có sẵn (math, random, datetime, statistics) và đọc/ghi file</span>
+<span class="t-kw">import</span> math
+<span class="t-kw">import</span> random
+<span class="t-kw">import</span> statistics
+<span class="t-kw">from</span> datetime <span class="t-kw">import</span> date, timedelta
+<span class="t-kw">import</span> csv
+
+<span class="t-com"># ----- math -----</span>
+<span class="t-fn">print</span>(<span class="t-str">&quot;math.pi =&quot;</span>, <span class="t-fn">round</span>(math.pi, <span class="t-num">5</span>), <span class="t-str">&quot;| sqrt(2) =&quot;</span>, <span class="t-fn">round</span>(math.<span class="t-fn">sqrt</span>(<span class="t-num">2</span>), <span class="t-num">4</span>), <span class="t-str">&quot;| sin(30°) =&quot;</span>, <span class="t-fn">round</span>(math.<span class="t-fn">sin</span>(math.<span class="t-fn">radians</span>(<span class="t-num">30</span>)), <span class="t-num">2</span>))
+
+<span class="t-com"># ----- random (seed để kết quả cố định) -----</span>
+random.<span class="t-fn">seed</span>(<span class="t-num">1</span>)
+<span class="t-fn">print</span>(<span class="t-str">&quot;Số ngẫu nhiên 1-6:&quot;</span>, [random.<span class="t-fn">randint</span>(<span class="t-num">1</span>, <span class="t-num">6</span>) <span class="t-kw">for</span> _ <span class="t-kw">in</span> <span class="t-fn">range</span>(<span class="t-num">5</span>)])
+<span class="t-fn">print</span>(<span class="t-str">&quot;Chọn ngẫu nhiên người trực nhật:&quot;</span>, random.<span class="t-fn">choice</span>([<span class="t-str">&quot;An&quot;</span>, <span class="t-str">&quot;Bình&quot;</span>, <span class="t-str">&quot;Chi&quot;</span>, <span class="t-str">&quot;Dũng&quot;</span>]))
+
+<span class="t-com"># ----- datetime -----</span>
+ngay_thi = <span class="t-fn">date</span>(<span class="t-num">2026</span>, <span class="t-num">11</span>, <span class="t-num">15</span>)
+hom_nay = <span class="t-fn">date</span>(<span class="t-num">2026</span>, <span class="t-num">10</span>, <span class="t-num">10</span>)
+<span class="t-fn">print</span>(<span class="t-str">f&quot;Còn {(ngay_thi - hom_nay).days} ngày tới ngày thi; 30 ngày nữa là {(hom_nay + timedelta(days=30)):%d/%m/%Y}&quot;</span>)
+
+<span class="t-com"># ----- Ghi file văn bản -----</span>
+<span class="t-kw">with</span> <span class="t-fn">open</span>(<span class="t-str">&quot;nhat_ky.txt&quot;</span>, <span class="t-str">&quot;w&quot;</span>, encoding=<span class="t-str">&quot;utf-8&quot;</span>) <span class="t-kw">as</span> f:      <span class="t-com"># with: tự đóng file khi xong</span>
+    f.<span class="t-fn">write</span>(<span class="t-str">&quot;Buổi 1: học print\n&quot;</span>)
+    f.<span class="t-fn">write</span>(<span class="t-str">&quot;Buổi 2: học biến\n&quot;</span>)
+<span class="t-kw">with</span> <span class="t-fn">open</span>(<span class="t-str">&quot;nhat_ky.txt&quot;</span>, <span class="t-str">&quot;a&quot;</span>, encoding=<span class="t-str">&quot;utf-8&quot;</span>) <span class="t-kw">as</span> f:      <span class="t-com"># &quot;a&quot;: ghi thêm vào cuối</span>
+    f.<span class="t-fn">write</span>(<span class="t-str">&quot;Buổi 3: học vòng lặp\n&quot;</span>)
+
+<span class="t-kw">with</span> <span class="t-fn">open</span>(<span class="t-str">&quot;nhat_ky.txt&quot;</span>, encoding=<span class="t-str">&quot;utf-8&quot;</span>) <span class="t-kw">as</span> f:
+    <span class="t-kw">for</span> i, dong <span class="t-kw">in</span> <span class="t-fn">enumerate</span>(f, <span class="t-num">1</span>):
+        <span class="t-fn">print</span>(<span class="t-str">f&quot;  dòng {i}: {dong.strip()}&quot;</span>)
+
+<span class="t-com"># ----- File CSV (mở được bằng Excel) -----</span>
+du_lieu = [(<span class="t-str">&quot;ten&quot;</span>, <span class="t-str">&quot;toan&quot;</span>, <span class="t-str">&quot;tin&quot;</span>), (<span class="t-str">&quot;An&quot;</span>, <span class="t-num">8</span>, <span class="t-num">9</span>), (<span class="t-str">&quot;Bình&quot;</span>, <span class="t-num">6</span>, <span class="t-num">7</span>), (<span class="t-str">&quot;Chi&quot;</span>, <span class="t-num">9</span>, <span class="t-num">10</span>)]
+<span class="t-kw">with</span> <span class="t-fn">open</span>(<span class="t-str">&quot;diem.csv&quot;</span>, <span class="t-str">&quot;w&quot;</span>, newline=<span class="t-str">&quot;&quot;</span>, encoding=<span class="t-str">&quot;utf-8&quot;</span>) <span class="t-kw">as</span> f:
+    csv.<span class="t-fn">writer</span>(f).<span class="t-fn">writerows</span>(du_lieu)
+
+<span class="t-kw">with</span> <span class="t-fn">open</span>(<span class="t-str">&quot;diem.csv&quot;</span>, encoding=<span class="t-str">&quot;utf-8&quot;</span>) <span class="t-kw">as</span> f:
+    bang = <span class="t-fn">list</span>(csv.<span class="t-ty">DictReader</span>(f))
+<span class="t-kw">for</span> h <span class="t-kw">in</span> bang:
+    tb = (<span class="t-fn">int</span>(h[<span class="t-str">&quot;toan&quot;</span>]) + <span class="t-fn">int</span>(h[<span class="t-str">&quot;tin&quot;</span>])) / <span class="t-num">2</span>
+    <span class="t-fn">print</span>(<span class="t-str">f&quot;  {h[&#x27;ten&#x27;]}: trung bình {tb}&quot;</span>)
+<span class="t-fn">print</span>(<span class="t-str">&quot;Trung vị điểm Tin:&quot;</span>, statistics.<span class="t-fn">median</span>(<span class="t-fn">int</span>(h[<span class="t-str">&quot;tin&quot;</span>]) <span class="t-kw">for</span> h <span class="t-kw">in</span> bang))
+</code></pre>
+  </div><div class="runcmd"><span>▶ Chạy thử:</span> <code>python 10-module-file.py</code></div><div class="outbox"><div class="outbar">Kết quả khi chạy (đã chạy thật lúc soạn bài)</div><pre class="out">math.pi = 3.14159 | sqrt(2) = 1.4142 | sin(30°) = 0.5
+Số ngẫu nhiên 1-6: [2, 5, 1, 3, 1]
+Chọn ngẫu nhiên người trực nhật: Dũng
+Còn 36 ngày tới ngày thi; 30 ngày nữa là 09/11/2026
+  dòng 1: Buổi 1: học print
+  dòng 2: Buổi 2: học biến
+  dòng 3: Buổi 3: học vòng lặp
+  An: trung bình 8.5
+  Bình: trung bình 6.5
+  Chi: trung bình 9.5
+Trung vị điểm Tin: 9</pre></div>
+<h4 class="sub">Giải thích</h4><ul class="notes"><li><code>with open(...) as f:</code> tự đóng file khi xong, kể cả khi có lỗi.</li><li>Luôn ghi <code>encoding="utf-8"</code> để tiếng Việt không bị lỗi.</li><li>File CSV mở được bằng Excel — cách lưu dữ liệu cảm biến, điểm số đơn giản nhất.</li></ul>
+  <h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="module-file-0"> <span>Ghi bảng cửu chương 2–9 ra file <code>cuu_chuong.txt</code>.</span></label></li><li><label><input type="checkbox" data-ex="module-file-1"> <span>Đọc file CSV điểm, ghi ra file mới chỉ gồm học sinh có điểm trung bình ≥ 8.</span></label></li></ol>
+  
+  <div class="donebar"><button class="donebtn" data-done="module-file">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#ham">← Hàm (function)</a><a class="pn next" href="#loi-oop">Xử lý lỗi và lập trình hướng đối tượng →</a></nav>
+</section>
+
+<section class="lesson" id="loi-oop" data-title="Xử lý lỗi và lập trình hướng đối tượng" hidden>
+  <div class="hero" style="--g:#7c3aed">
+    <div class="crumbs"><span class="gchip">Hoàn thiện</span><span>Bài 11/12</span><span>⏱ 2 giờ</span></div>
+    <h2><span class="hicon">🛡️</span> Xử lý lỗi và lập trình hướng đối tượng</h2>
+    <p class="intent">Viết chương trình không “sập” khi người dùng nhập sai, và làm quen với lớp/đối tượng.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>Đọc traceback để tìm lỗi</li><li>try / except / else / finally, raise</li><li>Tạo lớp với __init__, phương thức, __str__</li><li>Kế thừa và ghi đè</li></ul></div>
+  
+  <h3 id="loi-oop-s1"><span class="n">1</span>Xử lý lỗi</h3>
+<div class="prose"><p>Đọc traceback từ <b>dưới lên</b>: dòng cuối cho biết loại lỗi và lý do, dòng phía trên cho biết file và số dòng gây lỗi.</p></div>
+<div class="codebox">
+    <div class="codebar"><span class="fname">11a-xu-ly-loi.py</span><span class="lines">58 dòng</span>
+      <button class="cbtn" data-act="copy">Sao chép</button><button class="cbtn" data-act="dl" data-name="11a-xu-ly-loi.py">Tải file</button></div>
+    <pre class="code"><code><span class="t-com"># Xử lý lỗi với try / except / else / finally và tự báo lỗi bằng raise</span>
+
+<span class="t-com"># Đọc thông báo lỗi (traceback) – lỗi KHÔNG được xử lý sẽ dừng chương trình:</span>
+<span class="t-com">#     ZeroDivisionError, ValueError, IndexError, KeyError, TypeError, FileNotFoundError...</span>
+
+<span class="t-kw">def</span> <span class="t-fn">chia</span>(a, b):
+    <span class="t-kw">try</span>:
+        kq = a / b
+    <span class="t-kw">except</span> <span class="t-ty">ZeroDivisionError</span>:
+        <span class="t-fn">print</span>(<span class="t-str">f&quot;  Không chia {a} cho 0 được!&quot;</span>)
+        <span class="t-kw">return</span> <span class="t-kw">None</span>
+    <span class="t-kw">else</span>:                                  <span class="t-com"># chạy khi KHÔNG có lỗi</span>
+        <span class="t-kw">return</span> kq
+    <span class="t-kw">finally</span>:                               <span class="t-com"># luôn chạy (dọn dẹp)</span>
+        <span class="t-fn">print</span>(<span class="t-str">f&quot;  (đã thử chia {a} / {b})&quot;</span>)
+
+
+<span class="t-fn">print</span>(<span class="t-str">&quot;10 / 4 =&quot;</span>, <span class="t-fn">chia</span>(<span class="t-num">10</span>, <span class="t-num">4</span>))
+<span class="t-fn">print</span>(<span class="t-str">&quot;10 / 0 =&quot;</span>, <span class="t-fn">chia</span>(<span class="t-num">10</span>, <span class="t-num">0</span>))
+
+<span class="t-com"># Nhập lại tới khi đúng – mẫu rất hay dùng</span>
+du_lieu_nhap = [<span class="t-str">&quot;mười&quot;</span>, <span class="t-str">&quot;&quot;</span>, <span class="t-str">&quot;15&quot;</span>]            <span class="t-com"># giả lập người dùng gõ sai 2 lần</span>
+<span class="t-kw">for</span> chuoi <span class="t-kw">in</span> du_lieu_nhap:
+    <span class="t-kw">try</span>:
+        tuoi = <span class="t-fn">int</span>(chuoi)
+        <span class="t-fn">print</span>(<span class="t-str">&quot;Tuổi hợp lệ:&quot;</span>, tuoi)
+        <span class="t-kw">break</span>
+    <span class="t-kw">except</span> <span class="t-ty">ValueError</span>:
+        <span class="t-fn">print</span>(<span class="t-str">f&quot;&#x27;{chuoi}&#x27; không phải số, nhập lại!&quot;</span>)
+
+<span class="t-com"># Bắt nhiều loại lỗi</span>
+ds = [<span class="t-num">1</span>, <span class="t-num">2</span>, <span class="t-num">3</span>]
+tu_dien = {<span class="t-str">&quot;a&quot;</span>: <span class="t-num">1</span>}
+<span class="t-kw">for</span> thu <span class="t-kw">in</span> [<span class="t-str">&quot;ds[5]&quot;</span>, <span class="t-str">&quot;tu_dien[&#x27;b&#x27;]&quot;</span>, <span class="t-str">&quot;&#x27;5&#x27; + 5&quot;</span>]:
+    <span class="t-kw">try</span>:
+        <span class="t-fn">eval</span>(thu)
+    <span class="t-kw">except</span> (<span class="t-ty">IndexError</span>, <span class="t-ty">KeyError</span>) <span class="t-kw">as</span> loi:
+        <span class="t-fn">print</span>(<span class="t-str">f&quot;{thu}: lỗi tra cứu -&gt; {type(loi).__name__}: {loi}&quot;</span>)
+    <span class="t-kw">except</span> <span class="t-ty">Exception</span> <span class="t-kw">as</span> loi:
+        <span class="t-fn">print</span>(<span class="t-str">f&quot;{thu}: lỗi khác -&gt; {type(loi).__name__}: {loi}&quot;</span>)
+
+
+<span class="t-com"># Tự báo lỗi khi dữ liệu không hợp lệ</span>
+<span class="t-kw">def</span> <span class="t-fn">dat_toc_do</span>(v):
+    <span class="t-kw">if</span> <span class="t-kw">not</span> <span class="t-num">0</span> &lt;= v &lt;= <span class="t-num">255</span>:
+        <span class="t-kw">raise</span> <span class="t-ty">ValueError</span>(<span class="t-str">f&quot;tốc độ phải trong 0..255, nhận được {v}&quot;</span>)
+    <span class="t-fn">print</span>(<span class="t-str">&quot;Đặt tốc độ động cơ:&quot;</span>, v)
+
+
+<span class="t-kw">for</span> v <span class="t-kw">in</span> (<span class="t-num">120</span>, <span class="t-num">300</span>):
+    <span class="t-kw">try</span>:
+        <span class="t-fn">dat_toc_do</span>(v)
+    <span class="t-kw">except</span> <span class="t-ty">ValueError</span> <span class="t-kw">as</span> loi:
+        <span class="t-fn">print</span>(<span class="t-str">&quot;Bắt được lỗi:&quot;</span>, loi)
+
+<span class="t-fn">print</span>(<span class="t-str">&quot;\nLỗi không được bắt sẽ in traceback và dừng chương trình:&quot;</span>)
+<span class="t-fn">int</span>(<span class="t-str">&quot;abc&quot;</span>)
+<span class="t-fn">print</span>(<span class="t-str">&quot;Dòng này không bao giờ chạy&quot;</span>)
+</code></pre>
+  </div><div class="runcmd"><span>▶ Chạy thử:</span> <code>python 11a-xu-ly-loi.py</code></div><div class="outbox"><div class="outbar">Kết quả khi chạy (đã chạy thật lúc soạn bài)</div><pre class="out">  (đã thử chia 10 / 4)
+10 / 4 = 2.5
+  Không chia 10 cho 0 được!
+  (đã thử chia 10 / 0)
+10 / 0 = None
+&#x27;mười&#x27; không phải số, nhập lại!
+&#x27;&#x27; không phải số, nhập lại!
+Tuổi hợp lệ: 15
+ds[5]: lỗi tra cứu -&gt; IndexError: list index out of range
+tu_dien[&#x27;b&#x27;]: lỗi tra cứu -&gt; KeyError: &#x27;b&#x27;
+&#x27;5&#x27; + 5: lỗi khác -&gt; TypeError: can only concatenate str (not &quot;int&quot;) to str
+Đặt tốc độ động cơ: 120
+Bắt được lỗi: tốc độ phải trong 0..255, nhận được 300
+
+Lỗi không được bắt sẽ in traceback và dừng chương trình:
+Traceback (most recent call last):
+  File &quot;11a-xu-ly-loi.py&quot;, line 57, in &lt;module&gt;
+ValueError: invalid literal for int() with base 10: &#x27;abc&#x27;</pre></div>
+<h4 class="sub">Giải thích</h4><ul class="notes"><li>Chỉ bắt loại lỗi bạn biết cách xử lý; <code>except Exception</code> chung chung dễ che giấu lỗi thật.</li><li>Dòng cuối cố ý gây lỗi để thấy traceback thật trông thế nào — chương trình dừng ngay tại đó.</li></ul><h3 id="loi-oop-s2"><span class="n">2</span>Lớp và đối tượng</h3>
+<figure class="fig"><svg class="illus" viewBox="0 0 570 206" style="max-width:570px" role="img" aria-label="Lớp và đối tượng" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs><rect class="bx" x="20" y="20" width="230" height="150" rx="8"/><rect class="bx-c" x="20" y="20" width="230" height="30" rx="8"/><text class="t" x="135" y="40" text-anchor="middle">class HocSinh</text><text class="xs" x="34" y="74" text-anchor="start">thuộc tính: ten, lop, diem</text><text class="xs" x="34" y="96" text-anchor="start">phương thức: them_diem()</text><text class="xs" x="34" y="118" text-anchor="start">                    diem_tb()</text><line class="ln" x1="250" y1="80" x2="318" y2="50" marker-end="url(#ah7)"/><text class="xs mute" x="284.0" y="59.0" text-anchor="middle">tạo</text><line class="ln" x1="250" y1="110" x2="318" y2="140" marker-end="url(#ah7)"/><rect class="bx-a" x="320" y="20" width="230" height="60" rx="8"/><text class="mono" x="435.0" y="46.0" text-anchor="middle">an = HocSinh(&quot;An&quot;, &quot;7A&quot;)</text><text class="xs mute" x="435.0" y="62.0" text-anchor="middle">diem = [8, 9, 7.5]</text><rect class="bx-a" x="320" y="110" width="230" height="60" rx="8"/><text class="mono" x="435.0" y="136.0" text-anchor="middle">chi = HocSinh(&quot;Chi&quot;, &quot;7B&quot;)</text><text class="xs mute" x="435.0" y="152.0" text-anchor="middle">diem = [10]</text><text class="xs mute" x="20" y="196" text-anchor="start">Lớp = khuôn bánh; đối tượng = từng chiếc bánh. Mỗi đối tượng có dữ liệu riêng nhưng dùng chung phương thức.</text></svg></figure>
+<div class="codebox">
+    <div class="codebar"><span class="fname">11b-lop-doi-tuong.py</span><span class="lines">64 dòng</span>
+      <button class="cbtn" data-act="copy">Sao chép</button><button class="cbtn" data-act="dl" data-name="11b-lop-doi-tuong.py">Tải file</button></div>
+    <pre class="code"><code><span class="t-com"># Lập trình hướng đối tượng cơ bản: class, __init__, phương thức, kế thừa</span>
+
+
+<span class="t-kw">class</span> <span class="t-ty">HocSinh</span>:
+    truong = <span class="t-str">&quot;THCS Bách Khoa&quot;</span>                 <span class="t-com"># thuộc tính chung của lớp</span>
+
+    <span class="t-kw">def</span> <span class="t-fn">__init__</span>(<span class="t-kw">self</span>, ten, lop):              <span class="t-com"># hàm khởi tạo, chạy khi tạo đối tượng</span>
+        <span class="t-kw">self</span>.ten = ten                         <span class="t-com"># self = chính đối tượng đang tạo</span>
+        <span class="t-kw">self</span>.lop = lop
+        <span class="t-kw">self</span>.diem = []
+
+    <span class="t-kw">def</span> <span class="t-fn">them_diem</span>(<span class="t-kw">self</span>, d):
+        <span class="t-kw">if</span> <span class="t-num">0</span> &lt;= d &lt;= <span class="t-num">10</span>:
+            <span class="t-kw">self</span>.diem.<span class="t-fn">append</span>(d)
+
+    <span class="t-kw">def</span> <span class="t-fn">diem_tb</span>(<span class="t-kw">self</span>):
+        <span class="t-kw">return</span> <span class="t-fn">round</span>(<span class="t-fn">sum</span>(<span class="t-kw">self</span>.diem) / <span class="t-fn">len</span>(<span class="t-kw">self</span>.diem), <span class="t-num">2</span>) <span class="t-kw">if</span> <span class="t-kw">self</span>.diem <span class="t-kw">else</span> <span class="t-num">0</span>
+
+    <span class="t-kw">def</span> <span class="t-fn">__str__</span>(<span class="t-kw">self</span>):                         <span class="t-com"># quy định cách in đối tượng</span>
+        <span class="t-kw">return</span> <span class="t-str">f&quot;{self.ten} ({self.lop}) – TB {self.diem_tb()}&quot;</span>
+
+
+an = <span class="t-ty">HocSinh</span>(<span class="t-str">&quot;An&quot;</span>, <span class="t-str">&quot;7A&quot;</span>)
+chi = <span class="t-ty">HocSinh</span>(<span class="t-str">&quot;Chi&quot;</span>, <span class="t-str">&quot;7B&quot;</span>)
+<span class="t-kw">for</span> d <span class="t-kw">in</span> (<span class="t-num">8</span>, <span class="t-num">9</span>, <span class="t-num">7.5</span>, <span class="t-num">12</span>):                      <span class="t-com"># 12 bị bỏ qua vì không hợp lệ</span>
+    an.<span class="t-fn">them_diem</span>(d)
+chi.<span class="t-fn">them_diem</span>(<span class="t-num">10</span>)
+<span class="t-fn">print</span>(an)
+<span class="t-fn">print</span>(chi)
+<span class="t-fn">print</span>(<span class="t-str">&quot;Trường:&quot;</span>, an.truong, <span class="t-str">&quot;| điểm của An:&quot;</span>, an.diem)
+
+
+<span class="t-com"># ----- Kế thừa: lớp con dùng lại và mở rộng lớp cha -----</span>
+<span class="t-kw">class</span> <span class="t-ty">ThietBi</span>:
+    <span class="t-kw">def</span> <span class="t-fn">__init__</span>(<span class="t-kw">self</span>, ten):
+        <span class="t-kw">self</span>.ten = ten
+        <span class="t-kw">self</span>.bat = <span class="t-kw">False</span>
+
+    <span class="t-kw">def</span> <span class="t-fn">bat_tat</span>(<span class="t-kw">self</span>):
+        <span class="t-kw">self</span>.bat = <span class="t-kw">not</span> <span class="t-kw">self</span>.bat
+        <span class="t-fn">print</span>(<span class="t-str">f&quot;{self.ten}: {&#x27;BẬT&#x27; if self.bat else &#x27;TẮT&#x27;}&quot;</span>)
+
+
+<span class="t-kw">class</span> <span class="t-ty">Quat</span>(<span class="t-ty">ThietBi</span>):
+    <span class="t-kw">def</span> <span class="t-fn">__init__</span>(<span class="t-kw">self</span>, ten, so=<span class="t-num">1</span>):
+        <span class="t-fn">super</span>().<span class="t-fn">__init__</span>(ten)                  <span class="t-com"># gọi khởi tạo của lớp cha</span>
+        <span class="t-kw">self</span>.so = so
+
+    <span class="t-kw">def</span> <span class="t-fn">doi_so</span>(<span class="t-kw">self</span>, so):
+        <span class="t-kw">self</span>.so = so
+        <span class="t-fn">print</span>(<span class="t-str">f&quot;{self.ten}: số {so}&quot;</span>)
+
+
+<span class="t-kw">class</span> <span class="t-ty">Den</span>(<span class="t-ty">ThietBi</span>):
+    <span class="t-kw">def</span> <span class="t-fn">bat_tat</span>(<span class="t-kw">self</span>):                         <span class="t-com"># ghi đè (override) hành vi của lớp cha</span>
+        <span class="t-fn">super</span>().<span class="t-fn">bat_tat</span>()
+        <span class="t-fn">print</span>(<span class="t-str">f&quot;  -&gt; đèn {&#x27;sáng&#x27; if self.bat else &#x27;tối&#x27;}&quot;</span>)
+
+
+nha = [<span class="t-ty">Den</span>(<span class="t-str">&quot;Đèn phòng khách&quot;</span>), <span class="t-ty">Quat</span>(<span class="t-str">&quot;Quạt trần&quot;</span>, <span class="t-num">2</span>)]
+<span class="t-kw">for</span> tb <span class="t-kw">in</span> nha:                                 <span class="t-com"># đa hình: cùng gọi bat_tat()</span>
+    tb.<span class="t-fn">bat_tat</span>()
+nha[<span class="t-num">1</span>].<span class="t-fn">doi_so</span>(<span class="t-num">3</span>)
+<span class="t-fn">print</span>(<span class="t-str">&quot;Quạt là ThietBi?&quot;</span>, <span class="t-fn">isinstance</span>(nha[<span class="t-num">1</span>], <span class="t-ty">ThietBi</span>))
+</code></pre>
+  </div><div class="runcmd"><span>▶ Chạy thử:</span> <code>python 11b-lop-doi-tuong.py</code></div><div class="outbox"><div class="outbar">Kết quả khi chạy (đã chạy thật lúc soạn bài)</div><pre class="out">An (7A) – TB 8.17
+Chi (7B) – TB 10.0
+Trường: THCS Bách Khoa | điểm của An: [8, 9, 7.5]
+Đèn phòng khách: BẬT
+  -&gt; đèn sáng
+Quạt trần: BẬT
+Quạt trần: số 3
+Quạt là ThietBi? True</pre></div>
+<h4 class="sub">Giải thích</h4><ul class="notes"><li><code>self</code> là đối tượng hiện tại; mọi phương thức đều nhận <code>self</code> là tham số đầu tiên.</li><li><code>__str__</code> quy định nội dung khi <code>print(doi_tuong)</code>.</li><li><code>super()</code> gọi phương thức của lớp cha.</li></ul>
+  <h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="loi-oop-0"> <span>Bọc bài tính BMI bằng try/except để nhập sai thì hỏi lại.</span></label></li><li><label><input type="checkbox" data-ex="loi-oop-1"> <span>Viết lớp <code>TaiKhoan</code> có nạp tiền, rút tiền (báo lỗi khi không đủ tiền) và in số dư.</span></label></li></ol>
+  
+  <div class="donebar"><button class="donebtn" data-done="loi-oop">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#module-file">← Module và đọc/ghi file</a><a class="pn next" href="#du-an">Dự án: chương trình sổ điểm có menu →</a></nav>
+</section>
+
+<section class="lesson" id="du-an" data-title="Dự án: chương trình sổ điểm có menu" hidden>
+  <div class="hero" style="--g:#7c3aed">
+    <div class="crumbs"><span class="gchip">Hoàn thiện</span><span>Bài 12/12</span><span>⏱ 2–3 giờ</span></div>
+    <h2><span class="hicon">🏁</span> Dự án: chương trình sổ điểm có menu</h2>
+    <p class="intent">Tổng hợp toàn bộ kiến thức trong một chương trình hoàn chỉnh có menu, kiểm tra dữ liệu và lưu file.</p>
+  </div>
+  <div class="goals"><b>Sau bài này bạn sẽ:</b><ul><li>Thiết kế chương trình theo các hàm nhỏ</li><li>Dùng dict lưu dữ liệu, json lưu file</li><li>Xử lý mọi trường hợp nhập sai</li></ul></div>
+  
+  <h3 id="du-an-s1"><span class="n">1</span>Sổ điểm</h3>
+<div class="codebox">
+    <div class="codebar"><span class="fname">12-du-an-so-diem.py</span><span class="lines">63 dòng</span>
+      <button class="cbtn" data-act="copy">Sao chép</button><button class="cbtn" data-act="dl" data-name="12-du-an-so-diem.py">Tải file</button></div>
+    <pre class="code"><code><span class="t-com"># DỰ ÁN: Chương trình sổ điểm có menu – tổng hợp biến, điều kiện, vòng lặp, list, dict, hàm, file, xử lý lỗi</span>
+<span class="t-kw">import</span> json
+
+<span class="t-ty">FILE</span> = <span class="t-str">&quot;so_diem.json&quot;</span>
+so_diem = {}                  <span class="t-com"># {tên: [điểm, điểm, ...]}</span>
+
+
+<span class="t-kw">def</span> <span class="t-fn">tb</span>(ds):
+    <span class="t-kw">return</span> <span class="t-fn">round</span>(<span class="t-fn">sum</span>(ds) / <span class="t-fn">len</span>(ds), <span class="t-num">2</span>) <span class="t-kw">if</span> ds <span class="t-kw">else</span> <span class="t-num">0</span>
+
+
+<span class="t-kw">def</span> <span class="t-fn">them_hoc_sinh</span>():
+    ten = <span class="t-fn">input</span>(<span class="t-str">&quot;  Tên học sinh: &quot;</span>).<span class="t-fn">strip</span>()
+    <span class="t-kw">if</span> <span class="t-kw">not</span> ten:
+        <span class="t-fn">print</span>(<span class="t-str">&quot;  Tên không được trống&quot;</span>)
+    <span class="t-kw">elif</span> ten <span class="t-kw">in</span> so_diem:
+        <span class="t-fn">print</span>(<span class="t-str">&quot;  Đã có học sinh này&quot;</span>)
+    <span class="t-kw">else</span>:
+        so_diem[ten] = []
+        <span class="t-fn">print</span>(<span class="t-str">f&quot;  Đã thêm {ten}&quot;</span>)
+
+
+<span class="t-kw">def</span> <span class="t-fn">nhap_diem</span>():
+    ten = <span class="t-fn">input</span>(<span class="t-str">&quot;  Tên: &quot;</span>).<span class="t-fn">strip</span>()
+    <span class="t-kw">if</span> ten <span class="t-kw">not</span> <span class="t-kw">in</span> so_diem:
+        <span class="t-fn">print</span>(<span class="t-str">&quot;  Không tìm thấy học sinh&quot;</span>)
+        <span class="t-kw">return</span>
+    <span class="t-kw">try</span>:
+        d = <span class="t-fn">float</span>(<span class="t-fn">input</span>(<span class="t-str">&quot;  Điểm: &quot;</span>))
+        <span class="t-kw">if</span> <span class="t-kw">not</span> <span class="t-num">0</span> &lt;= d &lt;= <span class="t-num">10</span>:
+            <span class="t-kw">raise</span> <span class="t-ty">ValueError</span>
+        so_diem[ten].<span class="t-fn">append</span>(d)
+        <span class="t-fn">print</span>(<span class="t-str">f&quot;  Đã ghi điểm {d} cho {ten}&quot;</span>)
+    <span class="t-kw">except</span> <span class="t-ty">ValueError</span>:
+        <span class="t-fn">print</span>(<span class="t-str">&quot;  Điểm phải là số từ 0 đến 10&quot;</span>)
+
+
+<span class="t-kw">def</span> <span class="t-fn">bang_xep_hang</span>():
+    <span class="t-fn">print</span>(<span class="t-str">&quot;  {:&lt;4}{:&lt;10}{:&lt;18}{}&quot;</span>.<span class="t-fn">format</span>(<span class="t-str">&quot;#&quot;</span>, <span class="t-str">&quot;Tên&quot;</span>, <span class="t-str">&quot;Các điểm&quot;</span>, <span class="t-str">&quot;TB&quot;</span>))
+    xep = <span class="t-fn">sorted</span>(so_diem.<span class="t-fn">items</span>(), key=<span class="t-kw">lambda</span> kv: <span class="t-fn">tb</span>(kv[<span class="t-num">1</span>]), reverse=<span class="t-kw">True</span>)
+    <span class="t-kw">for</span> i, (ten, ds) <span class="t-kw">in</span> <span class="t-fn">enumerate</span>(xep, <span class="t-num">1</span>):
+        <span class="t-fn">print</span>(<span class="t-str">&quot;  {:&lt;4}{:&lt;10}{:&lt;18}{}&quot;</span>.<span class="t-fn">format</span>(i, ten, <span class="t-str">&quot;, &quot;</span>.<span class="t-fn">join</span>(<span class="t-fn">map</span>(str, ds)) <span class="t-kw">or</span> <span class="t-str">&quot;-&quot;</span>, <span class="t-fn">tb</span>(ds)))
+
+
+<span class="t-kw">def</span> <span class="t-fn">luu</span>():
+    <span class="t-kw">with</span> <span class="t-fn">open</span>(<span class="t-ty">FILE</span>, <span class="t-str">&quot;w&quot;</span>, encoding=<span class="t-str">&quot;utf-8&quot;</span>) <span class="t-kw">as</span> f:
+        json.<span class="t-fn">dump</span>(so_diem, f, ensure_ascii=<span class="t-kw">False</span>)
+    <span class="t-fn">print</span>(<span class="t-str">f&quot;  Đã lưu {len(so_diem)} học sinh vào {FILE}&quot;</span>)
+
+
+<span class="t-ty">MENU</span> = {<span class="t-str">&quot;1&quot;</span>: (<span class="t-str">&quot;Thêm học sinh&quot;</span>, them_hoc_sinh), <span class="t-str">&quot;2&quot;</span>: (<span class="t-str">&quot;Nhập điểm&quot;</span>, nhap_diem),
+        <span class="t-str">&quot;3&quot;</span>: (<span class="t-str">&quot;Bảng xếp hạng&quot;</span>, bang_xep_hang), <span class="t-str">&quot;4&quot;</span>: (<span class="t-str">&quot;Lưu file&quot;</span>, luu)}
+
+<span class="t-kw">while</span> <span class="t-kw">True</span>:
+    <span class="t-fn">print</span>(<span class="t-str">&quot;\n== SỔ ĐIỂM ==  &quot;</span> + <span class="t-str">&quot;  &quot;</span>.<span class="t-fn">join</span>(<span class="t-str">f&quot;[{k}] {v[0]}&quot;</span> <span class="t-kw">for</span> k, v <span class="t-kw">in</span> <span class="t-ty">MENU</span>.<span class="t-fn">items</span>()) + <span class="t-str">&quot;  [0] Thoát&quot;</span>)
+    chon = <span class="t-fn">input</span>(<span class="t-str">&quot;Chọn: &quot;</span>).<span class="t-fn">strip</span>()
+    <span class="t-kw">if</span> chon == <span class="t-str">&quot;0&quot;</span>:
+        <span class="t-fn">print</span>(<span class="t-str">&quot;Tạm biệt!&quot;</span>)
+        <span class="t-kw">break</span>
+    <span class="t-kw">if</span> chon <span class="t-kw">in</span> <span class="t-ty">MENU</span>:
+        <span class="t-ty">MENU</span>[chon][<span class="t-num">1</span>]()
+    <span class="t-kw">else</span>:
+        <span class="t-fn">print</span>(<span class="t-str">&quot;  Lựa chọn không hợp lệ&quot;</span>)
+</code></pre>
+  </div><div class="runcmd"><span>▶ Chạy thử:</span> <code>python 12-du-an-so-diem.py</code></div><div class="outbox inbox"><div class="outbar">Dữ liệu nhập từ bàn phím</div><pre class="out">1
+An
+1
+Chi
+1
+An
+2
+An
+8.5
+2
+An
+9
+2
+Chi
+11
+2
+Chi
+9.5
+2
+Dung
+3
+4
+5
+0</pre></div><div class="outbox"><div class="outbar">Kết quả khi chạy (đã chạy thật lúc soạn bài)</div><pre class="out">
+== SỔ ĐIỂM ==  [1] Thêm học sinh  [2] Nhập điểm  [3] Bảng xếp hạng  [4] Lưu file  [0] Thoát
+Chọn: 1
+  Tên học sinh: An
+  Đã thêm An
+
+== SỔ ĐIỂM ==  [1] Thêm học sinh  [2] Nhập điểm  [3] Bảng xếp hạng  [4] Lưu file  [0] Thoát
+Chọn: 1
+  Tên học sinh: Chi
+  Đã thêm Chi
+
+== SỔ ĐIỂM ==  [1] Thêm học sinh  [2] Nhập điểm  [3] Bảng xếp hạng  [4] Lưu file  [0] Thoát
+Chọn: 1
+  Tên học sinh: An
+  Đã có học sinh này
+
+== SỔ ĐIỂM ==  [1] Thêm học sinh  [2] Nhập điểm  [3] Bảng xếp hạng  [4] Lưu file  [0] Thoát
+Chọn: 2
+  Tên: An
+  Điểm: 8.5
+  Đã ghi điểm 8.5 cho An
+
+== SỔ ĐIỂM ==  [1] Thêm học sinh  [2] Nhập điểm  [3] Bảng xếp hạng  [4] Lưu file  [0] Thoát
+Chọn: 2
+  Tên: An
+  Điểm: 9
+  Đã ghi điểm 9.0 cho An
+
+== SỔ ĐIỂM ==  [1] Thêm học sinh  [2] Nhập điểm  [3] Bảng xếp hạng  [4] Lưu file  [0] Thoát
+Chọn: 2
+  Tên: Chi
+  Điểm: 11
+  Điểm phải là số từ 0 đến 10
+
+== SỔ ĐIỂM ==  [1] Thêm học sinh  [2] Nhập điểm  [3] Bảng xếp hạng  [4] Lưu file  [0] Thoát
+Chọn: 2
+  Tên: Chi
+  Điểm: 9.5
+  Đã ghi điểm 9.5 cho Chi
+
+== SỔ ĐIỂM ==  [1] Thêm học sinh  [2] Nhập điểm  [3] Bảng xếp hạng  [4] Lưu file  [0] Thoát
+Chọn: 2
+  Tên: Dung
+  Không tìm thấy học sinh
+
+== SỔ ĐIỂM ==  [1] Thêm học sinh  [2] Nhập điểm  [3] Bảng xếp hạng  [4] Lưu file  [0] Thoát
+Chọn: 3
+  #   Tên       Các điểm          TB
+  1   Chi       9.5               9.5
+  2   An        8.5, 9.0          8.75
+
+== SỔ ĐIỂM ==  [1] Thêm học sinh  [2] Nhập điểm  [3] Bảng xếp hạng  [4] Lưu file  [0] Thoát
+Chọn: 4
+  Đã lưu 2 học sinh vào so_diem.json
+
+== SỔ ĐIỂM ==  [1] Thêm học sinh  [2] Nhập điểm  [3] Bảng xếp hạng  [4] Lưu file  [0] Thoát
+Chọn: 5
+  Lựa chọn không hợp lệ
+
+== SỔ ĐIỂM ==  [1] Thêm học sinh  [2] Nhập điểm  [3] Bảng xếp hạng  [4] Lưu file  [0] Thoát
+Chọn: 0
+Tạm biệt!</pre></div>
+<h4 class="sub">Giải thích</h4><ul class="notes"><li>Menu là một dict: phím → (tên chức năng, hàm). Thêm chức năng mới chỉ cần thêm một dòng.</li><li>Dữ liệu nhập mẫu cố tình có lỗi (trùng tên, điểm 11, học sinh không tồn tại) để thấy chương trình xử lý đúng.</li><li><code>json.dump(..., ensure_ascii=False)</code> lưu tiếng Việt đọc được trong file.</li></ul>
+  <h3><span class="n">✓</span>Tóm tắt</h3><ul class="summary"><li>Biến, kiểu, nhập/xuất, điều kiện, vòng lặp là nền tảng của mọi ngôn ngữ.</li><li>list, dict, set giúp tổ chức dữ liệu; hàm và lớp giúp tổ chức chương trình.</li><li>Học tiếp: <b>AI cơ bản</b> (Python + numpy, scikit-learn) hoặc <b>Arduino &amp; ESP32</b> (có thể lập trình bằng MicroPython).</li></ul><h3><span class="n">✎</span>Bài tập về nhà</h3><ol class="ex"><li><label><input type="checkbox" data-ex="du-an-0"> <span>Thêm chức năng: xoá học sinh, sửa điểm, đọc lại file khi khởi động.</span></label></li><li><label><input type="checkbox" data-ex="du-an-1"> <span>Viết trò chơi “Oẳn tù tì” với máy, lưu tỉ số vào file.</span></label></li></ol>
+  
+  <div class="donebar"><button class="donebtn" data-done="du-an">☐ Đánh dấu đã học xong bài này</button></div>
+  <nav class="pnav"><a class="pn" href="#loi-oop">← Xử lý lỗi và lập trình hướng đối tượng</a><span></span></nav>
+</section>
+  </main>
+</div>
+<div class="scrim" id="scrim"></div>
+<footer>© Danh sách khóa học Thầy Lê Chí Tuyền · Python cơ bản</footer>
+
+<script>
+(function(){
+  var ORDER = ["overview", "gioi-thieu", "bien-kieu", "nhap-xuat", "dieu-kien", "vong-lap", "chuoi", "list-tuple", "dict-set", "ham", "module-file", "loi-oop", "du-an"], TOTAL = 12, P = 'py_';
+  function load(k, d){ try{ var v = localStorage.getItem(P + k); return v ? JSON.parse(v) : d; }catch(e){ return d; } }
+  function save(k, v){ try{ localStorage.setItem(P + k, JSON.stringify(v)); }catch(e){} }
+  var u = null; try{ u = sessionStorage.getItem('mb_auth_user'); }catch(e){}
+  document.getElementById('whoamiLabel').textContent = u ? ('👤 ' + u) : '';
+
+  function show(id){
+    if(ORDER.indexOf(id) < 0) id = 'overview';
+    document.querySelectorAll('.lesson').forEach(function(s){ s.hidden = (s.id !== id); });
+    document.querySelectorAll('.sitem').forEach(function(a){ a.classList.toggle('active', a.dataset.id === id); });
+    document.title = document.getElementById(id).dataset.title + ' — Python cơ bản | Khóa học Thầy Lê Chí Tuyền';
+    closeMenu();
+  }
+  function route(){
+    var h = decodeURIComponent(location.hash.slice(1));
+    var target = (h && ORDER.indexOf(h) < 0) ? document.getElementById(h) : null;
+    if(target){
+      var les = target.closest('.lesson');
+      show(les ? les.id : 'overview');
+      setTimeout(function(){ target.scrollIntoView(); }, 0);
+    } else {
+      show(h || 'overview');
+      window.scrollTo(0, 0);
+      setTimeout(function(){ window.scrollTo(0, 0); }, 0);
+    }
+  }
+  window.addEventListener('hashchange', route);
+  document.addEventListener('keydown', function(e){
+    if(e.target.matches('input,textarea')) return;
+    var cur = ORDER.indexOf(document.querySelector('.lesson:not([hidden])').id);
+    if(e.key === 'ArrowRight' && cur < ORDER.length - 1) location.hash = ORDER[cur + 1];
+    if(e.key === 'ArrowLeft' && cur > 0) location.hash = ORDER[cur - 1];
+  });
+  var side = document.getElementById('side'), scrim = document.getElementById('scrim');
+  function closeMenu(){ side.classList.remove('open'); scrim.classList.remove('on'); }
+  document.getElementById('menuBtn').onclick = function(){ side.classList.add('open'); scrim.classList.add('on'); };
+  scrim.onclick = closeMenu;
+
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('.cbtn'); if(!b) return;
+    var code = b.closest('.codebox').querySelector('pre.code').textContent;
+    if(b.dataset.act === 'copy'){
+      if(navigator.clipboard) navigator.clipboard.writeText(code).then(function(){ b.textContent = 'Đã chép ✓'; setTimeout(function(){ b.textContent = 'Sao chép'; }, 1500); }, function(){});
+    } else {
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([code], {type:'text/plain;charset=utf-8'}));
+      a.download = b.dataset.name; document.body.appendChild(a); a.click(); a.remove();
+    }
+  });
+
+  var done = load('done', {});
+  function paint(){
+    var n = 0;
+    document.querySelectorAll('.sitem').forEach(function(a){ var on = !!done[a.dataset.id]; a.classList.toggle('done', on); if(on) n++; });
+    document.querySelectorAll('.donebtn').forEach(function(b){
+      var on = !!done[b.dataset.done]; b.classList.toggle('on', on);
+      b.textContent = on ? '✓ Đã học xong — bấm để bỏ đánh dấu' : '☐ Đánh dấu đã học xong bài này';
+    });
+    document.getElementById('progTxt').textContent = n + '/' + TOTAL;
+    document.getElementById('progBar').style.width = (100 * n / TOTAL) + '%';
+    var ov = document.getElementById('ovDone'); if(ov) ov.textContent = n;
+  }
+  document.querySelectorAll('.donebtn').forEach(function(b){
+    b.onclick = function(){ var k = b.dataset.done; if(done[k]) delete done[k]; else done[k] = 1; save('done', done); paint(); };
+  });
+  var ex = load('ex', {});
+  document.querySelectorAll('[data-ex]').forEach(function(c){
+    c.checked = !!ex[c.dataset.ex];
+    c.onchange = function(){ if(c.checked) ex[c.dataset.ex] = 1; else delete ex[c.dataset.ex]; save('ex', ex); };
+  });
+  paint();
+  route();
+  window.addEventListener('load', function(){ var h = location.hash.slice(1); if(!h || ORDER.indexOf(decodeURIComponent(h)) >= 0) window.scrollTo(0, 0); });
+})();
+</script>
+</body>
+</html>
